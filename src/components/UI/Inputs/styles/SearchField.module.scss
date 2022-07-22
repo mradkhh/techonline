@@ -1,0 +1,19 @@
+@import "styles/mixins.scss";
+
+.Root {
+  @include searchFiled;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: var(--light-blue);
+  border-radius: 31px;
+}
+
+.Icon {
+  position: absolute;
+  top: 22px;
+  right: 25px;
+}

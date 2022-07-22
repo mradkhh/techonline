@@ -1,0 +1,112 @@
+@import "styles/mixins.scss";
+
+.products {
+  @include container;
+  margin-bottom: 18px;
+
+  > h3 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    margin-top: 37px;
+    margin-bottom: 14px;
+  }
+}
+
+.ads {
+  @include flex(center, center);
+  background-color: var(--light-blue);
+  padding-block: 22px;
+  gap: 4px;
+  margin-bottom: 14px;
+
+  > h3 {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120.5%;
+    color: var(--dark-blue);
+    border-left: 2px solid var(--dark-cyan);
+    padding-left: 14px;
+
+    > span {
+      font-weight: 700;
+    }
+  }
+
+  > a {
+    text-decoration: underline;
+    color: var(--dark-blue);
+  }
+}
+
+// category section
+
+.category {
+  @include grid;
+  @include container;
+  margin-bottom: 32px;
+}
+
+.tabsList {
+  @include container;
+  @include flex(center, flex-start);
+  gap: 28px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 180%;
+  color: var(--gray);
+  margin-bottom: 24px;
+
+  > li {
+    cursor: pointer;
+  }
+}
+
+// brand section
+
+.brands {
+  @include container;
+}
+
+.brandIcon {
+  padding-block: 35px;
+}
+
+// blogs section
+
+.blogsTitle {
+  @include container;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 33px;
+  margin-block: 20px;
+}
+
+.blogs {
+  @include container;
+  @include grid;
+  margin-bottom: 60px;
+}
+
+// quotes section
+.quotes {
+  margin-bottom: 60px;
+}
+
+// about us section
+.aboutUs {
+  @include container;
+  @include flex-around(center);
+  margin-bottom: 44px;
+}
+
+.aboutItem {
+  @include flex-column(center, center);
+  @include maxWidth(265);
+  text-align: center;
+  > A {
+    margin-bottom: 14px;
+    margin-top: 24px;
+  }
+}

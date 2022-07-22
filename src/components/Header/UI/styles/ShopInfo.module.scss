@@ -1,0 +1,69 @@
+@import "styles/mixins.scss";
+
+.Time {
+  @include flex(flex-start, flex-start);
+  gap: 8px;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--gray);
+
+  > span {
+    @include width(35);
+  }
+
+  > div {
+    >  h6 {
+      font-weight: 400;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    > h5 {
+      font-weight: 600;
+      font-size: 13px;
+      color: #A2A6B0;
+      margin-bottom: 8px;
+
+      > span {
+        color: var(--black);
+      }
+    }
+  }
+}
+
+.Location {
+  @include flex(flex-start, flex-start);
+  gap: 8px;
+  padding: 12px 8px;
+  line-height: 140%;
+  border-bottom: 1px solid var(--gray);
+
+  > span {
+    @include width(35);
+  }
+}
+
+.Phones {
+  padding: 12px 20px;
+  margin-bottom: 4px;
+
+  > h6 {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 140%;
+
+    > span {
+      color: var(--brand);
+    }
+  }
+}
+
+.Title {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--gray);
+
+  > span {
+    color: var(--white);
+  }
+}

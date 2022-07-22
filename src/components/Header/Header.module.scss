@@ -1,0 +1,58 @@
+@import "styles/mixins.scss";
+
+.header {
+  padding-block: 18px;
+  border-bottom: 1px solid #CACDD8;
+}
+
+.Root {
+  @include flex(center, space-between);
+  @include container;
+  gap: 48px;
+}
+
+.Navbar {
+  margin-right: auto;
+  > ul {
+    @include flex(center, space-between);
+    gap: 24px;
+
+    > li {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+
+      &:hover {
+        color: var(--brand);
+      }
+    }
+
+    > button {
+      @include outlineBtn();
+    }
+  }
+}
+
+.Basket {
+  position: relative;
+  cursor: pointer;
+
+  > span {
+    @include rectangle(16);
+    @include flex(center, center);
+    padding: 4px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 15px;
+    color: var(--white);
+    background-color: var(--brand);
+    position: absolute;
+    top: -7px;
+    right: -9px;
+  }
+}
+
+.Avatar {
+  cursor: pointer;
+}

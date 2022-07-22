@@ -1,0 +1,30 @@
+@import "styles/mixins.scss";
+
+.Root {
+  background-color: var(--dark);
+  padding-block: 8px;
+}
+
+.Content {
+  @include flex(center, space-between);
+  @include container;
+}
+
+.Center {
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+
+  > a {
+    color: var(--white);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.Right {
+  @include flex(center, space-between);
+}

@@ -1,0 +1,67 @@
+@import "design_token";
+@import "utils";
+@import "ids";
+
+*, *:after, *:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main), sans-serif;
+  background-color: var(--white);
+}
+
+a {
+  text-decoration: none;
+  color: var(--basic6);
+  transition: color 250ms ease;
+
+  &:hover {
+    color: var(--basic3);
+  }
+}
+
+ul, ol, dl {
+  list-style: none;
+}
+
+h1,h2, h3, A, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  outline: none;
+  width: 100%;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: var(--light-blue);
+  color: var(--dark);
+  line-height: 0;
+
+  &::placeholder {
+    color: var(--gray);
+  }
+}
+
+
+.react-tabs__tab {
+  padding-bottom: 3px;
+}
+
+.react-tabs__tab--selected {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--black);
+  border-bottom: 2px solid var(--brand);
+  padding-bottom: 3px;
+}

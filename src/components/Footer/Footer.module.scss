@@ -1,0 +1,49 @@
+@import "styles/mixins.scss";
+
+.footer {
+  background-color: var(--dark);
+}
+
+.top {
+  @include flex-between(flex-end);
+  @include container;
+  padding-block: 40px;
+
+  > div {
+    > h2 {
+      font-weight: 500;
+      font-size: 38px;
+      line-height: 132.5%;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    > p {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 132.5%;
+      color: var(--white);
+    }
+
+
+    > input {
+      @include emailInput;
+      @include width(390);
+    }
+
+    > button {
+      @include primaryButton;
+      margin-left: 24px;
+    }
+  }
+
+  :last-child {
+    @include flex(center, center);
+  }
+}
+
+.center {
+  @include container;
+  @include flex-between(flex-start);
+  padding-bottom: 36px;
+}

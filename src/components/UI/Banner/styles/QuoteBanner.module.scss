@@ -1,0 +1,48 @@
+@import "styles/mixins.scss";
+
+.banner {
+  @include flex(center, center);
+  width: 100%;
+}
+
+
+.content {
+  background-color: var(--light-blue);
+  @include maxWidth(1160);
+  padding: 50px 120px;
+}
+
+.top {
+
+  @include flex(flex-end, center);
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  > div {
+    @include flex(fex-start, space-between);
+    gap: 20px;
+
+    > p {
+      @include maxWidth(850);
+      margin-bottom: 8px;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+
+  > span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+}
+
+.bottom {
+  @include flex(flex-end, space-between);
+
+  > button {
+    @include outlineBtn;
+  }
+}

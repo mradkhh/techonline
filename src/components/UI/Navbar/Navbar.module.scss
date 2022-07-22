@@ -1,0 +1,11 @@
+.Root {
+
+}
+
+.List {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  min-width: max-content;
+}

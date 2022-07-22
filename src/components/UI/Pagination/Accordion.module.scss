@@ -1,0 +1,28 @@
+.accordion {
+  @media (max-width: 991.98px) {
+      :first-child {
+
+      }
+  }
+
+  @media (min-width: 992px) {
+    :first-child {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 100%;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    :last-child {
+
+      > * {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 140%;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+    }
+  }
+}
