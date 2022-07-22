@@ -89,24 +89,34 @@
   margin-bottom: 60px;
 }
 
-// quotes section
-.quotes {
-  margin-bottom: 60px;
-}
 
 // about us section
 .aboutUs {
+  padding-top: 60px;
+  padding-bottom: 44px;
+}
+
+.content {
   @include container;
   @include flex-around(center);
-  margin-bottom: 44px;
+}
+
+.bg {
+  background-color: var(--light-blue);
 }
 
 .aboutItem {
   @include flex-column(center, center);
   @include maxWidth(265);
   text-align: center;
-  > A {
+  > h4 {
     margin-bottom: 14px;
     margin-top: 24px;
+  }
+
+  > p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
   }
 }

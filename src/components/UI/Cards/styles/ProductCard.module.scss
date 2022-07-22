@@ -40,14 +40,14 @@
 }
 
 .body {
-  > A {
+  > h4 {
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;
     margin-bottom: 10px;
   }
 
-  > A + div {
+  > h4 + div {
     font-weight: 400;
     font-size: 14px;
     line-height: 140%;

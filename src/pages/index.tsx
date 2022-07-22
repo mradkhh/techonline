@@ -21,14 +21,10 @@ import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
 import {
-    AdataIcon,
-    GigabyteIcon, HearphoneIcon,
-    HPIcon,
+    ContactIcon,
+    HearphoneIcon,
     MSIIcon,
-    PartnerLogo,
-    RazerIcon,
-    RoccatIcon,
-    ThermaletakeIcon
+    PartnerLogo, SaleIcon,
 } from "static/icons/icon";
 import A from "components/UI/A/A";
 import VisitCard from "components/UI/Cards/VisitCard";
@@ -137,12 +133,12 @@ const Index: NextPage = () => {
                   </SwiperSlide>
               </Carousel>
           </div>
+
           <div className={styles.ads}>
               <PartnerLogo/>
               <h3><span>own</span> it now, up to 6 months interest free  </h3>
               <A href='/'> learn more</A>
           </div>
-
 
           <div className={styles.category}>
                 <VisitCard
@@ -196,7 +192,6 @@ const Index: NextPage = () => {
                   reviews={34}
               />
           </div>
-
 
           <Tabs>
               <TabList className={styles.tabsList}>
@@ -316,7 +311,6 @@ const Index: NextPage = () => {
                   </div>
               </TabPanel>
           </Tabs>
-
 
           <Tabs>
               <TabList className={styles.tabsList}>
@@ -505,32 +499,37 @@ const Index: NextPage = () => {
                   </SwiperSlide>
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
-                          <RoccatIcon/>
+                          <MSIIcon/>
                       </div>
                   </SwiperSlide>
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
-                          <RazerIcon/>
+                          <MSIIcon/>
                       </div>
                   </SwiperSlide>
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
-                          <ThermaletakeIcon/>
+                          <MSIIcon/>
                       </div>
                   </SwiperSlide>
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
-                          <AdataIcon/>
+                          <MSIIcon/>
                       </div>
                   </SwiperSlide>
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
-                          <HPIcon/>
+                          <MSIIcon/>
                       </div>
                   </SwiperSlide>
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
-                          <GigabyteIcon/>
+                          <MSIIcon/>
+                      </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                      <div className={styles.brandIcon}>
+                          <MSIIcon/>
                       </div>
                   </SwiperSlide>
               </Carousel>
@@ -606,25 +605,6 @@ const Index: NextPage = () => {
                         />
                     </SwiperSlide>
                 </Carousel>
-          </div>
-
-
-          <div className={styles.aboutUs}>
-                <div className={styles.aboutItem}>
-                    <HearphoneIcon/>
-                    <h4>Product Support</h4>
-                    <p>Up to 3 years on-site warranty available for your peace of mind.</p>
-                </div>
-              <div className={styles.aboutItem}>
-                  <HearphoneIcon/>
-                  <h4> Personal Account</h4>
-                  <p>With big discounts, free delivery and a dedicated support specialist. </p>
-              </div>
-              <div className={styles.aboutItem}>
-                  <HearphoneIcon/>
-                  <h4>Amazing Savings </h4>
-                  <p>Up to 70% off new Products, you can be sure of the best price. </p>
-              </div>
           </div>
 
       </MainLayout>

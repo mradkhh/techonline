@@ -2,6 +2,15 @@ import React, {FC, memo} from 'react';
 import styles from './Footer.module.scss'
 import Accordion from "components/UI/Pagination/Accordion";
 import A from "components/UI/A/A";
+import {
+    AmericanExpressIcon,
+    DiscoverIcon,
+    FacebookIcon,
+    InstagramIcon,
+    MasterCardIcon,
+    PaypalIcon,
+    VisaCardIcon
+} from "static/icons/icon";
 
 const Footer: FC = memo(() => {
     return (
@@ -58,12 +67,42 @@ const Footer: FC = memo(() => {
                     </Accordion>
                     <Accordion header="Address">
                         <A href="/">Address: 1234 Street Address City Address, 1234</A>
-                        <A href="/">Phones: (00) 1234 5678</A>
+                        <A href="/">Phones: <span>(00) 1234 5678</span></A>
                         <A href="/">We are open: Monday-Thursday: 9:00 AM - 5:30 PM</A>
                         <A href="/">Friday: 9:00 AM - 6:00 PM</A>
                         <A href="/">Saturday: 11:00 AM - 5:00 PM</A>
-                        <A href="/">E-mail: shop@email.com</A>
+                        <A href="/">E-mail: <span>shop@email.com</span></A>
                     </Accordion>
+                </div>
+                <div className={styles.bottom}>
+                    <div>
+                        <A href='/'>
+                            <FacebookIcon/>
+                        </A>
+                        <A href='/'>
+                            <InstagramIcon/>
+                        </A>
+                    </div>
+                    <div>
+                        <A href='/'>
+                            <PaypalIcon/>
+                        </A>
+                        <A href='/'>
+                            <VisaCardIcon/>
+                        </A>
+                        <A href='/'>
+                            <MasterCardIcon/>
+                        </A>
+                        <A href='/'>
+                            <DiscoverIcon/>
+                        </A>
+                        <A href='/'>
+                            <AmericanExpressIcon/>
+                        </A>
+                    </div>
+                    <div>
+                        <p>Copyright © 2020 Shop Pty. Ltd.</p>
+                    </div>
                 </div>
             </div>
     );

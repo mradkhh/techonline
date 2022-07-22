@@ -9,7 +9,7 @@ interface AProps {
 const A: FC<AProps> = ({ href, children }) => {
     return (
         <Link href={href}>
-            <A href="/">{children}</A>
+            <a>{children}</a>
         </Link>
     );
 };

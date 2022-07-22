@@ -38,7 +38,7 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, rating, discountP
                 />
             </div>
             <div className={styles.body}>
-                <A href="/">{title}</A>
+                <h4>{title}</h4>
                 <div>{price} $</div>
                 <div>{discountPrice} $</div>
             </div>

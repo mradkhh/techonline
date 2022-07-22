@@ -27,4 +27,12 @@
 
 .Right {
   @include flex(center, space-between);
+  gap: 16px;
+
+  > h5 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--white);
+  }
 }

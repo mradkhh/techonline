@@ -19,7 +19,7 @@ const VisitCard: FC<VisitCardProps> = ({ title, href, img }) => {
                 alt={title}
                 src={img}
             />
-            <A href="/">{title}</A>
+            <h4>{title}</h4>
             <A href={href}>See All Products</A>
         </div>
     );

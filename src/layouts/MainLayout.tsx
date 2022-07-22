@@ -3,7 +3,7 @@ import Head from "next/head";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
 import styles from "styles/pages/home.module.scss";
-import {HearphoneIcon} from "static/icons/icon";
+import {ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
 
 interface MainLayoutProps {
     children: ReactNode,
@@ -12,7 +12,7 @@ interface MainLayoutProps {
     mainClass: string,
 }
 
-const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, mainClass, ...props }) => {
+const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, mainClass}) => {
     return (
         <>
             <Head>
@@ -24,21 +24,23 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
             <Header/>
             <main className={mainClass}>
                 {children}
-                <div className={styles.aboutUs}>
-                    <div className={styles.aboutItem}>
-                        <HearphoneIcon/>
-                        <h4>Product Support</h4>
-                        <p>Up to 3 years on-site warranty available for your peace of mind.</p>
-                    </div>
-                    <div className={styles.aboutItem}>
-                        <HearphoneIcon/>
-                        <h4> Personal Account</h4>
-                        <p>With big discounts, free delivery and a dedicated support specialist. </p>
-                    </div>
-                    <div className={styles.aboutItem}>
-                        <HearphoneIcon/>
-                        <h4>Amazing Savings </h4>
-                        <p>Up to 70% off new Products, you can be sure of the best price. </p>
+                <div className={styles.aboutUs} style={{background: mainClass !== 'main_home' ? 'var(--light-blue)' : ''}}>
+                    <div className={styles.content}>
+                        <div className={styles.aboutItem}>
+                            <HearphoneIcon/>
+                            <h4>Product Support</h4>
+                            <p>Up to 3 years on-site warranty available for your peace of mind.</p>
+                        </div>
+                        <div className={styles.aboutItem}>
+                            <ContactIcon/>
+                            <h4> Personal Account</h4>
+                            <p>With big discounts, free delivery and a dedicated support specialist. </p>
+                        </div>
+                        <div className={styles.aboutItem}>
+                            <SaleIcon/>
+                            <h4>Amazing Savings </h4>
+                            <p>Up to 70% off new Products, you can be sure of the best price. </p>
+                        </div>
                     </div>
                 </div>
             </main>

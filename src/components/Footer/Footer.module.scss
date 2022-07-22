@@ -46,4 +46,31 @@
   @include container;
   @include flex-between(flex-start);
   padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bottom {
+  @include container;
+  @include flex-between(center);
+  padding-block: 20px;
+
+  :first-child {
+    @include flex-between(center);
+  }
+
+  :nth-child(2) {
+    @include flex(center, center);
+    gap: 10px;
+  }
+
+  :last-child {
+    color: var(--white);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 132.5%;
+
+    > a > span {
+      color: var(--brand);
+    }
+  }
 }

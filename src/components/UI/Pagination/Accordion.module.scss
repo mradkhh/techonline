@@ -16,12 +16,18 @@
 
     :last-child {
 
+
       > * {
         font-weight: 400;
         font-size: 13px;
         line-height: 140%;
         color: var(--white);
         margin-bottom: 4px;
+        display: block;
+      }
+
+      > a:hover {
+        text-decoration: underline;
       }
     }
   }
