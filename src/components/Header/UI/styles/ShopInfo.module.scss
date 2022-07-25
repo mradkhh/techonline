@@ -1,4 +1,4 @@
-@import "styles/mixins.scss";
+@import "styles/mixins/mixins";
 
 .Time {
   @include flex(flex-start, flex-start);

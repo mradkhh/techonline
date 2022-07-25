@@ -28,9 +28,9 @@ import {
 } from "static/icons/icon";
 import A from "components/UI/A/A";
 import VisitCard from "components/UI/Cards/VisitCard";
-import styles from "styles/pages/home.module.scss"
 import BlogCard from "components/UI/Cards/BlogCard";
 import QuoteBanner from "components/UI/Banner/QuoteBanner";
+import styles from "styles/pages/home.module.scss"
 
 const Index: NextPage = () => {
 

@@ -1,4 +1,4 @@
-@import "styles/mixins.scss";
+@import "styles/mixins/mixins";
 
 .products {
   @include container;
@@ -43,7 +43,7 @@
 // category section
 
 .category {
-  @include grid;
+  @include grid(6);
   @include container;
   margin-bottom: 32px;
 }
@@ -85,7 +85,7 @@
 
 .blogs {
   @include container;
-  @include grid;
+  @include grid(6);
   margin-bottom: 60px;
 }
 

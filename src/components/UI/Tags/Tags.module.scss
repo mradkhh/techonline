@@ -1,0 +1,58 @@
+@import "styles/mixins/mixins";
+
+.tags {
+  @include flex-start(center);
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+
+  > button {
+    padding: 8px 16px;
+    border: 1px solid var(--gray);
+    border-radius: 2px;
+    background-color: var(--white);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+
+    &:hover {
+      background-color: var(--light-blue);
+    }
+
+    &:active {
+      background-color: var(--light-blue-darker);
+    }
+  }
+}
+
+.tag {
+  @include flex-start(center);
+  gap: 4px;
+  padding: 8px 16px;
+  border: 1px solid var(--gray);
+  border-radius: 2px;
+  background-color: var(--white);
+
+
+  > h4 {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+  }
+
+  > span {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+    color: var(--gray);
+  }
+
+  > button {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+
+  }
+
+}

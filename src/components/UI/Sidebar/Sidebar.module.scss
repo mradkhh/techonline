@@ -1,0 +1,114 @@
+@import "styles/mixins/mixins";
+
+@mixin titleSide {
+  padding-top: 0 !important;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+
+@mixin filterBtn {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--gray);
+  padding-block: 8px;
+  width: 100%;
+  text-align: center;
+  border: 2px solid var(--gray);
+  border-radius: 50px;
+  background-color: transparent;
+}
+
+.sidebar {
+  @include maxWidth(235);
+  :not(:last-child) {
+    padding: 16px;
+  }
+
+  > button {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    padding-block: 12px;
+    width: 100%;
+    background-color: var(--white);
+    transition: all 300ms;
+
+    &:hover {
+      background-color: var(--light-blue);
+    }
+
+    &:active {
+      background-color: var(--light-blue-darker);
+    }
+  }
+}
+
+.filterTop {
+  background-color: var(--light-blue);
+  > h3 {
+    @include titleSide;
+  }
+
+  > button {
+    @include filterBtn;
+  }
+}
+
+.filterCenter {
+  background-color: var(--light-blue);
+}
+
+.filterBottom {
+  background-color: var(--light-blue);
+  margin-bottom: 8px;
+  > button {
+    @include primaryButton;
+  }
+}
+
+.brandsFilter {
+  padding: 0 !important;
+  margin-bottom: 8px;
+  background-color: var(--light-blue);
+  box-sizing: border-box;
+  > div {
+    > h3 {
+      @include titleSide;
+    }
+
+    > button {
+      @include filterBtn;
+    }
+  }
+
+  > :last-child {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    > svg {
+      padding: 14px;
+      background-color: var(--white);
+      width: 100%;
+      height: 46px;
+    }
+  }
+}
+
+.compare, .wishList {
+  margin-bottom: 8px;
+  text-align: center;
+  background-color: var(--light-blue);
+  > h3 {
+    @include titleSide;
+    padding-top: 0 !important;
+  }
+
+  > p {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 130%;
+  }
+}

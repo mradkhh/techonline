@@ -1,0 +1,87 @@
+@import "styles/mixins/mixins";
+
+.adsBanner {
+  @include container;
+  margin-bottom: 20px;
+  margin-top: 118px;
+}
+
+.title {
+  @include container;
+  @include title;
+}
+
+.main {
+  @include container;
+  @include flex-start(space-between);
+  gap: 8px;
+}
+
+.content {
+
+}
+
+.headViewTools {
+  @include flex-start(center);
+  gap: 8px;
+  margin-bottom: 8px;
+  > p {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 210%;
+    color: var(--gray);
+    margin-right: auto;
+  }
+}
+
+.sort {
+  @include flex-end(center);
+  gap: 8px;
+}
+
+.viewType {
+  @include flex-end(center);
+  gap: 8px;
+
+  > button {
+    line-height: 1;
+    @include flex(center, center);
+    background-color: transparent;
+    transition: all 250ms;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+// -------------------- products grid --------------
+
+.products {
+  @include grid(5);
+  margin-bottom: 24px;
+}
+
+// ------------------- description section ----------------
+.description {
+  @include flex-column(center, center);
+  width: 100%;
+  margin-bottom: 90px;
+  > p {
+    margin-bottom: 24px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    background: linear-gradient(
+                    to right,
+                    #fff 0%,
+                    #fff 100%
+    );
+  }
+
+  > button {
+    @include grayBtn;
+  }
+}
+
+

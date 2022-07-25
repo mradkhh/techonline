@@ -1,0 +1,21 @@
+@import "styles/mixins/mixins";
+
+.breadcrumbs {
+  @include container;
+  @include flex-start(center);
+  gap: 8px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+
+  > a {
+    &:hover {
+      color: var(--brand);
+    }
+  }
+
+  > span {
+    color: var(--brand);
+  }
+}

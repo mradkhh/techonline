@@ -1,6 +1,5 @@
 import React, {FC, memo} from 'react';
-import styles from './Footer.module.scss'
-import Accordion from "components/UI/Pagination/Accordion";
+import Accordion from "components/UI/Accordion/Accordion";
 import A from "components/UI/A/A";
 import {
     AmericanExpressIcon,
@@ -11,6 +10,7 @@ import {
     PaypalIcon,
     VisaCardIcon
 } from "static/icons/icon";
+import styles from './Footer.module.scss'
 
 const Footer: FC = memo(() => {
     return (

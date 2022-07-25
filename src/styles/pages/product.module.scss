@@ -1,0 +1,134 @@
+@import "styles/mixins/mixins";
+
+
+// ------------- main section ---------------
+.mainInfo {
+  margin-top: 118px;
+}
+
+.mainInfo__header {
+  border-bottom: 1px solid #CACDD8;
+  position: sticky;
+  top: 118px;
+  z-index: 123;
+  background-color: var(--white);
+  > div {
+    @include container;
+    @include flex-between(center);
+  }
+}
+
+.header_tabs {
+  padding-block: 24px;
+  @include flex-start(center);
+  gap: 24px;
+  > h4 {
+    @include tab;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--black);
+    }
+
+    &:active {
+      @include activeTab;
+    }
+  }
+}
+
+.payment {
+  @include flex-end(center);
+  gap: 12px;
+  > div:first-child {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+
+    > span {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+
+  > button {
+    @include primaryButton;
+  }
+
+  > button:last-child {
+    background-color: var(--orange);
+    @include flex-center(center);
+    padding-block: 14px;
+  }
+}
+
+.counter {
+  @include flex-between(center);
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background-color: var(--light-blue);
+  min-width: 70px;
+  > span {
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+  }
+
+  > div {
+    > button {
+      @include flex-center(center);
+    }
+  }
+}
+
+.mainInfo__content {
+
+  background-color: var(--light-blue);
+  > div {
+    @include flex-around(flex-start);
+    @include container;
+  }
+}
+
+.mainInfo__content_left {
+
+  padding-top: 24px;
+  flex-basis: 60%;
+
+  > div:first-child {
+    padding-left: 120px;
+  }
+
+  > h6 {
+    margin-top: 150px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--black);
+  }
+}
+
+.mainInfo__content_right {
+  background-color: var(--white);
+  padding: 36px 24px;
+  width: 100%;
+  flex-basis: 40%;
+}
+
+.img {
+  position: relative;
+  @include maxWidth(470);
+  padding-left: 100px;
+}
+
+.availability {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include flex-column(flex-start, flex-start);
+  gap: 6px;
+}
+

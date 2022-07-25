@@ -27,6 +27,7 @@ a {
   }
 }
 
+
 ul, ol, dl {
   list-style: none;
 }
@@ -35,6 +36,7 @@ h1,h2, h3, A, h5, h6 {
   margin: 0;
   padding: 0;
 }
+
 
 input {
   outline: none;
@@ -54,6 +56,10 @@ input {
 
 button {
   cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  line-height: 1;
 }
 
 

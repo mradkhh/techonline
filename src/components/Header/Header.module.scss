@@ -1,8 +1,15 @@
-@import "styles/mixins.scss";
+@import "styles/mixins/mixins";
+
+.root {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 12345;
+}
 
 .header {
   padding-block: 18px;
   border-bottom: 1px solid #CACDD8;
+  background-color: var(--white);
 }
 
 .Root {

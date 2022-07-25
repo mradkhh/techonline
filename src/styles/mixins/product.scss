@@ -1,0 +1,14 @@
+@mixin productTitle {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  margin-bottom: 12px;
+}
+
+@mixin productSubtitle {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--brand);
+  margin-bottom: 28px;
+}

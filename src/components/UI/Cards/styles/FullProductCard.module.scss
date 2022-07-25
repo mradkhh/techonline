@@ -1,0 +1,143 @@
+@import "styles/mixins/mixins";
+
+.card {
+  @include flex-start(flex-start);
+  gap: 32px;
+  padding: 36px;
+  width: 100%;
+  position: relative;
+  transition: box-shadow 250ms;
+  margin-bottom: 16px;
+
+  &:hover {
+    box-shadow: var(--card-shadow);
+  }
+}
+
+// -------------------- stock ----------------------
+
+.stock {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.inStock {
+  color: var(--green);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 210%;
+  padding: 8px;
+}
+
+.notStock {
+  color: var(--red);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 210%;
+  padding: 8px;
+}
+
+
+// ------------------ body ----------------------
+
+.body {
+  @include flex-column(start, center);
+  width: 100%;
+}
+
+
+// --------------------- body header --------------------
+
+.bodyHead {
+  @include flex-start(center);
+  gap: 24px;
+  margin-bottom: 48px;
+  > :first-child {
+    > h5 {
+      margin-top: 30px;
+      margin-bottom: 20px;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    > h4 {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 20px;
+      margin-bottom: 16px;
+      @include maxWidth(500);
+    }
+
+    > div {
+      @include flex-start(center);
+      gap: 4px;
+      > :first-child {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 140%;
+        text-decoration-line: line-through;
+        color: var(--gray);
+      }
+
+      > :last-child {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
+      }
+    }
+  }
+
+  > :last-child {
+    @include maxWidth(250);
+  }
+}
+
+.character {
+  > tbody {
+    > :nth-child(2) {
+      background-color: var(--light-blue);
+    }
+
+     tr > td {
+      padding: 6px 15px !important;
+    }
+  }
+}
+
+// --------------------- body footer ------------------
+
+.bodyFooter {
+  @include flex-between(flex-end);
+  width: 100%;
+}
+
+.availability {
+  @include flex-end(flex-end);
+  gap: 6px;
+
+  > button {
+    @include flex-center(center);
+    transition: transform 250ms;
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+}
+
+.addToCart {
+  @include outlineBtn;
+  @include flex(center, center);
+  gap: 4px;
+  margin-top: 24px;
+  > svg path {
+    fill: var(--brand);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+

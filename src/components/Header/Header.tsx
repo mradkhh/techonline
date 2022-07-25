@@ -8,7 +8,7 @@ import styles from './Header.module.scss'
 
 const Header: FC = () => {
     return (
-            <>
+            <div className={styles.root}>
                 <Head/>
                 <div className={styles.header}>
                     <div className={styles.Root}>
@@ -52,7 +52,7 @@ const Header: FC = () => {
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
     );
 };
 

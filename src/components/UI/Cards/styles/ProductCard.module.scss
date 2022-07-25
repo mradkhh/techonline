@@ -1,4 +1,4 @@
-@import "styles/mixins.scss";
+@import "styles/mixins/mixins";
 
 .card {
   @include maxWidth(235);

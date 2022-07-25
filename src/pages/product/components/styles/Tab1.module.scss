@@ -1,0 +1,43 @@
+@import "styles/mixins/product.scss";
+@import "styles/mixins/mixins.scss";
+
+.tab {
+  @include maxWidth(567);
+  margin-left: 120px;
+  > h1 {
+    @include productTitle;
+  }
+
+  > p {
+    @include productSubtitle;
+  }
+
+  > h3 {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 48px;
+  }
+
+  > div {
+
+    @include flex-between(center);
+    > div {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+
+      > a {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--brand);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
