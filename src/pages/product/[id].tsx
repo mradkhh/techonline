@@ -4,23 +4,23 @@ import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Tab1 from "pages/product/components/Tab1";
 import Tab2 from "pages/product/components/Tab2";
-import Tab3 from "pages/product/components/Tab3";
 import img from "static/images/product/inTab.png"
 import {
-    FavoriteIcon,
+    DDR4Svg,
+    FavoriteIcon, GenSSDSvg,
     GrayArrowDownIcon,
-    GrayArrowUpIcon,
-    MessageIcon,
+    GrayArrowUpIcon, IntelSvg, LineArrowSvg,
+    MessageIcon, NVidiaSvg, PartnerLogo,
     PayPalButtonIcon,
     StatsIcon
 } from "static/icons/icon";
 import styles from 'styles/pages/product.module.scss'
+import A from "components/UI/A/A";
 
 
 const tabs = [
     { id: 1, title: 'About Product' },
-    { id: 2, title: 'Details' },
-    { id: 3, title: 'Specs' }
+    { id: 2, title: 'Details' }
 ]
 
 const breadcrumbs = [
@@ -49,7 +49,7 @@ const Product = () => {
     }
     return (
         <MainLayout title="Product - id" description="MSI" mainClass="main_product">
-            <div className={styles.mainInfo}>
+            <section className={styles.mainInfo}>
                 <div className={styles.mainInfo__header}>
                     <div>
                         <div className={styles.header_tabs}>
@@ -89,9 +89,7 @@ const Product = () => {
                                 tabNumber === 1 ?
                                     <Tab1/> :
                                     tabNumber === 2 ?
-                                        <Tab2/> :
-                                        tabNumber === 3 ?
-                                            <Tab3/> : null
+                                        <Tab2/> : null
                             }
                             <h6>+ More information</h6>
                         </div>
@@ -116,11 +114,66 @@ const Product = () => {
                                     src={img}
                                     alt="img"
                                 />
+                                <div>
+                                    <PartnerLogo/>
+                                    <h5>own it now, up to 6 months interest free <A href="/">learn more</A></h5>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
+            </section>
+
+            <section className={styles.competition}>
+                <div>
+                    <h2>Outplay the Competition</h2>
+                    <p>Experience a 40% boost in computing from last generation. MSI Desktop equips the 10th Gen. Intel® Core™ i7 processor with the upmost computing power to bring you an unparalleled gaming experience.
+                        <br/> <br/>
+                        *Performance compared to i7-9700. Specs varies by model.</p>
+                </div>
+            </section>
+
+            <section className={styles.helper}>
+                <div>
+                    <A href='/'>Product Support
+                        <LineArrowSvg/>
+                    </A>
+                    <A href='/'>FAQ
+                        <LineArrowSvg/>
+                    </A>
+                    <A href='/'>Our Buyer Guide
+                        <LineArrowSvg/>
+                    </A>
+                </div>
+            </section>
+
+            <section className={styles.feature}>
+                <div>
+                    <div>
+                        <h2>Features</h2>
+                        <p>The MPG series brings out the best in gamers by allowing full expression in color with advanced RGB lighting control and synchronization.</p>
+                    </div>
+                    <div>
+                        <div>
+                            <IntelSvg/>
+                            <p>Intel® Core™ i7 processor with the upmost computing power to bring you an unparalleled gaming experience.</p>
+                        </div>
+                        <div>
+                            <NVidiaSvg/>
+                            <p>The new GeForce® RTX SUPER™ Series has more cores and higher clocks for superfast performance compared to previous-gen GPUs.</p>
+                        </div>
+                        <div>
+                            <GenSSDSvg/>
+                            <p>Unleash the full potential with the latest SSD technology, the NVM Express. 6 times faster than traditional SATA SSD.</p>
+                        </div>
+                        <div>
+                            <DDR4Svg/>
+                            <p>Featuring the latest 10th Gen Intel® Core™ processors, memory can support up to DDR4 2933MHz to delivers an unprecedented gaming experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </MainLayout>
     );
 };

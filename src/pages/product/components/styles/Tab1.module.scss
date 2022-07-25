@@ -20,8 +20,8 @@
   }
 
   > div {
-
     @include flex-between(center);
+    margin-bottom: 180px;
     > div {
       font-weight: 600;
       font-size: 12px;
@@ -37,6 +37,12 @@
           text-decoration: underline;
         }
       }
+    }
+
+    > span {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 18px;
     }
   }
 }

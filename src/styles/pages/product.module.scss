@@ -7,11 +7,11 @@
 }
 
 .mainInfo__header {
-  border-bottom: 1px solid #CACDD8;
   position: sticky;
   top: 118px;
   z-index: 123;
   background-color: var(--white);
+  border-bottom: 1px solid #CACDD8;
   > div {
     @include container;
     @include flex-between(center);
@@ -84,17 +84,18 @@
 }
 
 .mainInfo__content {
-
+  overflow-x: hidden;
   background-color: var(--light-blue);
   > div {
     @include flex-around(flex-start);
     @include container;
   }
+
+
 }
 
 .mainInfo__content_left {
-
-  padding-top: 24px;
+  padding-top: 74px;
   flex-basis: 60%;
 
   > div:first-child {
@@ -102,7 +103,7 @@
   }
 
   > h6 {
-    margin-top: 150px;
+    @include container;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 14px;
@@ -112,16 +113,41 @@
 }
 
 .mainInfo__content_right {
+  position: relative;
   background-color: var(--white);
-  padding: 36px 24px;
   width: 100%;
   flex-basis: 40%;
+  padding: 36px 24px 100px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    background-color: var(--white);
+    width: 1000%;
+    height: 100%;
+  }
 }
 
 .img {
   position: relative;
   @include maxWidth(470);
   padding-left: 100px;
+
+  > div:last-child {
+    @include flex-center(flex-start);
+    gap: 12px;
+    margin-top: 32px;
+
+    > h5 {
+      @include maxWidth(160);
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 120.5%;
+    }
+  }
 }
 
 .availability {
@@ -130,5 +156,65 @@
   left: 0;
   @include flex-column(flex-start, flex-start);
   gap: 6px;
+}
+
+// ------------- competition section ---------------
+
+.competition {
+  background-color: var(--black);
+  background-image: url('../../../public/images/core7@2x.png');
+  background-position: center, center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  > div {
+    background: linear-gradient(90deg, #010101 0%, #0E0F10 18.23%, rgba(20, 21, 23, 0) 100%);
+    @include container;
+    > h2 {
+      padding-top: 165px;
+      @include maxWidth(460);
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 58px;
+      margin-bottom: 48px;
+      color: var(--white);
+    }
+
+    > p {
+      @include maxWidth(436);
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 26px;
+      color: var(--white);
+      padding-bottom: 165px;
+    }
+  }
+}
+
+// helper section
+.helper {
+
+  > div {
+    @include container;
+    padding-block: 100px;
+    padding-left: 200px;
+    background-image: url('../../../public/images/helper.png');
+    background-position: right, center;
+    background-size: 670px;
+    background-repeat: no-repeat;
+
+    > a {
+      @include flex-between(center);
+      background-color: var(--white);
+      border: 1px solid var(--gray);
+      border-radius: 6px;
+      padding: 12px 24px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      @include maxWidth(347);
+      margin-bottom: 20px;
+    }
+  }
 }
 
