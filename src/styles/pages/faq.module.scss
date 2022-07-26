@@ -1,0 +1,55 @@
+@import "styles/mixins/mixins.scss";
+
+.title {
+  @include commonTitle;
+  @include container;
+}
+
+.content {
+  @include container;
+  @include flex-between(flex-start);
+  gap: 30px;
+  padding-bottom: 70px;
+}
+
+.left {
+    @include maxWidth(1040);
+    > h2 {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 36px;
+      margin-bottom: 20px;
+    }
+
+    > div {
+      > h4 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+        margin-block: 32px;
+      }
+
+      > p {
+        margin-bottom: 20px;
+      }
+    }
+}
+
+.right {
+  @include maxWidth(327);
+  padding: 24px;
+  background-color: var(--light-blue);
+  > h4 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 16px;
+  }
+
+  > p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 16px;
+  }
+}

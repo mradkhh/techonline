@@ -1,0 +1,200 @@
+@import "styles/mixins/mixins.scss";
+
+
+.title {
+  @include container;
+  @include commonTitle;
+  margin-bottom: 20px;
+}
+
+.content {
+  @include container;
+  @include flex-between(flex-start);
+  padding-bottom: 70px;
+}
+
+
+
+
+// ---------------- table --------------
+.table {
+  @include maxWidth(916);
+  > table {
+    width: 100%;
+    > thead {
+      > tr {
+        border-bottom: 1px solid var(--gray);
+        padding-block: 12px;
+      }
+    }
+  }
+}
+
+.thead {
+    border-bottom: 2px solid var(--gray);
+}
+
+.tableTitle {
+  padding-inline: 24px;
+  padding-block: 32px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.price, .subtotal {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  padding-inline: 24px;
+}
+
+.tableBtn {
+  @include flex-column(flex-end, flex-end);
+  gap: 4px;
+  padding: 4px;
+
+  > button {
+    @include flex-center(center);
+    transition: transform 250ms;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+.counter {
+  @include flex-between(center);
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background-color: var(--light-blue);
+  min-width: 70px;
+  max-width: max-content;
+  > span {
+    margin-left: auto;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+  }
+
+  > div {
+    > button {
+      @include flex-center(center);
+    }
+  }
+}
+
+.actionTable {
+  @include flex-start(center);
+  gap: 8px;
+  > button {
+    @include blackBtn;
+  }
+  > button:first-child {
+    @include grayBtn;
+    padding-block: 10px;
+  }
+
+  > button:last-child {
+    margin-left: auto;
+  }
+}
+
+// ---------------- summary ---------
+.summary {
+
+  @include maxWidth(446);
+  padding: 18px 32px;
+  background-color: var(--light-blue);
+  > h3 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 18px;
+  }
+
+}
+
+.actionBtns {
+  > button {
+    @include flex-center(center);
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  > :first-child {
+    @include primaryButton;
+  }
+
+  > :nth-child(2) {
+    @include primaryButton;
+    background-color: var(--orange);
+  }
+
+  > :last-child {
+    @include grayBtn;
+  }
+}
+
+.ads {
+  @include flex(center, center);
+  background-color: var(--light-blue);
+  padding-block: 22px;
+  margin-bottom: 14px;
+
+  > svg {
+    width: 60px !important;
+  }
+
+  > h3 {
+    margin-left: 10px;
+    color: var(--dark-blue);
+    border-left: 2px solid var(--dark-cyan);
+    padding-left: 14px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 120.5%;
+
+    > span {
+      font-weight: 700;
+    }
+  }
+
+  > a {
+    text-decoration: underline;
+    color: var(--dark-blue);
+    font-size: 10px;
+    margin-left: 2px;
+  }
+}
+
+.estimate {
+  > p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--gray) !important;
+  }
+}
+
+.applyInfo {
+  > h6 {
+    @include flex-between(center);
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    color: var(--black) !important;
+
+    > span {
+      color: var(--black) !important;
+    }
+  }
+
+  > p {
+    @include maxWidth(300);
+    font-weight: 400 !important;
+    font-size: 10px !important;
+    line-height: 180% !important;
+    color: var(--gray) !important;
+  }
+}

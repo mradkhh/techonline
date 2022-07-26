@@ -63,6 +63,8 @@ button {
 }
 
 
+// lib react-tabs
+
 .react-tabs__tab {
   padding-bottom: 3px;
 }
@@ -78,4 +80,12 @@ button {
 
 .main_home {
   padding-top: 118px;
+}
+
+.main_contact,
+.main_register,
+.main_shoppingCart,
+.main_about,
+.main_faq {
+  padding-top: 140px;
 }

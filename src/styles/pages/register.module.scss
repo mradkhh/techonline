@@ -1,0 +1,64 @@
+@import "styles/mixins/mixins.scss";
+
+.title {
+  @include commonTitle;
+  @include container;
+}
+
+.field {
+  @include container;
+  @include flex-center(center);
+  gap: 34px;
+  padding-bottom: 60px;
+
+
+  > * {
+    @include maxWidth(564);
+    background-color: var(--light-blue);
+    min-height: 420px;
+    padding: 40px 60px;
+    > h3 {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 27px;
+      margin-bottom: 12px;
+    }
+
+    > p {
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 30px;
+      margin-bottom: 12px;
+    }
+
+    > button {
+      @include primaryButton;
+      margin-top: 36px;
+    }
+
+    >ul {
+
+      > li {
+        margin-bottom: 4px;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.form {
+
+  > div {
+    > button {
+      @include primaryButton;
+      margin-right: 24px;
+      margin-top: 30px;
+    }
+  }
+}
+
+.sign {
+  padding: 40px 60px;
+}

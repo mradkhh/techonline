@@ -134,13 +134,13 @@ const Index: NextPage = () => {
               </Carousel>
           </div>
 
-          <div className={styles.ads}>
+          <section className={styles.ads}>
               <PartnerLogo/>
               <h3><span>own</span> it now, up to 6 months interest free  </h3>
               <A href='/'> learn more</A>
-          </div>
+          </section>
 
-          <div className={styles.category}>
+          <section className={styles.category}>
                 <VisitCard
                     title='Custom Builds'
                     href='/'
@@ -191,7 +191,7 @@ const Index: NextPage = () => {
                   rating={5}
                   reviews={34}
               />
-          </div>
+          </section>
 
           <Tabs>
               <TabList className={styles.tabsList}>
@@ -437,7 +437,7 @@ const Index: NextPage = () => {
               </TabPanel>
           </Tabs>
 
-          <div className={styles.category}>
+          <section className={styles.category}>
               <VisitCard
                   title='Gaming Monitors'
                   href='/'
@@ -488,9 +488,9 @@ const Index: NextPage = () => {
                   rating={5}
                   reviews={34}
               />
-          </div>
+          </section>
 
-          <div className={styles.brands}>
+          <section className={styles.brands}>
               <Carousel type='brand' autoplay={true} button={false} loop={true} >
                   <SwiperSlide>
                       <div className={styles.brandIcon}>
@@ -533,10 +533,10 @@ const Index: NextPage = () => {
                       </div>
                   </SwiperSlide>
               </Carousel>
-          </div>
+          </section>
 
           <h2 className={styles.blogsTitle}>Follow us on Instagram for News, Offers & More</h2>
-          <div className={styles.blogs}>
+          <section className={styles.blogs}>
               <BlogCard
                 text="If you’ve recently made a desktop PC or laptop purchase, you might want to consider adding peripherals to enhance your home office setup, your gaming rig, or your business workspace..."
                 date='01.09.2020'
@@ -592,10 +592,10 @@ const Index: NextPage = () => {
                   img={blogImg2}
                   text="As a gamer, superior sound counts for a lot. You need to hear enemies tiptoeing up behind you for a sneak attack or a slight change in the atmospheric music signaling a new challenge or task..."
               />
-          </div>
+          </section>
 
 
-          <div className={styles.quotes}>
+          <section className={styles.quotes}>
                 <Carousel type='banner' autoplay={true} button={false} loop={true}>
                     <SwiperSlide>
                         <QuoteBanner
@@ -605,7 +605,7 @@ const Index: NextPage = () => {
                         />
                     </SwiperSlide>
                 </Carousel>
-          </div>
+          </section>
 
       </MainLayout>
     </>

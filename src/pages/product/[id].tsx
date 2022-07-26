@@ -5,12 +5,15 @@ import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Tab1 from "pages/product/components/Tab1";
 import Tab2 from "pages/product/components/Tab2";
 import img from "static/images/product/inTab.png"
+import intelImg from "static/images/product/intel.png"
+import rtxImg from "static/images/product/rtx.png"
+import ssdImg from "static/images/product/ssd.png"
+import ddrImg from "static/images/product/ddr.png"
 import {
-    DDR4Svg,
-    FavoriteIcon, GenSSDSvg,
+    FavoriteIcon,
     GrayArrowDownIcon,
-    GrayArrowUpIcon, IntelSvg, LineArrowSvg,
-    MessageIcon, NVidiaSvg, PartnerLogo,
+    GrayArrowUpIcon, LineArrowSvg,
+    MessageIcon,  PartnerLogo,
     PayPalButtonIcon,
     StatsIcon
 } from "static/icons/icon";
@@ -156,20 +159,48 @@ const Product = () => {
                     </div>
                     <div>
                         <div>
-                            <IntelSvg/>
-                            <p>Intel® Core™ i7 processor with the upmost computing power to bring you an unparalleled gaming experience.</p>
+                            <Image
+                                width={136}
+                                height={136}
+                                objectFit='cover'
+                                objectPosition='center'
+                                src={intelImg}
+                                alt="feature"
+                            />
+                            <p><span>Intel® Core™ i7 </span> processor with the upmost computing power to bring you an unparalleled gaming experience.</p>
                         </div>
                         <div>
-                            <NVidiaSvg/>
-                            <p>The new GeForce® RTX SUPER™ Series has more cores and higher clocks for superfast performance compared to previous-gen GPUs.</p>
+                            <Image
+                                width={136}
+                                height={136}
+                                objectFit='cover'
+                                objectPosition='center'
+                                src={rtxImg}
+                                alt="feature"
+                            />
+                            <p>The new <span>GeForce® RTX SUPER™</span> Series has more cores and higher clocks for superfast performance compared to previous-gen GPUs.</p>
                         </div>
                         <div>
-                            <GenSSDSvg/>
-                            <p>Unleash the full potential with the latest SSD technology, the NVM Express. 6 times faster than traditional SATA SSD.</p>
+                            <Image
+                                width={136}
+                                height={136}
+                                objectFit='cover'
+                                objectPosition='center'
+                                src={ssdImg}
+                                alt="feature"
+                            />
+                            <p>Unleash the full potential with the latest <span>SSD technology</span>, the NVM Express. 6 times faster than traditional SATA SSD.</p>
                         </div>
                         <div>
-                            <DDR4Svg/>
-                            <p>Featuring the latest 10th Gen Intel® Core™ processors, memory can support up to DDR4 2933MHz to delivers an unprecedented gaming experience.</p>
+                            <Image
+                                width={136}
+                                height={136}
+                                objectFit='cover'
+                                objectPosition='center'
+                                src={ddrImg}
+                                alt="feature"
+                            />
+                            <p>Featuring the latest <span>10th Gen Intel® Core™</span> processors, memory can support up to DDR4 2933MHz to delivers an unprecedented gaming experience.</p>
                         </div>
                     </div>
                 </div>

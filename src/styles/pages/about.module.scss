@@ -1,0 +1,10 @@
+@import "styles/mixins/mixins.scss";
+
+.title {
+  @include container;
+  @include commonTitle;
+}
+
+.quotes {
+  padding-block: 64px;
+}

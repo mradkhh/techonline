@@ -218,3 +218,56 @@
   }
 }
 
+// ------------------- feature section -------------------
+
+.feature {
+  background: radial-gradient(50% 50% at 50% 50%, #242528 0%, #040404 100%);
+  padding-top: 80px;
+  padding-bottom: 100px;
+
+  > div {
+    @include container;
+    > div:first-child {
+      text-align: center;
+      margin-bottom: 60px;
+      > h2 {
+        font-weight: 500;
+        font-size: 38px;
+        line-height: 57px;
+        color: var(--white);
+      }
+
+      > p {
+        @include maxWidth(420);
+        margin-inline: auto;
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 26px;
+        color: var(--white);
+      }
+    }
+
+    > div:last-child {
+      @include flex(flex-start, center);
+      gap: 48px;
+      > div {
+        @include maxWidth(254);
+        text-align: center;
+
+
+        > p {
+          margin-top: 28px;
+          font-weight: 300;
+          font-size: 14px;
+          line-height: 22px;
+          color: var(--white);
+
+          > span {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
+

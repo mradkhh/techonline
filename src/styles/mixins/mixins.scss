@@ -61,7 +61,7 @@
 }
 
 @mixin flex-between($align) {
-  display: flex;
+  display: flex !important;
   align-items: $align;
   justify-content: space-between;
 }
@@ -86,7 +86,7 @@
 }
 
 @mixin maxWidth($width) {
-  max-width: $width+px;
+  max-width: $width+px !important;
   width: 100%;
 }
 
@@ -128,6 +128,7 @@
 // ---------------- button ---------------
 
 @mixin outlineBtn() {
+  @include flex-center(center);
   padding: 8px 26px;
   font-weight: 600;
   font-size: 14px;
@@ -143,6 +144,7 @@
 }
 
 @mixin primaryButton {
+  @include flex-center(center);
   padding: 12px 40px;
   background-color: var(--brand);
   border-radius: 50px;
@@ -162,8 +164,20 @@
   font-size: 14px;
   border: 2px solid var(--gray);
   color: var(--gray);
+  background-color: var(--white);
   border-radius: 50px;
   padding: 12px 24px;
+}
+
+@mixin blackBtn {
+  @include flex-center(center);
+  padding: 8px 24px;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  border-radius: 50px;
 }
 
 
@@ -195,6 +209,14 @@
   color: var(--black);
 }
 
+@mixin commonTitle {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
 // ------------------ tabs style -------------------
 @mixin activeTab {
   font-weight: 600;
@@ -212,3 +234,12 @@
   border-bottom: 2px solid transparent;
 }
 
+// ---------------- other -----------------
+@mixin dropEffect($duration) {
+  position: absolute;
+  animation: fade-down $duration+ms ease;
+  top: 40px;
+  box-shadow: var(--shadow);
+  border-radius: 4px;
+  overflow: hidden;
+}

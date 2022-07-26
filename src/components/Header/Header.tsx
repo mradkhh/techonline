@@ -1,12 +1,19 @@
-import React, { FC, memo } from 'react';
+import React, {FC, memo, useState} from 'react';
+import Image from "next/image";
 import Logo from "components/UI/Logo/Logo";
 import Head from "components/Header/UI/Head";
-import {SearchIcon, ShoppingCartIcon} from "static/icons/icon";
-import Image from "next/image";
+import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
+import {SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import styles from './Header.module.scss'
 
 const Header: FC = () => {
+
+    const [ showCart, setShowCart ] = useState<boolean>(false)
+
+    const handleShowCart = () => {
+        setShowCart(!showCart)
+    }
     return (
             <div className={styles.root}>
                 <Head/>
@@ -38,10 +45,15 @@ const Header: FC = () => {
                             </ul>
                         </nav>
                         <SearchIcon/>
-                        <div className={styles.Basket}>
-                            <ShoppingCartIcon/>
-                            <span>3</span>
-                        </div>
+                            <div className={styles.Basket}>
+                                <button
+                                    onClick={handleShowCart}
+                                    >
+                                    <ShoppingCartIcon/>
+                                    <span>3</span>
+                                </button>
+                                <Minicart show={showCart}/>
+                            </div>
                         <div className={styles.Avatar}>
                             <Image
                                 width={36}

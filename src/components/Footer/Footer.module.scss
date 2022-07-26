@@ -37,7 +37,7 @@
     }
   }
 
-  :last-child {
+  > :last-child {
     @include flex(center, center);
   }
 }
