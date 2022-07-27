@@ -9,13 +9,16 @@
   font-size: 12px;
   line-height: 18px;
 
-  > a {
-    &:hover {
-      color: var(--brand);
+  > div {
+    > a {
+      &:hover {
+        color: var(--brand) !important;
+      }
     }
-  }
 
-  > span {
-    color: var(--brand);
+    > span {
+      color: var(--brand);
+      margin-left: 4px;
+    }
   }
 }

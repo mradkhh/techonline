@@ -19,11 +19,11 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--basic6);
+  color: var(--black);
   transition: color 250ms ease;
 
   &:hover {
-    color: var(--basic3);
+    color: var(--brand);
   }
 }
 

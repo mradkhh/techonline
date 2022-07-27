@@ -60,9 +60,94 @@
 
 // ---------------- content -----------------
 .contentTitle {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 27px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--gray);
+  > h2 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--gray);
+  }
+}
+
+.content {
+  @include container;
+  @include flex-between(flex-start);
+  gap: 30px;
+  padding-bottom: 87px;
+}
+
+.formField {
+
+  width: 100%;
+}
+.form {
+  @include maxWidth(565);
+  margin-top: 24px;
+
+  > p {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 210%;
+    color: var(--gray);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--gray);
+  }
+}
+
+.radioWrapper {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray);
+}
+
+.radio {
+
+  > label {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+  }
+
+  > div {
+    @include flex-start(center);
+    gap: 8px;
+    margin-bottom: 16px;
+
+    > input {
+      width: min-content;
+    }
+
+    > div {
+    @include flex-start(center);
+      @include maxWidth(800);
+      > h4 {
+        width: 100%;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      > span {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+
+
+.summary {
+  padding: 18px 32px;
+  background-color: var(--light-blue);
+  margin-top: 40px;
+  min-width: max-content;
+
+  > h2 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+  }
 }
