@@ -1,0 +1,25 @@
+@import "styles/mixins/mixins.scss";
+
+.menu {
+  @include flex(flex-start, space-between);
+  min-width: 1400px;
+  background-color: var(--white);
+  border: 1px solid var(--gray);
+  min-height: 200px;
+
+  > div {
+    border-right: 1px solid var(--gray);
+    width: 100%;
+    min-height: 400px;
+
+    > div {
+      @include selectItemStyle;
+    }
+
+  }
+}
+
+.cards {
+  @include flex-start(flex-start);
+  min-width: 500px;
+}

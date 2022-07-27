@@ -27,33 +27,6 @@
   @include dropEffect(200);
 }
 
-
-
 .item {
-  cursor: pointer;
-  padding: 8px 12px;
-  min-width: 176px;
-  background-color: var(--white);
-  color: var(--black);
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 210%;
-  > span {
-    display: none;
-  }
-
-  &:hover {
-    background-color: var(--light-blue);
-  }
-}
-
-@keyframes fade-down {
-  0% {
-    opacity: 0;
-    top: 0;
-  }
-  100% {
-    opacity: 1;
-    top: 40px;
-  }
+  @include selectItemStyle;
 }

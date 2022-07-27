@@ -1,0 +1,68 @@
+@import "styles/mixins/mixins.scss";
+
+
+// ----------------- page header -------------------
+.header {
+  @include container;
+  @include flex-between(baseline);
+  gap: 24px;
+
+  > h1 {
+    @include commonTitle;
+  }
+
+  > button {
+    @include maxWidth(210);
+    @include outlineBtn;
+    margin-right: auto;
+  }
+}
+
+.checkoutSteps {
+  @include flex-between(center);
+  @include maxWidth(388);
+
+  > div {
+    @include flex-column(center, center);
+    gap: 12px;
+    @include maxWidth(194);
+    position: relative;
+
+    &:before {
+      position: absolute;
+      top: 20px;
+      content: '';
+      @include maxWidth(194);
+      height: 2px;
+      background-color: var(--brand);
+    }
+
+    > span {
+      @include flex-center(center);
+      @include rectangle(40);
+      border-radius: 50%;
+      background-color: var(--white);
+      border: 1px solid var(--brand);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 24px;
+      z-index: 123;
+    }
+
+    > h5 {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: var(--black);
+    }
+  }
+}
+
+// ---------------- content -----------------
+.contentTitle {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--gray);
+}

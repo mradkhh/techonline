@@ -8,7 +8,7 @@ interface TextInputProps {
     require?: boolean
 }
 
-const TextInput: FC<TextInputProps> = ({ label, placeholder , type, require = false}) => {
+const TextInput: FC<TextInputProps> = ({ label, placeholder , type, require = true}) => {
     return (
         <div className={styles.field}>
             {

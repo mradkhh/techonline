@@ -95,15 +95,3 @@
     }
   }
 }
-
-// -------------- animation -----------------
-@keyframes fade-down {
-  0% {
-    opacity: 0;
-    top: 0;
-  }
-  100% {
-    opacity: 1;
-    top: 40px;
-  }
-}

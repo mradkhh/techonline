@@ -242,4 +242,50 @@
   box-shadow: var(--shadow);
   border-radius: 4px;
   overflow: hidden;
+
+  @keyframes fade-down {
+    0% {
+      opacity: 0;
+      top: 0;
+    }
+    100% {
+      opacity: 1;
+      top: 40px;
+    }
+  }
+}
+
+@mixin dropEffectToUp($duration) {
+  position: absolute;
+  animation: fade-up $duration+ms ease;
+  top: 58px;
+  box-shadow: var(--shadow);
+  border-radius: 4px;
+  overflow: hidden;
+
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      top: 100px;
+    }
+    100% {
+      opacity: 1;
+      top: 58px;
+    }
+  }
+}
+
+@mixin selectItemStyle {
+  cursor: pointer;
+  padding: 10px 28px;
+  min-width: 176px;
+  background-color: var(--white);
+  color: var(--black);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+
+  &:hover {
+    background-color: var(--light-blue);
+  }
 }
