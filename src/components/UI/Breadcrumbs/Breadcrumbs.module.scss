@@ -3,6 +3,7 @@
 .breadcrumbs {
   @include container;
   @include flex-start(center);
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
   font-weight: 400;

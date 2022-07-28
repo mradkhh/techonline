@@ -30,6 +30,9 @@
 
   > a {
     color: var(--white);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
     @media (max-width: $breakpoint992) {
       font-weight: 600;
       font-size: 11px;

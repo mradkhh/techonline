@@ -11,7 +11,7 @@
   @media (max-width: $breakpoint992) {
     position: absolute;
     top: -44px;
-    left: 24px;
+    left: 20px;
     background-color: var(--brand);
     padding: 10px 21px 18px 21px;
     border-radius: 50% 50% 10px 10px;
@@ -23,6 +23,10 @@
         fill: var(--white);
       }
     }
+  }
+
+  @media (max-width: $breakpoint568) {
+    left: 14px;
   }
 
   > span {

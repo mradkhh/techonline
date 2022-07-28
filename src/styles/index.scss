@@ -74,8 +74,19 @@ button {
   padding-bottom: 3px;
 }
 
-.main_home {
+.main_home,
+.main_catalog {
   padding-top: 118px;
+
+  @media (max-width: 991.98px) {
+    padding-top: 110px;
+  }
+}
+
+.main_catalog {
+  @media (max-width: 567.98px) {
+    padding-top: 130px;
+  }
 }
 
 .main_contact,
@@ -85,4 +96,10 @@ button {
 .main_faq,
 .main_checkout {
   padding-top: 140px;
+
+  @media (max-width: 991.98px) {
+    padding-top: 130px;
+  }
+
+
 }

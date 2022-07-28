@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import Image from "next/image";
-import styles from './styles/FullProductCard.module.scss'
 import {FavoriteIcon, MessageIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon} from "static/icons/icon";
+import styles from './styles/FullProductCard.module.scss'
 
 interface FullProductCardProps {
     isInStock: boolean,

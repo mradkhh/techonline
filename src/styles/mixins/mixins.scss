@@ -23,13 +23,15 @@ $breakpoint480: 479.98 + px;
   }
   @media (max-width: $breakpoint992) {
     max-width: 960px;
+    padding-inline: 25px;
   }
   @media (max-width: $breakpoint768) {
     max-width: 740px;
-    padding-inline: 25px;
+    padding-inline: 20px;
   }
   @media (max-width: $breakpoint568) {
     max-width: none;
+    padding-inline: 14px;
   }
 }
 
@@ -190,18 +192,25 @@ $breakpoint480: 479.98 + px;
 
 @mixin grid($repeat) {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 12px;
 
-  @media (min-width: 567px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (min-width: 678px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (min-width: 992px) {
+  @media (max-width: $breakpoint1450) {
     grid-template-columns: repeat($repeat, 1fr);
   }
+  @media (max-width: $breakpoint992) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: $breakpoint768) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: $breakpoint568) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $breakpoint480) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
 }
 
 

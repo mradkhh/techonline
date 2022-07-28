@@ -44,6 +44,10 @@
       background-color: var(--light-blue-darker);
     }
   }
+
+  @media (max-width: $breakpoint768) {
+    display: none;
+  }
 }
 
 .filterTop {

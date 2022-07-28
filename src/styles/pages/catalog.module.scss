@@ -1,9 +1,15 @@
 @import "styles/mixins/mixins";
 
 .adsBanner {
-  @include container;
   margin-bottom: 20px;
-  margin-top: 118px;
+
+  @media (min-width: $breakpoint992) {
+    @include container;
+  }
+
+  @media (max-width: $breakpoint568) {
+    display: none;
+  }
 }
 
 .title {
@@ -17,12 +23,13 @@
   gap: 8px;
 }
 
-.content {
-
-}
 
 .headViewTools {
   @include flex-start(center);
+  flex-wrap: wrap;
+  @media (max-width: $breakpoint568) {
+    flex-direction: column-reverse;
+  }
   gap: 8px;
   margin-bottom: 8px;
   > p {
@@ -37,11 +44,18 @@
 .sort {
   @include flex-end(center);
   gap: 8px;
+  @media (max-width: $breakpoint568) {
+    margin-right: auto;
+  }
 }
 
 .viewType {
   @include flex-end(center);
   gap: 8px;
+
+  @media (max-width: $breakpoint992) {
+    display: none;
+  }
 
   > button {
     line-height: 1;
@@ -58,8 +72,13 @@
 // -------------------- products grid --------------
 
 .products {
-  @include grid(5);
+  @include grid(4);
   margin-bottom: 24px;
+  @media (max-width: $breakpoint480) {
+    > div {
+      margin-inline: auto;
+    }
+  }
 }
 
 // ------------------- description section ----------------
