@@ -12,12 +12,14 @@
 
   > div {
     > a {
+      min-width: max-content;
       &:hover {
         color: var(--brand) !important;
       }
     }
 
     > span {
+      min-width: max-content;
       color: var(--brand);
       margin-left: 4px;
     }
