@@ -1,3 +1,5 @@
+@import "styles/mixins/mixins.scss";
+
 .Root {
   display: flex;
   justify-content: center;
@@ -5,6 +7,23 @@
   color: var(--green3);
   font-size: 32px;
   font-weight: 600;
+
+  @media (max-width: $breakpoint992) {
+    position: absolute;
+    top: -44px;
+    left: 24px;
+    background-color: var(--brand);
+    padding: 10px 21px 18px 21px;
+    border-radius: 50% 50% 10px 10px;
+
+    > svg {
+      width: 18px;
+      height: 24px;
+      path {
+        fill: var(--white);
+      }
+    }
+  }
 
   > span {
     color: var(--basic6);

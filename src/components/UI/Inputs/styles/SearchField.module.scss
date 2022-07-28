@@ -3,12 +3,16 @@
 .Root {
   @include searchFiled;
   position: relative;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   width: 100%;
   background-color: var(--light-blue);
   border-radius: 31px;
+
+  @media (max-width: $breakpoint992) {
+    display: flex;
+  }
 
   > input {
     padding-block: 12px;

@@ -1,5 +1,19 @@
 @import "styles/mixins/mixins";
 
+.Root {
+  @media (max-width: $breakpoint992) {
+    margin-left: 110px;
+  }
+
+  @media (max-width: $breakpoint480) {
+    margin-left: 80px;
+  }
+
+  @media (max-width: 400px) {
+    margin-left: 50px;
+  }
+}
+
 .Time {
   @include flex(flex-start, flex-start);
   gap: 8px;
@@ -62,6 +76,11 @@
   font-size: 12px;
   line-height: 18px;
   color: var(--gray);
+
+  @media (max-width: $breakpoint992) {
+    font-size: 11px;
+    line-height: 16px;
+  }
 
   > span {
     color: var(--white);

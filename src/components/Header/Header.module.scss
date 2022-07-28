@@ -22,9 +22,14 @@
   @include flex(center, space-between);
   @include container;
   gap: 48px;
+  position: relative;
 
   @media (max-width: $breakpoint1450) {
     gap: 16px;
+  }
+
+  @media (max-width: $breakpoint568) {
+    gap: 8px;
   }
 }
 
@@ -110,6 +115,10 @@
 
 .Avatar {
   position: relative;
+  @include rectangle(32);
+  @media (max-width: $breakpoint568) {
+    margin-left: 8px;
+  }
 
   > button {
     cursor: pointer;

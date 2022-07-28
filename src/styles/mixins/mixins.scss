@@ -95,7 +95,9 @@ $breakpoint480: 479.98 + px;
 
 @mixin rectangle($width-height) {
   width: $width-height+px;
+  min-width: $width-height+px;
   height: $width-height+px;
+  min-height: $width-height+px;
 }
 
 // ------------- inputs --------------------

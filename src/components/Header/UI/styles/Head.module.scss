@@ -15,12 +15,14 @@
 }
 
 .Center {
-  color: var(--gray);
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 18px;
+  @include flex-center(center);
+  gap: 4px;
 
   > h6 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--gray);
     @media (max-width: $breakpoint992) {
       display: none;
     }

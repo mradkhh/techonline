@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import styles from './Burger.module.scss'
 
 interface BurgerProps {
@@ -9,9 +9,9 @@ interface BurgerProps {
 
 const Burger: FC<BurgerProps> = ({ show, setShow }) => {
 
-    const handleToggle = () => {
+    const handleToggle = useCallback(() => {
         setShow(!show)
-    }
+    }, [show])
 
     return (
         <button
@@ -26,4 +26,4 @@ const Burger: FC<BurgerProps> = ({ show, setShow }) => {
     );
 };
 
-export default Burger;
+export default memo(Burger);
