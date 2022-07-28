@@ -10,20 +10,39 @@
   padding-block: 18px;
   border-bottom: 1px solid #CACDD8;
   background-color: var(--white);
+
+  @media (max-width: $breakpoint992) {
+    background-color: var(--brand);
+    border-bottom: 1px solid var(--brand);
+    padding-block: 12px;
+  }
 }
 
 .Root {
   @include flex(center, space-between);
   @include container;
   gap: 48px;
+
+  @media (max-width: $breakpoint1450) {
+    gap: 16px;
+  }
 }
 
 .Navbar {
   position: relative;
   margin-right: auto;
+
+  @media (max-width: $breakpoint992) {
+    display: none;
+  }
   > ul {
     @include flex(center, space-between);
     gap: 24px;
+    @media (max-width: $breakpoint1450) {
+      gap: 16px;
+    }
+
+
 
     > li {
       font-weight: 600;
@@ -56,8 +75,17 @@
 .Basket {
   position: relative;
   cursor: pointer;
+  margin-top: 10px;
 
   > button {
+
+    @media (max-width: $breakpoint992) {
+
+      > svg path {
+        fill: var(--white);
+      }
+    }
+
     > span {
       @include rectangle(16);
       @include flex(center, center);
@@ -71,6 +99,11 @@
       position: absolute;
       top: -7px;
       right: -9px;
+
+      @media (max-width: $breakpoint992) {
+        background-color: var(--white);
+        color: var(--brand);
+      }
     }
   }
 }
@@ -80,6 +113,15 @@
 
   > button {
     cursor: pointer;
+    @include flex-center(center);
+    background-color: var(--white);
+    @media (max-width: $breakpoint992) {
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      > * {
+        transform: scale(1.1);
+      }
+    }
   }
 
   > div {

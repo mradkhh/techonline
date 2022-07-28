@@ -2,8 +2,8 @@ import React, {FC, memo, ReactNode} from 'react';
 import Head from "next/head";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import styles from "styles/pages/home.module.scss";
 import {ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
+import styles from "./styles/main.module.scss";
 
 interface MainLayoutProps {
     children: ReactNode,

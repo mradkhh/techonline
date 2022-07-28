@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useState} from 'react';
 import Accordion from "components/UI/Accordion/Accordion";
 import A from "components/UI/A/A";
 import {
@@ -11,8 +11,12 @@ import {
     VisaCardIcon
 } from "static/icons/icon";
 import styles from './Footer.module.scss'
+import {bool} from "prop-types";
 
 const Footer: FC = memo(() => {
+
+
+
     return (
             <div className={styles.footer}>
                 <div className={styles.top}>
@@ -68,10 +72,10 @@ const Footer: FC = memo(() => {
                     <Accordion header="Address">
                         <A href="/">Address: 1234 Street Address City Address, 1234</A>
                         <A href="/">Phones: <span>(00) 1234 5678</span></A>
-                        <A href="/">We are open: Monday-Thursday: 9:00 AM - 5:30 PM</A>
+                        <A href="/">We are open: <br/> Monday-Thursday: 9:00 AM - 5:30 PM</A>
                         <A href="/">Friday: 9:00 AM - 6:00 PM</A>
                         <A href="/">Saturday: 11:00 AM - 5:00 PM</A>
-                        <A href="/">E-mail: <span>shop@email.com</span></A>
+                        <A href="/">E-mail: shop@email.com</A>
                     </Accordion>
                 </div>
                 <div className={styles.bottom}>

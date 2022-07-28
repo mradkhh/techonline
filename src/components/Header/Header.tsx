@@ -5,14 +5,17 @@ import Head from "components/Header/UI/Head";
 import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
-import {SearchIcon, ShoppingCartIcon} from "static/icons/icon";
+import {BurgerIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import styles from './Header.module.scss'
+import SearchField from "components/UI/Inputs/SearchField";
+import Burger from "components/UI/Burger/Burger";
 
 const Header: FC = () => {
 
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
+    const [ showSideMenu, setShowSideMenu ] = useState<boolean>(false)
 
     const handleShowCart = () => {
         setShowCart(!showCart)
@@ -30,8 +33,9 @@ const Header: FC = () => {
                 <Head/>
                 <div className={styles.header}>
                     <div className={styles.Root}>
+                        <Burger show={showSideMenu} setShow={setShowSideMenu}/>
                         <Logo/>
-                        {/*<SearchField/>*/}
+                        <SearchField/>
                         <nav className={styles.Navbar}>
                             <ul>
                                 <li>
@@ -58,7 +62,7 @@ const Header: FC = () => {
                                 showMenu && <Menu/>
                             }
                         </nav>
-                        <SearchIcon/>
+                        {/*<SearchIcon/>*/}
                             <div className={styles.Basket}>
                                 <button
                                     onClick={handleShowCart}

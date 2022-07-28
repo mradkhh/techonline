@@ -1,33 +1,89 @@
-.accordion {
-  @media (max-width: 991.98px) {
-      :first-child {
+@import "styles/mixins/mixins.scss";
 
-      }
+.accordion {
+  width: 100%;
+}
+
+
+.header {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--gray);
+
+  @media (max-width: $breakpoint768) {
+    font-size: 11px;
+  }
+}
+
+.items {
+  > * {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 140%;
+    color: var(--white);
+    margin-bottom: 4px;
+    display: block;
+
+    @media (max-width: $breakpoint768) {
+      font-weight: 300;
+      font-size: 12px;
+    }
   }
 
-  @media (min-width: 992px) {
-    :first-child {
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 100%;
-      color: var(--gray);
-      margin-bottom: 24px;
+  > a:hover {
+    text-decoration: underline;
+  }
+
+
+  @media (max-width: $breakpoint992) {
+    padding: 12px;
+  }
+}
+
+// ------------------ media min 992px -------------
+
+@media (min-width: 992px) {
+
+  .header {
+    margin-bottom: 20px;
+    > span {
+      display: none;
+    }
+  }
+
+  .items {
+
+    > * {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 140%;
+      color: var(--white);
+      margin-bottom: 4px;
+      display: block;
     }
 
-    :last-child {
+    > a:hover {
+      text-decoration: underline;
+    }
+  }
+}
 
+.header {
+  @media (max-width: $breakpoint992) {
+    @include flex-between(center);
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 12px;
+    color: var(--white);
+    cursor: pointer;
 
-      > * {
-        font-weight: 400;
-        font-size: 13px;
-        line-height: 140%;
-        color: var(--white);
-        margin-bottom: 4px;
-        display: block;
-      }
+    > span {
+      display: inline;
 
-      > a:hover {
-        text-decoration: underline;
+      > svg {
+        > path {
+          stroke: var(--white);
+        }
       }
     }
   }

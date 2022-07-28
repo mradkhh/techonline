@@ -45,7 +45,6 @@ const showOption = [
 ]
 
 const Catalog: NextPage = () => {
-
     const [ page, setPage ] = useState<number>(1)
     const pages = 234
 

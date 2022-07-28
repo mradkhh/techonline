@@ -3,6 +3,10 @@
 .Root {
   background-color: var(--dark);
   padding-block: 8px;
+
+  @media (max-width: $breakpoint992) {
+    padding-block: 12px;
+  }
 }
 
 .Content {
@@ -16,8 +20,19 @@
   font-size: 12px;
   line-height: 18px;
 
+  > h6 {
+    @media (max-width: $breakpoint992) {
+      display: none;
+    }
+  }
+
   > a {
     color: var(--white);
+    @media (max-width: $breakpoint992) {
+      font-weight: 600;
+      font-size: 11px;
+      line-height: 16px;
+    }
 
     &:hover {
       text-decoration: underline;
@@ -28,6 +43,9 @@
 .Right {
   @include flex(center, space-between);
   gap: 16px;
+  @media (max-width: $breakpoint992) {
+    display: none;
+  }
 
   > h5 {
     font-weight: 600;

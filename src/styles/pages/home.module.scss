@@ -42,7 +42,7 @@
   }
 }
 
-// category section
+// =---------------------- category section -----------------=
 
 .category {
   @include grid(6);
@@ -65,7 +65,7 @@
   }
 }
 
-// brand section
+// =------------------ brand section ---------------=
 
 .brands {
   @include container;
@@ -75,8 +75,7 @@
   padding-block: 35px;
 }
 
-// blogs section
-
+// =------------ blogs section ----------=
 .blogsTitle {
   @include container;
   font-weight: 600;
@@ -92,33 +91,3 @@
 }
 
 
-// about us section
-.aboutUs {
-  padding-top: 60px;
-  padding-bottom: 44px;
-}
-
-.content {
-  @include container;
-  @include flex-around(center);
-}
-
-.bg {
-  background-color: var(--light-blue);
-}
-
-.aboutItem {
-  @include flex-column(center, center);
-  @include maxWidth(265);
-  text-align: center;
-  > h4 {
-    margin-bottom: 14px;
-    margin-top: 24px;
-  }
-
-  > p {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 140%;
-  }
-}

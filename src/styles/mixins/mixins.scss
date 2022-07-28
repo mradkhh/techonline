@@ -1,15 +1,18 @@
 @use 'sass:math';
 
 // ---------------- container ------------------
-@mixin container {
-  $containerWidth: 1400;
-  $containerPadding: 40;
-  $containerSidePadding: math.div($containerPadding, 2);
-  $breakpoint1450: 1449.98 + px;
-  $breakpoint992: 991.98 + px;
-  $breakpoint768: 767.98 + px;
-  $breakpoint480: 479.98 + px;
 
+$containerWidth: 1400;
+$containerPadding: 40;
+$containerSidePadding: math.div($containerPadding, 2);
+$breakpoint1450: 1449.98 + px;
+$breakpoint992: 991.98 + px;
+$breakpoint768: 767.98 + px;
+$breakpoint568: 567.98 + px;
+$breakpoint480: 479.98 + px;
+
+
+@mixin container {
   max-width: ($containerWidth + $containerPadding) + px;
   width: 100%;
   margin-inline: auto;
@@ -25,7 +28,7 @@
     max-width: 740px;
     padding-inline: 25px;
   }
-  @media (max-width: $breakpoint480) {
+  @media (max-width: $breakpoint568) {
     max-width: none;
   }
 }

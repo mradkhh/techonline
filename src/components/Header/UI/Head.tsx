@@ -13,7 +13,7 @@ const Head: FC<HeadProps> = ({  }) => {
             <div className={cl.Root}>
                 <div className={cl.Content}>
                     <ShopInfo/>
-                    <div className={cl.Center}>Visit our showroom in 1234 Street Address City Address, 1234
+                    <div className={cl.Center}><h6>Visit our showroom in 1234 Street Address City Address, 1234</h6>
                         <A href='/'> Contact Us</A>
                     </div>
                     <div className={cl.Right}>

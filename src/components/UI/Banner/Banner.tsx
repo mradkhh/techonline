@@ -9,7 +9,6 @@ const Banner = () => {
         <div className={styles.banner}>
             <Carousel type='banner' autoplay={true} button={true} loop={true} >
                 <SwiperSlide>
-                    <div className={styles.banner}>
                         <Image
                             width={1400}
                             height={328}
@@ -18,10 +17,8 @@ const Banner = () => {
                             src={'/images/banner.png'}
                             alt='Premiere'
                         />
-                    </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className={styles.banner}>
                         <Image
                             width={1400}
                             height={328}
@@ -30,10 +27,8 @@ const Banner = () => {
                             src={'/images/banner.png'}
                             alt='Premiere'
                         />
-                    </div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className={styles.banner}>
                         <Image
                             width={1400}
                             height={328}
@@ -42,7 +37,6 @@ const Banner = () => {
                             src={'/images/banner.png'}
                             alt='Premiere'
                         />
-                    </div>
                 </SwiperSlide>
             </Carousel>
         </div>

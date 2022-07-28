@@ -2,6 +2,9 @@
 
 
 .banner {
-  max-width: 1400px;
-  margin-inline: auto;
+  @include container;
+
+  @media (max-width: $breakpoint992) {
+    margin-top: 20px;
+  }
 }

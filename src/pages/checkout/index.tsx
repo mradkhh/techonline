@@ -57,17 +57,17 @@ const CheckOut: FC = () => {
                     </div>
                     <div className={styles.radioWrapper}>
                         <div className={styles.radio}>
-                            <label htmlFor="html">Standard Rate</label>
+                            <label htmlFor="radio1">Standard Rate</label>
                             <div>
-                                <input type="radio" name={'price'} value={1}/>
+                                <input type="radio" name={'price'} id={"radio1"} value={1}/>
                                 <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you. $21.00</h4> <span>	$21.00</span></div>
                             </div>
                         </div>
                         <div className={styles.radio}>
-                            <label htmlFor="html">Pickup from store</label>
+                            <label htmlFor="radio2">Pickup from store</label>
                             <div>
-                                <input type="radio" name={'price'} value={1}/>
-                                <div><h4>1234 Street Adress City Address, 1234</h4> <span>	$21.00</span></div>
+                                <input type="radio" name={'price'} id={"radio2"} value={1}/>
+                                <div><h4>1234 Street Address City Address, 1234</h4> <span>	$21.00</span></div>
                             </div>
                         </div>
                     </div>
