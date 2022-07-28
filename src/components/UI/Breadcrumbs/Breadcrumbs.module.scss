@@ -6,22 +6,30 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
+}
+
+.link {
+  @include flex-start(center);
+  > a {
+    min-width: max-content;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    &:hover {
+      color: var(--brand) !important;
+    }
+  }
+}
+
+.arrow {
+  min-width: max-content;
+  color: var(--brand);
+  margin-left: 4px;
+}
+
+.current {
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
-
-  > div {
-    > a {
-      min-width: max-content;
-      &:hover {
-        color: var(--brand) !important;
-      }
-    }
-
-    > span {
-      min-width: max-content;
-      color: var(--brand);
-      margin-left: 4px;
-    }
-  }
+  color: var(--gray);
 }

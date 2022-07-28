@@ -18,13 +18,13 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ array, current }) => {
         <div className={styles.breadcrumbs}>
             {
                 array.map(guide =>
-                    <div key={guide.path}>
+                    <div className={styles.link} key={guide.path}>
                         <A href={guide.path}>{guide.text}</A>
-                        <span>{'>'}</span>
+                        <span className={styles.arrow}>{'>'}</span>
                     </div>
                 )
             }
-            <div>{current}</div>
+            <div className={styles.current}>{current}</div>
         </div>
     );
 };
