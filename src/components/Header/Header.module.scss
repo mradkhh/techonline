@@ -95,6 +95,10 @@
       background-color: transparent;
     }
 
+    &:focus {
+      background-color: transparent;
+    }
+
     > span {
       @include rectangle(16);
       @include flex(center, center);
@@ -130,6 +134,9 @@
     background-color: var(--white);
 
     &:active {
+      background-color: var(--white);
+    }
+    &:focus {
       background-color: var(--white);
     }
     @media (max-width: $breakpoint992) {
