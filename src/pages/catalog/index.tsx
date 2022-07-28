@@ -44,14 +44,10 @@ const showOption = [
     { value: '5', title: '5 Per page' },
 ]
 
-
-
 const Catalog: NextPage = () => {
 
     const [ page, setPage ] = useState<number>(1)
-
     const pages = 234
-
 
     return (
         <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>
