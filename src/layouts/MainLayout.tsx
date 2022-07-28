@@ -18,8 +18,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
             <Head>
                 <title>{title}</title>
                 <meta name="description" content={description} />
-                <link rel="icon" href="/favicon.png" type="image/png" />
-                <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="reload" href="/favicon.ico" as="icon"/>
             </Head>
             <Header/>
             <main className={mainClass}>
