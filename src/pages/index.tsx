@@ -6,6 +6,10 @@ import Banner from "components/UI/Banner/Banner";
 import Carousel from "components/UI/Carousel/Carousel";
 import ProductCard from "components/UI/Cards/ProductCard";
 import Tabs from "components/UI/Tabs/Tabs"
+import A from "components/UI/A/A";
+import VisitCard from "components/UI/Cards/VisitCard";
+import BlogCard from "components/UI/Cards/BlogCard";
+import QuoteBanner from "components/UI/Banner/QuoteBanner";
 import img1 from 'static/images/products/1.jpg'
 import img2 from 'static/images/products/2.jpg'
 import img3 from 'static/images/products/3.png'
@@ -20,16 +24,7 @@ import desktopImg from 'static/images/categories/desktop.png'
 import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
-import {
-    ContactIcon,
-    HearphoneIcon,
-    MSIIcon,
-    PartnerLogo, SaleIcon,
-} from "static/icons/icon";
-import A from "components/UI/A/A";
-import VisitCard from "components/UI/Cards/VisitCard";
-import BlogCard from "components/UI/Cards/BlogCard";
-import QuoteBanner from "components/UI/Banner/QuoteBanner";
+import { MSIIcon, PartnerLogo } from "static/icons/icon";
 import styles from "styles/pages/home.module.scss"
 
 const Index: NextPage = () => {
@@ -135,9 +130,11 @@ const Index: NextPage = () => {
           </div>
 
           <section className={styles.ads}>
-              <PartnerLogo/>
-              <h3><span>own</span> it now, up to 6 months interest free  </h3>
-              <A href='/'> learn more</A>
+              <div className={styles.adsContent}>
+                  <PartnerLogo/>
+                  <h3><span>own</span> it now, up to 6 months interest free  </h3>
+                  <A href='/'> learn more</A>
+              </div>
           </section>
 
           <section className={styles.category}>

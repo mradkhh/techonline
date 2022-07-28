@@ -1,4 +1,5 @@
-import React, {FC, useState} from 'react';
+import {NextPage} from "next";
+import React, {useState} from 'react';
 import Image from "next/image";
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
@@ -56,7 +57,7 @@ const items = [
     }
 ]
 
-const Index: FC = () => {
+const Index: NextPage = () => {
     const [ amount, setAmount ] = useState<number>(1)
 
 

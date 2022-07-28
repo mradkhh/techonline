@@ -13,12 +13,32 @@
   }
 }
 
+// =------------- ads section -------------=
+
 .ads {
+  @media (max-width: $breakpoint768) {
+    @include container;
+  }
+}
+
+.adsContent {
   @include flex(center, center);
   background-color: var(--light-blue);
   padding-block: 22px;
   gap: 4px;
   margin-bottom: 14px;
+
+  @media (max-width: $breakpoint768) {
+
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @media (max-width: $breakpoint480) {
+    > svg {
+      width: 40px;
+    }
+  }
 
 
 
@@ -31,6 +51,13 @@
     border-left: 2px solid var(--dark-cyan);
     padding-left: 14px;
 
+    @media (max-width: $breakpoint768) {
+      border: none;
+    }
+    @media (max-width: $breakpoint480) {
+      font-size: 12px;
+    }
+
     > span {
       font-weight: 700;
     }
@@ -39,6 +66,15 @@
   > a {
     text-decoration: underline;
     color: var(--dark-blue);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120.5%;
+
+    @media (max-width: $breakpoint480) {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 120.5%;
+    }
   }
 }
 

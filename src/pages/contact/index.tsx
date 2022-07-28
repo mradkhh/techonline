@@ -1,3 +1,4 @@
+import {NextPage} from "next";
 import React from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
@@ -10,7 +11,7 @@ const breadcrumbs = [
     { path: '/', text: 'Home' }
 ]
 
-const Contact = () => {
+const Contact: NextPage = () => {
     return (
         <MainLayout title={"TechOnline - Contact"} description={"contact"} mainClass={"main_contact"}>
             <Breadcrumbs array={breadcrumbs} current="Login"/>

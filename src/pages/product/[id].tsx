@@ -1,3 +1,4 @@
+import {NextPage} from "next";
 import Image from "next/image";
 import React, { useState} from 'react';
 import MainLayout from "layouts/MainLayout";
@@ -32,7 +33,7 @@ const breadcrumbs = [
 ]
 
 
-const Product = () => {
+const Product: NextPage = () => {
     const [ tabNumber, setTabNumber ] = useState<number>(1)
     const [ amount, setAmount ] = useState<number>(1)
 

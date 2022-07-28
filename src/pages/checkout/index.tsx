@@ -1,3 +1,4 @@
+import {NextPage} from "next";
 import React, {FC} from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
@@ -11,7 +12,7 @@ const breadcrumbs = [
     { path: '/', text: 'Shopping Cart' }
 ]
 
-const CheckOut: FC = () => {
+const CheckOut: NextPage = () => {
     return (
         <MainLayout title={"TechOnline - Checkout"} description={"checkout"} mainClass={"main_checkout"}>
             <Breadcrumbs array={breadcrumbs} current="Checkout progress"/>
