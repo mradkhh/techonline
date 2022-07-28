@@ -91,6 +91,10 @@
       }
     }
 
+    &:active {
+      background-color: transparent;
+    }
+
     > span {
       @include rectangle(16);
       @include flex(center, center);
@@ -124,6 +128,10 @@
     cursor: pointer;
     @include flex-center(center);
     background-color: var(--white);
+
+    &:active {
+      background-color: var(--white);
+    }
     @media (max-width: $breakpoint992) {
       border: 3px solid var(--white);
       border-radius: 50%;
