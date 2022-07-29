@@ -11,11 +11,8 @@ import {
     VisaCardIcon
 } from "static/icons/icon";
 import styles from './Footer.module.scss'
-import {bool} from "prop-types";
 
 const Footer: FC = memo(() => {
-
-
 
     return (
             <div className={styles.footer}>

@@ -20,6 +20,7 @@ import {
 } from "static/icons/icon";
 import styles from 'styles/pages/product.module.scss'
 import A from "components/UI/A/A";
+import useMediaQuery from "hooks/useMediaQuery";
 
 
 const tabs = [
@@ -36,6 +37,10 @@ const breadcrumbs = [
 const Product: NextPage = () => {
     const [ tabNumber, setTabNumber ] = useState<number>(1)
     const [ amount, setAmount ] = useState<number>(1)
+
+    const matches = useMediaQuery('(max-width: 767.98px)')
+    const featureImgWidth = matches ? 100 : 136
+    console.log(matches)
 
 
     const handleSwitch = (id: number): void => {
@@ -95,7 +100,6 @@ const Product: NextPage = () => {
                                     tabNumber === 2 ?
                                         <Tab2/> : null
                             }
-                            <h6>+ More information</h6>
                         </div>
                         <div className={styles.mainInfo__content_right}>
                             <div className={styles.img}>
@@ -161,8 +165,8 @@ const Product: NextPage = () => {
                     <div>
                         <div>
                             <Image
-                                width={136}
-                                height={136}
+                                width={featureImgWidth}
+                                height={featureImgWidth}
                                 objectFit='cover'
                                 objectPosition='center'
                                 src={intelImg}
@@ -172,8 +176,8 @@ const Product: NextPage = () => {
                         </div>
                         <div>
                             <Image
-                                width={136}
-                                height={136}
+                                width={featureImgWidth}
+                                height={featureImgWidth}
                                 objectFit='cover'
                                 objectPosition='center'
                                 src={rtxImg}
@@ -183,8 +187,8 @@ const Product: NextPage = () => {
                         </div>
                         <div>
                             <Image
-                                width={136}
-                                height={136}
+                                width={featureImgWidth}
+                                height={featureImgWidth}
                                 objectFit='cover'
                                 objectPosition='center'
                                 src={ssdImg}
@@ -194,8 +198,8 @@ const Product: NextPage = () => {
                         </div>
                         <div>
                             <Image
-                                width={136}
-                                height={136}
+                                width={featureImgWidth}
+                                height={featureImgWidth}
                                 objectFit='cover'
                                 objectPosition='center'
                                 src={ddrImg}

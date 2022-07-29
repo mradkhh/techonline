@@ -148,6 +148,10 @@ $breakpoint480: 479.98 + px;
   border-radius: 30px;
   background-color: transparent;
   cursor: pointer;
+
+  @media (max-width: $breakpoint568) {
+    font-size: 13px;
+  }
 }
 
 @mixin primaryButton {
@@ -161,6 +165,10 @@ $breakpoint480: 479.98 + px;
   color: var(--white);
   border: none;
   outline: none;
+
+  @media (max-width: $breakpoint568) {
+    font-size: 13px;
+  }
 
 }
 
@@ -210,6 +218,23 @@ $breakpoint480: 479.98 + px;
 
 }
 
+@mixin grid4($repeat) {
+  display: grid;
+  grid-template-columns: repeat($repeat, 1fr);
+  grid-gap: 12px;
+
+  @media (max-width: $breakpoint992) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $breakpoint768) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $breakpoint568) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+}
+
 
 // heading title
 @mixin title {
@@ -239,7 +264,12 @@ $breakpoint480: 479.98 + px;
   font-size: 14px;
   line-height: 21px;
   color: var(--black);
-  border-bottom: 2px solid #0156FF;
+  border-bottom: 2px solid var(--brand);
+
+  @media (max-width: $breakpoint768) {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
 
 @mixin tab {
@@ -250,7 +280,6 @@ $breakpoint480: 479.98 + px;
   border-bottom: 2px solid transparent;
 
   @media (max-width: $breakpoint480) {
-    font-weight: 600;
     font-size: 12px;
     line-height: 18px;
   }
