@@ -243,11 +243,6 @@ $breakpoint480: 479.98 + px;
   line-height: 48px;
   margin-bottom: 20px;
   color: var(--black);
-
-  @media (max-width: $breakpoint568) {
-    font-size: 18px;
-    line-height: 27px;
-  }
 }
 
 @mixin commonTitle {
