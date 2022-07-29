@@ -3,6 +3,8 @@ import React from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import styles from 'styles/pages/faq.module.scss'
+import A from "components/UI/A/A";
+import Accordion from "components/UI/Accordion/Accordion";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -53,14 +55,20 @@ const Faq: NextPage = () => {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <h4>Definitions & Interpretation</h4>
-                    <p>General</p>
-                    <p>Quotations</p>
-                    <p>Terms of Payment</p>
-                    <p>Credit Accounts</p>
-                    <p>Change of Ownership</p>
-                    <p>Information on the Products supplied</p>
-                    <p>Delivery</p>
+                    <Accordion
+                        className={styles.accordion}
+                        headerStyle={styles.accordionHeader}
+                        itemsStyle={styles.accordionItems}
+                        header="Definitions & Interpretation"
+                    >
+                        <p>General</p>
+                        <p>Quotations</p>
+                        <p>Terms of Payment</p>
+                        <p>Credit Accounts</p>
+                        <p>Change of Ownership</p>
+                        <p>Information on the Products supplied</p>
+                        <p>Delivery</p>
+                    </Accordion>
                 </div>
             </div>
         </MainLayout>

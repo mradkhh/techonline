@@ -251,6 +251,11 @@ $breakpoint480: 479.98 + px;
   line-height: 48px;
   color: var(--black);
   margin-bottom: 20px;
+
+  @media (max-width: $breakpoint568) {
+    font-size: 22px;
+    line-height: 27px;
+  }
 }
 
 // ------------------ tabs style -------------------

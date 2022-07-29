@@ -10,6 +10,10 @@
   @include flex-between(flex-start);
   gap: 30px;
   padding-bottom: 70px;
+
+  @media (max-width: $breakpoint768) {
+    flex-direction: column-reverse;
+  }
 }
 
 .left {
@@ -19,6 +23,10 @@
       font-size: 24px;
       line-height: 36px;
       margin-bottom: 20px;
+      @media (max-width: $breakpoint568) {
+        font-size: 16px;
+        line-height: 21px;
+      }
     }
 
     > div {
@@ -27,6 +35,13 @@
         font-size: 16px;
         line-height: 26px;
         margin-block: 32px;
+
+        @media (max-width: $breakpoint568) {
+          font-size: 14px;
+          line-height: 26px;
+          margin-block: 0;
+          margin-block: 8px;
+        }
       }
 
       > p {
@@ -35,10 +50,20 @@
     }
 }
 
+// =------------ right card ------------=
 .right {
   @include maxWidth(327);
   padding: 24px;
   background-color: var(--light-blue);
+  @media (max-width: $breakpoint992) {
+    @include maxWidth(254);
+  }
+  @media (max-width: $breakpoint768) {
+    max-width: 100% !important;
+    border-bottom: 1px solid var(--gray);
+    padding: 14px 16px;
+  }
+
   > h4 {
     font-weight: 600;
     font-size: 14px;
@@ -51,5 +76,42 @@
     font-size: 14px;
     line-height: 18px;
     margin-bottom: 16px;
+  }
+}
+
+.accordionHeader {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--black);
+  border-bottom: none;
+  @media (max-width: $breakpoint768) {
+    padding-bottom: 0;
+  }
+
+
+  > span {
+    display: none;
+
+    @media (max-width: $breakpoint768) {
+      display: inline-block;
+      > svg path {
+        stroke: var(--black);
+      }
+    }
+  }
+}
+
+.accordionItems {
+  padding: 0;
+  @media (max-width: $breakpoint768) {
+    padding-top: 8px;
+  }
+  > p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--black);
+    margin-bottom: 14px;
   }
 }

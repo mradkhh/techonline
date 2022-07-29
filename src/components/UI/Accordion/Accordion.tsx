@@ -6,27 +6,27 @@ import useMediaQuery from "hooks/useMediaQuery";
 interface AccordionProps {
     children: ReactNode,
     header: string,
+    className?: any,
+    headerStyle?: any,
+    itemsStyle?: any
 }
 
-
-const Accordion: FC<AccordionProps> = ({ children, header }) => {
+const Accordion: FC<AccordionProps> = ({ children, header, className, headerStyle, itemsStyle}) => {
 
     const matches = useMediaQuery("(max-width: 991.98px)")
     const [ show, setShow ] = useState<boolean>(true)
-
 
     const handleShow = () => {
         setShow(!show)
     }
 
-
     return (
-        <div className={styles.accordion}>
-            <div onClick={handleShow} className={styles.header}>{header} <span>
+        <div className={`${styles.accordion} ${className}`}>
+            <div onClick={handleShow} className={`${styles.header} ${headerStyle}`}>{header} <span>
                 <ArrowDown/>
             </span></div>
             {
-                show && <div className={styles.items}>
+                show && <div className={`${styles.items} ${itemsStyle}`}>
                     { children }
                 </div>
             }
