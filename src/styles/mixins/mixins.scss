@@ -248,6 +248,12 @@ $breakpoint480: 479.98 + px;
   line-height: 21px;
   color: var(--gray);
   border-bottom: 2px solid transparent;
+
+  @media (max-width: $breakpoint480) {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
 
 // ---------------- other -----------------

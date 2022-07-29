@@ -4,8 +4,12 @@
 .tab {
   @include maxWidth(567);
   margin-left: 120px;
+  @media (max-width: 1200px){
+    margin-left: 0;
+  }
   > h1 {
     @include productTitle;
+
   }
 
   > p {
@@ -17,6 +21,11 @@
     font-size: 18px;
     line-height: 30px;
     margin-bottom: 48px;
+
+    @media (max-width: $breakpoint992) {
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 
   > div {
@@ -26,6 +35,11 @@
       font-weight: 600;
       font-size: 12px;
       line-height: 18px;
+
+      @media (max-width: $breakpoint992) {
+        font-size: 10px;
+        line-height: 15px;
+      }
 
       > a {
         font-weight: 400;
@@ -43,6 +57,10 @@
       font-weight: 300;
       font-size: 12px;
       line-height: 18px;
+
+      @media (max-width: $breakpoint992) {
+        font-size: 12px;
+      }
     }
   }
 }

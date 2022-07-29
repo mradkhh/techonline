@@ -1,8 +1,17 @@
+@import "./mixins";
+
 @mixin productTitle {
   font-weight: 500;
   font-size: 32px;
   line-height: 48px;
   margin-bottom: 12px;
+
+  @media (max-width: $breakpoint992) {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 33px;
+    margin-bottom: 8px;
+  }
 }
 
 @mixin productSubtitle {
@@ -11,4 +20,8 @@
   line-height: 18px;
   color: var(--brand);
   margin-bottom: 28px;
+
+  @media (max-width: $breakpoint992) {
+    margin-bottom: 14px;
+  }
 }

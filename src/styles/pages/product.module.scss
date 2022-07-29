@@ -11,10 +11,15 @@
   top: 118px;
   z-index: 123;
   background-color: var(--white);
-  border-bottom: 1px solid #CACDD8;
+  border-bottom: 1px solid var(--gray);
+
+  @media (max-width: $breakpoint992) {
+    top: 109px;
+  }
   > div {
     @include container;
     @include flex-between(center);
+
   }
 }
 
@@ -22,6 +27,9 @@
   padding-block: 24px;
   @include flex-start(center);
   gap: 24px;
+  @media (max-width: $breakpoint480) {
+    gap: 12px;
+  }
   > h4 {
     @include tab;
     cursor: pointer;
@@ -33,6 +41,8 @@
     &:active {
       @include activeTab;
     }
+
+
   }
 }
 
@@ -88,7 +98,13 @@
   background-color: var(--light-blue);
   > div {
     @include flex-around(flex-start);
+    gap: 24px;
     @include container;
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column-reverse;
+      background-color: var(--white);
+    }
   }
 
 
@@ -97,9 +113,16 @@
 .mainInfo__content_left {
   padding-top: 74px;
   flex-basis: 60%;
+  @media (max-width: $breakpoint992) {
+    padding-top: 24px;
+  }
 
   > div:first-child {
     padding-left: 120px;
+
+    @media (max-width: 1200px) {
+      padding-left: 0;
+    }
   }
 
   > h6 {
@@ -119,33 +142,56 @@
   flex-basis: 40%;
   padding: 36px 24px 100px;
 
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translateX(100%);
-    background-color: var(--white);
-    width: 1000%;
-    height: 100%;
+
+  @media (max-width: $breakpoint480) {
+    padding-bottom: 50px;
+  }
+
+  @media (min-width: $breakpoint768) {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateX(100%);
+      background-color: var(--white);
+      width: 1000%;
+      height: 100%;
+    }
   }
 }
 
 .img {
   position: relative;
   @include maxWidth(470);
+  min-width: 300px;
   padding-left: 100px;
+
+  @media (max-width: $breakpoint768) {
+    margin-inline: auto;
+  }
+  @media (max-width: $breakpoint480) {
+    padding-left: 50px;
+    @include maxWidth(114px);
+  }
 
   > div:last-child {
     @include flex-center(flex-start);
     gap: 12px;
     margin-top: 32px;
+    @media (max-width: $breakpoint768) {
+      align-items: center;
+    }
 
     > h5 {
       @include maxWidth(160);
       font-weight: 300;
       font-size: 12px;
       line-height: 120.5%;
+
+      @media (max-width: $breakpoint992) {
+        font-size: 10px;
+      }
     }
   }
 }
