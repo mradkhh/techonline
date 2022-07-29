@@ -4,6 +4,9 @@
 // ------------- main section ---------------
 .mainInfo {
   margin-top: 118px;
+  @media (max-width: $breakpoint992) {
+    margin-top: 110px;
+  }
 }
 
 .mainInfo__header {
@@ -27,6 +30,9 @@
   padding-block: 24px;
   @include flex-start(center);
   gap: 24px;
+  @media (max-width: $breakpoint992) {
+    padding-block: 16px;
+  }
   @media (max-width: $breakpoint480) {
     gap: 12px;
   }
@@ -53,6 +59,13 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
+
+    @media (max-width: $breakpoint992) {
+      font-size: 12px;
+      line-height: 18px;
+      @include flex-center(center);
+      flex-direction: column-reverse;
+    }
 
     > span {
       font-weight: 600;
