@@ -11,10 +11,29 @@
   gap: 60px;
   padding-bottom: 120px;
 
+  @media (max-width: $breakpoint992) {
+    gap: 24px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    flex-direction: column;
+  }
+
+  @media (max-width: $breakpoint568) {
+    padding-bottom: 32px;
+  }
+
   > div:first-child {
     flex-basis: 70%;
     > p {
       margin-bottom: 8px;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 30px;
+      @media (max-width: $breakpoint568) {
+        font-size: 12px;
+        line-height: 22px;
+      }
     }
   }
 }
@@ -25,13 +44,25 @@
     @include flex-between(center);
     gap: 30px;
 
+    @media (max-width: $breakpoint992) {
+      flex-direction: column;
+      gap: 0;
+    }
+
     > div {
       flex-basis: 50%;
+      @media (max-width: $breakpoint992) {
+        @include maxWidth(100%);
+      }
     }
   }
 
   > div:nth-child(2) {
     @include maxWidth(450);
+    @media (max-width: $breakpoint992) {
+      max-width: 100% !important;
+    }
+
   }
 
   > button {
@@ -44,22 +75,45 @@
   background-color: var(--light-blue);
   padding: 30px 40px 70px 38px;
   min-width: 411px;
+
+  @media (max-width: $breakpoint992) {
+    @include maxWidth(334);
+    min-width: 334px;
+    padding: 20px 30px 60px 28px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    max-width: 100% !important;
+    min-width: 100%;
+  }
   > div {
     @include flex-start(flex-start);
     gap: 8px;
     margin-bottom: 20px;
+
+    @media (max-width: $breakpoint568) {
+      > svg {
+        @include rectangle(30);
+      }
+    }
 
     > div {
       > h4 {
         font-weight: 600;
         font-size: 18px;
         line-height: 27px;
+        @media (max-width: $breakpoint568) {
+          font-size: 14px;
+        }
       }
 
       > p {
         font-weight: 400;
         font-size: 13px;
         line-height: 20px;
+        @media (max-width: $breakpoint568) {
+          font-size: 11px;
+        }
       }
 
       > a {
@@ -67,6 +121,9 @@
         font-size: 13px;
         line-height: 20px;
         color: var(--brand);
+        @media (max-width: $breakpoint568) {
+          font-size: 11px;
+        }
       }
     }
   }

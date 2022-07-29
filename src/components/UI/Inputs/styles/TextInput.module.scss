@@ -8,6 +8,10 @@
     margin-bottom: 8px;
     color: var(--black);
 
+    @media (max-width: 567.98px) {
+      font-size: 11px;
+    }
+
     > span {
       color: var(--red);
       margin-left: 4px;
@@ -31,6 +35,10 @@
     background-color: var(--white);
     outline: none;
     margin-right: auto;
+
+    @media (max-width: 567.98px) {
+      font-size: 12px;
+    }
 
     &::placeholder {
       color: var(--gray);
