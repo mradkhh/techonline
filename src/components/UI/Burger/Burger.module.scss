@@ -15,6 +15,11 @@
     z-index: 12345;
     animation: fade-right 200ms ease;
   }
+
+  @media (max-width: 480px) {
+    left: 245px;
+    animation: fade-right2 200ms ease;
+  }
 }
 
 @keyframes fade-right {
@@ -25,5 +30,17 @@
   100% {
     opacity: 1;
     left: 380px;
+
+  }
+}
+
+@keyframes fade-right2 {
+  0% {
+    opacity: 0;
+    left: -500px;
+  }
+  100% {
+    opacity: 1;
+    left: 245px;
   }
 }

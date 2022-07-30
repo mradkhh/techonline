@@ -80,6 +80,10 @@
       @include maxWidth(350);
     }
 
+    @media (max-width: $breakpoint480) {
+      @include maxWidth(300);
+    }
+
     > li {
       font-weight: 600;
       font-size: 14px;

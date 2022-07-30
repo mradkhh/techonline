@@ -28,6 +28,10 @@
     }
   }
 
+  @media (max-width: $breakpoint568) {
+    left: 10px;
+  }
+
 }
 
 // =--------------- when mobile styles --------------=
