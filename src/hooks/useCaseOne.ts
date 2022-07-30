@@ -12,6 +12,9 @@ const useCaseOne = (type: string, ...args: any) => {
         case 'brand':
             return array[2]
             break
+        case 'category':
+            return array[3]
+            break
         default:
             return array[0]
     }

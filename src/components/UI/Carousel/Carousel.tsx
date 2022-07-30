@@ -49,6 +49,29 @@ const breakpointBanner = {
     }
 }
 
+const breakpointCategory = {
+    320: {
+        slidesPerGroup: 2,
+        slidesPerView: 1,
+        spaceBetween: 12
+    },
+    480: {
+        slidesPerGroup: 1,
+        slidesPerView: 2,
+        spaceBetween: 12
+    },
+    568: {
+        slidesPerGroup: 1,
+        slidesPerView: 3,
+        spaceBetween: 12
+    },
+    1450: {
+        slidesPerGroup: 2,
+        slidesPerView: 5,
+        spaceBetween: 12
+    }
+}
+
 const breakpointBrand = {
     320: {
         slidesPerGroup: 1,
@@ -86,7 +109,7 @@ const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = t
     const navigationPrevRef = createRef<HTMLButtonElement>()
     const navigationNextRef = createRef<HTMLButtonElement>()
 
-    const breakpoints = useCaseOne(type, breakpointBanner, breakpointSlider, breakpointBrand)
+    const breakpoints = useCaseOne(type, breakpointBanner, breakpointSlider, breakpointBrand, breakpointCategory)
 
     return (
         <Swiper

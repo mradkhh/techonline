@@ -1,8 +1,8 @@
 @import "styles/mixins/mixins";
 
 .card {
-  @include maxWidth(235);
   position: relative;
+  width: 100%;
 }
 
 .inStock {

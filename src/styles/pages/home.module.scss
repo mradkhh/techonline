@@ -81,20 +81,29 @@
 // =---------------------- category section -----------------=
 
 .category {
-  @include grid(6);
   @include container;
+  @include flex-start(center);
+  gap: 24px;
   margin-bottom: 32px;
+  @media (max-width: $breakpoint768) {
+    display: block;
+    justify-content: center;
+  }
 }
 
 .tabsList {
   @include container;
   @include flex(center, flex-start);
-  gap: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
   font-weight: 600;
   font-size: 16px;
   line-height: 180%;
   color: var(--gray);
   margin-bottom: 24px;
+  @media (max-width: $breakpoint768) {
+    font-size: 14px;
+  }
 
   > li {
     cursor: pointer;

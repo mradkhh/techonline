@@ -70,6 +70,9 @@ button {
   color: var(--black);
   border-bottom: 2px solid var(--brand);
   padding-bottom: 3px;
+  @media (max-width: $breakpoint768) {
+    font-size: 14px;
+  }
 }
 
 .main_home,

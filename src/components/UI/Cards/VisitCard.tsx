@@ -2,6 +2,7 @@ import React, {FC, memo} from 'react';
 import A from "components/UI/A/A";
 import Image from "next/image";
 import styles from './styles/VisitCard.module.scss'
+import useMediaQuery from "hooks/useMediaQuery";
 
 interface VisitCardProps {
     title: string,
@@ -11,11 +12,17 @@ interface VisitCardProps {
 
 
 const VisitCard: FC<VisitCardProps> = ({ title, href, img }) => {
+
+    const matches = useMediaQuery("(max-width: 768px)")
+    const imgHeight = matches ? 150 : 350
+    const imgWidth = matches ? 768 : 230
     return (
         <div className={styles.card}>
             <Image
-                width={230}
-                height={350}
+                objectFit={'cover'}
+                objectPosition={'center'}
+                width={imgWidth}
+                height={imgHeight}
                 alt={title}
                 src={img}
             />
