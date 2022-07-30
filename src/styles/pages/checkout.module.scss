@@ -7,8 +7,19 @@
   @include flex-between(baseline);
   gap: 24px;
 
+}
+
+.headerLeft {
+  @include flex-start(center);
+  gap: 24px;
+  margin-bottom: 20px;
+  @media (max-width: $breakpoint992) {
+    flex-direction: column;
+    gap: 0;
+  }
   > h1 {
     @include commonTitle;
+    margin-bottom: 0;
   }
 
   > button {
@@ -21,7 +32,9 @@
 .checkoutSteps {
   @include flex-between(center);
   @include maxWidth(388);
-
+  @media (max-width: $breakpoint768) {
+    display: none !important;
+  }
   > div {
     @include flex-column(center, center);
     gap: 12px;
@@ -74,15 +87,20 @@
   @include flex-between(flex-start);
   gap: 30px;
   padding-bottom: 87px;
+  @media (max-width: $breakpoint768) {
+    flex-direction: column;
+  }
 }
 
 .formField {
-
   width: 100%;
 }
 .form {
   @include maxWidth(565);
   margin-top: 24px;
+  @media (max-width: $breakpoint768) {
+    max-width: 100% !important;
+  }
 
   > p {
     font-weight: 400;
@@ -121,17 +139,24 @@
     > div {
     @include flex-start(center);
       @include maxWidth(800);
+      gap: 16px;
       > h4 {
         width: 100%;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
+        @media (max-width: $breakpoint768) {
+          font-size: 12px;
+        }
       }
 
       > span {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 20px;
         line-height: 20px;
+        @media (max-width: $breakpoint768) {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -144,6 +169,9 @@
   background-color: var(--light-blue);
   margin-top: 40px;
   min-width: max-content;
+  @media (max-width: $breakpoint768) {
+    @include maxWidth(100%);
+  }
 
   > h2 {
     font-weight: 600;

@@ -17,8 +17,10 @@ const CheckOut: NextPage = () => {
         <MainLayout title={"TechOnline - Checkout"} description={"checkout"} mainClass={"main_checkout"}>
             <Breadcrumbs array={breadcrumbs} current="Checkout progress"/>
             <div className={styles.header}>
-                <h1>Checkout</h1>
-                <button>Sign In</button>
+                <div className={styles.headerLeft}>
+                    <h1>Checkout</h1>
+                    <button>Sign In</button>
+                </div>
                 <div className={styles.checkoutSteps}>
                     <div>
                         <span>
