@@ -4,3 +4,26 @@
     display: inline-block;
   }
 }
+
+.showMobileMenu {
+  display: none;
+  @media (max-width: 991.98px) {
+    display: inline-block;
+    position: absolute;
+    left: 380px;
+    top: -20px;
+    z-index: 12345;
+    animation: fade-right 200ms ease;
+  }
+}
+
+@keyframes fade-right {
+  0% {
+    opacity: 0;
+    left: -500px;
+  }
+  100% {
+    opacity: 1;
+    left: 380px;
+  }
+}

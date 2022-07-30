@@ -1,67 +1,82 @@
-import React, {FC, memo, useState} from 'react';
+import React, {FC, memo, useCallback, useEffect, useState} from 'react';
 import Image from "next/image";
 import Logo from "components/UI/Logo/Logo";
 import Head from "components/Header/UI/Head";
 import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
-import {BurgerIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
-import styles from './Header.module.scss'
+import { ShoppingCartIcon} from "static/icons/icon";
 import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
+import styles from './Header.module.scss'
+import useMediaQuery from "hooks/useMediaQuery";
 
 const Header: FC = () => {
 
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
-    const [ showSideMenu, setShowSideMenu ] = useState<boolean>(false)
+    const matches = useMediaQuery("(min-width: 992px)")
+    const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
 
-    const handleShowCart = () => {
+
+    const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
-    }
+    }, [showCart])
 
-    const handleAvatar = () => {
+    const handleAvatar = useCallback(() => {
         setShowAvatar(!showAvatar)
-    }
+    }, [showAvatar])
 
-    const handleShowMenu = () => {
-        setShowMenu(!showMenu)
-    }
+    const handleShowMenu = useCallback(() => {
+        matches && setShowMenu(!showMenu)
+    }, [showMenu])
+
+    useEffect(() => {
+        if (matches) {
+            setShowMobileMenu(true)
+        } else  {
+            return
+        }
+    })
     return (
             <div className={styles.root}>
                 <Head/>
                 <div className={styles.header}>
                     <div className={styles.Root}>
-                        <Burger show={showSideMenu} setShow={setShowSideMenu}/>
-                        <Logo/>
+                        <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
+                        <Logo mobileMenuShow={showMobileMenu}/>
                         <SearchField/>
-                        <nav className={styles.Navbar}>
-                            <ul>
-                                <li>
-                                    <button onClick={handleShowMenu}>Laptops</button>
-                                </li>
-                                <li>
-                                    <A href='/desktop'>Desktop PCs</A>
-                                </li>
-                                <li>
-                                    <A href='/printers'>Printers & Scanners</A>
-                                </li>
-                                <li>
-                                    <A href='/parts'>PC Parts</A>
-                                </li>
-                                <li>
-                                    <A href='/products'>All Other Products</A>
-                                </li>
-                                <li>
-                                    <A href='/repairs'>Repairs</A>
-                                </li>
-                                <button>Our Deals</button>
-                            </ul>
-                            {
-                                showMenu && <Menu/>
-                            }
-                        </nav>
+                        {
+                            showMobileMenu && <nav
+                                            onClick={() => setShowMobileMenu(!showMobileMenu)}
+                                            className={styles.Navbar}>
+                                <ul onClick={(e)=> e.stopPropagation()}>
+                                    <li>
+                                        <button onClick={handleShowMenu}>Laptops</button>
+                                    </li>
+                                    <li>
+                                        <A href='/desktop'>Desktop PCs</A>
+                                    </li>
+                                    <li>
+                                        <A href='/printers'>Printers & Scanners</A>
+                                    </li>
+                                    <li>
+                                        <A href='/parts'>PC Parts</A>
+                                    </li>
+                                    <li>
+                                        <A href='/products'>All Other Products</A>
+                                    </li>
+                                    <li>
+                                        <A href='/repairs'>Repairs</A>
+                                    </li>
+                                    <button>Our Deals</button>
+                                </ul>
+                                {
+                                    showMenu && <Menu/>
+                                }
+                            </nav>
+                        }
                         {/*<SearchIcon/>*/}
                             <div className={styles.Basket}>
                                 <button

@@ -340,3 +340,9 @@ $breakpoint480: 479.98 + px;
     background-color: var(--light-blue);
   }
 }
+
+@mixin debugging {
+  outline: 1px solid green !important;
+  background-color: rgba(0, 128, 0, 0.1) !important;
+  color: #ffffff !important;
+}

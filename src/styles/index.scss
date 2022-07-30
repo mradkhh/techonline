@@ -1,6 +1,7 @@
 @import "design_token";
 @import "utils";
 @import "ids";
+@import "mixins/mixins";
 
 *, *:after, *:before {
   margin: 0;
@@ -23,7 +24,6 @@ a {
   transition: color 250ms ease;
 }
 
-
 ul, ol, dl {
   list-style: none;
 }
@@ -32,7 +32,6 @@ h1,h2, h3, A, h5, h6 {
   margin: 0;
   padding: 0;
 }
-
 
 input {
   outline: none;
@@ -60,7 +59,6 @@ button {
 
 
 // lib react-tabs
-
 .react-tabs__tab {
   padding-bottom: 3px;
 }
@@ -96,10 +94,7 @@ button {
 .main_faq,
 .main_checkout {
   padding-top: 140px;
-
   @media (max-width: 991.98px) {
     padding-top: 130px;
   }
-
-
 }

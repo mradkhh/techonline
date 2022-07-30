@@ -6,7 +6,6 @@ interface BurgerProps {
     setShow: (show: boolean) => void
 }
 
-
 const Burger: FC<BurgerProps> = ({ show, setShow }) => {
 
     const handleToggle = useCallback(() => {
@@ -16,7 +15,7 @@ const Burger: FC<BurgerProps> = ({ show, setShow }) => {
     return (
         <button
             onClick={handleToggle}
-            className={`${styles.button} hamburger hamburger--squeeze ${show ? 'is-active' : ''}`}
+            className={`${show ? styles.showMobileMenu : styles.button} hamburger hamburger--squeeze ${show ? 'is-active' : ''}`}
             type="button"
         >
             <span className="hamburger-box">
