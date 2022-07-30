@@ -51,11 +51,6 @@ const breakpointBanner = {
 
 const breakpointCategory = {
     320: {
-        slidesPerGroup: 2,
-        slidesPerView: 1,
-        spaceBetween: 12
-    },
-    480: {
         slidesPerGroup: 1,
         slidesPerView: 2,
         spaceBetween: 12
