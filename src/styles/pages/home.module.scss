@@ -101,6 +101,7 @@
   line-height: 180%;
   color: var(--gray);
   margin-bottom: 24px;
+  outline: none;
   @media (max-width: $breakpoint768) {
     font-size: 14px;
   }
