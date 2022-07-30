@@ -10,6 +10,7 @@
 .content {
   @include container;
   @include flex-between(flex-start);
+  gap: 32px;
   padding-bottom: 70px;
 }
 
@@ -32,6 +33,10 @@
 
 .thead {
     border-bottom: 2px solid var(--gray);
+}
+
+.imgCell {
+  min-width: 88px;
 }
 
 .tableTitle {

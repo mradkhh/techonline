@@ -9,6 +9,13 @@
     gap: 100px;
     padding-block: 96px;
 
+    @media (max-width: $breakpoint992) {
+      gap: 16px;
+    }
+    @media (max-width: $breakpoint768) {
+      flex-direction: column-reverse;
+      padding-block: 20px;
+    }
 
     > div:first-child {
       > h2 {
@@ -18,6 +25,10 @@
         line-height: 58px;
         color: var(--white);
         margin-bottom: 32px;
+        @media (max-width: $breakpoint992) {
+          font-size: 32px;
+          margin-bottom: 16px;
+        }
       }
 
       > p {
@@ -26,6 +37,9 @@
         line-height: 26px;
         color: var(--white);
         @include maxWidth(436);
+        @media (max-width: $breakpoint992) {
+          font-size: 14px;
+        }
       }
     }
   }
@@ -40,6 +54,13 @@
     @include container;
     gap: 100px;
     padding-block: 96px;
+    @media (max-width: $breakpoint992) {
+      gap: 16px;
+    }
+
+    @media (max-width: $breakpoint768) {
+      flex-direction: column-reverse;
+    }
 
     > div:first-child {
       > h2 {
@@ -60,4 +81,11 @@
       }
     }
   }
+}
+
+.imgCell {
+ @media (max-height: $breakpoint768) {
+   max-height: 300px;
+   overflow: hidden;
+ }
 }

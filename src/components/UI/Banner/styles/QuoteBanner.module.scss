@@ -10,6 +10,13 @@
   background-color: var(--light-blue);
   @include maxWidth(1160);
   padding: 50px 120px;
+
+  @media (max-width: $breakpoint992) {
+    padding: 50px;
+  }
+  @media (max-width: $breakpoint568) {
+    padding: 24px;
+  }
 }
 
 .top {
@@ -22,12 +29,25 @@
     @include flex(fex-start, space-between);
     gap: 20px;
 
+    > svg {
+      @media (max-width: $breakpoint768) {
+        width: 24px;
+      }
+    }
+
     > p {
       @include maxWidth(850);
       margin-bottom: 8px;
       font-weight: 400;
       font-size: 18px;
       line-height: 27px;
+
+      @media (max-width: $breakpoint992) {
+        font-size: 16px;
+      }
+      @media (max-width: $breakpoint768) {
+        font-size: 13px;
+      }
     }
   }
 

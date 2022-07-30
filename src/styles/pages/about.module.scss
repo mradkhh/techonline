@@ -7,4 +7,5 @@
 
 .quotes {
   padding-block: 64px;
+  @include container;
 }

@@ -13,7 +13,11 @@ interface AboutSectionProps {
 }
 
 
-const AboutSection: FC<AboutSectionProps> = ({ type, img, icon = false, title, text , imgWidth, imgHeight}) => {
+const AboutSection: FC<AboutSectionProps> = (props) => {
+    const { type, img, icon = false, title, text , imgWidth, imgHeight} = props
+
+
+
     return (
         <section className={type === 'black' ? styles.about : styles.content_white}>
             <div>
@@ -24,7 +28,7 @@ const AboutSection: FC<AboutSectionProps> = ({ type, img, icon = false, title, t
                     <h2>{title}</h2>
                     <p>{text}</p>
                 </div>
-                <div>
+                <div className={styles.imgCell}>
                     <Image
                         width={imgWidth}
                         height={imgHeight}

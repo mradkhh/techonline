@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import Image from "next/image";
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
+import Accordion from "components/UI/Accordion/Accordion";
+import A from "components/UI/A/A";
 import {
     EditIcon,
     GrayArrowDownIcon,
@@ -14,8 +16,6 @@ import {
 import img1 from "static/images/products/1.jpg"
 import img2 from "static/images/products/2.jpg"
 import styles from 'styles/pages/shoppingcart.module.scss'
-import Accordion from "components/UI/Accordion/Accordion";
-import A from "components/UI/A/A";
 
 
 const breadcrumbs = [
@@ -91,7 +91,7 @@ const Index: NextPage = () => {
                         {
                             items && items.map(item =>
                                 <tr key={item.id}>
-                                    <td>
+                                    <td className={styles.imgCell}>
                                         <Image
                                             width={120}
                                             height={120}

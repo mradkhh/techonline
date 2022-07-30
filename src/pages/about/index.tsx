@@ -21,6 +21,8 @@ const breadcrumbs = [
 
 
 const About: NextPage = () => {
+
+
     return (
         <MainLayout title={"TechOnline - About"} description={"about"} mainClass={"main_about"}>
             <Breadcrumbs array={breadcrumbs} current="About Us"/>
