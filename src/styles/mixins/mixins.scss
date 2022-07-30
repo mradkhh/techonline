@@ -150,7 +150,7 @@ $breakpoint480: 479.98 + px;
   cursor: pointer;
 
   @media (max-width: $breakpoint568) {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -336,6 +336,10 @@ $breakpoint480: 479.98 + px;
   font-size: 14px;
   line-height: 21px;
 
+  @media (max-width: $breakpoint768) {
+    font-size: 11px;
+  }
+
   &:hover {
     background-color: var(--light-blue);
   }
@@ -345,4 +349,5 @@ $breakpoint480: 479.98 + px;
   outline: 1px solid green !important;
   background-color: rgba(0, 128, 0, 0.1) !important;
   color: #ffffff !important;
+  border: transparent;
 }

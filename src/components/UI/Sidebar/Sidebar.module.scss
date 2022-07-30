@@ -23,6 +23,7 @@
 
 .sidebar {
   @include maxWidth(235);
+  min-width: 234px;
   :not(:last-child) {
     padding: 16px;
   }

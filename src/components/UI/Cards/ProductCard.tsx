@@ -3,6 +3,7 @@ import Image from "next/image";
 import useHover from "hooks/useHover";
 import { FavoriteIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon } from "static/icons/icon";
 import styles from './styles/ProductCard.module.scss';
+import useMediaQuery from "hooks/useMediaQuery";
 
 
 interface ProductCardProps {
@@ -21,6 +22,9 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, rating, discountP
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
 
+    const matches = useMediaQuery("(min-width: 992px)")
+    const widthImg = matches ? 150 : 100
+
     return (
         <div  ref={ref} className={styles.card}>
             { isInStock ?
@@ -29,8 +33,8 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, rating, discountP
                 <div className={styles.notStock}> <RedCallIcon/> check availability </div> }
             <div className={styles.img}>
                 <Image
-                    width={150}
-                    height={150}
+                    width={widthImg}
+                    height={widthImg}
                     objectFit='cover'
                     objectPosition='center'
                     alt={title}

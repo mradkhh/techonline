@@ -16,6 +16,11 @@
     font-size: 13px;
     line-height: 210%;
 
+    @media (max-width: $breakpoint768) {
+      font-size: 11px;
+      padding: 8px 0;
+    }
+
     > span {
       color: var(--black);
       margin-left: 4px;

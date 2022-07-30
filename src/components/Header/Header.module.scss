@@ -46,11 +46,10 @@
     bottom: 0;
     left: 0;
     box-shadow: var(--card-shadow);
-
   }
 
   > ul {
-    @include flex(center, space-between);
+    @include flex(center, flex-start);
     gap: 24px;
     @media (max-width: $breakpoint1450) {
       gap: 16px;
@@ -68,6 +67,10 @@
       > li {
         width: 100%;
         padding-left: 8px;
+      }
+
+      > button {
+        margin-right: auto;
       }
 
       > li:first-child {
