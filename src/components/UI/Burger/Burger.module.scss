@@ -16,9 +16,13 @@
     animation: fade-right 200ms ease;
   }
 
+  @media (max-width: 567.98px) {
+    left: 298px;
+    animation: fade-right2 200ms ease;
+  }
+
   @media (max-width: 480px) {
     left: 245px;
-    animation: fade-right2 200ms ease;
   }
 }
 
