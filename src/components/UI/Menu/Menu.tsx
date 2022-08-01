@@ -6,7 +6,7 @@ import styles from './Menu.module.scss'
 
 const Menu: FC = () => {
     return (
-        <div className={styles.menu}>
+        <div onClick={(e)=> e.stopPropagation()} className={styles.menu}>
             <div>
                 <div>Everyday Use Notebooks</div>
                 <div>MSI Workstation Series</div>

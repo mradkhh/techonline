@@ -2,7 +2,7 @@
 
 .menu {
   @include flex(flex-start, space-between);
-  min-width: 1400px;
+  min-width: 100% !important;
   background-color: var(--white);
   border: 1px solid var(--gray);
   min-height: 200px;

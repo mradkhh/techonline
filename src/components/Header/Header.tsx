@@ -11,6 +11,47 @@ import Burger from "components/UI/Burger/Burger";
 import styles from './Header.module.scss'
 import useMediaQuery from "hooks/useMediaQuery";
 
+
+const navList = [
+    {
+        path: '/',
+        id: 1,
+        title: "Laptops"
+    },
+    {
+        path: '/',
+        id: 2,
+        title: "Desktop PCs"
+    },
+    {
+        path: '/',
+        id: 3,
+        title: "Networking Devices"
+    },
+    {
+        path: '/',
+        id: 4,
+        title: "Printers & Scanners"
+    },
+    {
+        path: '/',
+        id: 5,
+        title: "PC Parts"
+    },
+    {
+        path: '/',
+        id: 6,
+        title: "All Other Products"
+    },
+    {
+        path: '/',
+        id: 7,
+        title: "Repairs"
+    },
+
+
+]
+
 const Header: FC = () => {
 
     const [ showCart, setShowCart ] = useState<boolean>(false)
@@ -28,8 +69,9 @@ const Header: FC = () => {
         setShowAvatar(!showAvatar)
     }, [showAvatar])
 
-    const handleShowMenu = useCallback(() => {
+    const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(!showMenu)
+        console.log(id)
     }, [showMenu])
 
     useEffect(() => {
@@ -52,24 +94,13 @@ const Header: FC = () => {
                                             onClick={() => setShowMobileMenu(!showMobileMenu)}
                                             className={styles.Navbar}>
                                 <ul onClick={(e)=> e.stopPropagation()}>
-                                    <li>
-                                        <button onClick={handleShowMenu}>Laptops</button>
-                                    </li>
-                                    <li>
-                                        <A href='/desktop'>Desktop PCs</A>
-                                    </li>
-                                    <li>
-                                        <A href='/printers'>Printers & Scanners</A>
-                                    </li>
-                                    <li>
-                                        <A href='/parts'>PC Parts</A>
-                                    </li>
-                                    <li>
-                                        <A href='/products'>All Other Products</A>
-                                    </li>
-                                    <li>
-                                        <A href='/repairs'>Repairs</A>
-                                    </li>
+                                    {
+                                        navList && navList.map((item) =>
+                                            <li key={item.id}>
+                                                <button onClick={() => handleShowMenu(item.id)}>{item.title}</button>
+                                            </li>
+                                        )
+                                    }
                                     <button>Our Deals</button>
                                 </ul>
                                 {
