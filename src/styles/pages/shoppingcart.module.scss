@@ -40,8 +40,16 @@
 }
 
 .tableHead {
-  @media (max-width: $breakpoint992) {
-    display: none;
+  @include flex-between(center);
+  > h5 {
+    padding-right: 50px;
+  }
+  > h5:first-child {
+    margin-right: auto;
+  }
+
+  @media (max-width: 1200px) {
+    display: none !important;
   }
 }
 
