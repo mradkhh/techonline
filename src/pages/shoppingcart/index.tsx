@@ -60,7 +60,6 @@ const items = [
 const Index: NextPage = () => {
     const [ amount, setAmount ] = useState<number>(1)
 
-
     const handleIncrement = (id: number) => {
         setAmount(amount + 1)
     }
@@ -76,74 +75,60 @@ const Index: NextPage = () => {
             <h1 className={styles.title}>Shopping Cart</h1>
             <section className={styles.content}>
                 <div className={styles.table}>
-                    <table>
-                        <thead >
-                        <tr className={styles.thead}>
-                            <th>Item</th>
-                            <th></th>
-                            <th>Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            items && items.map(item =>
-                                <tr key={item.id}>
-                                    <td className={styles.imgCell}>
-                                        <Image
-                                            width={120}
-                                            height={120}
-                                            objectFit='cover'
-                                            objectPosition='center'
-                                            src={item.img}
-                                            alt="feature"
-                                        />
-                                    </td>
-                                    <td>
-                                        <div className={styles.tableTitle}>
-                                            { item.title }
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className={styles.price}>
-                                            ${ item.price }
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className={styles.counter}>
-                                            <span>{item.quantity}</span>
-                                            <div>
-                                                <button onClick={() => handleIncrement(item.id)}>
-                                                    <GrayArrowUpIcon/>
-                                                </button>
-                                                <button onClick={() => handleDecrement(item.id)}>
-                                                    <GrayArrowDownIcon/>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className={styles.subtotal}>
-                                            ${item.subtotal}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className={styles.tableBtn}>
-                                            <button>
-                                                <GrayXIcon/>
+                    <div className={styles.tableHead}>
+                        <h5>Item</h5>
+                        <h5>Price</h5>
+                        <h5>Qty</h5>
+                        <h5>Subtotal</h5>
+                    </div>
+                    {
+                        items && items.map((item)=>
+                            <div key={item.id} className={styles.tableBody}>
+                                <div className={styles.tableImgCell}>
+                                   <div className={styles.tableImg}>
+                                       <Image
+                                           width={120}
+                                           height={120}
+                                           objectFit='cover'
+                                           objectPosition='center'
+                                           src={item.img}
+                                           alt="feature"
+                                       />
+                                   </div>
+                                    <div className={styles.tableTitle}>
+                                        { item.title }
+                                    </div>
+                                </div>
+                                <div className={styles.tableInfo}>
+                                    <div className={styles.price}>
+                                        ${ item.price }
+                                    </div>
+                                    <div className={styles.counter}>
+                                        <span>{item.quantity}</span>
+                                        <div>
+                                            <button onClick={() => handleIncrement(item.id)}>
+                                                <GrayArrowUpIcon/>
                                             </button>
-                                            <button>
-                                                <EditIcon/>
+                                            <button onClick={() => handleDecrement(item.id)}>
+                                                <GrayArrowDownIcon/>
                                             </button>
                                         </div>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                        </tbody>
-                    </table>
+                                    </div>
+                                    <div className={styles.subtotal}>
+                                        ${item.subtotal}
+                                    </div>
+                                    <div className={styles.tableBtn}>
+                                        <button>
+                                            <GrayXIcon/>
+                                        </button>
+                                        <button>
+                                            <EditIcon/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
                     <div className={styles.actionTable}>
                         <button>Continue Shopping</button>
                         <button>Clear Shopping Cart</button>

@@ -12,6 +12,14 @@
   @include flex-between(flex-start);
   gap: 32px;
   padding-bottom: 70px;
+
+  @media (max-width: $breakpoint992) {
+    gap: 16px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    flex-direction: column-reverse;
+  }
 }
 
 
@@ -31,6 +39,35 @@
   }
 }
 
+.tableHead {
+  @media (max-width: $breakpoint992) {
+    display: none;
+  }
+}
+
+.tableBody {
+  @include flex-between(center);
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
+}
+
+.tableImgCell {
+  @include flex-start(center);
+}
+
+.tableImg {
+  min-width: 120px;
+}
+
+.tableInfo {
+  @include flex-end(center);
+  @media (max-width: 1200px) {
+    width: 100%;
+    justify-content: space-around !important;
+  }
+}
+
 .thead {
     border-bottom: 2px solid var(--gray);
 }
@@ -45,6 +82,9 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
+  @media (max-width: $breakpoint992) {
+    padding-right: 0;
+  }
 }
 
 .price, .subtotal {
@@ -92,8 +132,16 @@
 }
 
 .actionTable {
+  margin-top: 24px;
   @include flex-start(center);
   gap: 8px;
+  @media (max-width: $breakpoint992) {
+    flex-direction: column;
+
+    > button {
+      width: 100%;
+    }
+  }
   > button {
     @include blackBtn;
   }
@@ -109,15 +157,26 @@
 
 // ---------------- summary ---------
 .summary {
-
   @include maxWidth(446);
   padding: 18px 32px;
   background-color: var(--light-blue);
+  @media (max-width: $breakpoint992) {
+    @include maxWidth(320);
+    padding-inline: 24px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    max-width: 100% !important;
+  }
   > h3 {
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
     margin-bottom: 18px;
+
+    @media (max-width: $breakpoint992) {
+      font-size: 14px;
+    }
   }
 
 }
