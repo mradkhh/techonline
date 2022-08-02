@@ -6,6 +6,10 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
+
+  @media (max-width: 400px) {
+    margin-top: 8px;
+  }
 }
 
 .link {
@@ -15,6 +19,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
+    color: var(--black);
     &:hover {
       color: var(--brand) !important;
     }
@@ -32,5 +37,5 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
-  color: var(--gray);
+  color: var(--black);
 }

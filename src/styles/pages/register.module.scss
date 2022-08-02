@@ -7,7 +7,7 @@
 
 .field {
   @include container;
-  @include flex-center(flex-start);
+  @include flex-center(center);
   gap: 34px;
   padding-bottom: 60px;
 

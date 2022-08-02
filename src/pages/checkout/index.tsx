@@ -13,6 +13,12 @@ const breadcrumbs = [
 ]
 
 const CheckOut: NextPage = () => {
+
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+    }
+
     return (
         <MainLayout title={"TechOnline - Checkout"} description={"checkout"} mainClass={"main_checkout"}>
             <Breadcrumbs array={breadcrumbs} current="Checkout progress"/>
@@ -36,7 +42,7 @@ const CheckOut: NextPage = () => {
             </div>
 
             <div className={styles.content}>
-                <form className={styles.formField}>
+                <form onSubmit={handleSubmit} className={styles.formField}>
                     <div className={styles.contentTitle}>
                         <h2>Shipping Address</h2>
                     </div>
@@ -74,6 +80,7 @@ const CheckOut: NextPage = () => {
                             </div>
                         </div>
                     </div>
+                    <button type='submit'>Next</button>
                 </form>
                 <div className={styles.summary}>
                     <h2>Order Summary</h2>

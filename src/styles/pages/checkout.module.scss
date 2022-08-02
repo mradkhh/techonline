@@ -32,6 +32,9 @@
 .checkoutSteps {
   @include flex-between(center);
   @include maxWidth(388);
+  @media (max-width: $breakpoint992) {
+    @include maxWidth(350);
+  }
   @media (max-width: $breakpoint768) {
     display: none !important;
   }
@@ -94,6 +97,11 @@
 
 .formField {
   width: 100%;
+
+  > button {
+    @include primaryButton;
+    min-width: 200px;
+  }
 }
 .form {
   @include maxWidth(565);
@@ -168,9 +176,13 @@
   padding: 18px 32px;
   background-color: var(--light-blue);
   margin-top: 40px;
-  min-width: max-content;
+  min-width: 446px;
+  @media (max-width: $breakpoint992) {
+    min-width: 350px;
+  }
   @media (max-width: $breakpoint768) {
     @include maxWidth(100%);
+    min-width: 100%;
   }
 
   > h2 {

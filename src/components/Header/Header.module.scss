@@ -37,6 +37,7 @@
   position: relative;
   margin-right: auto;
   width: 100%;
+  z-index: 123;
 
   @media (max-width: $breakpoint992) {
     background-color: rgba(0, 0, 0, 0.5);
@@ -162,6 +163,7 @@
 
 .Avatar {
   position: relative;
+  isolation: isolate;
   @include rectangle(32);
   @media (max-width: $breakpoint568) {
     margin-left: 8px;

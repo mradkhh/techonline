@@ -11,7 +11,6 @@ import Burger from "components/UI/Burger/Burger";
 import styles from './Header.module.scss'
 import useMediaQuery from "hooks/useMediaQuery";
 
-
 const navList = [
     {
         path: '/',
@@ -53,13 +52,11 @@ const navList = [
 ]
 
 const Header: FC = () => {
-
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
     const matches = useMediaQuery("(min-width: 992px)")
     const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
-
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)

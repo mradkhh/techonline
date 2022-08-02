@@ -12,11 +12,17 @@
 .Content {
   @include flex(center, space-between);
   @include container;
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 
 .Center {
   @include flex-center(center);
   gap: 4px;
+
 
   > h6 {
     font-weight: 600;
