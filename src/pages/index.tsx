@@ -26,8 +26,19 @@ import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
 import { MSIIcon, PartnerLogo } from "static/icons/icon";
 import styles from "styles/pages/home.module.scss"
+import {useContext, useEffect} from "react";
+import {Context} from "pages/_app";
 
 const Index: NextPage = () => {
+
+    const { storeMobx } = useContext(Context)
+
+
+    useEffect(() => {
+        if (localStorage.getItem('access_token')) {
+            storeMobx.checkAuth()
+        }
+    }, [])
 
 
 

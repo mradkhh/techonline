@@ -24,6 +24,10 @@
       "pages/*": ["pages/*"],
       "helpers/*": ["helpers/*"],
       "hooks/*": ["hooks/*"],
+      "store/*": ["store/*"],
+      "models/*": ["models/*"],
+      "services/*": ["services/*"],
+      "types/*": ["types/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
