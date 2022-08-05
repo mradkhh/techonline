@@ -72,7 +72,7 @@ const Header: FC = () => {
 
     const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(!showMenu)
-    }, [showMenu])
+    }, [showMenu, matches])
 
     useEffect(() => {
         if (matches) {
