@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import styles from './Account.module.scss'
+import styles from 'styles/pages/dashboard.module.scss'
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 
