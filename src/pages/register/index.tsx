@@ -19,6 +19,7 @@ const Register: NextPage = () => {
 
     const router = useRouter()
     const { storeMobx } = useContext(Context)
+    const { isAuth } = storeMobx
     const username1 = useInput('')
     const password2 = useInput('')
 
@@ -30,12 +31,10 @@ const Register: NextPage = () => {
     }
 
     useEffect(() => {
-        if(storeMobx.isAuth) {
-            router.push({
-                pathname: '/'
-            })
+        if(isAuth) {
+            window.location.href = '/'
         }
-    }, [storeMobx.isAuth])
+    }, [isAuth])
 
 
     return (

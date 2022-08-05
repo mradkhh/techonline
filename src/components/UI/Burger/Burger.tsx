@@ -8,9 +8,9 @@ interface BurgerProps {
 
 const Burger: FC<BurgerProps> = ({ show, setShow }) => {
 
-    const handleToggle = useCallback(() => {
+    const handleToggle = () => {
         setShow(!show)
-    }, [show])
+    }
 
     return (
         <button

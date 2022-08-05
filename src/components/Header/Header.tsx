@@ -81,7 +81,7 @@ const Header: FC = () => {
         } else  {
             return
         }
-    }, [])
+    }, [matches])
 
     useEffect(() => {
         if(isAuth) {
