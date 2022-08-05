@@ -9,7 +9,10 @@ const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
     // @ts-ignore
-    config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`
+    config.headers = {
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        AccessControlAllowOrigin: 'http://localhost:3000'
+    }
     return config
 })
 
