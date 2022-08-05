@@ -8,7 +8,7 @@ import {IBrands} from "models/index";
     baseQuery: fetchBaseQuery({baseUrl: API_URL}),
     endpoints(builder)  {
         return {
-            fetchAllBrands: builder.query<IBrands[], any>({
+            fetchAllBrands: builder.query<IBrands, any>({
                 query: () => ({
                     url: 'brandes/'
                 })

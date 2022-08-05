@@ -1,7 +1,11 @@
-export interface IBrands {
+type Results = {
     id: number,
     name: string,
     icon: any
+}
+
+export interface IBrands {
+    results: Results[]
 }
 
 export interface IProduct {

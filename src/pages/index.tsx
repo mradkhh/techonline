@@ -37,11 +37,6 @@ const Index: NextPage = () => {
     const { storeMobx } = useContext(Context)
     const { data: brands } = useFetchAllBrandsQuery('');
 
-    useEffect(() => {
-        if (localStorage.getItem('access_token')) {
-            storeMobx.checkAuth()
-        }
-    }, [])
 
     return (
       <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
@@ -771,7 +766,7 @@ const Index: NextPage = () => {
           <section className={styles.brands}>
               <Carousel type='brand' autoplay={true} button={false} loop={true} >
                   {
-                      brands?.results && brands.results.map((item: IBrands) =>
+                      brands?.results && brands.results.map((item: any) =>
                           <SwiperSlide key={item.id}>
                               <div className={styles.brandIcon}>
                                   <Image

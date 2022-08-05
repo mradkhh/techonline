@@ -61,7 +61,6 @@ const Header: FC = () => {
     const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
     const { storeMobx } = useContext(Context)
     const { isAuth }  = storeMobx
-    const router = useRouter()
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
@@ -85,9 +84,7 @@ const Header: FC = () => {
 
     useEffect(() => {
         if(isAuth) {
-            router.push({
-                pathname: '/'
-            })
+            window.location.href = '/'
         }
     }, [isAuth])
 
