@@ -1,4 +1,4 @@
-import {IProduct} from "models/IProduct";
+import {IProduct} from "models/index";
 
 export interface ICartState {
     products: IProduct[],
