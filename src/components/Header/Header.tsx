@@ -1,15 +1,17 @@
-import React, {FC, memo, useCallback, useEffect, useState} from 'react';
+import React, {FC, memo, useCallback, useContext, useEffect, useState} from 'react';
 import Image from "next/image";
 import Logo from "components/UI/Logo/Logo";
 import Head from "components/Header/UI/Head";
 import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
-import { ShoppingCartIcon} from "static/icons/icon";
+import {AvatarIcon, ShoppingCartIcon} from "static/icons/icon";
 import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
 import styles from './Header.module.scss'
 import useMediaQuery from "hooks/useMediaQuery";
+import {Context} from "pages/_app";
+import {useRouter} from "next/router";
 
 const navList = [
     {
@@ -57,6 +59,9 @@ const Header: FC = () => {
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
     const matches = useMediaQuery("(min-width: 992px)")
     const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
+    const { storeMobx } = useContext(Context)
+    const { isAuth }  = storeMobx
+    const router = useRouter()
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
@@ -76,7 +81,17 @@ const Header: FC = () => {
         } else  {
             return
         }
-    })
+    }, [])
+
+    useEffect(() => {
+        if(isAuth) {
+            router.push({
+                pathname: '/'
+            })
+        }
+    }, [isAuth])
+
+
     return (
             <div className={styles.root}>
                 <Head/>
@@ -114,27 +129,50 @@ const Header: FC = () => {
                                 </button>
                                 <Minicart show={showCart}/>
                             </div>
-                        <div className={styles.Avatar}>
-                            <button
-                                onClick={handleAvatar}
-                            >
-                                <Image
-                                    width={36}
-                                    height={36}
-                                    src={'/images/avatar.png'}
-                                    alt='avatar'
-                                />
-                            </button>
-                            {
-                                showAvatar && <div>
-                                    <A href="/">My Account</A>
-                                    <A href="/">My Wish List (0)</A>
-                                    <A href="/">Compare (0)</A>
-                                    <A href="/">Create Account</A>
-                                    <A href="/">Sign In</A>
+                                <div className={styles.Avatar}>
+                                    <button
+                                        onClick={handleAvatar}
+                                    >
+                                        {
+                                            isAuth ?
+                                                <Image
+                                                    width={36}
+                                                    height={36}
+                                                    src={'/images/avatar.png'}
+                                                    alt='avatar'
+                                                />
+                                                :
+                                                <div className={styles.userAvatar}>
+                                                    <AvatarIcon/>
+                                                </div>
+                                        }
+                                    </button>
+                                    {
+                                        showAvatar && <div>
+                                            {
+                                                isAuth ?
+                                                    <>
+                                                        <A href="/dashboard">My Account</A>
+                                                        <A href="/dashboard">My Wish List (0)</A>
+                                                        <A href="/dashboard">Compare (0)</A>
+                                                        <button
+                                                            onClick={() => storeMobx.logout()}
+                                                            style={{color: 'var(--red)'}}
+                                                        >Logout</button>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <A href="/register">My Account</A>
+                                                        <A href="/register">My Wish List (0)</A>
+                                                        <A href="/register">Compare (0)</A>
+                                                        <A href="/register">Create Account</A>
+                                                        <A href="/register">Sign in</A>
+                                                    </>
+
+                                            }
+                                        </div>
+                                    }
                                 </div>
-                            }
-                        </div>
                     </div>
                 </div>
             </div>

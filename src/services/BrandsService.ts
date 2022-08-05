@@ -6,13 +6,15 @@ import {IBrands} from "models/index";
  export const brandsApi = createApi({
     reducerPath: 'brandsApi',
     baseQuery: fetchBaseQuery({baseUrl: API_URL}),
-    endpoints: (build) => ({
-        getAllBrands: build.query<IBrands[], undefined>({
-            query: () => ({
-                url: 'brands/'
+    endpoints(builder)  {
+        return {
+            fetchAllBrands: builder.query<IBrands[], any>({
+                query: () => ({
+                    url: 'brandes/'
+                })
             })
-        })
-    })
+        }
+    }
 })
 
-export const fetchBrands = brandsApi.useGetAllBrandsQuery
+export const  { useFetchAllBrandsQuery } = brandsApi

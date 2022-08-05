@@ -1,7 +1,7 @@
 import {makeAutoObservable} from "mobx";
-import AuthService from "services/AuthService";
 import axios from "axios";
-import {AuthResponse, RefreshResponse} from "models/response/AuthResponse";
+import AuthService from "services/AuthService";
+import { RefreshResponse } from "models/response/AuthResponse";
 import {API_URL} from "services/interseptors";
 
 

@@ -162,6 +162,25 @@
   }
 }
 
+.logout {
+  color: var(--red);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.userAvatar {
+  >  svg {
+    circle {
+      stroke: var(--brand);
+    }
+
+    path {
+      fill: var(--brand);
+    }
+  }
+}
+
 .Avatar {
   position: relative;
   isolation: isolate;
@@ -189,6 +208,7 @@
       }
     }
   }
+
 
   > div {
     @include dropEffect(300);

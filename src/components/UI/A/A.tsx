@@ -6,10 +6,10 @@ interface AProps {
     children: ReactNode
 }
 
-const A: FC<AProps> = ({ href, children }) => {
+const A: FC<AProps> = ({ href, children, ...props }) => {
     return (
         <Link href={href}>
-            <a>{children}</a>
+            <a {...props}>{children}</a>
         </Link>
     );
 };

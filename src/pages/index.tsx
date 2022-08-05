@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {useContext, useEffect} from "react";
 import type { NextPage } from 'next'
 import {Context} from "pages/_app";
@@ -26,18 +27,15 @@ import desktopImg from 'static/images/categories/desktop.png'
 import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
-import { MSIIcon, PartnerLogo } from "static/icons/icon";
+import { PartnerLogo } from "static/icons/icon";
 import styles from "styles/pages/home.module.scss"
-import { fetchBrands } from "services/BrandsService";
-
-
-
+import { useFetchAllBrandsQuery } from "services/BrandsService";
 
 
 const Index: NextPage = () => {
 
     const { storeMobx } = useContext(Context)
-    const {  } = fetchBrands
+    const { data: brands } = useFetchAllBrandsQuery('');
 
     useEffect(() => {
         if (localStorage.getItem('access_token')) {
@@ -45,8 +43,7 @@ const Index: NextPage = () => {
         }
     }, [])
 
-  return (
-    <>
+    return (
       <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
           <Banner/>
           <div className={styles.products}>
@@ -773,46 +770,22 @@ const Index: NextPage = () => {
 
           <section className={styles.brands}>
               <Carousel type='brand' autoplay={true} button={false} loop={true} >
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <div className={styles.brandIcon}>
-                          <MSIIcon/>
-                      </div>
-                  </SwiperSlide>
+                  {
+                      brands?.results && brands.results.map((item: IBrands) =>
+                          <SwiperSlide key={item.id}>
+                              <div className={styles.brandIcon}>
+                                  <Image
+                                      objectFit='contain'
+                                      objectPosition='center'
+                                      width={153}
+                                      height={80}
+                                      src={item?.icon}
+                                      alt={item?.name}
+                                  />
+                              </div>
+                          </SwiperSlide>
+                      )
+                  }
               </Carousel>
           </section>
 
@@ -889,7 +862,6 @@ const Index: NextPage = () => {
           </section>
 
       </MainLayout>
-    </>
   )
 }
 

@@ -10,19 +10,26 @@ interface TextInputProps {
     radioName?: string
 }
 
-const TextInput: FC<TextInputProps> = ({ label, placeholder , type, require = true, radioValue, radioName}) => {
+const TextInput: FC<TextInputProps> = ({ label,
+                                           placeholder ,
+                                           type,
+                                           require = true,
+                                           radioValue,
+                                           radioName,
+    ...props
+}) => {
     return (
         <div className={styles.field}>
             { (label && type !== 'radio') && <label htmlFor="label">{label}<span>{ require && '*' } </span></label> }
             {
                 type === 'text' ?
-                        <input type="text"  placeholder={placeholder}/>
+                        <input {...props} type="text"  placeholder={placeholder}/>
                     :
                     type === 'password' ?
-                            <input type="password"  placeholder={placeholder}/>
+                            <input {...props} type="password"  placeholder={placeholder}/>
                          :
                         type === 'email' ?
-                                <input type="email"  placeholder={placeholder}/>
+                                <input {...props} type="email"  placeholder={placeholder}/>
                              :
                             type === 'textarea' ?
                                     <textarea name="" id="" cols={50} rows={15} placeholder={placeholder}/>
@@ -30,10 +37,10 @@ const TextInput: FC<TextInputProps> = ({ label, placeholder , type, require = tr
                                 type === 'radio' ?
                                     <>
                                         <label htmlFor="html">{label}</label>
-                                    <input type="radio" name={radioName} value={radioValue}/>
+                                    <input {...props} type="radio" name={radioName} value={radioValue}/>
                                     </>
                                     :
-                                    <input type="text"  placeholder={placeholder}/>
+                                    <input {...props} type="text"  placeholder={placeholder}/>
             }
         </div>
     );
