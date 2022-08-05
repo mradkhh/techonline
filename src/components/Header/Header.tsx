@@ -68,7 +68,6 @@ const Header: FC = () => {
 
     const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(!showMenu)
-        console.log(id)
     }, [showMenu])
 
     useEffect(() => {
@@ -82,6 +81,9 @@ const Header: FC = () => {
             <div className={styles.root}>
                 <Head/>
                 <div className={styles.header}>
+                    {
+                        showMenu && <Menu/>
+                    }
                     <div className={styles.Root}>
                         <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
                         <Logo mobileMenuShow={showMobileMenu}/>
@@ -100,9 +102,6 @@ const Header: FC = () => {
                                     }
                                     <button>Our Deals</button>
                                 </ul>
-                                {
-                                    showMenu && <Menu/>
-                                }
                             </nav>
                         }
                         {/*<SearchIcon/>*/}

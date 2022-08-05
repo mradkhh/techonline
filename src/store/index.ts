@@ -3,13 +3,16 @@ import {rootReducer} from "store/reducers";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {productApi} from "services/ProductService";
+import {brandsApi} from "services/BrandsService";
 
 
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) => (
-            getDefaultMiddleware().concat(productApi.middleware)
+            getDefaultMiddleware()
+                .concat(productApi.middleware)
+                .concat(brandsApi.middleware)
         )
     })
 }

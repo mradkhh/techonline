@@ -1,8 +1,18 @@
 @import "styles/mixins/mixins.scss";
 
+.wrapper {
+  @include container;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  top: 82px;
+  z-index: -1;
+  animation: fade-down 300ms;
+}
+
 .menu {
   @include flex(flex-start, space-between);
-  min-width: 100% !important;
   background-color: var(--white);
   border: 1px solid var(--gray);
   min-height: 200px;
@@ -22,4 +32,13 @@
 .cards {
   @include flex-start(flex-start);
   min-width: 500px;
+}
+
+@keyframes fade-down {
+  0% {
+    top: -100px;
+  }
+  100% {
+    top: 82px;
+  }
 }

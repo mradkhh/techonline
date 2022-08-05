@@ -20,10 +20,10 @@ export const Context = createContext<State>({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Provider store={storeRedux}>
-    <Context.Provider value={{ storeMobx }}>
-        <Component {...pageProps} />
-    </Context.Provider>
-  </Provider>
+            <Context.Provider value={{ storeMobx }}>
+                <Component {...pageProps} />
+            </Context.Provider>
+          </Provider>
 }
 
 export default MyApp

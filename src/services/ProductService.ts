@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { IProduct } from "models/IProduct";
+import { IProduct } from "models";
 import {API_URL} from "services/interseptors";
 
 
@@ -23,4 +23,5 @@ export const productApi = createApi({
     })
 })
 
-export const {  } = productApi
+
+

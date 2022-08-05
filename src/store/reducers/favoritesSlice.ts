@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IProduct} from "models/IProduct";
-import {act} from "react-dom/test-utils";
 
 interface IFavoritesState {
     favorites: IProduct[],

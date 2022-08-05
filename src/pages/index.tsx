@@ -1,4 +1,6 @@
+import {useContext, useEffect} from "react";
 import type { NextPage } from 'next'
+import {Context} from "pages/_app";
 import {Tab, TabList, TabPanel} from "react-tabs"
 import {SwiperSlide} from "swiper/react";
 import MainLayout from "layouts/MainLayout";
@@ -26,21 +28,22 @@ import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
 import { MSIIcon, PartnerLogo } from "static/icons/icon";
 import styles from "styles/pages/home.module.scss"
-import {useContext, useEffect} from "react";
-import {Context} from "pages/_app";
+import { fetchBrands } from "services/BrandsService";
+
+
+
+
 
 const Index: NextPage = () => {
 
     const { storeMobx } = useContext(Context)
-
+    const {  } = fetchBrands
 
     useEffect(() => {
         if (localStorage.getItem('access_token')) {
             storeMobx.checkAuth()
         }
     }, [])
-
-
 
   return (
     <>

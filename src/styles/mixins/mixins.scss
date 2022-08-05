@@ -13,10 +13,10 @@ $breakpoint480: 479.98 + px;
 
 
 @mixin container {
-  max-width: ($containerWidth + $containerPadding) + px;
-  width: 100%;
-  margin-inline: auto;
-  padding-inline: $containerSidePadding + px;
+  max-width: ($containerWidth + $containerPadding) + px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  padding-inline: $containerSidePadding + px !important;
 
   @media (max-width: $breakpoint1450) {
     max-width: 1200px;
