@@ -2,22 +2,22 @@ import React, {createRef, FC, memo} from 'react';
 import Image from "next/image";
 import useHover from "hooks/useHover";
 import { FavoriteIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon } from "static/icons/icon";
+import img from 'static/images/products/1.jpg'
 import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
+import {API_URL} from "services/interseptors";
 
 
 interface ProductCardProps {
     isInStock: boolean,
-    image: any,
-    rating: number,
+    image?: string,
     title: string,
     price: number,
     discountPrice: number,
-    reviews: number
 }
 
 
-const ProductCard: FC<ProductCardProps> = ({ isInStock, image, rating, discountPrice, price, reviews, title }) => {
+const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, price, title }) => {
 
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
@@ -33,12 +33,12 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, rating, discountP
                 <div className={styles.notStock}> <RedCallIcon/> check availability </div> }
             <div className={styles.img}>
                 <Image
-                    width={widthImg}
-                    height={widthImg}
+                    width={widthImg ? widthImg : 150}
+                    height={widthImg ? widthImg : 150}
                     objectFit='cover'
                     objectPosition='center'
                     alt={title}
-                    src={image}
+                    src={image ? `${API_URL}+${image}` : img}
                 />
             </div>
             <div className={styles.body}>

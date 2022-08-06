@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {createRef, FC, useEffect} from 'react';
 import styles from './styles/TextInput.module.scss'
 
 interface TextInputProps {
@@ -7,7 +7,9 @@ interface TextInputProps {
     type: string,
     require?: boolean,
     radioValue?: string | number,
-    radioName?: string
+    radioName?: string,
+    error?: boolean,
+    setError?: (bool: boolean) => void,
 }
 
 const TextInput: FC<TextInputProps> = ({ label,
@@ -16,20 +18,51 @@ const TextInput: FC<TextInputProps> = ({ label,
                                            require = true,
                                            radioValue,
                                            radioName,
-    ...props
+                                           error,
+                                           setError,
+                                           ...props
 }) => {
+
+    const handleFocus = (e: any) => {
+        setError && setError(false)
+    }
+
+
+
     return (
         <div className={styles.field}>
-            { (label && type !== 'radio') && <label htmlFor="label">{label}<span>{ require && '*' } </span></label> }
+            <div className={styles.label}>
+                { (label && type !== 'radio') &&
+                    <label htmlFor="label">{label}<span>{ require && '*' } </span></label> }
+                {(error) &&
+                    <span style={{color: 'var(--red)'}}>Xato</span>}
+            </div>
             {
                 type === 'text' ?
-                        <input {...props} type="text"  placeholder={placeholder}/>
+                        <input {...props}
+                               onFocus={handleFocus}
+                               style={{
+                                   border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                                   animation: (error ) ? 'light 500ms ease' : '' }} type="text"
+                               placeholder={placeholder}/>
                     :
                     type === 'password' ?
-                            <input {...props} type="password"  placeholder={placeholder}/>
+                            <input {...props}
+                                   onFocus={handleFocus}
+                                   style={{
+                                       border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                                       animation: (error ) ? 'light 500ms ease' : '' }}
+                                   type="password"
+                                   placeholder={placeholder}/>
                          :
                         type === 'email' ?
-                                <input {...props} type="email"  placeholder={placeholder}/>
+                                <input {...props}
+                                       onFocus={handleFocus}
+                                       style={{
+                                           border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                                           animation: (error) ? 'light 500ms ease' : '' }}
+                                       type="email"
+                                       placeholder={placeholder}/>
                              :
                             type === 'textarea' ?
                                     <textarea name="" id="" cols={50} rows={15} placeholder={placeholder}/>
@@ -37,10 +70,16 @@ const TextInput: FC<TextInputProps> = ({ label,
                                 type === 'radio' ?
                                     <>
                                         <label htmlFor="html">{label}</label>
-                                    <input {...props} type="radio" name={radioName} value={radioValue}/>
+                                    <input {...props}
+                                           onFocus={handleFocus}
+                                           style={{
+                                               border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                                               animation: (error ) ? 'light 500ms ease' : '' }}
+                                           type="radio"
+                                           name={radioName}
+                                           value={radioValue}/>
                                     </>
-                                    :
-                                    <input {...props} type="text"  placeholder={placeholder}/>
+                                    : null
             }
         </div>
     );

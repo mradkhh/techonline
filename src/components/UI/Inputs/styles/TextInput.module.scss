@@ -1,17 +1,6 @@
 .field {
   margin-bottom: 12px;
-  > label {
-    display: block;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 210%;
-    margin-bottom: 8px;
-    color: var(--black);
-
-    @media (max-width: 567.98px) {
-      font-size: 11px;
-    }
-
+   label {
     > span {
       color: var(--red);
       margin-left: 4px;
@@ -36,6 +25,10 @@
     outline: none;
     margin-right: auto;
 
+    &:focus {
+      border: 1px solid var(--green);
+    }
+
     @media (max-width: 567.98px) {
       font-size: 12px;
     }
@@ -43,5 +36,22 @@
     &::placeholder {
       color: var(--gray);
     }
+  }
+}
+
+.label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+    margin-bottom: 4px;
+    color: var(--black);
+
+    @media (max-width: 567.98px) {
+      font-size: 11px;
+    }
+
+  > span {
+    color: var(--red) !important;
   }
 }

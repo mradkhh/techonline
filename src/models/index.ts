@@ -13,8 +13,19 @@ export interface IProduct {
     name: string,
     price: number,
     discount: number,
-    product_img: any,
+    product_img: {
+        image: string | undefined
+    },
     brand: number,
     category: number,
-    is_stock: boolean
+    is_stock: boolean,
+    short_desc: string
 }
+
+export interface IProductData {
+    results: IProduct[],
+    count: number,
+    next: string | null,
+    previous: string | null
+}
+

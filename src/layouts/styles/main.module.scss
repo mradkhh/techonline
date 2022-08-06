@@ -47,3 +47,33 @@
     }
   }
 }
+
+.arrowUp {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  @include flex-center(center);
+  @include rectangle(40);
+  border-radius: 100vmax;
+  background-color: var(--brand);
+  animation: fade 700ms linear;
+  cursor: pointer;
+
+  > svg {
+    @include rectangle(24);
+    transform: rotate(180deg);
+    > path {
+      stroke: var(--white);
+    }
+  }
+
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

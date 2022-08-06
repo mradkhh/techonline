@@ -28,6 +28,7 @@
       "models/*": ["models/*"],
       "services/*": ["services/*"],
       "types/*": ["types/*"],
+      "utils/*": ["utils/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

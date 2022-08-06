@@ -1,8 +1,8 @@
-import React, {FC, memo, ReactNode} from 'react';
+import React, {FC, memo, ReactNode, useEffect, useState} from 'react';
 import Head from "next/head";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
-import {ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
+import {ArrowDown, ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
 import styles from "./styles/main.module.scss";
 
 interface MainLayoutProps {
@@ -13,6 +13,13 @@ interface MainLayoutProps {
 }
 
 const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, mainClass}) => {
+    const [ scrollToUp, setScrollToUp ] = useState<boolean>(false)
+
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            window.pageYOffset > 100 ? setScrollToUp(true) : setScrollToUp(false)
+        })
+    }, [])
     return (
         <>
             <Head>
@@ -43,6 +50,13 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                     </div>
                 </div>
             </main>
+            {
+                scrollToUp && <div
+                                onClick={() => window.scrollTo(0, 0)}
+                                className={styles.arrowUp}>
+                                    <ArrowDown/>
+                                </div>
+            }
             <Footer/>
         </>
     );

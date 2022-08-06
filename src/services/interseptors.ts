@@ -1,5 +1,6 @@
 import axios from "axios";
 import {AuthResponse} from "models/response/AuthResponse";
+import {getAccessToken, getRefreshToken, setAccessToken} from "utils/tokenStorage";
 
 export const API_URL = 'http://api.kom-store.exadot.io/api/v1/'
 
@@ -10,8 +11,7 @@ const $api = axios.create({
 $api.interceptors.request.use((config) => {
     // @ts-ignore
     config.headers = {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        AccessControlAllowOrigin: 'http://localhost:3000'
+        Authorization: `Bearer ${getAccessToken()}`,
     }
     return config
 })
@@ -23,9 +23,15 @@ $api.interceptors.response.use((config) => {
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true
         try {
-            const res = await axios.get<AuthResponse>(`${API_URL}/me/refresh/`)
-            localStorage.setItem('access_token', res.data.access)
-            return $api.request(originalRequest)
+            if (getRefreshToken()) {
+                const res = await axios.post<AuthResponse>(`${API_URL}me/refresh/`, {
+                    refresh: getRefreshToken()
+                })
+                setAccessToken(res.data.access)
+                return $api.request(originalRequest)
+            } else {
+                alert('Bu usernamedagi foydalanuvchi topilmadi')
+            }
         } catch (e: any) {
             console.log('Not auth - ' + e.message)
         }

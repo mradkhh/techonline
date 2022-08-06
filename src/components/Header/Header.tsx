@@ -11,7 +11,9 @@ import Burger from "components/UI/Burger/Burger";
 import styles from './Header.module.scss'
 import useMediaQuery from "hooks/useMediaQuery";
 import {Context} from "pages/_app";
-import {useRouter} from "next/router";
+import {getAccessToken} from "utils/tokenStorage";
+
+
 
 const navList = [
     {
@@ -53,6 +55,7 @@ const navList = [
 
 ]
 
+
 const Header: FC = () => {
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
@@ -70,6 +73,7 @@ const Header: FC = () => {
         setShowAvatar(!showAvatar)
     }, [showAvatar])
 
+
     const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(!showMenu)
     }, [showMenu, matches])
@@ -81,13 +85,6 @@ const Header: FC = () => {
             return
         }
     }, [matches])
-
-    useEffect(() => {
-        if(isAuth) {
-            window.location.href = '/'
-        }
-    }, [isAuth])
-
 
     return (
             <div className={styles.root}>
@@ -156,8 +153,8 @@ const Header: FC = () => {
                                                             onClick={() => storeMobx.logout()}
                                                             style={{color: 'var(--red)'}}
                                                         >Logout</button>
-                                                    </>
-                                                    :
+                                                        </>
+                                                        :
                                                     <>
                                                         <A href="/register">My Account</A>
                                                         <A href="/register">My Wish List (0)</A>

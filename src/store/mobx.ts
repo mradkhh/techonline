@@ -3,10 +3,16 @@ import axios from "axios";
 import AuthService from "services/AuthService";
 import { RefreshResponse } from "models/response/AuthResponse";
 import {API_URL} from "services/interseptors";
+import {
+    getAccessToken,
+    removeAccessToken, removeRefreshToken,
+    setAccessToken,
+    setRefreshToken
+} from "utils/tokenStorage";
 
 
 export default class Store {
-    isAuth = false
+    isAuth = !!(getAccessToken())
     isLoading = false
 
     constructor() {
@@ -22,31 +28,40 @@ export default class Store {
     }
 
     async login(username: string, password: string) {
+        this.setLoading(true)
         try {
             const res = await AuthService.login(username, password)
-            localStorage.setItem('access_token', res.data.access)
-            localStorage.setItem('refresh_token', res.data.refresh)
+            setAccessToken(res.data.access)
+            localStorage.setItem('auth', 'true')
             this.setAuth(true)
+            this.setLoading(false)
         } catch (e: any) {
             console.log(e.message)
         }
     }
 
     async register(username: string, password: string, confirm_password: string) {
+        this.setLoading(true)
         try {
             const res = await AuthService.register(username, password, confirm_password)
-            localStorage.setItem('access_token', res.data.access)
-            localStorage.setItem('refresh_token', res.data.refresh)
+            setAccessToken(res.data.access)
+            setRefreshToken(res.data.refresh)
+            localStorage.setItem('auth', 'true')
             this.setAuth(true)
+            this.setLoading(false)
         } catch (e: any) {
             console.log(e.message)
         }
     }
 
     async logout() {
+        this.setLoading(true)
         try {
-            localStorage.removeItem('access_token')
+            removeAccessToken()
+            removeRefreshToken()
+            localStorage.removeItem('auth')
             this.setAuth(false)
+            this.setLoading(false)
         } catch (e:any) {
             console.log(e.message)
         }
@@ -56,7 +71,8 @@ export default class Store {
         this.setLoading(true)
         try {
             const res = await axios.post<RefreshResponse>(`${API_URL}/me/refresh/`, { refresh: localStorage.getItem('refresh_token') })
-            localStorage.setItem('access_token', res.data.access)
+            setAccessToken(res.data.access)
+            localStorage.setItem('auth', 'true')
             this.setAuth(true)
         } catch (e: any) {
             console.log(e.message)

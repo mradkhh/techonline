@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NextPage} from "next";
 import MainLayout from "layouts/MainLayout";
 import Image from "next/image";
@@ -7,16 +7,11 @@ import Sidebar from "components/UI/Sidebar/Sidebar";
 import ProductCard from "components/UI/Cards/ProductCard";
 import Pagination from "components/UI/Pagination/Pagination";
 import Select from "components/UI/Select/Select";
+import {productApi} from "services/ProductService";
 import FullProductCard from "components/UI/Cards/FullProductCard";
 import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
-import img1 from 'static/images/catalogs/1.png'
-import img2 from 'static/images/catalogs/2.png'
-import img3 from 'static/images/catalogs/3.png'
-import img4 from 'static/images/catalogs/4.png'
-import img5 from 'static/images/catalogs/5.png'
-import img6 from 'static/images/catalogs/6.png'
 import bigImg1 from 'static/images/catalogs/big1.png'
 import bigImg2 from 'static/images/catalogs/big2.png'
 import styles from 'styles/pages/catalog.module.scss'
@@ -33,20 +28,26 @@ const tags = [
 ]
 
 const sortOption = [
-    { value: 'position', title: 'Position' },
-    { value: 'new', title: 'New' },
-    { value: 'popular', title: 'Popular' }
+    { value: 1, title: 'Position' },
+    { value: 2, title: 'New' },
+    { value: 3, title: 'Popular' }
 ]
 
 const showOption = [
-    { value: '35', title: '35 Per page' },
-    { value: '15', title: '15 Per page' },
-    { value: '5', title: '5 Per page' },
+    { value: 35, title: '35 Per page' },
+    { value: 15, title: '15 Per page' },
+    { value: 5, title: '5 Per page' },
 ]
 
 const Catalog: NextPage = () => {
     const [ page, setPage ] = useState<number>(1)
+    const [ sortValue, setSortValue ] = useState<number>(sortOption[0].value)
+    const [ showValue, setShowValue ] = useState<number>(showOption[0].value)
+    const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
+    const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
     const pages = 234
+
+    const { data: products } = productApi.useGetAllProductsQuery(showValue)
 
     return (
         <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>
@@ -69,8 +70,18 @@ const Catalog: NextPage = () => {
                         <div className={styles.headViewTools}>
                             <p>Items 1-35 of 61</p>
                             <div className={styles.sort}>
-                                <Select options={sortOption}>Sort by: </Select>
-                                <Select options={showOption}>Show: </Select>
+                                <Select
+                                    title={sortTitle}
+                                    value={sortValue}
+                                    setValue={setSortValue}
+                                    setTitle={setSortTitle}
+                                    options={sortOption}>Sort by: </Select>
+                                <Select
+                                    title={showTitle}
+                                    value={showValue}
+                                    setTitle={setShowTitle}
+                                    setValue={setShowValue}
+                                    options={showOption}>Show: </Select>
                             </div>
                             <div className={styles.viewType}>
                                 <button>
@@ -85,189 +96,19 @@ const Catalog: NextPage = () => {
                             <Tags tags={tags}/>
                         </div>
                     </div>
-                    <FullProductCard
-                        isInStock={true}
-                        image={bigImg1}
-                        rating={4}
-                        title={"MSI CREATOR 17 A10SFS-240AU 17 UHD 4K HDR Thin Bezel Intel 10th Gen i7 10875H - RTX 2070 SUPER MAX Q - 16GB RAM - 1TB SSD NVME - Windows 10 PRO Laptop"}
-                        price={400}
-                        discountPrice={300}
-                        reviews={23}
-                        name={"SKU D5515AI"}
-                    />
-                    <FullProductCard
-                        isInStock={false}
-                        image={bigImg2}
-                        rating={4}
-                        title={"MSI CREATOR 17 A10SFS-240AU 17 UHD 4K HDR Thin Bezel Intel 10th Gen i7 10875H - RTX 2070 SUPER MAX Q - 16GB RAM - 1TB SSD NVME - Windows 10 PRO Laptop"}
-                        price={400}
-                        discountPrice={300}
-                        reviews={23}
-                        name={"SKU D5515AI"}
-                    />
                     <div className={styles.products}>
-                        <ProductCard
-                            image={img1}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img2}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img3}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img4}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img5}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img6}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img1}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img2}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img3}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img4}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img5}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img6}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img1}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img2}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img3}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img4}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img5}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
-                        <ProductCard
-                            image={img6}
-                            title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                            price={400}
-                            discountPrice={300}
-                            isInStock={true}
-                            rating={5}
-                            reviews={34}
-                        />
+                        {
+                            products && products?.results?.map(item =>
+                                <ProductCard
+                                    key={item.id}
+                                    image={item?.product_img?.image}
+                                    title={item.short_desc}
+                                    price={item.price}
+                                    discountPrice={item.discount}
+                                    isInStock={item.is_stock}
+                                />
+                            )
+                        }
                     </div>
                     <Pagination
                         page={page}

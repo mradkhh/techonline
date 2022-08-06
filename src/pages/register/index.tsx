@@ -4,38 +4,37 @@ import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import TextInput from "components/UI/Inputs/TextInput";
 import A from "components/UI/A/A";
-import styles from 'styles/pages/register.module.scss'
 import {Context} from "pages/_app";
 import useInput from "hooks/useInput";
-import {observer} from "mobx-react-lite";
-import {useRouter} from "next/router";
+import styles from 'styles/pages/register.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
 ]
 
-
 const Register: NextPage = () => {
-
-    const router = useRouter()
+    const [ errorUsername, setErrorUsername ] = useState<boolean>(false)
+    const [ errorPassword, setErrorPassword ] = useState<boolean>(false)
     const { storeMobx } = useContext(Context)
     const { isAuth } = storeMobx
-    const username1 = useInput('')
-    const password2 = useInput('')
-
-    const username = 'adminn'
-    const password = '12345'
+    const username = useInput('')
+    const password = useInput('')
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
+        if(username.value && password.value) {
+            storeMobx.login(username.value, password.value)
+        }
+        if (!username.value) {
+            setErrorUsername(true)
+        }
+        if (!password.value) {
+            setErrorPassword(true)
+        }
     }
 
     useEffect(() => {
-        if(isAuth) {
-            window.location.href = '/'
-        }
-    }, [isAuth])
-
+    }, [])
 
     return (
         <MainLayout title="TechOnline - Registration" description="contact" mainClass="main_register">
@@ -47,21 +46,25 @@ const Register: NextPage = () => {
                     <p>If you have an account, sign in with your email address.</p>
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <TextInput
-                            {...username1}
+                            {...username}
                             label={"Username"}
                             placeholder={"Your Username"}
                             type={"text"}
                             require={true}
+                            error={errorUsername}
+                            setError={setErrorUsername}
                         />
                         <TextInput
-                            {...password2}
+                            {...password}
                             label={"Password"}
                             placeholder={"Your Password"}
                             type={"password"}
                             require={true}
+                            error={errorPassword}
+                            setError={setErrorPassword}
                         />
                         <div>
-                            <button type="submit" onClick={() => storeMobx.login(username, password)}>Sign In</button>
+                            <button type="submit">Sign In</button>
                             <A href="/">Forgot Your Password?</A>
                         </div>
                     </form>

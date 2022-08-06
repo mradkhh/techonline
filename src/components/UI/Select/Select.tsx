@@ -3,22 +3,24 @@ import {ArrowDown} from "static/icons/icon";
 import styles from './Select.module.scss';
 
 type Options = {
-    value: string,
+    value: number,
     title: string
 }
 
 interface SelectProps {
     children: ReactNode,
-    options: Options[]
+    options: Options[],
+    title: string,
+    value: number,
+    setTitle: (title: string) => void,
+    setValue: (value: number) => void
 }
 
-const Select: FC<SelectProps> = ({ children, options }) => {
+const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue, value}) => {
 
-    const [ value, setValue ] = useState<string>(options[0].value)
-    const [ title, setTitle ] = useState<string>(options[0].title)
+
     const [ show, setShow ] = useState<boolean>(false)
-
-    const handleSelect = (optionValue: string, optionTitle: string): void => {
+    const handleSelect = (optionValue: number, optionTitle: string): void => {
         setValue(optionValue)
         setTitle(optionTitle)
         setShow(false);

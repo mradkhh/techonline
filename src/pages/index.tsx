@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {useContext, useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import type { NextPage } from 'next'
 import {Context} from "pages/_app";
 import {Tab, TabList, TabPanel} from "react-tabs"
@@ -30,12 +30,14 @@ import blogImg2 from 'static/images/blogs/2.png'
 import { PartnerLogo } from "static/icons/icon";
 import styles from "styles/pages/home.module.scss"
 import { useFetchAllBrandsQuery } from "services/BrandsService";
+import {productApi} from "services/ProductService";
 
 
 const Index: NextPage = () => {
 
     const { storeMobx } = useContext(Context)
     const { data: brands } = useFetchAllBrandsQuery('');
+    const { data: newProducts } = productApi.useGetAllProductsQuery(6)
 
 
     return (
@@ -44,94 +46,20 @@ const Index: NextPage = () => {
           <div className={styles.products}>
               <h3>New Products</h3>
               <Carousel type='items' autoplay={false} button={true} loop={true} >
-                  <SwiperSlide>
-                      <ProductCard
-                        image={img1}
-                        title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                        price={400}
-                        discountPrice={300}
-                        isInStock={true}
-                        rating={5}
-                        reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img2}
-                          title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={false}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img3}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img4}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={false}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img5}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img6}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img7}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img8}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
+                  {
+                      newProducts && newProducts.results.map(item =>
+                          <SwiperSlide key={item.id}>
+                              <ProductCard
+                                  key={item.id}
+                                  image={item?.product_img?.image}
+                                  title={item.short_desc}
+                                  price={item.price}
+                                  discountPrice={item.discount}
+                                  isInStock={item.is_stock}
+                              />
+                          </SwiperSlide>
+                      )
+                  }
               </Carousel>
           </div>
 
@@ -150,94 +78,20 @@ const Index: NextPage = () => {
                     img={customImg}
                 />
               <Carousel type='category' autoplay={false} button={false} loop={true} >
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img1}
-                          title='EX DISPY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img2}
-                          title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={false}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img3}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img4}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={false}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img5}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img6}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img7}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img8}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
+                  {
+                      newProducts && newProducts.results.map(item =>
+                          <SwiperSlide key={item.id}>
+                              <ProductCard
+                                  key={item.id}
+                                  image={item?.product_img?.image}
+                                  title={item.short_desc}
+                                  price={item.price}
+                                  discountPrice={item.discount}
+                                  isInStock={item.is_stock}
+                              />
+                          </SwiperSlide>
+                      )
+                  }
               </Carousel>
           </section>
 
@@ -258,94 +112,20 @@ const Index: NextPage = () => {
                       img={msiImg}
                   />
                   <Carousel type='category' autoplay={false} button={false} loop={true} >
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img1}
-                              title='EX DISPLArY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={true}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img2}
-                              title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={false}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img3}
-                              title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={true}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img4}
-                              title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={false}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img5}
-                              title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={true}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img6}
-                              title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={true}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img7}
-                              title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={true}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
-                      <SwiperSlide>
-                          <ProductCard
-                              image={img8}
-                              title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                              price={400}
-                              discountPrice={300}
-                              isInStock={true}
-                              rating={5}
-                              reviews={34}
-                          />
-                      </SwiperSlide>
+                      {
+                          newProducts && newProducts.results.map(item =>
+                              <SwiperSlide key={item.id}>
+                                  <ProductCard
+                                      key={item.id}
+                                      image={item?.product_img?.image}
+                                      title={item.short_desc}
+                                      price={item.price}
+                                      discountPrice={item.discount}
+                                      isInStock={item.is_stock}
+                                  />
+                              </SwiperSlide>
+                          )
+                      }
                   </Carousel>
               </div>
           </TabPanel>
@@ -357,94 +137,20 @@ const Index: NextPage = () => {
                           img={msiImg}
                       />
                       <Carousel type='category' autoplay={false} button={false} loop={true} >
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img1}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img2}
-                                  title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={false}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img3}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img4}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={false}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img5}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img6}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img7}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img8}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
+                          {
+                              newProducts && newProducts.results.map(item =>
+                                  <SwiperSlide key={item.id}>
+                                      <ProductCard
+                                          key={item.id}
+                                          image={item?.product_img?.image}
+                                          title={item.short_desc}
+                                          price={item.price}
+                                          discountPrice={item.discount}
+                                          isInStock={item.is_stock}
+                                      />
+                                  </SwiperSlide>
+                              )
+                          }
                       </Carousel>
                   </div>
               </TabPanel>
@@ -473,94 +179,20 @@ const Index: NextPage = () => {
                           img={desktopImg}
                       />
                       <Carousel type='category' autoplay={false} button={false} loop={true} >
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img1}
-                                  title='EX DweISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img2}
-                                  title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={false}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img3}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img4}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={false}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img5}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img6}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img7}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img8}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
+                          {
+                              newProducts && newProducts.results.map(item =>
+                                  <SwiperSlide key={item.id}>
+                                      <ProductCard
+                                          key={item.id}
+                                          image={item?.product_img?.image}
+                                          title={item.short_desc}
+                                          price={item.price}
+                                          discountPrice={item.discount}
+                                          isInStock={item.is_stock}
+                                      />
+                                  </SwiperSlide>
+                              )
+                          }
                       </Carousel>
                   </div>
               </TabPanel>
@@ -572,94 +204,20 @@ const Index: NextPage = () => {
                           img={msiImg}
                       />
                       <Carousel type='category' autoplay={false} button={false} loop={true} >
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img1}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img2}
-                                  title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={false}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img3}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img4}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={false}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img5}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img6}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img7}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
-                          <SwiperSlide>
-                              <ProductCard
-                                  image={img8}
-                                  title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                                  price={400}
-                                  discountPrice={300}
-                                  isInStock={true}
-                                  rating={5}
-                                  reviews={34}
-                              />
-                          </SwiperSlide>
+                          {
+                              newProducts && newProducts.results.map(item =>
+                                  <SwiperSlide key={item.id}>
+                                      <ProductCard
+                                          key={item.id}
+                                          image={item?.product_img?.image}
+                                          title={item.short_desc}
+                                          price={item.price}
+                                          discountPrice={item.discount}
+                                          isInStock={item.is_stock}
+                                      />
+                                  </SwiperSlide>
+                              )
+                          }
                       </Carousel>
                   </div>
               </TabPanel>
@@ -672,94 +230,20 @@ const Index: NextPage = () => {
                   img={gaminImg}
               />
               <Carousel type='category' autoplay={false} button={false} loop={true} >
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img1}
-                          title='EX DISPLAY : MerSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img2}
-                          title='Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={false}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img3}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img4}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={false}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img5}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img6}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img7}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                      <ProductCard
-                          image={img8}
-                          title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                          price={400}
-                          discountPrice={300}
-                          isInStock={true}
-                          rating={5}
-                          reviews={34}
-                      />
-                  </SwiperSlide>
+                  {
+                      newProducts && newProducts.results.map(item =>
+                          <SwiperSlide key={item.id}>
+                              <ProductCard
+                                  key={item.id}
+                                  image={item?.product_img?.image}
+                                  title={item.short_desc}
+                                  price={item.price}
+                                  discountPrice={item.discount}
+                                  isInStock={item.is_stock}
+                              />
+                          </SwiperSlide>
+                      )
+                  }
               </Carousel>
           </section>
 

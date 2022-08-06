@@ -104,3 +104,22 @@ button {
     padding-top: 130px;
   }
 }
+
+
+@keyframes light {
+  0% {
+    border: 1px solid var(--red);
+  }
+  25% {
+    border: 1px solid var(--gray);
+  }
+  50% {
+    border: 1px solid var(--red);
+  }
+  75% {
+    border: 1px solid var(--gray);
+  }
+  100% {
+    border: 1px solid var(--red);
+  }
+}

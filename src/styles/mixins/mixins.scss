@@ -166,6 +166,10 @@ $breakpoint480: 479.98 + px;
   border: none;
   outline: none;
 
+  &:active {
+    background-color: var(--brandDark);
+  }
+
   @media (max-width: $breakpoint568) {
     font-size: 13px;
   }
