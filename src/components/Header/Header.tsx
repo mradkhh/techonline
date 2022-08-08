@@ -1,17 +1,17 @@
-import React, {FC, memo, useCallback, useContext, useEffect, useState} from 'react';
+import React, {createRef, FC, memo, RefAttributes, useCallback, useContext, useEffect, useState} from 'react';
 import Image from "next/image";
 import Logo from "components/UI/Logo/Logo";
 import Head from "components/Header/UI/Head";
 import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
-import {AvatarIcon, ShoppingCartIcon} from "static/icons/icon";
+import {AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
-import styles from './Header.module.scss'
 import useMediaQuery from "hooks/useMediaQuery";
 import {Context} from "pages/_app";
-import {getAccessToken} from "utils/tokenStorage";
+import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
+import styles from './Header.module.scss'
 
 
 
@@ -60,10 +60,11 @@ const Header: FC = () => {
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
+    const [ search, setSearch ] = useState<boolean>(false)
     const matches = useMediaQuery("(min-width: 992px)")
     const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
-    const { storeMobx } = useContext(Context)
-    const { isAuth }  = storeMobx
+    const { authStore } = useContext(Context)
+    const { isAuth }  = authStore
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
@@ -77,6 +78,12 @@ const Header: FC = () => {
     const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(!showMenu)
     }, [showMenu, matches])
+
+    const avatarRef = createRef<HTMLDivElement>()
+    const cartRef = createRef<HTMLDivElement>()
+
+    useMousedownClickInvisible(avatarRef, () => { setShowAvatar(false) })
+    useMousedownClickInvisible(cartRef, () => { setShowCart(false) })
 
     useEffect(() => {
         if (matches) {
@@ -96,7 +103,11 @@ const Header: FC = () => {
                     <div className={styles.Root}>
                         <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
                         <Logo mobileMenuShow={showMobileMenu}/>
-                        <SearchField/>
+                        <div
+                            onClick={() => setSearch(false)}
+                            className={[styles.searchField, search ? ' searchEffect' : ''].join('')}>
+                            <SearchField search={search} />
+                        </div>
                         {
                             showMobileMenu && <nav
                                             onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -113,7 +124,13 @@ const Header: FC = () => {
                                 </ul>
                             </nav>
                         }
-                        {/*<SearchIcon/>*/}
+                        {
+                            !search && <button
+                                            onClick={() => setSearch(!search)}
+                                            className={styles.searchIcon}>
+                                            <SearchIcon/>
+                                        </button>
+                        }
                             <div className={styles.Basket}>
                                 <button
                                     onClick={handleShowCart}
@@ -121,7 +138,9 @@ const Header: FC = () => {
                                     <ShoppingCartIcon/>
                                     <span>3</span>
                                 </button>
-                                <Minicart show={showCart}/>
+                                { showCart && <div ref={cartRef} >
+                                    <Minicart/>
+                                </div> }
                             </div>
                                 <div className={styles.Avatar}>
                                     <button
@@ -142,7 +161,7 @@ const Header: FC = () => {
                                         }
                                     </button>
                                     {
-                                        showAvatar && <div>
+                                        showAvatar && <div ref={avatarRef}>
                                             {
                                                 isAuth ?
                                                     <>
@@ -150,7 +169,10 @@ const Header: FC = () => {
                                                         <A href="/dashboard">My Wish List (0)</A>
                                                         <A href="/dashboard">Compare (0)</A>
                                                         <button
-                                                            onClick={() => storeMobx.logout()}
+                                                            onClick={() => {
+                                                                authStore.logout()
+                                                                window.location.reload()
+                                                            }}
                                                             style={{color: 'var(--red)'}}
                                                         >Logout</button>
                                                         </>

@@ -102,6 +102,21 @@
   }
 }
 
+.brandIcon {
+  transition: background-color var(--transitionDuraction);
+  @include maxWidth(153);
+  object-fit: contain;
+  background-color: var(--white);
+  &:hover {
+    background-color: var(--light-blue);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+}
+
 .compare, .wishList {
   margin-bottom: 8px;
   text-align: center;

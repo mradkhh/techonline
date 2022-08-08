@@ -4,6 +4,7 @@
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 12345;
+  isolation: isolate;
 }
 
 .header {
@@ -114,6 +115,38 @@
     @include dropEffectToUp(300);
     left: -85px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.searchField {
+  @media (min-width: 992px) {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1234;
+    padding-top: 50px;
+  }
+
+  @media (max-width: $breakpoint992) {
+    display: inline;
+    width: 100%;
+  }
+
+}
+
+.searchIcon {
+  @include flex-center(center);
+  @include rectangle(40);
+  padding: 4px;
+  border-radius: 100vmax;
+  @media (max-width: $breakpoint992) {
+    display: none;
+  }
+
+
+  &:hover {
+    background-color: var(--light-blue);
   }
 }
 

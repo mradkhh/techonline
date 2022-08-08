@@ -165,6 +165,7 @@ $breakpoint480: 479.98 + px;
   color: var(--white);
   border: none;
   outline: none;
+  transition: background-color var(--transitionDuraction);
 
   &:active {
     background-color: var(--brandDark);
@@ -354,4 +355,33 @@ $breakpoint480: 479.98 + px;
   background-color: rgba(0, 128, 0, 0.1) !important;
   color: #ffffff !important;
   border: transparent;
+}
+
+
+@mixin accordion {
+  > div {
+
+  }
+}
+
+@mixin accordionItem {
+  padding: 1rem;
+  font-size: 1.5rem;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  position: relative;
+
+  &.active {
+    > h3 {
+
+    }
+  }
+}
+
+@mixin accordionContent {
+  position: relative;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
 }

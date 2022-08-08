@@ -1,15 +1,25 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import Image from "next/image";
 import {MSIIcon} from "static/icons/icon";
 import SideImg from 'static/images/catalogs/side.png'
 import styles from './Sidebar.module.scss'
+import {IBrands} from "models/index";
+import Accordion from "components/UI/Accordion/Accordion";
+import {brandsApi} from "services/BrandsService";
 
 interface SidebarProps {
-
 }
 
 
 const Sidebar: FC<SidebarProps> = ({  }) => {
+    const [ brandId, setBrandId ] = useState<number>()
+
+    const { data: brands } = brandsApi.useFetchAllBrandsQuery('')
+
+    const handleChoiceBrand = ( event: any , brandId: number) => {
+        console.log(event.target.ref)
+        setBrandId(brandId)
+    }
     return (
         <div className={styles.sidebar}>
             <button>‹ Back</button>
@@ -19,7 +29,9 @@ const Sidebar: FC<SidebarProps> = ({  }) => {
                     <button>Clear Filter</button>
                 </div>
                 <div className={styles.filterCenter}>
+                    <Accordion header={'Category'} >
 
+                    </Accordion>
                 </div>
                 <div className={styles.filterBottom}>
                     <button>Apply Filters (2)</button>
@@ -30,12 +42,23 @@ const Sidebar: FC<SidebarProps> = ({  }) => {
                         <button>All Brands</button>
                     </div>
                     <div>
-                        <MSIIcon/>
-                        <MSIIcon/>
-                        <MSIIcon/>
-                        <MSIIcon/>
-                        <MSIIcon/>
-                        <MSIIcon/>
+                        {
+                            brands && brands?.results?.map(item =>
+                                <div
+                                    onClick={(event) => handleChoiceBrand(event, item?.id)}
+                                    key={item?.id}
+                                    className={styles.brandIcon}>
+                                    <Image
+                                        objectFit='contain'
+                                        objectPosition='center'
+                                        width={153}
+                                        height={80}
+                                        src={item?.icon}
+                                        alt={item?.name}
+                                    />
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
                 <div className={styles.compare}>

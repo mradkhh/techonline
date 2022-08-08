@@ -22,18 +22,15 @@ $api.interceptors.response.use((config) => {
     const originalRequest = error.config
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true
-        try {
-            if (getRefreshToken()) {
-                const res = await axios.post<AuthResponse>(`${API_URL}me/refresh/`, {
-                    refresh: getRefreshToken()
-                })
-                setAccessToken(res.data.access)
-                return $api.request(originalRequest)
-            } else {
-                alert('Bu usernamedagi foydalanuvchi topilmadi')
+        if (getRefreshToken()) {
+            try {
+                    const res = await axios.post<AuthResponse>(`${API_URL}me/refresh/`, { refresh: getRefreshToken() })
+                    setAccessToken(res.data.access)
+                    return $api.request(originalRequest)
+            } catch (e: any) {
+                console.log('Not auth - ' + e.message)
+                alert("Not")
             }
-        } catch (e: any) {
-            console.log('Not auth - ' + e.message)
         }
     }
     throw error

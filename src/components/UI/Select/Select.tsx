@@ -18,7 +18,6 @@ interface SelectProps {
 
 const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue, value}) => {
 
-
     const [ show, setShow ] = useState<boolean>(false)
     const handleSelect = (optionValue: number, optionTitle: string): void => {
         setValue(optionValue)

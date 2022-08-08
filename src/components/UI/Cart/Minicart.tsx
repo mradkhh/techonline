@@ -3,22 +3,19 @@ import React, {FC} from 'react';
 import Img from "static/images/catalogs/1.png";
 import {EditIcon, GrayXIcon, PayPalButtonIcon} from "static/icons/icon";
 import styles from './Minicart.module.scss'
+import A from "components/UI/A/A";
 
 
-interface MinicartProps {
-    show: boolean
-}
 
-const Minicart: FC<MinicartProps> = ({ show }) => {
+const Minicart: FC = () => {
 
 
-    if (show) {
         return (
             <div className={styles.cart}>
                 <div className={styles.header}>
                     <h4>My Cart</h4>
                     <p>2 item in cart</p>
-                    <button>View or Edit Your Cart</button>
+                    <A href="/shoppingcart" isBtn={true}>View or Edit Your Cart</A>
                 </div>
                 <div className={styles.body}>
                     <div>
@@ -45,17 +42,13 @@ const Minicart: FC<MinicartProps> = ({ show }) => {
                 <div className={styles.footer}>
                     <h3>Subtotal: <span>$499.00</span></h3>
                     <div>
-                        <button>Go to Checkout</button>
+                        <A isBtn={true} href={'/checkout'}>Go to Checkout</A>
                         <button>Check out with
                             <PayPalButtonIcon/>
                         </button>
                     </div>
                 </div>
-            </div>
-        )
-    } else {
-        return <></>
-    }
+            </div>)
 };
 
 export default Minicart;

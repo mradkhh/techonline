@@ -13,6 +13,7 @@ interface AccordionProps {
 
 const Accordion: FC<AccordionProps> = ({ children, header, className, headerStyle, itemsStyle}) => {
 
+
     const matches = useMediaQuery("(max-width: 991.98px)")
     const [ show, setShow ] = useState<boolean>(true)
 
@@ -22,13 +23,17 @@ const Accordion: FC<AccordionProps> = ({ children, header, className, headerStyl
 
     return (
         <div className={`${styles.accordion} ${className}`}>
-            <div onClick={handleShow} className={`${styles.header} ${headerStyle}`}>{header} <span>
-                <ArrowDown/>
-            </span></div>
+                    <div
+                        onClick={handleShow} className={`${styles.header} ${headerStyle}`}>
+                        {header}
+                        <span>
+                        <ArrowDown/>
+                    </span>
+                    </div>
             {
-                show && <div className={`${styles.items} ${itemsStyle}`}>
-                    { children }
-                </div>
+                show && <div className={`${styles.items} ${itemsStyle} `}>
+                            { children }
+                        </div>
             }
         </div>
     );

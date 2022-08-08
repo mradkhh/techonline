@@ -1,16 +1,17 @@
 import React, {FC} from 'react';
 import Image from "next/image";
 import {FavoriteIcon, MessageIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon} from "static/icons/icon";
+import img from 'static/images/products/1.jpg'
 import styles from './styles/FullProductCard.module.scss'
 
 interface FullProductCardProps {
     isInStock: boolean,
     image: any,
-    rating: number,
+    rating?: number,
     title: string,
-    price: number,
+    price: string,
     discountPrice: number,
-    reviews: number,
+    reviews?: number,
     name: string
 }
 
@@ -31,7 +32,7 @@ const FullProductCard: FC<FullProductCardProps> = ({name, isInStock, image, rati
                     objectPosition='center'
                     width={250}
                     height={250}
-                    src={image}
+                    src={image ? image : img}
                     alt={name}
                 />
             </div>

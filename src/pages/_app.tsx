@@ -3,24 +3,26 @@ import 'styles/index.scss'
 import 'static/fonts/stylesheet.css'
 import type { AppProps } from 'next/app'
 import {setupStore} from "store/index";
-import Store from "store/mobx";
+import AuthStore, {FilterState} from "store/mobx";
 import {createContext} from "react";
 import {Provider} from "react-redux";
 
 interface State {
-  storeMobx: Store
+    authStore: AuthStore,
+    filterState: FilterState
 }
 
 const storeRedux = setupStore()
-const storeMobx = new Store()
+const authStore = new AuthStore()
+const filterState = new FilterState()
 
 export const Context = createContext<State>({
-  storeMobx
+  authStore, filterState
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Provider store={storeRedux}>
-            <Context.Provider value={{ storeMobx }}>
+            <Context.Provider value={{ authStore, filterState }}>
                 <Component {...pageProps} />
             </Context.Provider>
           </Provider>

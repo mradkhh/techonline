@@ -2,13 +2,13 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IProduct} from "models/index";
 
 interface IFavoritesState {
-    favorites: IProduct[],
+    products: IProduct[],
     isLoading: boolean,
     error: string
 }
 
 const initialState: IFavoritesState = {
-    favorites: [],
+    products: [],
     isLoading: false,
     error: ''
 }
@@ -23,7 +23,7 @@ export const favoritesSlice = createSlice({
         favoritesFetchingSuccess(state, action: PayloadAction<IProduct[]>) {
             state.isLoading = false;
             state.error = '';
-            state.favorites = action.payload
+            state.products = action.payload
         },
         favoritesFetchingError(state, action: PayloadAction<string>) {
             state.isLoading = false;

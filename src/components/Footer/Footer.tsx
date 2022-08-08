@@ -28,15 +28,15 @@ const Footer: FC = memo(() => {
                 </div>
                 <div className={styles.center}>
                     <Accordion header="Information">
-                        <A href="/">About Us</A>
-                        <A href="/">About Zip</A>
-                        <A href="/">Privacy Policy</A>
-                        <A href="/">Search</A>
-                        <A href="/">Terms</A>
-                        <A href="/">Orders and Returns</A>
-                        <A href="/">Contact Us</A>
-                        <A href="/">Advanced Search</A>
-                        <A href="/">Newsletter Subscription</A>
+                            <A href="/">About Us</A>
+                            <A href="/">About Zip</A>
+                            <A href="/">Privacy Policy</A>
+                            <A href="/">Search</A>
+                            <A href="/">Terms</A>
+                            <A href="/">Orders and Returns</A>
+                            <A href="/">Contact Us</A>
+                            <A href="/">Advanced Search</A>
+                            <A href="/">Newsletter Subscription</A>
                     </Accordion>
                     <Accordion header="PC Parts">
                         <A href="/">CPUS</A>

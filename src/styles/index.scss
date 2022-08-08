@@ -105,6 +105,22 @@ button {
   }
 }
 
+// more
+.searchEffect {
+  display: inline !important;
+  animation: fade-on 300ms;
+}
+
+
+@keyframes fade-on {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 @keyframes light {
   0% {

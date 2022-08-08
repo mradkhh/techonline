@@ -15,7 +15,7 @@ export const fetchCarts = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const fetchAddToCart = (quantity: number, user: number , product: number) => async (dispatch: AppDispatch) => {
+export const fetchAddToCart = (quantity: number = 1, user: number = 2 , product: number) => async (dispatch: AppDispatch) => {
     try {
         dispatch(cartsSlice.actions.fetching())
         const res = await $api.post('carts/', { quantity, user, product })

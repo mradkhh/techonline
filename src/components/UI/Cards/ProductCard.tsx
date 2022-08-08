@@ -12,12 +12,13 @@ interface ProductCardProps {
     isInStock: boolean,
     image?: string,
     title: string,
-    price: number,
+    price: string,
     discountPrice: number,
+    handleAddToCart: () => void
 }
 
 
-const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, price, title }) => {
+const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, price, title, handleAddToCart }) => {
 
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
@@ -51,7 +52,9 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, pr
                         <FavoriteIcon/>
                         <StatsIcon/>
                     </div>
-                    <button className={styles.addToCart}>
+                    <button
+                        onClick={handleAddToCart}
+                        className={styles.addToCart}>
                         <ShoppingCartIcon/>
                         Add To Cart
                     </button>

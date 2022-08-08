@@ -65,7 +65,13 @@ const TextInput: FC<TextInputProps> = ({ label,
                                        placeholder={placeholder}/>
                              :
                             type === 'textarea' ?
-                                    <textarea name="" id="" cols={50} rows={15} placeholder={placeholder}/>
+                                    <textarea
+                                        {...props}
+                                        style={{
+                                            border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                                            animation: (error ) ? 'light 500ms ease' : '' }}
+                                        onFocus={handleFocus}
+                                        name="" id="" cols={50} rows={15} placeholder={placeholder}/>
                                     :
                                 type === 'radio' ?
                                     <>

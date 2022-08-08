@@ -22,24 +22,6 @@ const Menu: FC = () => {
                     <div>MSI Prestige Series</div>
                 </div>
                 <div className={styles.cards}>
-                    <ProductCard
-                        image={img1}
-                        title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                        price={400}
-                        discountPrice={300}
-                        isInStock={true}
-                        rating={5}
-                        reviews={34}
-                    />
-                    <ProductCard
-                        image={img1}
-                        title='EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...'
-                        price={400}
-                        discountPrice={300}
-                        isInStock={true}
-                        rating={5}
-                        reviews={34}
-                    />
                 </div>
             </div>
         </div>

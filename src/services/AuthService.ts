@@ -1,7 +1,6 @@
-import {AxiosResponse} from "axios";
+import axios, {AxiosResponse} from "axios";
 import {AuthResponse} from "models/response/AuthResponse";
 import $api from "./interseptors";
-
 
 export default class AuthService {
     static async login(username: string, password: string): Promise<AxiosResponse<AuthResponse>> {
@@ -9,7 +8,7 @@ export default class AuthService {
     }
 
     static async register(username: string, password: string, confirm_password: string): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/register/', { username, password, confirm_password })
+        return axios.post<AuthResponse>('/user/register/', { username, password, confirm_password })
     }
 
     static async logout(): Promise<void> {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {NextPage} from "next";
 import MainLayout from "layouts/MainLayout";
 import Image from "next/image";
@@ -15,6 +15,10 @@ import bannerImg  from 'static/images/catalogs/banner.png'
 import bigImg1 from 'static/images/catalogs/big1.png'
 import bigImg2 from 'static/images/catalogs/big2.png'
 import styles from 'styles/pages/catalog.module.scss'
+import {brandsApi} from "services/BrandsService";
+import {Context} from "pages/_app";
+import {fetchAddToCart} from "services/CartsService";
+import {useAppDispatch} from "hooks/redux";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
@@ -45,9 +49,21 @@ const Catalog: NextPage = () => {
     const [ showValue, setShowValue ] = useState<number>(showOption[0].value)
     const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
     const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
+    const [ viewType, setViewType ] = useState<number>(1)
     const pages = 234
 
-    const { data: products } = productApi.useGetAllProductsQuery(showValue)
+    const { filterState } = useContext(Context)
+    const dispatch = useAppDispatch()
+
+    const { data: products } = productApi.useGetAllProductsQuery(filterState.getAll())
+
+    const handleAddToCart = (id: number) => {
+        dispatch(fetchAddToCart(1, 1, id, ))
+    }
+
+    useEffect(() => {
+        window.scroll(0, 100)
+    }, [page])
 
     return (
         <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>
@@ -84,10 +100,16 @@ const Catalog: NextPage = () => {
                                     options={showOption}>Show: </Select>
                             </div>
                             <div className={styles.viewType}>
-                                <button>
+                                <button
+                                    className={ viewType !== 1 ? styles.view : ''}
+                                    onClick={() => setViewType(state => state = 1)}
+                                >
                                     <GridIcon/>
                                 </button>
-                                <button>
+                                <button
+                                    className={ viewType !== 2 ? styles.view : ''}
+                                    onClick={() => setViewType(state => state= 2)}
+                                >
                                     <LineIcon/>
                                 </button>
                             </div>
@@ -98,7 +120,7 @@ const Catalog: NextPage = () => {
                     </div>
                     <div className={styles.products}>
                         {
-                            products && products?.results?.map(item =>
+                            products && viewType === 1 && products?.results?.map(item =>
                                 <ProductCard
                                     key={item.id}
                                     image={item?.product_img?.image}
@@ -106,6 +128,22 @@ const Catalog: NextPage = () => {
                                     price={item.price}
                                     discountPrice={item.discount}
                                     isInStock={item.is_stock}
+                                    handleAddToCart={() => handleAddToCart(item.id)}
+                                />
+                            )
+                        }
+                    </div>
+                    <div>
+                        {
+                            products && viewType === 2 && products?.results?.map(item =>
+                                <FullProductCard
+                                    key={item.id}
+                                    isInStock={item?.is_stock}
+                                    image={item?.product_img?.image}
+                                    title={item?.short_desc}
+                                    price={item?.price}
+                                    discountPrice={item?.discount}
+                                    name={item?.name}
                                 />
                             )
                         }

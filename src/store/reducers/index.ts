@@ -1,13 +1,13 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import {cartReducer} from "store/reducers/cartReducer";
 import favoritesSliceReducer from "store/reducers/favoritesSlice";
+import cartsSliceReducer from "store/reducers/cartSlice";
 import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
 
 
 export const rootReducer = combineReducers({
-    cart: cartReducer,
-    favoritesSliceReducer,
+    carts: cartsSliceReducer,
+    favorites: favoritesSliceReducer,
     [productApi.reducerPath]: productApi.reducer,
     [brandsApi.reducerPath]: brandsApi.reducer
 })

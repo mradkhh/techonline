@@ -1,17 +1,57 @@
 import {NextPage} from "next";
-import React from 'react';
+import React, {useState} from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import styles from 'styles/pages/contact.module.scss'
 import TextInput from "components/UI/Inputs/TextInput";
 import {ClockIcon, GeoLocationIcon, MailIcon, PhoneIcon} from "static/icons/icon";
 import A from "components/UI/A/A";
+import useInput from "hooks/useInput";
+import $api from "services/interseptors";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
 ]
 
 const Contact: NextPage = () => {
+
+    const [ nameError, setNameError ] = useState<boolean>(false)
+    const [ emailError, setEmailError ] = useState<boolean>(false)
+    const [ textareaError, setTextareaError ] = useState<boolean>(false)
+
+
+    const name = useInput('')
+    const email = useInput('')
+    const phone = useInput('')
+    const textarea = useInput('')
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        if (name.value && email.value && textarea.value) {
+            if(phone.value.length !== 9) {
+                phone.setValue('')
+            }
+            const res = $api.post('/contacts/', {
+                name,
+                email,
+                phone,
+                textarea
+            })
+
+        }
+        if (!name.value) {
+            setNameError(true)
+        }
+        if (!email.value) {
+            setEmailError(true)
+        }
+        if(!textarea.value) {
+            setTextareaError(true)
+        }
+    }
+
+
+
     return (
         <MainLayout title={"TechOnline - Contact"} description={"contact"} mainClass={"main_contact"}>
             <Breadcrumbs array={breadcrumbs} current="Login"/>
@@ -20,14 +60,28 @@ const Contact: NextPage = () => {
                 <div>
                     <p>We love hearing from you, our Shop customers.</p>
                     <p> Please contact us and we will make sure to get back to you as soon as we possibly can.</p>
-                    <form className={styles.form}>
+                    <form onSubmit={handleSubmit} className={styles.form}>
                         <div>
-                            <TextInput label={"Your Name"} placeholder={"Your Name"} type={"text"} require={true}/>
-                            <TextInput label={"Email"} placeholder={"Your Email"} type={"email"} require={true}/>
+                            <TextInput
+                                {...name}
+                                error={nameError}
+                                setError={setNameError}
+                                label={"Your Name"} placeholder={"Your Name"} type={"text"} require={true}/>
+                            <TextInput
+                                {...email}
+                                error={emailError}
+                                setError={setEmailError}
+                                label={"Email"} placeholder={"Your Email"} type={"email"} require={true}/>
                         </div>
-                        <TextInput label={"Your Phone Number"} placeholder={"Your Phone Number"} type={"text"} require={false}/>
-                        <TextInput label={"What’s on your mind?"} placeholder={"Jot us a note and we’ll get back to you as quickly as possible"} type={'textarea'} require={true}/>
-                        <button>Submit</button>
+                        <TextInput
+                            {...phone}
+                            label={"Your Phone Number"} placeholder={"Your Phone Number"} type={"text"} require={false}/>
+                        <TextInput
+                            {...textarea}
+                            error={textareaError}
+                            setError={setTextareaError}
+                            label={"What’s on your mind?"} placeholder={"Jot us a note and we’ll get back to you as quickly as possible"} type={'textarea'} require={true}/>
+                        <button type={"submit"}>Submit</button>
                     </form>
                 </div>
                 <div className={styles.right}>

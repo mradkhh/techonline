@@ -59,6 +59,10 @@
   animation: fade 700ms linear;
   cursor: pointer;
 
+  &:active {
+    transform: scale(0.96);
+  }
+
   > svg {
     @include rectangle(24);
     transform: rotate(180deg);
