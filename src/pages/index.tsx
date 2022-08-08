@@ -35,10 +35,12 @@ import {productApi} from "services/ProductService";
 
 const Index: NextPage = () => {
 
-    const { storeMobx } = useContext(Context)
     const { data: brands } = useFetchAllBrandsQuery('');
-    const { data: newProducts } = productApi.useGetAllProductsQuery(6)
+    const { data: newProducts } = productApi.useGetAllProductsQuery(6, 1)
 
+    const handle = () => {
+
+    }
 
     return (
       <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
@@ -56,6 +58,7 @@ const Index: NextPage = () => {
                                   price={item.price}
                                   discountPrice={item.discount}
                                   isInStock={item.is_stock}
+                                  handleAddToCart={handle}
                               />
                           </SwiperSlide>
                       )
@@ -88,6 +91,7 @@ const Index: NextPage = () => {
                                   price={item.price}
                                   discountPrice={item.discount}
                                   isInStock={item.is_stock}
+                                  handleAddToCart={handle}
                               />
                           </SwiperSlide>
                       )
@@ -122,6 +126,7 @@ const Index: NextPage = () => {
                                       price={item.price}
                                       discountPrice={item.discount}
                                       isInStock={item.is_stock}
+                                      handleAddToCart={handle}
                                   />
                               </SwiperSlide>
                           )
@@ -147,6 +152,7 @@ const Index: NextPage = () => {
                                           price={item.price}
                                           discountPrice={item.discount}
                                           isInStock={item.is_stock}
+                                          handleAddToCart={handle}
                                       />
                                   </SwiperSlide>
                               )
@@ -189,6 +195,7 @@ const Index: NextPage = () => {
                                           price={item.price}
                                           discountPrice={item.discount}
                                           isInStock={item.is_stock}
+                                          handleAddToCart={handle}
                                       />
                                   </SwiperSlide>
                               )
@@ -214,6 +221,7 @@ const Index: NextPage = () => {
                                           price={item.price}
                                           discountPrice={item.discount}
                                           isInStock={item.is_stock}
+                                          handleAddToCart={handle}
                                       />
                                   </SwiperSlide>
                               )
@@ -240,6 +248,7 @@ const Index: NextPage = () => {
                                   price={item.price}
                                   discountPrice={item.discount}
                                   isInStock={item.is_stock}
+                                  handleAddToCart={handle}
                               />
                           </SwiperSlide>
                       )

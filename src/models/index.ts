@@ -34,13 +34,13 @@ export interface IProductData {
 export interface IProductsQuery {
     page?: number,
     page_size?: number,
-    min_price?: number,
-    max_price?: number,
-    brand?: number,
+    min_price?: number | string,
+    max_price?: number | string,
+    brand?: number | string,
     category_search?: string,
-    colors?: number,
+    colors?: number | string,
     search?: string,
-    ordering?: number
+    ordering?: number | string
 }
 
 interface IUserLogin {
