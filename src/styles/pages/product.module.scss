@@ -23,6 +23,9 @@
     position: relative;
     top: 0;
   }
+  @media (max-width: $breakpoint768) {
+    top: 16px;
+  }
   > div {
     @include container;
     @include flex-between(center);

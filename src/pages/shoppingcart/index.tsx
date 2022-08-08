@@ -17,7 +17,7 @@ import img1 from "static/images/products/1.jpg"
 import img2 from "static/images/products/2.jpg"
 import styles from 'styles/pages/shoppingcart.module.scss'
 import {useAppDispatch, useAppSelector} from "hooks/redux";
-import {fetchCarts, fetchRemoveFromToCart} from "services/CartsService";
+import {fetchAddToCart, fetchCarts, fetchRemoveFromToCart} from "services/CartsService";
 import {productApi} from "services/ProductService";
 
 const breadcrumbs = [
@@ -64,13 +64,18 @@ const Index: NextPage = () => {
     const { products: cartProducts } = useAppSelector(state => state.carts)
     const dispatch = useAppDispatch()
 
-    console.log(cartProducts)
 
     const [ createProd, {  } ] = productApi.useCreateProductMutation()
 
 
     const handleIncrement = (id: number) => {
-        setAmount(amount + 1)
+        const newObj = items.map(item => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity + 1 }
+            } else {
+                return item
+            }
+        })
     }
 
     const handleDecrement = (id: number) => {

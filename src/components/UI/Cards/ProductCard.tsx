@@ -38,7 +38,7 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, pr
                     height={widthImg ? widthImg : 150}
                     objectFit='cover'
                     objectPosition='center'
-                    alt={title}
+                    alt={'product'}
                     src={image ? `${API_URL}+${image}` : img}
                 />
             </div>

@@ -40,7 +40,6 @@ const Product: NextPage = () => {
 
     const matches = useMediaQuery('(max-width: 767.98px)')
     const featureImgWidth = matches ? 100 : 136
-    console.log(matches)
 
 
     const handleSwitch = (id: number): void => {

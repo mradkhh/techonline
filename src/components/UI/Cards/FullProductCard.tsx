@@ -6,7 +6,7 @@ import styles from './styles/FullProductCard.module.scss'
 
 interface FullProductCardProps {
     isInStock: boolean,
-    image: any,
+    image: string,
     rating?: number,
     title: string,
     price: string,
@@ -33,7 +33,7 @@ const FullProductCard: FC<FullProductCardProps> = ({name, isInStock, image, rati
                     width={250}
                     height={250}
                     src={image ? image : img}
-                    alt={name}
+                    alt={"product"}
                 />
             </div>
             <div className={styles.body}>
