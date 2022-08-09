@@ -10,7 +10,7 @@ import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
 import useMediaQuery from "hooks/useMediaQuery";
 import {Context} from "pages/_app";
-import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
+import {useMousedownClickInvisible, useMouseoverClickInvisible} from "hooks/useMousedownClickInvisible";
 import styles from './Header.module.scss'
 import {ICategories} from "models/index";
 import {useFetching} from "hooks/useFetching";
@@ -103,14 +103,12 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const avatarRef = createRef<HTMLDivElement>()
     const cartRef = createRef<HTMLDivElement>()
     const menuRef = createRef<HTMLDivElement>()
+    const navRef = createRef<HTMLUListElement>()
 
     useMousedownClickInvisible(avatarRef, () => { setShowAvatar(false) })
     useMousedownClickInvisible(cartRef, () => { setShowCart(false) })
-    useMousedownClickInvisible(menuRef, () => {
-            if (!isInMenuArea) {
-                setShowMenu(false)
-            }
-    })
+    useMousedownClickInvisible(menuRef, () => { setShowMenu(false)})
+    useMouseoverClickInvisible(navRef, () => { setShowMenu(true) })
 
     useEffect(() => {
 
@@ -125,11 +123,25 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         dispatch(fetchCarts())
     }, [])
 
+    useEffect(() => {
+        const ids = document.querySelectorAll('.headerList');
+        const fetchById = (id: number) => {
+            ids.forEach(item => {
+                if (Number(item.id) === id) {
+                    return  fetchCategoryId(id)
+                }
+            })
+        }
+        fetchById()
+    }, [])
+
     return (
             <div className={styles.root}>
                 <Head/>
                 <div className={styles.header}>
-                        <div ref={menuRef} onClick={() => setIsInMenuArea(true)}>
+                        <div
+                            ref={menuRef}
+                            onClick={() => setIsInMenuArea(true)}>
                             {
                                 showMenu && <Menu setIsInMenuArea={setIsInMenuArea} data={catIdData}/>
                             }
@@ -143,19 +155,20 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                             <SearchField search={search} />
                         </div>
                         {
-                            showMobileMenu && <nav
-                                            onClick={() => setShowMobileMenu(!showMobileMenu)}
-                                            className={styles.Navbar}>
-                                <ul ref={menuRef} onClick={(e)=> e.stopPropagation()}>
-                                    {
-                                        categories && categories.map((item) =>
-                                            <li key={item.id}>
-                                                <button onClick={() => handleShowMenu(item.id)}>{item.name}</button>
-                                            </li>
-                                        )
-                                    }
-                                    <button>Our Deals</button>
-                                </ul>
+                            showMobileMenu &&
+                            <nav
+                                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                                className={styles.Navbar}>
+                             <ul ref={navRef} onClick={(e)=> e.stopPropagation()}>
+                                {
+                                    categories && categories.map((item) =>
+                                        <li key={item?.id}>
+                                            <button id={`${item?.id}`} className="headerList" onClick={() => handleShowMenu(item.id)}>{item.name}</button>
+                                        </li>
+                                    )
+                                }
+                                <button>Our Deals</button>
+                             </ul>
                             </nav>
                         }
                         {

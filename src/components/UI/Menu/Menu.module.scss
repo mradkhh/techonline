@@ -40,10 +40,16 @@
 
 .arrow {
   > svg {
-    @include rectangle(8);
+    @include rectangle(20);
     > path {
       stroke: var(--black);
     }
+  }
+}
+
+.motion {
+  > svg {
+    transform: rotateZ(-90deg);
   }
 }
 

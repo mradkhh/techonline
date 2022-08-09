@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import img1 from "static/images/catalogs/1.png";
 import ProductCard from "components/UI/Cards/ProductCard";
 import styles from './Menu.module.scss'
@@ -6,7 +6,8 @@ import {ICategories, IProduct} from "models/index";
 import {useFetchAllBrandsQuery} from "services/BrandsService";
 import Image from "next/image";
 import {log} from "util";
-import {ArrowRightIcon} from "static/icons/icon";
+import {ArrowDown, ArrowRightIcon} from "static/icons/icon";
+import {number} from "prop-types";
 
 interface MenuProps  {
     data: ICategories,
@@ -14,10 +15,19 @@ interface MenuProps  {
 }
 
 const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
-
     const { data: brands } = useFetchAllBrandsQuery('')
+    const [ arrowMotion, setArrowMotion ] = useState<boolean>(false)
 
-    console.log("Inside data: ", data)
+    const handleClick = (id: number) => {
+        const ids = document.querySelectorAll('.menuList')
+        console.log(ids)
+
+    }
+
+    useEffect(() => {
+        handleClick(2)
+    }, [])
+
     return (
         <div onClick={() => setIsInMenuArea(true)} className={styles.wrapper}>
             <div className={styles.top}>
@@ -25,9 +35,12 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                     {
                         data && data?.childs?.map(item => {
                             return <div key={item?.id}>
-                                <div className={styles.menuItem} >{item?.name}
-                                    <div className={styles.arrow}>
-                                        <ArrowRightIcon/>
+                                <div onClick={() => setArrowMotion(!arrowMotion)} className={styles.menuItem} >{item?.name}
+                                    <div
+                                        onClick={() => handleClick(item.id)}
+                                        id={`${item.id}`}
+                                        className={`${styles.arrow} ${arrowMotion && styles.motion} menuList`}>
+                                        <ArrowDown/>
                                     </div>
                                 </div>
                             </div>
