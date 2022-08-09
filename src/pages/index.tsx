@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import type { NextPage } from 'next'
 import {Context} from "pages/_app";
 import {Tab, TabList, TabPanel} from "react-tabs"
@@ -30,13 +30,15 @@ import blogImg2 from 'static/images/blogs/2.png'
 import { PartnerLogo } from "static/icons/icon";
 import styles from "styles/pages/home.module.scss"
 import { useFetchAllBrandsQuery } from "services/BrandsService";
-import {productApi} from "services/ProductService";
-
+import {useGetAllProductsQuery} from "services/ProductService";
 
 const Index: NextPage = () => {
 
+
+    const page_size = 10
+    const page = 1
     const { data: brands } = useFetchAllBrandsQuery('');
-    const { data: newProducts } = productApi.useGetAllProductsQuery(6, 1)
+    const { data: newProducts } = useGetAllProductsQuery({page_size, page})
 
     const handle = () => {
 
@@ -52,6 +54,7 @@ const Index: NextPage = () => {
                       newProducts && newProducts.results.map(item =>
                           <SwiperSlide key={item.id}>
                               <ProductCard
+                                  id={item.id}
                                   key={item.id}
                                   image={item?.product_img?.image}
                                   title={item.short_desc}
@@ -74,30 +77,34 @@ const Index: NextPage = () => {
               </div>
           </section>
 
-          <section className={styles.category}>
-                <VisitCard
-                    title='Custom Builds'
-                    href='/'
-                    img={customImg}
-                />
-              <Carousel type='category' autoplay={false} button={false} loop={true} >
-                  {
-                      newProducts && newProducts.results.map(item =>
-                          <SwiperSlide key={item.id}>
-                              <ProductCard
-                                  key={item.id}
-                                  image={item?.product_img?.image}
-                                  title={item.short_desc}
-                                  price={item.price}
-                                  discountPrice={item.discount}
-                                  isInStock={item.is_stock}
-                                  handleAddToCart={handle}
-                              />
-                          </SwiperSlide>
-                      )
-                  }
-              </Carousel>
-          </section>
+          {/*{*/}
+          {/*    categories && categories?.results?.map(item => {*/}
+          {/*        return <section key={item?.id} className={styles.category}>*/}
+          {/*            <VisitCard*/}
+          {/*                title={item?.name}*/}
+          {/*                href='/categories/id'*/}
+          {/*                img={item?.icon}*/}
+          {/*            />*/}
+          {/*            <Carousel type='category' autoplay={false} button={false} loop={true} >*/}
+          {/*                {*/}
+          {/*                    newProducts && newProducts.results.map(item =>*/}
+          {/*                        <SwiperSlide key={item.id}>*/}
+          {/*                            <ProductCard*/}
+          {/*                                key={item.id}*/}
+          {/*                                image={item?.product_img?.image}*/}
+          {/*                                title={item.short_desc}*/}
+          {/*                                price={item.price}*/}
+          {/*                                discountPrice={item.discount}*/}
+          {/*                                isInStock={item.is_stock}*/}
+          {/*                                handleAddToCart={handle}*/}
+          {/*                            />*/}
+          {/*                        </SwiperSlide>*/}
+          {/*                    )*/}
+          {/*                }*/}
+          {/*            </Carousel>*/}
+          {/*        </section>*/}
+          {/*    })*/}
+          {/*}*/}
 
           <Tabs>
               <TabList className={styles.tabsList}>
@@ -120,6 +127,7 @@ const Index: NextPage = () => {
                           newProducts && newProducts.results.map(item =>
                               <SwiperSlide key={item.id}>
                                   <ProductCard
+                                      id={item.id}
                                       key={item.id}
                                       image={item?.product_img?.image}
                                       title={item.short_desc}
@@ -146,6 +154,7 @@ const Index: NextPage = () => {
                               newProducts && newProducts.results.map(item =>
                                   <SwiperSlide key={item.id}>
                                       <ProductCard
+                                          id={item.id}
                                           key={item.id}
                                           image={item?.product_img?.image}
                                           title={item.short_desc}
@@ -189,6 +198,7 @@ const Index: NextPage = () => {
                               newProducts && newProducts.results.map(item =>
                                   <SwiperSlide key={item.id}>
                                       <ProductCard
+                                          id={item.id}
                                           key={item.id}
                                           image={item?.product_img?.image}
                                           title={item.short_desc}
@@ -215,6 +225,7 @@ const Index: NextPage = () => {
                               newProducts && newProducts.results.map(item =>
                                   <SwiperSlide key={item.id}>
                                       <ProductCard
+                                          id={item.id}
                                           key={item.id}
                                           image={item?.product_img?.image}
                                           title={item.short_desc}
@@ -242,6 +253,7 @@ const Index: NextPage = () => {
                       newProducts && newProducts.results.map(item =>
                           <SwiperSlide key={item.id}>
                               <ProductCard
+                                  id={item.id}
                                   key={item.id}
                                   image={item?.product_img?.image}
                                   title={item.short_desc}

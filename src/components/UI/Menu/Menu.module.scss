@@ -2,6 +2,7 @@
 
 .wrapper {
   @include container;
+  padding-inline: 0 !important;
   position: absolute;
   left: 50%;
   right: 50%;
@@ -9,18 +10,22 @@
   top: 82px;
   z-index: -1;
   animation: fade-down 300ms;
+  box-shadow: var(--card-shadow);
+  background-color: var(--white);
+}
+
+.top {
+  @include flex-start(center);
 }
 
 .menu {
-  @include flex(flex-start, space-between);
+  @include flex-start(flex-start);
+  flex-direction: column;
   background-color: var(--white);
-  border: 1px solid var(--gray);
-  min-height: 200px;
 
   > div {
     border-right: 1px solid var(--gray);
     width: 100%;
-    min-height: 400px;
 
     > div {
       @include selectItemStyle;
@@ -28,10 +33,35 @@
 
   }
 }
+.menuItem {
+  @include flex-between(center);
+  gap: 24px;
+}
+
+.arrow {
+  > svg {
+    @include rectangle(8);
+    > path {
+      stroke: var(--black);
+    }
+  }
+}
 
 .cards {
-  @include flex-start(flex-start);
-  min-width: 500px;
+  @include flex-end(center);
+  gap: 16px;
+
+  > div:first-child {
+    margin-left: auto !important;
+  }
+}
+
+.brands {
+  @include flex-between(center);
+  background-color: var(--white);
+  padding-block: 35px;
+  padding-inline: 16px;
+  border-top: 1px solid var(--light-gray);
 }
 
 @keyframes fade-down {

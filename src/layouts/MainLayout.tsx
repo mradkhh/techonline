@@ -4,6 +4,9 @@ import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
 import {ArrowDown, ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
 import styles from "./styles/main.module.scss";
+import {useFetching} from "hooks/useFetching";
+import $api from "services/interseptors";
+import {ICategoriesResults} from "models/index";
 
 interface MainLayoutProps {
     children: ReactNode,
@@ -14,8 +17,17 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, mainClass}) => {
     const [ scrollToUp, setScrollToUp ] = useState<boolean>(false)
+    const [ categories, setCategories ] = useState<ICategoriesResults>({} as ICategoriesResults)
+
+
+    const [ fetchCategories ] = useFetching(async () => {
+        const res = await $api.get<ICategoriesResults>('categories/')
+        const data = await res.data
+        setCategories(data)
+    })
 
     useEffect(() => {
+        fetchCategories()
         window.addEventListener('scroll', () => {
             window.pageYOffset > 100 ? setScrollToUp(true) : setScrollToUp(false)
         })
@@ -27,7 +39,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                 <meta name="description" content={description} />
                 <link rel="reload" href="/favicon.ico" as="icon"/>
             </Head>
-            <Header/>
+            <Header categories={categories?.results}/>
             <main className={mainClass}>
                 {children}
                 <div className={styles.aboutUs} style={{background: mainClass !== 'main_home' ? 'var(--light-blue)' : ''}}>

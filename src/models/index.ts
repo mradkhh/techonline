@@ -24,8 +24,13 @@ export interface IProduct {
 }
 
 export interface ICart {
-    user: number | null,
-    products: IProduct[]
+    id: number,
+    quantity: number,
+    product: IProduct
+}
+
+export interface ICartResults {
+    results: ICart[]
 }
 
 export interface IProductData {
@@ -47,8 +52,14 @@ export interface IProductsQuery {
     ordering?: number | string
 }
 
-interface IUserLogin {
-    username: string,
-    password: string
+ export interface ICategories {
+    id: number,
+    name: string,
+    icon: string,
+    products: IProduct[],
+    childs?: ICategories[]
 }
 
+export interface ICategoriesResults {
+    results: ICategories[]
+}

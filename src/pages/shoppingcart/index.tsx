@@ -15,10 +15,9 @@ import {
 } from "static/icons/icon";
 import img1 from "static/images/products/1.jpg"
 import img2 from "static/images/products/2.jpg"
-import styles from 'styles/pages/shoppingcart.module.scss'
 import {useAppDispatch, useAppSelector} from "hooks/redux";
-import {fetchAddToCart, fetchCarts, fetchRemoveFromToCart} from "services/CartsService";
-import {productApi} from "services/ProductService";
+import {fetchCarts, fetchRemoveFromToCart} from "services/CartsService";
+import styles from 'styles/pages/shoppingcart.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -61,12 +60,11 @@ const items = [
 
 const Index: NextPage = () => {
     const [ amount, setAmount ] = useState<number>(1)
-    const { products: cartProducts } = useAppSelector(state => state.carts)
+    const { product } = useAppSelector(state => state.carts)
+    const [ refresh, setRefresh ] = useState<boolean>(false)
     const dispatch = useAppDispatch()
 
-
-    const [ createProd, {  } ] = productApi.useCreateProductMutation()
-
+    console.log(product)
 
     const handleIncrement = (id: number) => {
         const newObj = items.map(item => {
@@ -84,9 +82,14 @@ const Index: NextPage = () => {
         }
     }
 
+    const handleDelete = (id: number) => {
+        dispatch(fetchRemoveFromToCart(id))
+        setRefresh(false)
+    }
+
     useEffect(() => {
         dispatch(fetchCarts())
-    }, [])
+    }, [refresh])
     return (
         <MainLayout title={"TechOnline - Cart"} description={"cart"} mainClass={'main_shoppingCart'}>
             <Breadcrumbs array={breadcrumbs} current="Login"/>
@@ -100,8 +103,8 @@ const Index: NextPage = () => {
                         <h5>Subtotal</h5>
                     </div>
                     {
-                        items && items.map((item)=>
-                            <div key={item.id} className={styles.tableBody}>
+                        product && product?.map(( {product, quantity, id})=>
+                            <div key={id} className={styles.tableBody}>
                                 <div className={styles.tableImgCell}>
                                    <div className={styles.tableImg}>
                                        <Image
@@ -109,34 +112,34 @@ const Index: NextPage = () => {
                                            height={120}
                                            objectFit='cover'
                                            objectPosition='center'
-                                           src={item.img}
+                                           src={product?.product_img?.image ? product?.product_img?.image : img1 }
                                            alt="feature"
                                        />
                                    </div>
                                     <div className={styles.tableTitle}>
-                                        { item.title }
+                                        { product?.short_desc }
                                     </div>
                                 </div>
                                 <div className={styles.tableInfo}>
                                     <div className={styles.price}>
-                                        ${ item.price }
+                                        ${ product?.price }
                                     </div>
                                     <div className={styles.counter}>
-                                        <span>{item.quantity}</span>
+                                        <span>{quantity}</span>
                                         <div>
-                                            <button onClick={() => handleIncrement(item.id)}>
+                                            <button onClick={() => handleIncrement(product.id)}>
                                                 <GrayArrowUpIcon/>
                                             </button>
-                                            <button onClick={() => handleDecrement(item.id)}>
+                                            <button onClick={() => handleDecrement(product.id)}>
                                                 <GrayArrowDownIcon/>
                                             </button>
                                         </div>
                                     </div>
                                     <div className={styles.subtotal}>
-                                        ${item.subtotal}
+                                        ${ product?.price * quantity }.00
                                     </div>
                                     <div className={styles.tableBtn}>
-                                        <button>
+                                        <button onClick={() => handleDelete(id)} >
                                             <GrayXIcon/>
                                         </button>
                                         <button>
@@ -148,7 +151,7 @@ const Index: NextPage = () => {
                         )
                     }
                     <div className={styles.actionTable}>
-                        <button>Continue Shopping</button>
+                        <A href="/catalog">Continue Shopping</A>
                         <button>Clear Shopping Cart</button>
                         <button>Update Shopping Cart</button>
                     </div>

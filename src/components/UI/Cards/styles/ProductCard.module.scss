@@ -2,7 +2,7 @@
 
 .card {
   position: relative;
-  width: 100%;
+  @include maxWidth(234);
 }
 
 .inStock {
@@ -36,6 +36,30 @@
 
   > svg {
     cursor: pointer;
+  }
+}
+
+.favorite {
+  > svg {
+      &:active {
+        animation: scale 300ms;
+      }
+    > path {
+      fill: var(--red);
+      stroke: transparent;
+    }
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

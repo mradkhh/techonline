@@ -12,6 +12,12 @@ import useMediaQuery from "hooks/useMediaQuery";
 import {Context} from "pages/_app";
 import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
 import styles from './Header.module.scss'
+import {ICategories} from "models/index";
+import {useFetching} from "hooks/useFetching";
+import axios, {AxiosResponse} from "axios";
+import {API_URL} from "services/interseptors";
+import {fetchCarts} from "services/CartsService";
+import {useAppDispatch, useAppSelector} from "hooks/redux";
 
 
 
@@ -56,15 +62,22 @@ const navList = [
 ]
 
 
-const Header: FC = () => {
+interface HeaderProps {
+    categories: ICategories[]
+}
+
+const Header: FC<HeaderProps> = ({ categories }) => {
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
     const [ search, setSearch ] = useState<boolean>(false)
+    const [ isInMenuArea, setIsInMenuArea ] = useState<boolean>(false)
     const matches = useMediaQuery("(min-width: 992px)")
     const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
     const { authStore } = useContext(Context)
     const { isAuth }  = authStore
+    const [ catIdData, setCatIdData ] = useState<ICategories>({} as ICategories)
+    const dispatch = useAppDispatch()
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
@@ -74,18 +87,33 @@ const Header: FC = () => {
         setShowAvatar(!showAvatar)
     }, [showAvatar])
 
+    const { product } = useAppSelector(state => state.carts)
+
+    const [ fetchCategoryId ] = useFetching(async (id: number) => {
+        const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
+        const data = res?.data
+        setCatIdData(data)
+    })
 
     const handleShowMenu = useCallback((id: number) => {
-        matches && setShowMenu(!showMenu)
+        matches && setShowMenu(true)
+        fetchCategoryId(id)
     }, [showMenu, matches])
 
     const avatarRef = createRef<HTMLDivElement>()
     const cartRef = createRef<HTMLDivElement>()
+    const menuRef = createRef<HTMLDivElement>()
 
     useMousedownClickInvisible(avatarRef, () => { setShowAvatar(false) })
     useMousedownClickInvisible(cartRef, () => { setShowCart(false) })
+    useMousedownClickInvisible(menuRef, () => {
+            if (!isInMenuArea) {
+                setShowMenu(false)
+            }
+    })
 
     useEffect(() => {
+
         if (matches) {
             setShowMobileMenu(true)
         } else  {
@@ -93,13 +121,19 @@ const Header: FC = () => {
         }
     }, [matches])
 
+    useEffect(() => {
+        dispatch(fetchCarts())
+    }, [])
+
     return (
             <div className={styles.root}>
                 <Head/>
                 <div className={styles.header}>
-                    {
-                        showMenu && <Menu/>
-                    }
+                        <div ref={menuRef} onClick={() => setIsInMenuArea(true)}>
+                            {
+                                showMenu && <Menu setIsInMenuArea={setIsInMenuArea} data={catIdData}/>
+                            }
+                        </div>
                     <div className={styles.Root}>
                         <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
                         <Logo mobileMenuShow={showMobileMenu}/>
@@ -112,11 +146,11 @@ const Header: FC = () => {
                             showMobileMenu && <nav
                                             onClick={() => setShowMobileMenu(!showMobileMenu)}
                                             className={styles.Navbar}>
-                                <ul onClick={(e)=> e.stopPropagation()}>
+                                <ul ref={menuRef} onClick={(e)=> e.stopPropagation()}>
                                     {
-                                        navList && navList.map((item) =>
+                                        categories && categories.map((item) =>
                                             <li key={item.id}>
-                                                <button onClick={() => handleShowMenu(item.id)}>{item.title}</button>
+                                                <button onClick={() => handleShowMenu(item.id)}>{item.name}</button>
                                             </li>
                                         )
                                     }
@@ -136,10 +170,10 @@ const Header: FC = () => {
                                     onClick={handleShowCart}
                                     >
                                     <ShoppingCartIcon/>
-                                    <span>3</span>
+                                    <span>{product.length}</span>
                                 </button>
                                 { showCart && <div ref={cartRef} >
-                                    <Minicart/>
+                                    <Minicart product={product} />
                                 </div> }
                             </div>
                                 <div className={styles.Avatar}>

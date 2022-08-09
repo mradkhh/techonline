@@ -6,25 +6,32 @@ import img from 'static/images/products/1.jpg'
 import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
 import {API_URL} from "services/interseptors";
+import {fetchAddToCart} from "services/CartsService";
+import {useAppDispatch} from "hooks/redux";
 
 
 interface ProductCardProps {
     isInStock: boolean,
-    image?: string,
+    image: string,
     title: string,
     price: string,
     discountPrice: number,
-    handleAddToCart: () => void
+    id: number
 }
 
 
-const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, price, title, handleAddToCart }) => {
+const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice, price, title }) => {
 
+    const dispatch = useAppDispatch()
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
 
     const matches = useMediaQuery("(min-width: 992px)")
     const widthImg = matches ? 150 : 100
+
+    const handleAddToCart = () => {
+        dispatch(fetchAddToCart(id, 1))
+    }
 
     return (
         <div  ref={ref} className={styles.card}>
@@ -49,8 +56,12 @@ const ProductCard: FC<ProductCardProps> = ({ isInStock, image, discountPrice, pr
             </div>
             <div  className={styles.hover} >
                     <div className={styles.icon}>
-                        <FavoriteIcon/>
-                        <StatsIcon/>
+                        <button className={styles.favorite}>
+                            <FavoriteIcon/>
+                        </button>
+                        <button className={styles.stat}>
+                            <StatsIcon/>
+                        </button>
                     </div>
                     <button
                         onClick={handleAddToCart}
