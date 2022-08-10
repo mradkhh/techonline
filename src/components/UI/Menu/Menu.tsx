@@ -1,13 +1,15 @@
-import React, {FC, useEffect, useState} from 'react';
-import img1 from "static/images/catalogs/1.png";
+import React, {createRef, FC, useEffect, useRef, useState} from 'react';
 import ProductCard from "components/UI/Cards/ProductCard";
-import styles from './Menu.module.scss'
 import {ICategories, IProduct} from "models/index";
 import {useFetchAllBrandsQuery} from "services/BrandsService";
 import Image from "next/image";
-import {log} from "util";
 import {ArrowDown, ArrowRightIcon} from "static/icons/icon";
-import {number} from "prop-types";
+import {useFetching} from "hooks/useFetching";
+import axios from "axios";
+import {API_URL} from "services/interseptors";
+import styles from './Menu.module.scss'
+import Item from "components/UI/Menu/Item";
+import {useFetchCategoryByIdQuery} from "services/CategoriesService";
 
 interface MenuProps  {
     data: ICategories,
@@ -17,16 +19,25 @@ interface MenuProps  {
 const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
     const { data: brands } = useFetchAllBrandsQuery('')
     const [ arrowMotion, setArrowMotion ] = useState<boolean>(false)
+    const [ itemData, setItemData ] = useState<ICategories>({} as ICategories)
+
+
+
+    const [ fetchCategoryId ] = useFetching(async (id: number) => {
+        const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
+        const data = res?.data
+        setItemData(data)
+    })
+
+    console.log("Item Data: ", itemData)
+    console.log("Data: ", data)
 
     const handleClick = (id: number) => {
-        const ids = document.querySelectorAll('.menuList')
-        console.log(ids)
-
+        fetchCategoryId(id)
+        console.log("Okkk")
+        setItemData(data)
     }
 
-    useEffect(() => {
-        handleClick(2)
-    }, [])
 
     return (
         <div onClick={() => setIsInMenuArea(true)} className={styles.wrapper}>
@@ -34,22 +45,19 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                 <div onClick={(e)=> e.stopPropagation()} className={styles.menu}>
                     {
                         data && data?.childs?.map(item => {
-                            return <div key={item?.id}>
-                                <div onClick={() => setArrowMotion(!arrowMotion)} className={styles.menuItem} >{item?.name}
-                                    <div
-                                        onClick={() => handleClick(item.id)}
-                                        id={`${item.id}`}
-                                        className={`${styles.arrow} ${arrowMotion && styles.motion} menuList`}>
-                                        <ArrowDown/>
-                                    </div>
-                                </div>
-                            </div>
+                            return <Item key={item.id}
+                                         id={item.id}
+                                         item={item}
+                                         handleClick={handleClick}
+                                         setArrowMotion={setArrowMotion}
+                                         arrowMotion={arrowMotion}
+                            />
                         })
                     }
                 </div>
-                    <div className={styles.cards}>
+                <div className={styles.cards}>
                         {
-                            data && data?.products?.splice(0, 2)
+                            data && data?.products?.splice(0, 4)
                                 .map(item => {
                                     return <ProductCard
                                         key={item.id}

@@ -6,8 +6,6 @@ import TextInput from "components/UI/Inputs/TextInput";
 import A from "components/UI/A/A";
 import {Context} from "pages/_app";
 import useInput from "hooks/useInput";
-import Modal from "components/UI/Modal/Modal";
-import { formError } from "models/index";
 import styles from 'styles/pages/register.module.scss'
 
 const breadcrumbs = [
@@ -15,19 +13,15 @@ const breadcrumbs = [
 ]
 
 const Register: NextPage = () => {
-    const [ showModal, setShowModal ] = useState<boolean>(false)
+
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
-    const [ usernameRegisterError, setUsernameRegisterError ] = useState<boolean>(false)
-    const [ passwordRegisterError, setPasswordRegisterError ] = useState<boolean>(false)
-    const [ confirmPasswordError, setConfirmPasswordRegisterError ] = useState<boolean>(false)
+
     const { authStore } = useContext(Context)
 
     const loginUsername = useInput('')
     const loginPassword = useInput('')
-    const registerUsername = useInput('')
-    const registerPassword = useInput('')
-    const registerConfirmPassword = useInput('')
+
 
     const handleLoginSubmit = (e: any) => {
         e.preventDefault()
@@ -42,24 +36,9 @@ const Register: NextPage = () => {
         }
     }
 
-    const handleRegisterSubmit = (e: any) => {
-        e.preventDefault()
-        if(registerUsername.value && registerPassword.value && registerConfirmPassword.value) {
-            authStore.register(registerUsername.value, registerPassword.value, registerConfirmPassword.value)
-        }
-        if (!registerUsername.value) {
-            setUsernameRegisterError(true)
-        }
-        if (!registerPassword.value) {
-            setPasswordRegisterError(true)
-        }
-        if (!registerConfirmPassword.value) {
-            setConfirmPasswordRegisterError(true)
-        }
-    }
 
     const handleRegister = () => {
-        setShowModal(true)
+        authStore.setShowModal(true)
     }
 
     return (
@@ -112,41 +91,7 @@ const Register: NextPage = () => {
                 </div>
 
             </MainLayout>
-            <Modal show={showModal} setShow={setShowModal}>
-                <form onSubmit={handleRegisterSubmit} className={styles.form}>
-                    <TextInput
-                        {...registerUsername}
-                        label={"Username"}
-                        placeholder={"Your Username"}
-                        type={"text"}
-                        require={true}
-                        error={usernameRegisterError}
-                        setError={setUsernameRegisterError}
-                    />
-                    <TextInput
-                        {...registerPassword}
-                        label={"Password"}
-                        placeholder={"Your Password"}
-                        type={"password"}
-                        require={true}
-                        error={passwordRegisterError}
-                        setError={setPasswordRegisterError}
-                    />
-                    <TextInput
-                        {...registerConfirmPassword}
-                        label={"Confirm Password"}
-                        placeholder={"Your Password"}
-                        type={"password"}
-                        require={true}
-                        error={confirmPasswordError}
-                        setError={setConfirmPasswordRegisterError}
-                    />
-                    <div>
-                        <button
-                            type="submit">Create</button>
-                    </div>
-                </form>
-            </Modal>
+
         </>
     );
 };

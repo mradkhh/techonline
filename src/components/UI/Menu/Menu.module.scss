@@ -27,34 +27,14 @@
     border-right: 1px solid var(--gray);
     width: 100%;
 
-    > div {
-      @include selectItemStyle;
-    }
-
-  }
-}
-.menuItem {
-  @include flex-between(center);
-  gap: 24px;
-}
-
-.arrow {
-  > svg {
-    @include rectangle(20);
-    > path {
-      stroke: var(--black);
-    }
   }
 }
 
-.motion {
-  > svg {
-    transform: rotateZ(-90deg);
-  }
-}
+
 
 .cards {
   @include flex-end(center);
+  @include maxWidth(500);
   gap: 16px;
 
   > div:first-child {

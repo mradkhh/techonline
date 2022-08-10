@@ -21,49 +21,10 @@ import {useAppDispatch, useAppSelector} from "hooks/redux";
 
 
 
-const navList = [
-    {
-        path: '/',
-        id: 1,
-        title: "Laptops"
-    },
-    {
-        path: '/',
-        id: 2,
-        title: "Desktop PCs"
-    },
-    {
-        path: '/',
-        id: 3,
-        title: "Networking Devices"
-    },
-    {
-        path: '/',
-        id: 4,
-        title: "Printers & Scanners"
-    },
-    {
-        path: '/',
-        id: 5,
-        title: "PC Parts"
-    },
-    {
-        path: '/',
-        id: 6,
-        title: "All Other Products"
-    },
-    {
-        path: '/',
-        id: 7,
-        title: "Repairs"
-    },
-
-
-]
 
 
 interface HeaderProps {
-    categories: ICategories[]
+    categories?: ICategories[]
 }
 
 const Header: FC<HeaderProps> = ({ categories }) => {
@@ -123,17 +84,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         dispatch(fetchCarts())
     }, [])
 
-    useEffect(() => {
-        const ids = document.querySelectorAll('.headerList');
-        const fetchById = (id: number) => {
-            ids.forEach(item => {
-                if (Number(item.id) === id) {
-                    return  fetchCategoryId(id)
-                }
-            })
-        }
-        fetchById()
-    }, [])
+
 
     return (
             <div className={styles.root}>
@@ -228,7 +179,9 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                                         <A href="/register">My Account</A>
                                                         <A href="/register">My Wish List (0)</A>
                                                         <A href="/register">Compare (0)</A>
-                                                        <A href="/register">Create Account</A>
+                                                        <div
+                                                            style={{cursor: 'pointer'}}
+                                                            onClick={() => authStore.setShowModal(true)} >Create Account</div>
                                                         <A href="/register">Sign in</A>
                                                     </>
 

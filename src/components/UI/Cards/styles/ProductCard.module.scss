@@ -3,6 +3,7 @@
 .card {
   position: relative;
   @include maxWidth(234);
+  isolation: isolate;
 }
 
 .inStock {
@@ -27,12 +28,12 @@
 }
 
 .icon {
-  position: absolute;
   @include flex(center, center);
   flex-direction: column;
-  gap: 4px;
+  position: absolute;
   top: 10px;
-  right: 8px;
+  right: 10px;
+  gap: 4px;
 
   > svg {
     cursor: pointer;
@@ -41,9 +42,6 @@
 
 .favorite {
   > svg {
-      &:active {
-        animation: scale 300ms;
-      }
     > path {
       fill: var(--red);
       stroke: transparent;
@@ -51,24 +49,15 @@
   }
 }
 
-@keyframes scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
 .body {
+  padding: 8px;
   > h4 {
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;
     margin-bottom: 10px;
+    @include line-clamp(3, vertical);
 
     @media (max-width: $breakpoint568) {
       font-weight: 400;
@@ -98,6 +87,12 @@
 
 .hover {
   @include flex(flex-end, center);
+  z-index: 1234;
+}
+
+.cartButton {
+  position: absolute;
+  bottom: -10px;
 }
 
 .addToCart {
@@ -107,6 +102,22 @@
   margin-top: 24px;
   > svg path {
     fill: var(--brand);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.inCart {
+  @include outlineBtn;
+  @include flex(center, center);
+  color: var(--green);
+  border: 2px solid var(--green);
+  gap: 4px;
+  margin-top: 24px;
+  > svg path {
+    fill: var(--green);
   }
 
   &:active {

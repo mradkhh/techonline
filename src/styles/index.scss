@@ -61,6 +61,18 @@ button {
   line-height: 1;
 }
 
+// scroll-bar
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: var(--light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--brand);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 // lib react-tabs
 .react-tabs__tab {
   padding-bottom: 3px;

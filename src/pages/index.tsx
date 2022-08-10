@@ -1,7 +1,6 @@
 import Image from "next/image";
-import React, {useContext, useEffect, useState} from "react";
+import React from "react";
 import type { NextPage } from 'next'
-import {Context} from "pages/_app";
 import {Tab, TabList, TabPanel} from "react-tabs"
 import {SwiperSlide} from "swiper/react";
 import MainLayout from "layouts/MainLayout";
@@ -14,14 +13,6 @@ import VisitCard from "components/UI/Cards/VisitCard";
 import BlogCard from "components/UI/Cards/BlogCard";
 import QuoteBanner from "components/UI/Banner/QuoteBanner";
 import img1 from 'static/images/products/1.jpg'
-import img2 from 'static/images/products/2.jpg'
-import img3 from 'static/images/products/3.png'
-import img4 from 'static/images/products/4.png'
-import img5 from 'static/images/products/5.png'
-import img6 from 'static/images/products/6.png'
-import img7 from 'static/images/products/7.png'
-import img8 from 'static/images/products/8.png'
-import customImg from 'static/images/categories/custom.png'
 import msiImg from 'static/images/categories/msi.png'
 import desktopImg from 'static/images/categories/desktop.png'
 import gaminImg from 'static/images/categories/gaming.png'
@@ -40,9 +31,6 @@ const Index: NextPage = () => {
     const { data: brands } = useFetchAllBrandsQuery('');
     const { data: newProducts } = useGetAllProductsQuery({page_size, page})
 
-    const handle = () => {
-
-    }
 
     return (
       <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
@@ -56,12 +44,11 @@ const Index: NextPage = () => {
                               <ProductCard
                                   id={item.id}
                                   key={item.id}
-                                  image={item?.product_img?.image}
+                                  image={item?.product_img?.image ? item?.product_img?.image : img1}
                                   title={item.short_desc}
                                   price={item.price}
                                   discountPrice={item.discount}
                                   isInStock={item.is_stock}
-                                  handleAddToCart={handle}
                               />
                           </SwiperSlide>
                       )
@@ -134,7 +121,6 @@ const Index: NextPage = () => {
                                       price={item.price}
                                       discountPrice={item.discount}
                                       isInStock={item.is_stock}
-                                      handleAddToCart={handle}
                                   />
                               </SwiperSlide>
                           )
@@ -161,7 +147,6 @@ const Index: NextPage = () => {
                                           price={item.price}
                                           discountPrice={item.discount}
                                           isInStock={item.is_stock}
-                                          handleAddToCart={handle}
                                       />
                                   </SwiperSlide>
                               )
@@ -205,7 +190,6 @@ const Index: NextPage = () => {
                                           price={item.price}
                                           discountPrice={item.discount}
                                           isInStock={item.is_stock}
-                                          handleAddToCart={handle}
                                       />
                                   </SwiperSlide>
                               )
@@ -232,7 +216,6 @@ const Index: NextPage = () => {
                                           price={item.price}
                                           discountPrice={item.discount}
                                           isInStock={item.is_stock}
-                                          handleAddToCart={handle}
                                       />
                                   </SwiperSlide>
                               )
@@ -260,7 +243,6 @@ const Index: NextPage = () => {
                                   price={item.price}
                                   discountPrice={item.discount}
                                   isInStock={item.is_stock}
-                                  handleAddToCart={handle}
                               />
                           </SwiperSlide>
                       )
@@ -347,7 +329,6 @@ const Index: NextPage = () => {
                   text="As a gamer, superior sound counts for a lot. You need to hear enemies tiptoeing up behind you for a sneak attack or a slight change in the atmospheric music signaling a new challenge or task..."
               />
           </section>
-
 
           <section className={styles.quotes}>
                 <Carousel type='banner' autoplay={true} button={false} loop={true}>

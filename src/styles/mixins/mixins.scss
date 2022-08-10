@@ -385,3 +385,11 @@ $breakpoint480: 479.98 + px;
   opacity: 0;
   overflow: hidden;
 }
+
+// line-clamp
+@mixin line-clamp($clamp, $box-orient) {
+  display: -webkit-box;
+  -webkit-line-clamp: $clamp;
+  -webkit-box-orient: $box-orient;
+  overflow: hidden;
+}

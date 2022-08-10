@@ -1,0 +1,35 @@
+@import "styles/mixins/mixins.scss";
+
+.menuItem {
+  @include flex-between(center);
+  @include selectItemStyle;
+  width: 100%;
+  border-right: 1px solid var(--light-gray);
+  gap: 24px;
+}
+
+
+.arrow {
+  > svg {
+    @include rectangle(20);
+    > path {
+      stroke: var(--black);
+    }
+  }
+}
+
+.motion {
+  > svg {
+    transform: rotateZ(-90deg);
+  }
+}
+
+.childMenu {
+  @include flex-start(center);
+}
+
+.insideMenu {
+  position: absolute;
+  left: 267px;
+  top: 0;
+}

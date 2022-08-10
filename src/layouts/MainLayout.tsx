@@ -1,12 +1,18 @@
-import React, {FC, memo, ReactNode, useEffect, useState} from 'react';
+import React, {FC, memo, ReactNode, useContext, useEffect, useState} from 'react';
 import Head from "next/head";
 import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
 import {ArrowDown, ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
+import {useFetchAllCategoriesQuery} from "services/CategoriesService";
+import {useFetchAllBrandsQuery} from "services/BrandsService";
+import {useAppSelector} from "hooks/redux";
+import {RootState} from "store/reducers";
+import {$CombinedState} from "redux";
+import TextInput from "components/UI/Inputs/TextInput";
+import Modal from "components/UI/Modal/Modal";
+import useInput from "hooks/useInput";
+import {Context} from "pages/_app";
 import styles from "./styles/main.module.scss";
-import {useFetching} from "hooks/useFetching";
-import $api from "services/interseptors";
-import {ICategoriesResults} from "models/index";
 
 interface MainLayoutProps {
     children: ReactNode,
@@ -17,17 +23,36 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, mainClass}) => {
     const [ scrollToUp, setScrollToUp ] = useState<boolean>(false)
-    const [ categories, setCategories ] = useState<ICategoriesResults>({} as ICategoriesResults)
 
+    const { data: categories } = useFetchAllCategoriesQuery('')
+    const {data: brands} = useFetchAllBrandsQuery('')
+    const { authStore } = useContext(Context)
 
-    const [ fetchCategories ] = useFetching(async () => {
-        const res = await $api.get<ICategoriesResults>('categories/')
-        const data = await res.data
-        setCategories(data)
-    })
+    const [ usernameRegisterError, setUsernameRegisterError ] = useState<boolean>(false)
+    const [ passwordRegisterError, setPasswordRegisterError ] = useState<boolean>(false)
+    const [ confirmPasswordError, setConfirmPasswordRegisterError ] = useState<boolean>(false)
+
+    const registerUsername = useInput('')
+    const registerPassword = useInput('')
+    const registerConfirmPassword = useInput('')
+
+    const handleRegisterSubmit = (e: any) => {
+        e.preventDefault()
+        if(registerUsername.value && registerPassword.value && registerConfirmPassword.value) {
+            authStore.register(registerUsername.value, registerPassword.value, registerConfirmPassword.value)
+        }
+        if (!registerUsername.value) {
+            setUsernameRegisterError(true)
+        }
+        if (!registerPassword.value) {
+            setPasswordRegisterError(true)
+        }
+        if (!registerConfirmPassword.value) {
+            setConfirmPasswordRegisterError(true)
+        }
+    }
 
     useEffect(() => {
-        fetchCategories()
         window.addEventListener('scroll', () => {
             window.pageYOffset > 100 ? setScrollToUp(true) : setScrollToUp(false)
         })
@@ -40,6 +65,41 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                 <link rel="reload" href="/favicon.ico" as="icon"/>
             </Head>
             <Header categories={categories?.results}/>
+            <Modal>
+                <form onSubmit={handleRegisterSubmit} className={styles.form}>
+                    <TextInput
+                        {...registerUsername}
+                        label={"Username"}
+                        placeholder={"Your Username"}
+                        type={"text"}
+                        require={true}
+                        error={usernameRegisterError}
+                        setError={setUsernameRegisterError}
+                    />
+                    <TextInput
+                        {...registerPassword}
+                        label={"Password"}
+                        placeholder={"Your Password"}
+                        type={"password"}
+                        require={true}
+                        error={passwordRegisterError}
+                        setError={setPasswordRegisterError}
+                    />
+                    <TextInput
+                        {...registerConfirmPassword}
+                        label={"Confirm Password"}
+                        placeholder={"Your Password"}
+                        type={"password"}
+                        require={true}
+                        error={confirmPasswordError}
+                        setError={setConfirmPasswordRegisterError}
+                    />
+                    <div>
+                        <button
+                            type="submit">Create</button>
+                    </div>
+                </form>
+            </Modal>
             <main className={mainClass}>
                 {children}
                 <div className={styles.aboutUs} style={{background: mainClass !== 'main_home' ? 'var(--light-blue)' : ''}}>

@@ -15,6 +15,7 @@ import {IProductsQuery} from "models/index";
 export default class AuthStore {
     isAuth = !!(getAccessToken())
     isLoading = false
+    showModal = false
 
     constructor() {
         makeAutoObservable(this)
@@ -28,6 +29,9 @@ export default class AuthStore {
         this.isLoading = bool
     }
 
+    setShowModal(bool: boolean) {
+        this.showModal = bool
+    }
     async login(username: string, password: string) {
         this.setLoading(true)
         try {

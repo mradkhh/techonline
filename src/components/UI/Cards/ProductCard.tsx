@@ -7,7 +7,7 @@ import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
 import {API_URL} from "services/interseptors";
 import {fetchAddToCart} from "services/CartsService";
-import {useAppDispatch} from "hooks/redux";
+import {useAppDispatch, useAppSelector} from "hooks/redux";
 
 
 interface ProductCardProps {
@@ -22,15 +22,17 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice, price, title }) => {
 
+    const { product } = useAppSelector(state => state.carts)
     const dispatch = useAppDispatch()
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
 
     const matches = useMediaQuery("(min-width: 992px)")
     const widthImg = matches ? 150 : 100
+    const isInCart = product.find( item => item?.id === id);
 
     const handleAddToCart = () => {
-        dispatch(fetchAddToCart(id, 1))
+        !isInCart && dispatch(fetchAddToCart(id, 1))
     }
 
     return (
@@ -54,7 +56,7 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                 <div>{price} $</div>
                 <div>{discountPrice} $</div>
             </div>
-            <div  className={styles.hover} >
+            <div className={styles.hover} >
                     <div className={styles.icon}>
                         <button className={styles.favorite}>
                             <FavoriteIcon/>
@@ -65,9 +67,9 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                     </div>
                     <button
                         onClick={handleAddToCart}
-                        className={styles.addToCart}>
+                        className={`${isInCart ? styles.inCart : styles.addToCart} ${styles.cartButton}`}>
                         <ShoppingCartIcon/>
-                        Add To Cart
+                        {isInCart ? 'Added' : 'Add To Cart'}
                     </button>
                 </div>
         </div>

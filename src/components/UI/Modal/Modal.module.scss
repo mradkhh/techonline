@@ -10,11 +10,19 @@
 }
 
 .content {
+  position: relative;
   @include maxWidth(600);
   background-color: var(--white);
   animation: fade-down 300ms;
-  padding: 24px 48px;
+  padding: 48px 48px 24px;
   border-radius: 8px;
+}
+
+.icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
 }
 
 @keyframes fade-down {

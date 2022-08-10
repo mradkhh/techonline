@@ -4,6 +4,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
+import {categoriesApi} from "services/CategoriesService";
 
 
 export const setupStore = () => {
@@ -13,6 +14,7 @@ export const setupStore = () => {
             getDefaultMiddleware()
                 .concat(productApi.middleware)
                 .concat(brandsApi.middleware)
+                .concat(categoriesApi.middleware)
         )
     })
 }
