@@ -13,7 +13,7 @@ const breadcrumbs = [
 ]
 
 const Register: NextPage = () => {
-    
+
     const { authStore } = useContext(Context)
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)

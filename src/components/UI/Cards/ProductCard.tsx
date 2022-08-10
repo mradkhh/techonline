@@ -5,14 +5,12 @@ import { FavoriteIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon } f
 import img from 'static/images/products/1.jpg'
 import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
-import {API_URL} from "services/interseptors";
-import {fetchAddToCart} from "services/CartsService";
-import {useAppDispatch, useAppSelector} from "hooks/redux";
+import {useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
 
 
 interface ProductCardProps {
     isInStock: boolean,
-    image: string,
+    image?: string,
     title: string,
     price: string,
     discountPrice: number,
@@ -22,17 +20,16 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice, price, title }) => {
 
-    const { product } = useAppSelector(state => state.carts)
-    const dispatch = useAppDispatch()
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
-
+    const {data: products} = useFetchCartQuery('')
+    const [fetchAddToCart, {}] = useFetchAddToCartMutation()
     const matches = useMediaQuery("(min-width: 992px)")
     const widthImg = matches ? 150 : 100
-    const isInCart = product.find( item => item?.id === id);
+    const isInCart = products?.results.find( item => item?.id === id);
 
     const handleAddToCart = () => {
-        !isInCart && dispatch(fetchAddToCart(id, 1))
+        !isInCart && fetchAddToCart({quantity: 1, product: id})
     }
 
     return (
@@ -48,7 +45,7 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                     objectFit='cover'
                     objectPosition='center'
                     alt={'product'}
-                    src={image ? `${API_URL}+${image}` : img}
+                    src={image ? image : img}
                 />
             </div>
             <div className={styles.body}>

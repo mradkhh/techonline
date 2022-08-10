@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Image from "next/image";
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
@@ -14,86 +14,37 @@ import {
     PayPalButtonIcon
 } from "static/icons/icon";
 import img1 from "static/images/products/1.jpg"
-import img2 from "static/images/products/2.jpg"
-import {useAppDispatch, useAppSelector} from "hooks/redux";
-import {fetchCarts, fetchRemoveFromToCart} from "services/CartsService";
-import styles from 'styles/pages/shoppingcart.module.scss'
+import {
+    useFetchCartQuery, useFetchClearCartMutation,
+    useFetchRemoveFromCartMutation
+} from "services/CartsService";
 import {Context} from "pages/_app";
+import styles from 'styles/pages/shoppingcart.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
 ]
 
-const items = [
-    {
-        id: 1,
-        img: img1,
-        title: "MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty",
-        price: 4349,
-        quantity: 1,
-        subtotal: 13400
-    },
-    {
-        id: 2,
-        img: img2,
-        title: "MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty",
-        price: 4349,
-        quantity: 1,
-        subtotal: 13400
-    },
-    {
-        id: 2,
-        img: img2,
-        title: "MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty",
-        price: 4349,
-        quantity: 1,
-        subtotal: 13400
-    },
-    {
-        id: 2,
-        img: img2,
-        title: "MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty",
-        price: 4349,
-        quantity: 1,
-        subtotal: 13400
-    }
-]
 
 const Index: NextPage = () => {
     const [ amount, setAmount ] = useState<number>(1)
-    const { product } = useAppSelector(state => state.carts)
     const [ refresh, setRefresh ] = useState<boolean>(false)
-    const dispatch = useAppDispatch()
 
     const { authStore } = useContext(Context)
+    const {data: cart_results} = useFetchCartQuery('')
+    const [ deleteFromCart ] = useFetchRemoveFromCartMutation()
+    const [ clearCart ] = useFetchClearCartMutation()
+    console.log(cart_results)
 
-    console.log(product)
-
-    const handleIncrement = (id: number) => {
-        const newObj = items.map(item => {
-            if (item.id === id) {
-                return { ...item, quantity: item.quantity + 1 }
-            } else {
-                return item
-            }
-        })
-    }
-
-    const handleDecrement = (id: number) => {
-        if ( amount > 0 ) {
-            setAmount(amount - 1)
-        }
-    }
 
     const handleDelete = (id: number) => {
-        dispatch(fetchRemoveFromToCart(id))
+        deleteFromCart(id)
         setRefresh(false)
     }
 
-    useEffect(() => {
-        dispatch(fetchCarts())
-    }, [refresh])
-
+    const handleClearCart = () => {
+        clearCart('')
+    }
 
     return (
         <MainLayout title={"TechOnline - Cart"} description={"cart"} mainClass={'main_shoppingCart'}>
@@ -110,7 +61,7 @@ const Index: NextPage = () => {
                                 <h5>Subtotal</h5>
                             </div>
                             {
-                                product && product?.map(( {product, quantity, id})=>
+                                cart_results && cart_results?.results?.map(( {product, quantity, id})=>
                                     <div key={id} className={styles.tableBody}>
                                         <div className={styles.tableImgCell}>
                                             <div className={styles.tableImg}>
@@ -134,16 +85,16 @@ const Index: NextPage = () => {
                                             <div className={styles.counter}>
                                                 <span>{quantity}</span>
                                                 <div>
-                                                    <button onClick={() => handleIncrement(product.id)}>
+                                                    <button >
                                                         <GrayArrowUpIcon/>
                                                     </button>
-                                                    <button onClick={() => handleDecrement(product.id)}>
+                                                    <button >
                                                         <GrayArrowDownIcon/>
                                                     </button>
                                                 </div>
                                             </div>
                                             <div className={styles.subtotal}>
-                                                ${ product?.price * quantity }.00
+                                                ${product?.price * quantity}.00
                                             </div>
                                             <div className={styles.tableBtn}>
                                                 <button onClick={() => handleDelete(id)} >
@@ -159,7 +110,7 @@ const Index: NextPage = () => {
                             }
                             <div className={styles.actionTable}>
                                 <A href="/catalog">Continue Shopping</A>
-                                <button>Clear Shopping Cart</button>
+                                <button onClick={handleClearCart}>Clear Shopping Cart</button>
                                 <button>Update Shopping Cart</button>
                             </div>
                         </div>

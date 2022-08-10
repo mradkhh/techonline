@@ -1,7 +1,10 @@
 import {AppDispatch} from "store/index";
 import {cartsSlice} from "store/reducers/cartSlice";
-import $api from "services/interseptors";
-import {ICart, ICartResults, IProduct} from "models/index";
+import $api, {API_URL} from "services/interseptors";
+import {ICart, ICartResults, ICategories, ICategoriesResults, IProduct} from "models/index";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import {getAccessToken} from "utils/tokenStorage";
 
 
 export const fetchCarts = () => async (dispatch: AppDispatch) => {
@@ -44,6 +47,60 @@ export const clearCart = () => async (dispatch: AppDispatch) => {
         console.log(e.message)
     }
 }
+
+export const cartApi = createApi({
+    reducerPath: 'cartApi',
+    baseQuery: fetchBaseQuery({baseUrl: API_URL}),
+    tagTypes: ['Cart'],
+    endpoints(builder)  {
+        return {
+            fetchCart: builder.query<ICartResults, string>({
+                query: () => ({
+                    url: 'carts/',
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    }
+                }),
+                providesTags: () => ['Cart']
+            }),
+            fetchAddToCart: builder.mutation<ICategories, { quantity: number, product: number }>({
+                query: ({ quantity, product}) => ({
+                    url: `carts/`,
+                    method: 'POST',
+                    body: {
+                        quantity, product
+                    },
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    }
+                }),
+                invalidatesTags: ['Cart']
+            }),
+            fetchClearCart: builder.mutation<ICategories, string>({
+                query: () => ({
+                    url: `carts/clear_carts/`,
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    }
+                }),
+                invalidatesTags: ['Cart']
+            }),
+            fetchRemoveFromCart: builder.mutation<ICategories, number>({
+                query: (id: number) => ({
+                    url: `carts/${id}`,
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${getAccessToken()}`,
+                    }
+                }),
+                invalidatesTags: ['Cart']
+            }),
+        }
+    }
+})
+
+export const { useFetchCartQuery, useFetchAddToCartMutation, useFetchRemoveFromCartMutation, useFetchClearCartMutation } = cartApi
 
 
 

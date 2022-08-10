@@ -49,8 +49,9 @@ const SearchField: FC<SearchProps> =({search}) => {
     }, [search])
 
     return (
-        <div onClick={(e) => e.stopPropagation()} >
+        <div  >
             <div
+                onClick={(e) => e.stopPropagation()}
                 className={cl.search}>
                 <input ref={ref} { ...searchState } type="text" placeholder='Search entire store here...'/>
                 <span className={cl.Icon}>
@@ -64,7 +65,9 @@ const SearchField: FC<SearchProps> =({search}) => {
                 }
             </div>
             {
-                searchState.value && <div className={cl.searchResults}>
+                searchState.value && searchResults.length && <div
+                    onClick={(e) => e.stopPropagation()}
+                    className={cl.searchResults}>
                     {
                         searchResults && searchResults.map(item => {
                             return <div key={item.id} className={cl.card}>

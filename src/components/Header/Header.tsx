@@ -16,7 +16,7 @@ import {ICategories} from "models/index";
 import {useFetching} from "hooks/useFetching";
 import axios, {AxiosResponse} from "axios";
 import {API_URL} from "services/interseptors";
-import {fetchCarts} from "services/CartsService";
+import {fetchCarts, useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
 import {useAppDispatch, useAppSelector} from "hooks/redux";
 
 
@@ -45,7 +45,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         setShowAvatar(!showAvatar)
     }, [showAvatar])
 
-    const { product } = useAppSelector(state => state.carts)
+    const {data: cartResults} = useFetchCartQuery('')
 
     const [ fetchCategoryId ] = useFetching(async (id: number) => {
         const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
@@ -134,10 +134,10 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                     onClick={handleShowCart}
                                     >
                                     <ShoppingCartIcon/>
-                                    <span>{product.length}</span>
+                                    <span>{cartResults?.results?.length}</span>
                                 </button>
                                 { showCart && <div ref={cartRef} >
-                                    <Minicart product={product} />
+                                    <Minicart product={cartResults?.results} />
                                 </div> }
                             </div>
                                 <div className={styles.Avatar}>

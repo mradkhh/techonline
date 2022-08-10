@@ -79,7 +79,9 @@
   padding: 24px;
   margin-inline: auto;
   border-radius: 31px;
-  animation: fade-up 1000ms;
+  animation: fade-up 500ms;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .card {

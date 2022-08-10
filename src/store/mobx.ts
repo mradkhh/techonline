@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import AuthService from "services/AuthService";
 import {AuthResponse, RefreshResponse} from "models/response/AuthResponse";
 import {API_URL} from "services/interseptors";
@@ -45,6 +45,7 @@ export default class AuthStore {
             setRefreshToken(res.data.refresh)
             localStorage.setItem('auth', 'true')
             this.setAuth(true)
+            window.location.href = '/'
         } catch (e: any) {
             console.log(e.response.status)
             this.setErrorStatus(e.response.status)

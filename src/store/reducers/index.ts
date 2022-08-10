@@ -4,6 +4,7 @@ import cartsSliceReducer from "store/reducers/cartSlice";
 import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
 import {categoriesApi} from "services/CategoriesService";
+import {cartApi} from "services/CartsService";
 
 
 export const rootReducer = combineReducers({
@@ -11,7 +12,8 @@ export const rootReducer = combineReducers({
     favorites: favoritesSliceReducer,
     [productApi.reducerPath]: productApi.reducer,
     [brandsApi.reducerPath]: brandsApi.reducer,
-    [categoriesApi.reducerPath]: categoriesApi.reducer
+    [categoriesApi.reducerPath]: categoriesApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

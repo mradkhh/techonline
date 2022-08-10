@@ -6,29 +6,35 @@ import styles from './Minicart.module.scss'
 import A from "components/UI/A/A";
 import {ICart} from "models/index";
 import {Context} from "pages/_app";
+import item from "components/UI/Menu/Item";
+import {useFetchRemoveFromCartMutation} from "services/CartsService";
 
 interface MinicartProps {
-    product: ICart[]
+    product?: ICart[]
 }
 
 
 const Minicart: FC<MinicartProps> = ({ product }) => {
 
     let total_price = 0;
-    product.map(item => {
+    product?.map(item => {
         total_price += Number(item.product.price)
     })
 
     const { authStore } = useContext(Context)
+    const [removeFromCart, {}] = useFetchRemoveFromCartMutation()
 
 
+    const handleDelete = (id: number) => {
+        removeFromCart(id)
+    }
     console.log(total_price)
 
         return (
             <div className={styles.cart}>
                 <div className={styles.header}>
                     <h4>My Cart</h4>
-                    <p>{product.length} item in cart</p>
+                    <p>{product?.length} item in cart</p>
                     <A href="/shoppingcart" isBtn={true}>View or Edit Your Cart</A>
                 </div>
                 {
@@ -49,7 +55,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
                                         />
                                         <h4>{product?.name}</h4>
                                         <div>
-                                            <button>
+                                            <button onClick={() => handleDelete(id)}>
                                                 <GrayXIcon/>
                                             </button>
                                             <button>

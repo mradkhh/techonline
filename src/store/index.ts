@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
 import {categoriesApi} from "services/CategoriesService";
+import {cartApi} from "services/CartsService";
 
 
 export const setupStore = () => {
@@ -15,6 +16,7 @@ export const setupStore = () => {
                 .concat(productApi.middleware)
                 .concat(brandsApi.middleware)
                 .concat(categoriesApi.middleware)
+                .concat(cartApi.middleware)
         )
     })
 }
