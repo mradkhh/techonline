@@ -13,15 +13,14 @@ const breadcrumbs = [
 ]
 
 const Register: NextPage = () => {
-
+    
+    const { authStore } = useContext(Context)
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
-
-    const { authStore } = useContext(Context)
+    const [ status, setStatus ] = useState<number>(authStore.errorStatus)
 
     const loginUsername = useInput('')
     const loginPassword = useInput('')
-
 
     const handleLoginSubmit = (e: any) => {
         e.preventDefault()
@@ -40,6 +39,13 @@ const Register: NextPage = () => {
     const handleRegister = () => {
         authStore.setShowModal(true)
     }
+
+    useEffect(() => {
+        setStatus(authStore.errorStatus)
+    console.log("Statatat", authStore.errorStatus)
+    console.log("Loading..", authStore.isLoading)
+    }, [status])
+
 
     return (
         <>
@@ -69,6 +75,9 @@ const Register: NextPage = () => {
                                 error={passwordLoginError}
                                 setError={setPasswordLoginError}
                             />
+                                <div className={styles.status}>
+                                    { status === 401 && 'username yoki parol noto\'g\'ri terilgan' }
+                                </div>
                             <div>
                                 <button type="submit">Sign In</button>
                                 <A href="/">Forgot Your Password?</A>

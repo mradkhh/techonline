@@ -1,8 +1,13 @@
-import React, {createRef, FC, memo, useEffect} from 'react';
-import cl from './styles/SearchField.module.scss'
+import React, {createRef, FC, memo, useEffect, useState} from 'react';
 import {SearchIcon, XIcon} from "static/icons/icon";
 import useInput from "hooks/useInput";
-
+import useDebounce from "hooks/useDebounce";
+import {useFetching} from "hooks/useFetching";
+import $api from "services/interseptors";
+import {IProduct, IProductData} from "models/index";
+import cl from './styles/SearchField.module.scss'
+import img from "static/images/products/1.jpg";
+import Image from "next/image";
 
 interface SearchProps {
     search: boolean
@@ -10,34 +15,79 @@ interface SearchProps {
 
 const SearchField: FC<SearchProps> =({search}) => {
     const searchState = useInput('')
+    const debounceValue = useDebounce<string>(searchState.value, 1000)
+    const [ searchResults, setSearchResults ] = useState<IProduct[]>([])
     const ref = createRef<HTMLInputElement>()
 
     const handleClear = () => {
         searchState.setValue('')
         ref.current?.focus()
     }
+    console.log(searchResults)
+
+    const [ searchFetching ] = useFetching(async (search_value: string) => {
+        const res = await $api.get<IProductData>(`products/?search=${search_value}`)
+        const results = await res.data.results
+        setSearchResults(results)
+    })
 
     useEffect(() => {
         !search && searchState.setValue('')
         search && ref.current?.focus()
     }, [search])
 
+    useEffect(() => {
+        debounceValue && searchFetching(debounceValue)
+    }, [debounceValue])
+
+    useEffect(() => {
+        if (search) {
+            window.document.body.style.overflow = 'hidden'
+        } else {
+            window.document.body.style.overflow = 'unset'
+        }
+    }, [search])
+
     return (
-        <div
-            onClick={(e) => e.stopPropagation()}
-            className={cl.search}>
-            <input ref={ref} { ...searchState } type="text" placeholder='Search entire store here...'/>
-            <span className={cl.Icon}>
+        <div onClick={(e) => e.stopPropagation()} >
+            <div
+                className={cl.search}>
+                <input ref={ref} { ...searchState } type="text" placeholder='Search entire store here...'/>
+                <span className={cl.Icon}>
                <SearchIcon/>
             </span>
-            {
-                searchState.value &&
-                <span onClick={handleClear} className={cl.XIcon}>
+                {
+                    searchState.value &&
+                    <span onClick={handleClear} className={cl.XIcon}>
                    <XIcon/>
                 </span>
+                }
+            </div>
+            {
+                searchState.value && <div className={cl.searchResults}>
+                    {
+                        searchResults && searchResults.map(item => {
+                            return <div key={item.id} className={cl.card}>
+                                <div className={cl.card_img}>
+                                    <Image
+                                        objectFit='cover'
+                                        objectPosition='center'
+                                        width={80}
+                                        height={80}
+                                        src={item.product_img?.image ? item.product_img?.image : img }
+                                        alt={"product"}
+                                    />
+                                </div>
+                                <div className={cl.card_body}>
+                                    <h4>{item?.short_desc}</h4>
+                                    <div><span>{item?.price}</span> <h6>{item?.discount}</h6></div>
+                                </div>
+                            </div>
+                        })
+                    }
+                </div>
             }
         </div>
-
     );
 };
 

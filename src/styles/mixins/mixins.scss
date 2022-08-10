@@ -393,3 +393,10 @@ $breakpoint480: 479.98 + px;
   -webkit-box-orient: $box-orient;
   overflow: hidden;
 }
+
+@mixin line-clamp-vertical($clamp) {
+  display: -webkit-box;
+  -webkit-line-clamp: $clamp;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

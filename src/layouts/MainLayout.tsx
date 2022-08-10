@@ -5,9 +5,6 @@ import Footer from "components/Footer/Footer";
 import {ArrowDown, ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
 import {useFetchAllCategoriesQuery} from "services/CategoriesService";
 import {useFetchAllBrandsQuery} from "services/BrandsService";
-import {useAppSelector} from "hooks/redux";
-import {RootState} from "store/reducers";
-import {$CombinedState} from "redux";
 import TextInput from "components/UI/Inputs/TextInput";
 import Modal from "components/UI/Modal/Modal";
 import useInput from "hooks/useInput";
@@ -25,7 +22,6 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
     const [ scrollToUp, setScrollToUp ] = useState<boolean>(false)
 
     const { data: categories } = useFetchAllCategoriesQuery('')
-    const {data: brands} = useFetchAllBrandsQuery('')
     const { authStore } = useContext(Context)
 
     const [ usernameRegisterError, setUsernameRegisterError ] = useState<boolean>(false)

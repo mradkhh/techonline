@@ -6,6 +6,7 @@
   @include searchFiled;
   @include maxWidth(800);
   margin-inline: auto;
+  margin-bottom: 50px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -68,5 +69,62 @@
 
   &:hover {
     background-color: var(--light-gray);
+  }
+}
+
+// =------------ Search Results styles --------------=
+.searchResults {
+  background-color: var(--white);
+  @include maxWidth(800);
+  padding: 24px;
+  margin-inline: auto;
+  border-radius: 31px;
+  animation: fade-up 1000ms;
+}
+
+.card {
+  @include flex-start(center);
+  gap: 16px;
+  margin-inline: auto;
+  padding: 16px;
+  border-radius: 16px;
+  &:hover {
+    box-shadow: var(--shadow);
+  }
+}
+
+.card_img {
+  min-width: 80px;
+}
+
+.card_body {
+  > h4 {
+    @include line-clamp-vertical(2);
+    margin-bottom: 8px;
+  }
+
+  > div {
+    @include flex-start(center);
+    gap: 8px;
+    > span {
+      text-decoration-line: line-through;
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    > h6 {
+      font-size: 16px;
+    }
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(200px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

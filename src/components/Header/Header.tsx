@@ -20,9 +20,6 @@ import {fetchCarts} from "services/CartsService";
 import {useAppDispatch, useAppSelector} from "hooks/redux";
 
 
-
-
-
 interface HeaderProps {
     categories?: ICategories[]
 }
@@ -82,9 +79,12 @@ const Header: FC<HeaderProps> = ({ categories }) => {
 
     useEffect(() => {
         dispatch(fetchCarts())
+        if (search) {
+            window.document.body.style.overflow = 'hidden'
+        } else {
+            window.document.body.style.overflow = 'unset'
+        }
     }, [])
-
-
 
     return (
             <div className={styles.root}>

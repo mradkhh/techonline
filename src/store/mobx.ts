@@ -16,6 +16,7 @@ export default class AuthStore {
     isAuth = !!(getAccessToken())
     isLoading = false
     showModal = false
+    errorStatus = 200
 
     constructor() {
         makeAutoObservable(this)
@@ -32,6 +33,10 @@ export default class AuthStore {
     setShowModal(bool: boolean) {
         this.showModal = bool
     }
+
+    setErrorStatus(num: number) {
+        this.errorStatus = num
+    }
     async login(username: string, password: string) {
         this.setLoading(true)
         try {
@@ -40,9 +45,11 @@ export default class AuthStore {
             setRefreshToken(res.data.refresh)
             localStorage.setItem('auth', 'true')
             this.setAuth(true)
-            this.setLoading(false)
         } catch (e: any) {
-            console.log(e.message)
+            console.log(e.response.status)
+            this.setErrorStatus(e.response.status)
+        } finally {
+            this.setLoading(false)
         }
     }
 
@@ -57,6 +64,7 @@ export default class AuthStore {
             this.setLoading(false)
         } catch (e: any) {
             console.log(e.message)
+            this.setErrorStatus(e.response.status)
         }
     }
 
@@ -70,6 +78,7 @@ export default class AuthStore {
             this.setLoading(false)
         } catch (e:any) {
             console.log(e.message)
+            this.setErrorStatus(e.response.status)
         }
     }
 

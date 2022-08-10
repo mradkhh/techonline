@@ -1,5 +1,6 @@
-import React, {createRef, FC, useEffect} from 'react';
+import React, {createRef, FC, useContext, useEffect} from 'react';
 import styles from './styles/TextInput.module.scss'
+import {Context} from "pages/_app";
 
 interface TextInputProps {
     label: string | boolean,
@@ -23,8 +24,11 @@ const TextInput: FC<TextInputProps> = ({ label,
                                            ...props
 }) => {
 
+    const { authStore } = useContext(Context)
+
     const handleFocus = (e: any) => {
         setError && setError(false)
+        authStore.setErrorStatus(200)
     }
 
 
