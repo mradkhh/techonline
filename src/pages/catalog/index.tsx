@@ -1,7 +1,7 @@
+import Image from "next/image";
 import React, {useContext, useEffect, useState} from 'react';
 import {NextPage} from "next";
 import MainLayout from "layouts/MainLayout";
-import Image from "next/image";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Sidebar from "components/UI/Sidebar/Sidebar";
 import ProductCard from "components/UI/Cards/ProductCard";
@@ -12,13 +12,8 @@ import FullProductCard from "components/UI/Cards/FullProductCard";
 import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
-import bigImg1 from 'static/images/catalogs/big1.png'
-import bigImg2 from 'static/images/catalogs/big2.png'
-import styles from 'styles/pages/catalog.module.scss'
-import {brandsApi} from "services/BrandsService";
 import {Context} from "pages/_app";
-import {fetchAddToCart} from "services/CartsService";
-import {useAppDispatch} from "hooks/redux";
+import styles from 'styles/pages/catalog.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
@@ -53,13 +48,8 @@ const Catalog: NextPage = () => {
     const pages = 234
 
     const { filterState } = useContext(Context)
-    const dispatch = useAppDispatch()
-
     const { data: products } = productApi.useGetAllProductsQuery(filterState.getAll())
 
-    const handleAddToCart = (id: number) => {
-        dispatch(fetchAddToCart(1, 1, id, ))
-    }
 
     useEffect(() => {
         window.scroll(0, 100)
@@ -122,13 +112,13 @@ const Catalog: NextPage = () => {
                         {
                             products && viewType === 1 && products?.results?.map(item =>
                                 <ProductCard
+                                    id={item.id}
                                     key={item.id}
                                     image={item?.product_img?.image}
                                     title={item.short_desc}
                                     price={item.price}
                                     discountPrice={item.discount}
                                     isInStock={item.is_stock}
-                                    handleAddToCart={() => handleAddToCart(item.id)}
                                 />
                             )
                         }
@@ -137,6 +127,7 @@ const Catalog: NextPage = () => {
                         {
                             products && viewType === 2 && products?.results?.map(item =>
                                 <FullProductCard
+                                    id={item.id}
                                     key={item.id}
                                     isInStock={item?.is_stock}
                                     image={item?.product_img?.image}

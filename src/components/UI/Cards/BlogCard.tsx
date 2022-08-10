@@ -14,7 +14,7 @@ const BlogCard: FC<BlogCardProps> = ({ date, text, img }) => {
         <div className={styles.card}>
             <div className={styles.img}>
                 <Image
-                    width={225}
+                    width={280}
                     height={150}
                     objectFit='cover'
                     objectPosition='center'

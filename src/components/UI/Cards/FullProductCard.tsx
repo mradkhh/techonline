@@ -5,8 +5,9 @@ import img from 'static/images/products/1.jpg'
 import styles from './styles/FullProductCard.module.scss'
 
 interface FullProductCardProps {
+    id: number,
     isInStock: boolean,
-    image: string,
+    image?: string,
     rating?: number,
     title: string,
     price: string,

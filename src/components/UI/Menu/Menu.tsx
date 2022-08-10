@@ -1,15 +1,13 @@
-import React, {createRef, FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useState} from 'react';
+import axios from "axios";
+import Image from "next/image";
 import ProductCard from "components/UI/Cards/ProductCard";
 import {ICategories, IProduct} from "models/index";
 import {useFetchAllBrandsQuery} from "services/BrandsService";
-import Image from "next/image";
-import {ArrowDown, ArrowRightIcon} from "static/icons/icon";
 import {useFetching} from "hooks/useFetching";
-import axios from "axios";
 import {API_URL} from "services/interseptors";
-import styles from './Menu.module.scss'
 import Item from "components/UI/Menu/Item";
-import {useFetchCategoryByIdQuery} from "services/CategoriesService";
+import styles from './Menu.module.scss'
 
 interface MenuProps  {
     data: ICategories,
@@ -29,12 +27,9 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
         setItemData(data)
     })
 
-    console.log("Item Data: ", itemData)
-    console.log("Data: ", data)
 
     const handleClick = (id: number) => {
         fetchCategoryId(id)
-        console.log("Okkk")
         setItemData(data)
     }
 
@@ -60,6 +55,7 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                             data && data?.products?.splice(0, 4)
                                 .map(item => {
                                     return <ProductCard
+                                        id={item.id}
                                         key={item.id}
                                         image={item?.product_img?.image}
                                         title={item.short_desc}
