@@ -7,6 +7,21 @@
   margin-bottom: 20px;
 }
 
+.notAuth {
+  @include flex-center(center);
+  flex-direction: column;
+  gap: 24px;
+  min-height: 300px;
+
+  > a {
+    color: var(--brand);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .content {
   @include container;
   @include flex-between(flex-start);
