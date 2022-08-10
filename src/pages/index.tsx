@@ -12,7 +12,6 @@ import A from "components/UI/A/A";
 import VisitCard from "components/UI/Cards/VisitCard";
 import BlogCard from "components/UI/Cards/BlogCard";
 import QuoteBanner from "components/UI/Banner/QuoteBanner";
-import img1 from 'static/images/products/1.jpg'
 import msiImg from 'static/images/categories/msi.png'
 import desktopImg from 'static/images/categories/desktop.png'
 import gaminImg from 'static/images/categories/gaming.png'
@@ -24,7 +23,6 @@ import { useFetchAllBrandsQuery } from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
 
 const Index: NextPage = () => {
-
 
     const page_size = 10
     const page = 1
@@ -44,7 +42,7 @@ const Index: NextPage = () => {
                               <ProductCard
                                   id={item.id}
                                   key={item.id}
-                                  image={item?.product_img?.image ? item?.product_img?.image : img1}
+                                  image={item?.product_img?.image}
                                   title={item.short_desc}
                                   price={item.price}
                                   discountPrice={item.discount}
@@ -159,10 +157,10 @@ const Index: NextPage = () => {
           <Tabs>
               <TabList className={styles.tabsList}>
                   <Tab key={'first'}>
-                      MSI Infinute Series
+                      MSI Infinite Series
                   </Tab>
                   <Tab key={'second'}>
-                      MSI Triden
+                      MSI Trend
                   </Tab>
                   <Tab key={'third'}>
                       MSI GL Series
@@ -334,8 +332,8 @@ const Index: NextPage = () => {
                 <Carousel type='banner' autoplay={true} button={false} loop={true}>
                     <SwiperSlide>
                         <QuoteBanner
-                            quote='My first order arrived today in perfect condition.  From the time I sent a question about the item to making the purchase, to the shipping and now the delivery, your company, Tecs, has stayed in touch.  Such great service.  I look forward to shopping on your site in the future and would highly recommend it.'
-                            author='- Adkhambek Yusupov'
+                            quote='My first order arrived today in perfect condition.  From the time I sent a question about the item to making the purchase, to the shipping and now the delivery, your company, Techs, has stayed in touch.  Such great service.  I look forward to shopping on your site in the future and would highly recommend it.'
+                            author='- John Doe'
                             href="/"
                         />
                     </SwiperSlide>

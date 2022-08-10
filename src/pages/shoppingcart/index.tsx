@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import Image from "next/image";
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
@@ -27,9 +27,6 @@ const breadcrumbs = [
 
 
 const Index: NextPage = () => {
-    const [ amount, setAmount ] = useState<number>(1)
-    const [ refresh, setRefresh ] = useState<boolean>(false)
-
     const { authStore } = useContext(Context)
     const {data: cart_results} = useFetchCartQuery('')
     const [ deleteFromCart ] = useFetchRemoveFromCartMutation()
@@ -39,7 +36,6 @@ const Index: NextPage = () => {
 
     const handleDelete = (id: number) => {
         deleteFromCart(id)
-        setRefresh(false)
     }
 
     const handleClearCart = () => {
@@ -94,7 +90,7 @@ const Index: NextPage = () => {
                                                 </div>
                                             </div>
                                             <div className={styles.subtotal}>
-                                                ${product?.price * quantity}.00
+                                                ${Number(product?.price) * quantity}.00
                                             </div>
                                             <div className={styles.tableBtn}>
                                                 <button onClick={() => handleDelete(id)} >
@@ -125,7 +121,7 @@ const Index: NextPage = () => {
                                 <div className={styles.applyInfo}>
                                     <h6>Subtotal <span>$13,047.00</span></h6>
                                     <h6>Shipping  <span>$21.00</span></h6>
-                                    <p>(Standard Rate - Price may vary depending on the item/destination. TECS Staff will contact you.)</p>
+                                    <p>(Standard Rate - Price may vary depending on the item/destination. TECHS Staff will contact you.)</p>
                                     <h6>Tax <span>$1.91</span></h6>
                                     <h6>GST (10%) <span>$1.91</span></h6>
                                     <h6>Order Total <span>$13,068.00</span></h6>
