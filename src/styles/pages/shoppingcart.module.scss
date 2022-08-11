@@ -68,28 +68,7 @@
   }
 }
 
-.tableBody {
-  @include flex-between(center);
-  @media (max-width: 1200px) {
-    flex-direction: column;
-  }
-}
 
-.tableImgCell {
-  @include flex-start(center);
-}
-
-.tableImg {
-  min-width: 120px;
-}
-
-.tableInfo {
-  @include flex-end(center);
-  @media (max-width: 1200px) {
-    width: 100%;
-    justify-content: space-around !important;
-  }
-}
 
 .thead {
     border-bottom: 2px solid var(--gray);
@@ -99,60 +78,7 @@
   min-width: 88px;
 }
 
-.tableTitle {
-  padding-inline: 24px;
-  padding-block: 32px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  @media (max-width: $breakpoint992) {
-    padding-right: 0;
-  }
-}
 
-.price, .subtotal {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  padding-inline: 24px;
-}
-
-.tableBtn {
-  @include flex-column(flex-end, flex-end);
-  gap: 4px;
-  padding: 4px;
-
-  > button {
-    @include flex-center(center);
-    transition: transform 250ms;
-
-    &:active {
-      transform: scale(0.9);
-    }
-  }
-}
-
-.counter {
-  @include flex-between(center);
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: 6px;
-  background-color: var(--light-blue);
-  min-width: 70px;
-  max-width: max-content;
-  > span {
-    margin-left: auto;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 210%;
-  }
-
-  > div {
-    > button {
-      @include flex-center(center);
-    }
-  }
-}
 
 .actionTable {
   margin-top: 24px;

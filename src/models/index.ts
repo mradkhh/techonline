@@ -23,6 +23,7 @@ export interface IProduct {
     short_desc: string,
     viewer?: string,
     rating?: number,
+    quantity?: number
 }
 
 export interface IProductId {

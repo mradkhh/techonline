@@ -25,8 +25,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
     const [removeFromCart, {}] = useFetchRemoveFromCartMutation()
 
     const handleDelete = (id: number) => {
-        // removeFromCart(id)
-        console.log(id)
+        removeFromCart(id)
     }
 
 

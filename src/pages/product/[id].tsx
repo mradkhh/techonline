@@ -47,16 +47,15 @@ const Product: NextPage = () => {
     const [ removeFromCart ] = useFetchRemoveFromCartMutation()
     const [ tabNumber, setTabNumber ] = useState<number>(1)
 
-
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
     const cartId = cartProducts?.results.find(item => item.product.id === Number(id) )
-    let quantity = cartId?.quantity ? cartId?.quantity : 0
-
-
+    const quantityCart = cartId?.quantity ? cartId?.quantity : 0
+    const quantityProduct = product?.quantity ? product?.quantity : 0
     // =---------------------- states --------------------------=
 
     // =----------------- control quantity in front ----------------=
-    const [ amount, setAmount ] = useState<number>(quantity)
+    const [ amount, setAmount ] = useState<number>(quantityCart)
+    const [ storageQuantity, setStorageQuantity ] = useState<number>(0)
     const total_price = (Number(product?.price) * amount) ? (Number(product?.price) * amount) : 0
 
     // =----------------- image width for responsive ---------------=
@@ -76,13 +75,11 @@ const Product: NextPage = () => {
     }
 
     const handleIncrement = () => {
-        const MAX_QUANTITY = 10
-        if ( (amount) < MAX_QUANTITY ) {
+        if ( (amount) < storageQuantity ) {
             setAmount(state => state + 1)
             addToCart({ quantity: amount + 1, product: Number(id) })
         }
     }
-
 
     const handleDecrement = () => {
         const MIN_QUANTITY = 1
@@ -97,9 +94,10 @@ const Product: NextPage = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            setAmount(quantity)
+            setAmount(quantityCart)
+            setStorageQuantity(quantityProduct)
         }
-    }, [isLoading, quantity])
+    }, [isLoading, quantityCart, quantityProduct])
 
 
     return (
