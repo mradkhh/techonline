@@ -1,4 +1,4 @@
-import React, {createRef, FC, memo, RefAttributes, useCallback, useContext, useEffect, useState} from 'react';
+import React, {createRef, FC, memo, useCallback, useContext, useEffect, useState} from 'react';
 import Image from "next/image";
 import Logo from "components/UI/Logo/Logo";
 import Head from "components/Header/UI/Head";
@@ -16,8 +16,8 @@ import {ICategories} from "models/index";
 import {useFetching} from "hooks/useFetching";
 import axios, {AxiosResponse} from "axios";
 import {API_URL} from "services/interseptors";
-import {fetchCarts, useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
-import {useAppDispatch, useAppSelector} from "hooks/redux";
+import {fetchCarts, useFetchCartQuery} from "services/CartsService";
+import {useAppDispatch} from "hooks/redux";
 
 
 interface HeaderProps {
@@ -134,7 +134,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                     onClick={handleShowCart}
                                     >
                                     <ShoppingCartIcon/>
-                                    <span>{cartResults?.results?.length}</span>
+                                    {cartResults?.results?.length && <span>{cartResults?.results?.length}</span>}
                                 </button>
                                 { showCart && <div ref={cartRef} >
                                     <Minicart product={cartResults?.results} />

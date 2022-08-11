@@ -17,8 +17,8 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ array, current }) => {
     return (
         <div className={styles.breadcrumbs}>
             {
-                array.map(guide =>
-                    <div className={styles.link} key={guide.path}>
+                array.map((guide, i) =>
+                    <div className={styles.link} key={i}>
                         <A href={guide.path}>{guide.text}</A>
                         <span className={styles.arrow}>{'>'}</span>
                     </div>

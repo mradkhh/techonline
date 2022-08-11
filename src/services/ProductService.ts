@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {IProduct, IProductData, IProductsQuery} from "models";
+import {IProduct, IProductData, IProductId, IProductsQuery} from "models";
 import {API_URL} from "services/interseptors";
 
 
@@ -18,7 +18,7 @@ export const productApi = createApi({
             }),
             providesTags: () => ['Products']
         }),
-        getProduct: build.query<IProduct, number>({
+        getProduct: build.query<IProductId, number>({
             query: (id: number) => ({
                 url: `products/${id}`
             })
@@ -49,7 +49,7 @@ export const productApi = createApi({
     })
 })
 
-export const { useGetAllProductsQuery } = productApi
+export const { useGetAllProductsQuery, useGetProductQuery } = productApi
 
 
 

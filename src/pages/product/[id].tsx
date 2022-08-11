@@ -21,6 +21,8 @@ import {
 import styles from 'styles/pages/product.module.scss'
 import A from "components/UI/A/A";
 import useMediaQuery from "hooks/useMediaQuery";
+import {useGetProductQuery} from "services/ProductService";
+import {useRouter} from "next/router";
 
 
 const tabs = [
@@ -37,10 +39,13 @@ const breadcrumbs = [
 const Product: NextPage = () => {
     const [ tabNumber, setTabNumber ] = useState<number>(1)
     const [ amount, setAmount ] = useState<number>(1)
+    const router = useRouter()
+    const { id } = router.query
+    const {data: product} = useGetProductQuery(Number(id))
+
 
     const matches = useMediaQuery('(max-width: 767.98px)')
     const featureImgWidth = matches ? 100 : 136
-
 
     const handleSwitch = (id: number): void => {
         setTabNumber(id)
@@ -95,9 +100,19 @@ const Product: NextPage = () => {
                             <Breadcrumbs array={breadcrumbs} current=" MSI WS Series"/>
                             {
                                 tabNumber === 1 ?
-                                    <Tab1/> :
+                                    <Tab1
+                                        color={product?.colors}
+                                        category={product?.category}
+                                        name={product?.name}
+                                        desc={product?.desc}
+                                    /> :
                                     tabNumber === 2 ?
-                                        <Tab2/> : null
+                                        <Tab2
+                                            ram={product?.ram}
+                                            memory={product?.memory}
+                                            name={product?.name}
+                                            category={product?.category}
+                                        /> : null
                             }
                         </div>
                         <div className={styles.mainInfo__content_right}>

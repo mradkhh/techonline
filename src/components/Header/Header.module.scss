@@ -23,7 +23,7 @@
 .Root {
   @include flex(center, space-between);
   @include container;
-  gap: 48px;
+  gap: 32px;
   position: relative;
 
   @media (max-width: $breakpoint1450) {

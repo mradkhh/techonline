@@ -23,7 +23,6 @@ const SearchField: FC<SearchProps> =({search}) => {
         searchState.setValue('')
         ref.current?.focus()
     }
-    console.log(searchResults)
 
     const [ searchFetching ] = useFetching(async (search_value: string) => {
         const res = await $api.get<IProductData>(`products/?search=${search_value}`)

@@ -7,7 +7,7 @@ import Sidebar from "components/UI/Sidebar/Sidebar";
 import ProductCard from "components/UI/Cards/ProductCard";
 import Pagination from "components/UI/Pagination/Pagination";
 import Select from "components/UI/Select/Select";
-import {productApi} from "services/ProductService";
+import {productApi, useGetAllProductsQuery} from "services/ProductService";
 import FullProductCard from "components/UI/Cards/FullProductCard";
 import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
@@ -45,11 +45,16 @@ const Catalog: NextPage = () => {
     const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
     const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
     const [ viewType, setViewType ] = useState<number>(1)
-    const pages = 234
+
+    console.log(sortValue)
+    console.log(showValue)
 
     const { filterState } = useContext(Context)
-    const { data: products } = productApi.useGetAllProductsQuery(filterState.getAll())
-
+    const { data: products } = useGetAllProductsQuery({
+        page_size: showValue,
+        page: page
+    })
+    const pages = products?.count ? products?.count / showValue : 100
 
     useEffect(() => {
         window.scroll(0, 100)
@@ -87,7 +92,10 @@ const Catalog: NextPage = () => {
                                     value={showValue}
                                     setTitle={setShowTitle}
                                     setValue={setShowValue}
-                                    options={showOption}>Show: </Select>
+                                    options={showOption}
+                                >
+                                    Show:
+                                </Select>
                             </div>
                             <div className={styles.viewType}>
                                 <button

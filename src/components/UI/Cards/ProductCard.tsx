@@ -6,6 +6,7 @@ import img from 'static/images/products/1.jpg'
 import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
 import {useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
+import A from "components/UI/A/A";
 
 
 interface ProductCardProps {
@@ -28,32 +29,34 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
     const widthImg = matches ? 150 : 100
     const isInCart = products?.results.find( item => item?.id === id);
 
-    const handleAddToCart = () => {
+    const handleAddToCart = (e: any) => {
+        e.stopPropagation()
         !isInCart && fetchAddToCart({quantity: 1, product: id})
     }
 
     return (
-        <div  ref={ref} className={styles.card}>
-            { isInStock ?
-                <div className={styles.inStock}> <SuccessIcon/> in stock </div>
-                :
-                <div className={styles.notStock}> <RedCallIcon/> check availability </div> }
-            <div className={styles.img}>
-                <Image
-                    width={widthImg ? widthImg : 150}
-                    height={widthImg ? widthImg : 150}
-                    objectFit='cover'
-                    objectPosition='center'
-                    alt={'product'}
-                    src={image ? image : img}
-                />
-            </div>
-            <div className={styles.body}>
-                <h4>{title}</h4>
-                <div>{price} $</div>
-                <div>{discountPrice} $</div>
-            </div>
-            <div className={styles.hover} >
+        <A href={`/product/${id}`}>
+            <div  ref={ref} className={styles.card}>
+                { isInStock ?
+                    <div className={styles.inStock}> <SuccessIcon/> in stock </div>
+                    :
+                    <div className={styles.notStock}> <RedCallIcon/> check availability </div> }
+                <div className={styles.img}>
+                    <Image
+                        width={widthImg ? widthImg : 150}
+                        height={widthImg ? widthImg : 150}
+                        objectFit='cover'
+                        objectPosition='center'
+                        alt={'product'}
+                        src={image ? image : img}
+                    />
+                </div>
+                <div onClick={(e) => e.stopPropagation()} className={styles.body}>
+                    <h4>{title}</h4>
+                    <div>{price} $</div>
+                    <div>{discountPrice} $</div>
+                </div>
+                <div className={styles.hover} >
                     <div className={styles.icon}>
                         <button className={styles.favorite}>
                             <FavoriteIcon/>
@@ -63,13 +66,14 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                         </button>
                     </div>
                     <button
-                        onClick={handleAddToCart}
+                        onClick={(e) => handleAddToCart(e)}
                         className={`${isInCart ? styles.inCart : styles.addToCart} ${styles.cartButton}`}>
                         <ShoppingCartIcon/>
                         {isInCart ? 'Added' : 'Add To Cart'}
                     </button>
                 </div>
-        </div>
+            </div>
+        </A>
     );
 };
 

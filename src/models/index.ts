@@ -20,7 +20,34 @@ export interface IProduct {
     brand: number,
     category: number,
     is_stock: boolean,
+    short_desc: string,
+    viewer?: string,
+    rating?: number,
+}
+
+export interface IProductId {
+    id: number
+    name: string
     short_desc: string
+    desc: string
+    price: string
+    quantity: number
+    discount: number
+    viewer: number
+    rating: number
+    is_stock: boolean
+    only_here: boolean
+    memory: string
+    ram: string
+    category: string
+    brand: string
+    product_images: {
+        image: string
+    },
+    colors: {
+        id: number,
+        name: string
+    }[]
 }
 
 export interface ICart {

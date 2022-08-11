@@ -206,7 +206,7 @@ $breakpoint480: 479.98 + px;
 @mixin grid($repeat) {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 12px;
+  gap: 18px;
 
   @media (max-width: $breakpoint1450) {
     grid-template-columns: repeat($repeat, 1fr);

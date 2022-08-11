@@ -2,6 +2,7 @@ import {NextPage} from "next";
 import React, {useContext} from 'react';
 import Image from "next/image";
 import MainLayout from "layouts/MainLayout";
+import {Context} from "pages/_app";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Accordion from "components/UI/Accordion/Accordion";
 import A from "components/UI/A/A";
@@ -18,7 +19,6 @@ import {
     useFetchCartQuery, useFetchClearCartMutation,
     useFetchRemoveFromCartMutation
 } from "services/CartsService";
-import {Context} from "pages/_app";
 import styles from 'styles/pages/shoppingcart.module.scss'
 
 const breadcrumbs = [
