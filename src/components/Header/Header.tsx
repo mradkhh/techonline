@@ -134,7 +134,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                     onClick={handleShowCart}
                                     >
                                     <ShoppingCartIcon/>
-                                    {cartResults?.results?.length && <span>{cartResults?.results?.length}</span>}
+                                    {!(cartResults?.results?.length <= 0) && <span>{cartResults?.results?.length}</span>}
                                 </button>
                                 { showCart && <div ref={cartRef} >
                                     <Minicart product={cartResults?.results} />

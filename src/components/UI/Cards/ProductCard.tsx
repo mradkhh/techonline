@@ -23,15 +23,15 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
 
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
-    const {data: products} = useFetchCartQuery('')
     const [fetchAddToCart, {}] = useFetchAddToCartMutation()
     const matches = useMediaQuery("(min-width: 992px)")
     const widthImg = matches ? 150 : 100
-    const isInCart = products?.results.find( item => item?.id === id);
+    const { data: cart_products } = useFetchCartQuery('')
+    const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
 
     const handleAddToCart = (e: any) => {
         e.stopPropagation()
-        !isInCart && fetchAddToCart({quantity: 1, product: id})
+        !is_in_cart && fetchAddToCart({quantity: 1, product: id})
     }
 
     return (
@@ -67,9 +67,9 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                     </div>
                     <button
                         onClick={(e) => handleAddToCart(e)}
-                        className={`${isInCart ? styles.inCart : styles.addToCart} ${styles.cartButton}`}>
+                        className={`${is_in_cart ? styles.inCart : styles.addToCart} ${styles.cartButton}`}>
                         <ShoppingCartIcon/>
-                        {isInCart ? 'Added' : 'Add To Cart'}
+                        {is_in_cart ? 'Added' : 'Add To Cart'}
                     </button>
                 </div>
             </div>

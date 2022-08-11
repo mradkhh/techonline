@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import Image from "next/image";
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Tab1 from "pages/product/components/Tab1";
@@ -18,13 +18,12 @@ import {
     PayPalButtonIcon,
     StatsIcon
 } from "static/icons/icon";
-import styles from 'styles/pages/product.module.scss'
 import A from "components/UI/A/A";
 import useMediaQuery from "hooks/useMediaQuery";
 import {useGetProductQuery} from "services/ProductService";
 import {useRouter} from "next/router";
-import {useFetchAddToCartMutation} from "services/CartsService";
-
+import {useFetchAddToCartMutation, useFetchCartQuery, useFetchRemoveFromCartMutation} from "services/CartsService";
+import styles from 'styles/pages/product.module.scss'
 
 const tabs = [
     { id: 1, title: 'About Product' },
@@ -36,37 +35,52 @@ const breadcrumbs = [
     { path: '/laptops', text: 'Laptops' }
 ]
 
-
 const Product: NextPage = () => {
-    const [ tabNumber, setTabNumber ] = useState<number>(1)
+
+    // =-------------- Logics and fetch for data --------------------=
     const router = useRouter()
     const { id } = router.query
-    const {data: product} = useGetProductQuery(Number(id))
-    const [ amount, setAmount ] = useState<number>(product?.quantity ? product?.quantity : 1)
+    const { data: cart_products } = useFetchCartQuery('')
+    const { data: product } = useGetProductQuery(Number(id))
     const [addToCart] = useFetchAddToCartMutation()
+    const [ removeFromCart ] = useFetchRemoveFromCartMutation()
+    const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
+    const quantity = product?.quantity ? product?.quantity : 0
+    const total_price = (Number(product?.price) * quantity) ? (Number(product?.price) * quantity) : 0
 
-
+    // =----------------- image width for responsive ---------------=
+    const [ tabNumber, setTabNumber ] = useState<number>(1)
     const matches = useMediaQuery('(max-width: 767.98px)')
     const featureImgWidth = matches ? 100 : 136
 
+    // =---------------- func for handling Tab1 or Tab2 component ---------------------=
     const handleSwitch = (id: number): void => {
         setTabNumber(id)
     }
 
-
     const handleAddToCart = () => {
-        addToCart({ quantity: amount, product: Number(id) })
+        if (!is_in_cart) {
+            addToCart({ quantity: quantity, product: Number(id) })
+        }
     }
 
     const handleIncrement = () => {
-        setAmount(state => state + 1)
+        const MAX_QUANTITY = 10
+        if ( (quantity) < MAX_QUANTITY ) {
+            addToCart({ quantity: quantity + 1, product: Number(id) })
+        }
     }
 
     const handleDecrement = () => {
-        if ( product?.quantity ? product?.quantity : 1 > 0 ) {
-            setAmount(state => state - 1)
+        const MIN_QUANTITY = 1
+        if ( (quantity) > MIN_QUANTITY ) {
+            addToCart({ quantity: quantity - 1, product: Number(id) })
+        } else  {
+            removeFromCart(Number(id))
+            console.log("OKk---")
         }
     }
+
     return (
         <MainLayout title="Product - id" description="MSI" mainClass="main_product">
             <section className={styles.mainInfo}>
@@ -82,9 +96,9 @@ const Product: NextPage = () => {
                             }
                         </div>
                         <div className={styles.payment}>
-                            <div>On Sale from <span>${Number(product?.price) * (product?.quantity ? product?.quantity : 1)}</span></div>
+                            <div>On Sale from <span>${total_price}.00</span></div>
                             <div className={styles.counter}>
-                                <span>{(product?.quantity ? product?.quantity : 1 > amount) ? product?.quantity : amount}</span>
+                                <span>{quantity}</span>
                                 <div>
                                     <button onClick={handleIncrement}>
                                         <GrayArrowUpIcon/>
@@ -94,7 +108,7 @@ const Product: NextPage = () => {
                                     </button>
                                 </div>
                             </div>
-                            <button onClick={handleAddToCart} >Add to Cart</button>
+                            <button className={is_in_cart && styles.greenBtn} onClick={handleAddToCart} > { is_in_cart ? 'Added' : 'Add to Cart' } </button>
                             <button>
                                 <PayPalButtonIcon/>
                             </button>
@@ -140,7 +154,7 @@ const Product: NextPage = () => {
                                     height={444}
                                     objectFit='cover'
                                     objectPosition='center'
-                                    src={ product?.product_images?.image ? product?.product_images?.image : img}
+                                    src={ product?.product_images[0]?.image ? product?.product_images[0]?.image : img}
                                     alt="img"
                                 />
                                 <div>

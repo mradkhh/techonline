@@ -61,7 +61,7 @@ export const cartApi = createApi({
                         Authorization: `Bearer ${getAccessToken()}`,
                     }
                 }),
-                providesTags: () => ['Cart']
+                providesTags: () => ['Cart'],
             }),
             fetchAddToCart: builder.mutation<ICategories, { quantity: number, product: number }>({
                 query: ({ quantity, product}) => ({

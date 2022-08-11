@@ -42,8 +42,9 @@ export interface IProductId {
     category: string
     brand: string
     product_images: {
+        id: number,
         image: string
-    },
+    }[],
     colors: {
         id: number,
         name: string

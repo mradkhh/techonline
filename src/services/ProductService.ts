@@ -20,7 +20,7 @@ export const productApi = createApi({
         }),
         getProduct: build.query<IProductId, number>({
             query: (id: number) => ({
-                url: `products/${id}`
+                url: `product/${id}`
             })
         }),
         createProduct: build.mutation<IProduct, number>({

@@ -6,7 +6,6 @@ import styles from './Minicart.module.scss'
 import A from "components/UI/A/A";
 import {ICart} from "models/index";
 import {Context} from "pages/_app";
-import item from "components/UI/Menu/Item";
 import {useFetchRemoveFromCartMutation} from "services/CartsService";
 
 interface MinicartProps {
@@ -18,17 +17,15 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
 
     let total_price = 0;
     product?.map(item => {
-        total_price += Number(item.product.price)
+        total_price += (Number(item.product.price) * item.quantity)
     })
 
     const { authStore } = useContext(Context)
     const [removeFromCart, {}] = useFetchRemoveFromCartMutation()
 
-
     const handleDelete = (id: number) => {
         removeFromCart(id)
     }
-    console.log(total_price)
 
         return (
             <div className={styles.cart}>
@@ -67,7 +64,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
                             }
                         </div>
                         <div className={styles.footer}>
-                            <h3>Subtotal: <span>${total_price}.00</span></h3>
+                            <h3>Subtotal: <span>${total_price }.00</span></h3>
                             <div>
                                 <A isBtn={true} href={'/checkout'}>Go to Checkout</A>
                                 <button>Check out with

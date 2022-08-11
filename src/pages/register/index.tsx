@@ -42,10 +42,7 @@ const Register: NextPage = () => {
 
     useEffect(() => {
         setStatus(authStore.errorStatus)
-    console.log("Statatat", authStore.errorStatus)
-    console.log("Loading..", authStore.isLoading)
     }, [status])
-
 
     return (
         <>
