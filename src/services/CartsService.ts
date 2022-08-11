@@ -68,7 +68,8 @@ export const cartApi = createApi({
                     url: `carts/`,
                     method: 'POST',
                     body: {
-                        quantity, product
+                        quantity,
+                        product
                     },
                     headers: {
                         Authorization: `Bearer ${getAccessToken()}`,

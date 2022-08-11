@@ -23,6 +23,7 @@ import A from "components/UI/A/A";
 import useMediaQuery from "hooks/useMediaQuery";
 import {useGetProductQuery} from "services/ProductService";
 import {useRouter} from "next/router";
+import {useFetchAddToCartMutation} from "services/CartsService";
 
 
 const tabs = [
@@ -38,10 +39,11 @@ const breadcrumbs = [
 
 const Product: NextPage = () => {
     const [ tabNumber, setTabNumber ] = useState<number>(1)
-    const [ amount, setAmount ] = useState<number>(1)
     const router = useRouter()
     const { id } = router.query
     const {data: product} = useGetProductQuery(Number(id))
+    const [ amount, setAmount ] = useState<number>(product?.quantity ? product?.quantity : 1)
+    const [addToCart] = useFetchAddToCartMutation()
 
 
     const matches = useMediaQuery('(max-width: 767.98px)')
@@ -51,13 +53,18 @@ const Product: NextPage = () => {
         setTabNumber(id)
     }
 
+
+    const handleAddToCart = () => {
+        addToCart({ quantity: amount, product: Number(id) })
+    }
+
     const handleIncrement = () => {
-        setAmount(amount + 1)
+        setAmount(state => state + 1)
     }
 
     const handleDecrement = () => {
-        if ( amount > 0 ) {
-            setAmount(amount - 1)
+        if ( product?.quantity ? product?.quantity : 1 > 0 ) {
+            setAmount(state => state - 1)
         }
     }
     return (
@@ -75,9 +82,9 @@ const Product: NextPage = () => {
                             }
                         </div>
                         <div className={styles.payment}>
-                            <div>On Sale from <span>$3,299.00</span></div>
+                            <div>On Sale from <span>${Number(product?.price) * (product?.quantity ? product?.quantity : 1)}</span></div>
                             <div className={styles.counter}>
-                                <span>{amount}</span>
+                                <span>{(product?.quantity ? product?.quantity : 1 > amount) ? product?.quantity : amount}</span>
                                 <div>
                                     <button onClick={handleIncrement}>
                                         <GrayArrowUpIcon/>
@@ -87,7 +94,7 @@ const Product: NextPage = () => {
                                     </button>
                                 </div>
                             </div>
-                            <button>Add to Cart</button>
+                            <button onClick={handleAddToCart} >Add to Cart</button>
                             <button>
                                 <PayPalButtonIcon/>
                             </button>
@@ -133,7 +140,7 @@ const Product: NextPage = () => {
                                     height={444}
                                     objectFit='cover'
                                     objectPosition='center'
-                                    src={img}
+                                    src={ product?.product_images?.image ? product?.product_images?.image : img}
                                     alt="img"
                                 />
                                 <div>
