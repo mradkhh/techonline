@@ -46,10 +46,13 @@ const Product: NextPage = () => {
     const [ removeFromCart ] = useFetchRemoveFromCartMutation()
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
     const quantity = product?.quantity ? product?.quantity : 0
-    const total_price = (Number(product?.price) * quantity) ? (Number(product?.price) * quantity) : 0
+    const total_price = (Number(product?.price) * quantity)
+
+    // =---------------------- states -----------------------=
+    const [ tabNumber, setTabNumber ] = useState<number>(1)
+    const [ amount, setAmount ] = useState<number>(quantity)
 
     // =----------------- image width for responsive ---------------=
-    const [ tabNumber, setTabNumber ] = useState<number>(1)
     const matches = useMediaQuery('(max-width: 767.98px)')
     const featureImgWidth = matches ? 100 : 136
 
@@ -60,22 +63,26 @@ const Product: NextPage = () => {
 
     const handleAddToCart = () => {
         if (!is_in_cart) {
-            addToCart({ quantity: quantity, product: Number(id) })
+            addToCart({ quantity: amount, product: Number(id) })
         }
     }
 
     const handleIncrement = () => {
         const MAX_QUANTITY = 10
-        if ( (quantity) < MAX_QUANTITY ) {
-            addToCart({ quantity: quantity + 1, product: Number(id) })
+        if ( (quantity && amount) < MAX_QUANTITY ) {
+            setAmount(state => state + 1)
+            addToCart({ quantity: amount + 1, product: Number(id) })
         }
     }
 
     const handleDecrement = () => {
         const MIN_QUANTITY = 1
-        if ( (quantity) > MIN_QUANTITY ) {
-            addToCart({ quantity: quantity - 1, product: Number(id) })
+        const EMPTY = 0
+        if ( (quantity && amount) > MIN_QUANTITY ) {
+            setAmount(state => state - 1)
+            addToCart({ quantity: amount - 1, product: Number(id) })
         } else  {
+            setAmount(state => state - 1)
             removeFromCart(Number(id))
             console.log("OKk---")
         }
@@ -96,7 +103,7 @@ const Product: NextPage = () => {
                             }
                         </div>
                         <div className={styles.payment}>
-                            <div>On Sale from <span>${total_price}.00</span></div>
+                            <div>On Sale from <span>${}</span></div>
                             <div className={styles.counter}>
                                 <span>{quantity}</span>
                                 <div>
