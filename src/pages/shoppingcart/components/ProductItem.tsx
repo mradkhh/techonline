@@ -19,8 +19,8 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
     const [ deleteFromCart ] = useFetchRemoveFromCartMutation()
     const [ addToCart ] = useFetchAddToCartMutation()
     const storageQuantity = product?.quantity ? product?.quantity : 0
-    console.log(storageQuantity)
-    const [ amount, setAmount ] = useState<number>(quantity)
+    const cartQuantity = quantity ? quantity : 0
+    const [ amount, setAmount ] = useState<number>(cartQuantity)
 
     const handleDelete = () => {
         deleteFromCart(id)
@@ -46,9 +46,9 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
 
     useEffect(() => {
         if (!isLoading) {
-            setAmount(quantity)
+            setAmount(cartQuantity)
         }
-    }, [isLoading, quantity])
+    }, [isLoading, cartQuantity])
 
 
     return (

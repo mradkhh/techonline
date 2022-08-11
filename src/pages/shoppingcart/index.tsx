@@ -31,6 +31,8 @@ const Index: NextPage = () => {
     }
 
 
+
+
     return (
         <MainLayout title={"TechOnline - Cart"} description={"cart"} mainClass={'main_shoppingCart'}>
             <Breadcrumbs array={breadcrumbs} current="Login"/>

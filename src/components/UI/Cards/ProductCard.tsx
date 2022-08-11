@@ -19,7 +19,12 @@ interface ProductCardProps {
 }
 
 
-const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice, price, title }) => {
+const ProductCard: FC<ProductCardProps> = ({ id,
+                                               isInStock,
+                                               image,
+                                               discountPrice,
+                                               price,
+                                               title }) => {
 
     const ref = createRef<HTMLDivElement>()
     const hover = useHover(ref)
@@ -29,13 +34,15 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
     const { data: cart_products } = useFetchCartQuery('')
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
 
+    console.log(is_in_cart)
+    console.log(cart_products   )
+
     const handleAddToCart = (e: any) => {
         e.stopPropagation()
         !is_in_cart && fetchAddToCart({quantity: 1, product: id})
     }
 
     return (
-        <A href={`/product/${id}`}>
             <div  ref={ref} className={styles.card}>
                 { isInStock ?
                     <div className={styles.inStock}> <SuccessIcon/> in stock </div>
@@ -51,11 +58,13 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                         src={image ? image : img}
                     />
                 </div>
-                <div onClick={(e) => e.stopPropagation()} className={styles.body}>
-                    <h4>{title}</h4>
-                    <div>{price} $</div>
-                    <div>{discountPrice} $</div>
-                </div>
+                <A href={`/product/${id}`}>
+                    <div onClick={(e) => e.stopPropagation()} className={styles.body}>
+                        <h4>{title}</h4>
+                        <div>{price} $</div>
+                        <div>{discountPrice} $</div>
+                    </div>
+                </A>
                 <div className={styles.hover} >
                     <div className={styles.icon}>
                         <button className={styles.favorite}>
@@ -73,7 +82,6 @@ const ProductCard: FC<ProductCardProps> = ({ id, isInStock, image, discountPrice
                     </button>
                 </div>
             </div>
-        </A>
     );
 };
 
