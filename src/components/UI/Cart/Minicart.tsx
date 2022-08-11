@@ -7,6 +7,7 @@ import A from "components/UI/A/A";
 import {ICart} from "models/index";
 import {Context} from "pages/_app";
 import {useFetchRemoveFromCartMutation} from "services/CartsService";
+import id from "pages/product/[id]";
 
 interface MinicartProps {
     product?: ICart[]
@@ -24,8 +25,10 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
     const [removeFromCart, {}] = useFetchRemoveFromCartMutation()
 
     const handleDelete = (id: number) => {
-        removeFromCart(id)
+        // removeFromCart(id)
+        console.log(id)
     }
+
 
         return (
             <div className={styles.cart}>

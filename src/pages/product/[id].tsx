@@ -42,15 +42,20 @@ const Product: NextPage = () => {
     const { id } = router.query
     const { data: cart_products } = useFetchCartQuery('')
     const { data: product } = useGetProductQuery(Number(id))
+    const {data: cartProducts} = useFetchCartQuery('')
     const [addToCart] = useFetchAddToCartMutation()
     const [ removeFromCart ] = useFetchRemoveFromCartMutation()
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
     const quantity = product?.quantity ? product?.quantity : 0
-    const total_price = (Number(product?.price) * quantity)
+
+    const cartId = cartProducts?.results.find(item => item.product.id === Number(id) )
 
     // =---------------------- states -----------------------=
     const [ tabNumber, setTabNumber ] = useState<number>(1)
+
+    // =----------------- control quantity in front --------=
     const [ amount, setAmount ] = useState<number>(quantity)
+    const total_price = (Number(product?.price) * quantity) ? (Number(product?.price) * quantity) : 0
 
     // =----------------- image width for responsive ---------------=
     const matches = useMediaQuery('(max-width: 767.98px)')
@@ -63,28 +68,29 @@ const Product: NextPage = () => {
 
     const handleAddToCart = () => {
         if (!is_in_cart) {
-            addToCart({ quantity: amount, product: Number(id) })
-        }
-    }
-
-    const handleIncrement = () => {
-        const MAX_QUANTITY = 10
-        if ( (quantity && amount) < MAX_QUANTITY ) {
             setAmount(state => state + 1)
             addToCart({ quantity: amount + 1, product: Number(id) })
         }
     }
 
+    const handleIncrement = () => {
+        const MAX_QUANTITY = 10
+        if ( (amount) < MAX_QUANTITY ) {
+            setAmount(state => state + 1)
+            addToCart({ quantity: amount + 1, product: Number(id) })
+        }
+    }
+
+
     const handleDecrement = () => {
         const MIN_QUANTITY = 1
         const EMPTY = 0
-        if ( (quantity && amount) > MIN_QUANTITY ) {
+        if ( (amount) > MIN_QUANTITY ) {
             setAmount(state => state - 1)
             addToCart({ quantity: amount - 1, product: Number(id) })
-        } else  {
+        } else if ((amount === 1))  {
             setAmount(state => state - 1)
-            removeFromCart(Number(id))
-            console.log("OKk---")
+            removeFromCart(Number(cartId?.id))
         }
     }
 
@@ -103,7 +109,7 @@ const Product: NextPage = () => {
                             }
                         </div>
                         <div className={styles.payment}>
-                            <div>On Sale from <span>${}</span></div>
+                            <div>On Sale from <span>${total_price}</span></div>
                             <div className={styles.counter}>
                                 <span>{quantity}</span>
                                 <div>

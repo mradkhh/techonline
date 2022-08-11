@@ -20,12 +20,12 @@ export const productApi = createApi({
         }),
         getProduct: build.query<IProductId, number>({
             query: (id: number) => ({
-                url: `product/${id}`
+                url: `products/${id}/`
             })
         }),
         createProduct: build.mutation<IProduct, number>({
             query: (id: number) => ({
-                url: `products/`,
+                url: `product/`,
                 method: 'POST',
                 body: id
             }),
@@ -33,7 +33,7 @@ export const productApi = createApi({
         }),
         updateProduct: build.mutation<IProduct, IProduct>({
             query: (product) => ({
-                url: `products/${product.id}`,
+                url: `product/${product.id}`,
                 method: 'PUT',
                 body: { product }
             }),
@@ -41,7 +41,7 @@ export const productApi = createApi({
         }),
         deleteProduct: build.mutation<IProduct, number>({
             query: (id: number) => ({
-                url: `products/${id}`,
+                url: `product/${id}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['Products']
