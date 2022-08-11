@@ -42,7 +42,7 @@ const Register: NextPage = () => {
 
     useEffect(() => {
         setStatus(authStore.errorStatus)
-    }, [status])
+    }, [status, authStore.errorStatus])
 
     return (
         <>

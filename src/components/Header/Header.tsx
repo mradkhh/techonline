@@ -35,7 +35,6 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const { authStore } = useContext(Context)
     const { isAuth }  = authStore
     const [ catIdData, setCatIdData ] = useState<ICategories>({} as ICategories)
-    const dispatch = useAppDispatch()
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
@@ -78,13 +77,12 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     }, [matches])
 
     useEffect(() => {
-        dispatch(fetchCarts())
         if (search) {
             window.document.body.style.overflow = 'hidden'
         } else {
             window.document.body.style.overflow = 'unset'
         }
-    }, [])
+    }, [search])
 
     return (
             <div className={styles.root}>
@@ -134,7 +132,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                     onClick={handleShowCart}
                                     >
                                     <ShoppingCartIcon/>
-                                    {!(cartResults?.results?.length <= 0) && <span>{cartResults?.results?.length}</span>}
+                                    {!((cartResults?.results?.length ? cartResults?.results?.length : 0) <= 0) && <span>{cartResults?.results?.length}</span>}
                                 </button>
                                 { showCart && <div ref={cartRef} >
                                     <Minicart product={cartResults?.results} />

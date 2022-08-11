@@ -99,7 +99,7 @@ const Product: NextPage = () => {
         if (!isLoading) {
             setAmount(quantity)
         }
-    }, [isLoading])
+    }, [isLoading, quantity])
 
 
     return (
