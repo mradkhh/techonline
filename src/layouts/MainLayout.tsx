@@ -58,6 +58,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
             <Head>
                 <title>{title}</title>
                 <meta name="description" content={description} />
+                <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
                 <link rel="reload" href="/favicon.ico" as="icon"/>
             </Head>
             <Header categories={categories?.results}/>
