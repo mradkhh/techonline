@@ -1,5 +1,6 @@
-import React, {FC, ReactNode, useState} from 'react';
+import React, {createRef, FC, ReactNode, useState} from 'react';
 import {ArrowDown} from "static/icons/icon";
+import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
 import styles from './Select.module.scss';
 
 type Options = {
@@ -24,6 +25,9 @@ const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue,
         setTitle(optionTitle)
         setShow(false);
     }
+    const showRef = createRef<HTMLDivElement>()
+
+    useMousedownClickInvisible(showRef, () => { setShow(false) })
 
     const handleShow = () => {
         setShow(!show)
@@ -38,7 +42,7 @@ const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue,
                 <ArrowDown/>
             </button>
             {
-                show && <div className={styles.options}>
+                show && <div ref={showRef} className={styles.options}>
                     {
                         options && options.map(option =>
                             <div

@@ -7,7 +7,7 @@ import Sidebar from "components/UI/Sidebar/Sidebar";
 import ProductCard from "components/UI/Cards/ProductCard";
 import Pagination from "components/UI/Pagination/Pagination";
 import Select from "components/UI/Select/Select";
-import {productApi, useGetAllProductsQuery} from "services/ProductService";
+import {useGetAllProductsQuery} from "services/ProductService";
 import FullProductCard from "components/UI/Cards/FullProductCard";
 import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
@@ -45,14 +45,13 @@ const Catalog: NextPage = () => {
     const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
     const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
     const [ viewType, setViewType ] = useState<number>(1)
-
-    console.log(sortValue)
-    console.log(showValue)
+    const [ brandId, setBrandId ] = useState<number | string>('')
 
     const { filterState } = useContext(Context)
     const { data: products } = useGetAllProductsQuery({
         page_size: showValue,
-        page: page
+        page: page,
+        brand: brandId
     })
     const pages = products?.count ? products?.count / showValue : 100
 
@@ -75,7 +74,12 @@ const Catalog: NextPage = () => {
             <Breadcrumbs array={breadcrumbs} current='MSI WS Series'/>
             <h1 className={styles.title}>MSI PS Series (20)</h1>
             <div className={styles.main}>
-                <Sidebar/>
+                <div className={styles.sidebar}>
+                    <Sidebar
+                        brandId={brandId}
+                        setBrandId={setBrandId}
+                    />
+                </div>
                 <div className={styles.content}>
                     <div className={styles.head}>
                         <div className={styles.headViewTools}>

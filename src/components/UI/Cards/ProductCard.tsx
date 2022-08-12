@@ -34,11 +34,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
     const { data: cart_products } = useFetchCartQuery('')
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
 
-    console.log(is_in_cart)
-    console.log(cart_products   )
-
-    const handleAddToCart = (e: any) => {
-        e.stopPropagation()
+    const handleAddToCart = () => {
         !is_in_cart && fetchAddToCart({quantity: 1, product: id})
     }
 
@@ -48,6 +44,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                     <div className={styles.inStock}> <SuccessIcon/> in stock </div>
                     :
                     <div className={styles.notStock}> <RedCallIcon/> check availability </div> }
+                <A href={`/product/${id}`}>
                 <div className={styles.img}>
                     <Image
                         width={widthImg ? widthImg : 150}
@@ -58,8 +55,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                         src={image ? image : img}
                     />
                 </div>
-                <A href={`/product/${id}`}>
-                    <div onClick={(e) => e.stopPropagation()} className={styles.body}>
+                    <div  className={styles.body}>
                         <h4>{title}</h4>
                         <div>{price} $</div>
                         <div>{discountPrice} $</div>
@@ -75,7 +71,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                         </button>
                     </div>
                     <button
-                        onClick={(e) => handleAddToCart(e)}
+                        onClick={handleAddToCart}
                         className={`${is_in_cart ? styles.inCart : styles.addToCart} ${styles.cartButton}`}>
                         <ShoppingCartIcon/>
                         {is_in_cart ? 'Added' : 'Add To Cart'}

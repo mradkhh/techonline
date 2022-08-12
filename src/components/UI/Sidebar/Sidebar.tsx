@@ -6,20 +6,24 @@ import styles from './Sidebar.module.scss'
 import {IBrands} from "models/index";
 import Accordion from "components/UI/Accordion/Accordion";
 import {brandsApi} from "services/BrandsService";
+import {useGetAllProductsQuery} from "services/ProductService";
 
 interface SidebarProps {
+    setBrandId: (id: number | string) => void,
 }
 
-
-const Sidebar: FC<SidebarProps> = ({  }) => {
-    const [ brandId, setBrandId ] = useState<number>()
+const Sidebar: FC<SidebarProps> = ({ setBrandId }) => {
 
     const { data: brands } = brandsApi.useFetchAllBrandsQuery('')
 
-    const handleChoiceBrand = ( event: any , brandId: number) => {
-        console.log(event.target.ref)
-        setBrandId(brandId)
+    const handleChoiceBrand = (id: number) => {
+        setBrandId(id)
     }
+
+    const handleBrandFilterClear = () => {
+        setBrandId('')
+    }
+
     return (
         <div className={styles.sidebar}>
             <button>‹ Back</button>
@@ -39,23 +43,23 @@ const Sidebar: FC<SidebarProps> = ({  }) => {
                 <div className={styles.brandsFilter}>
                     <div>
                         <h3>Brands</h3>
-                        <button>All Brands</button>
+                        <button onClick={handleBrandFilterClear}>All Brands</button>
                     </div>
                     <div>
                         {
                             brands && brands?.results?.map(item =>
                                 <div
-                                    onClick={(event) => handleChoiceBrand(event, item?.id)}
+                                    onClick={(event) => handleChoiceBrand(item.id)}
                                     key={item?.id}
                                     className={styles.brandIcon}>
-                                    <Image
-                                        objectFit='contain'
-                                        objectPosition='center'
-                                        width={153}
-                                        height={80}
-                                        src={item?.icon}
-                                        alt={item?.name}
-                                    />
+                                        <Image
+                                            objectFit='contain'
+                                            objectPosition='center'
+                                            width={153}
+                                            height={80}
+                                            src={item?.icon}
+                                            alt={item?.name}
+                                        />
                                 </div>
                             )
                         }

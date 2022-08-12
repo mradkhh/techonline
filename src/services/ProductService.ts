@@ -9,11 +9,12 @@ export const productApi = createApi({
     tagTypes: ['Products'],
     endpoints: (build) => ({
         getAllProducts: build.query<IProductData, IProductsQuery>({
-            query: ({page_size, page = 1}) => ({
+            query: ({page_size, page = 1, brand}) => ({
                 url: `products/`,
                 params: {
                     page_size,
-                    page
+                    page,
+                    brand
                 }
             }),
             providesTags: () => ['Products']

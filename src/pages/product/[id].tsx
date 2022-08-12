@@ -51,7 +51,6 @@ const Product: NextPage = () => {
     const cartId = cartProducts?.results.find(item => item.product.id === Number(id) )
     const quantityCart = cartId?.quantity ? cartId?.quantity : 0
     const quantityProduct = product?.quantity ? product?.quantity : 0
-    // =---------------------- states --------------------------=
 
     // =----------------- control quantity in front ----------------=
     const [ amount, setAmount ] = useState<number>(quantityCart)
