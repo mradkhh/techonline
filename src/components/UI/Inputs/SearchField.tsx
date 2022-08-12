@@ -1,13 +1,13 @@
 import React, {createRef, FC, memo, useEffect, useState} from 'react';
+import Image from "next/image";
 import {SearchIcon, XIcon} from "static/icons/icon";
 import useInput from "hooks/useInput";
 import useDebounce from "hooks/useDebounce";
 import {useFetching} from "hooks/useFetching";
 import $api from "services/interseptors";
 import {IProduct, IProductData} from "models/index";
-import cl from './styles/SearchField.module.scss'
 import img from "static/images/products/1.jpg";
-import Image from "next/image";
+import cl from './styles/SearchField.module.scss'
 
 interface SearchProps {
     search: boolean

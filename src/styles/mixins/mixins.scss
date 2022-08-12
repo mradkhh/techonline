@@ -146,7 +146,7 @@ $breakpoint480: 479.98 + px;
   color: var(--brand);
   border: 2px solid var(--brand);
   border-radius: 30px;
-  background-color: transparent;
+  background-color: var(--white);
   cursor: pointer;
 
   @media (max-width: $breakpoint568) {

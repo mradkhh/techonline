@@ -81,7 +81,7 @@
 
 .products {
   @include grid(4);
-  margin-bottom: 24px;
+  margin-bottom: 48px;
   @media (max-width: $breakpoint480) {
     > div {
       margin-inline: auto;

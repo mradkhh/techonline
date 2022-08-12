@@ -76,7 +76,6 @@ const Catalog: NextPage = () => {
             <div className={styles.main}>
                 <div className={styles.sidebar}>
                     <Sidebar
-                        brandId={brandId}
                         setBrandId={setBrandId}
                     />
                 </div>

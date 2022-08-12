@@ -61,7 +61,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                         <div>{discountPrice} $</div>
                     </div>
                 </A>
-                <div className={styles.hover} >
+                <div className={styles.hover}>
                     <div className={styles.icon}>
                         <button className={styles.favorite}>
                             <FavoriteIcon/>
