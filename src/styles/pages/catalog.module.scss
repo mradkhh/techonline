@@ -89,6 +89,12 @@
   }
 }
 
+.not_found {
+  @include maxWidth(100%);
+  @include flex-center(center);
+  min-height: 200px;
+}
+
 // ------------------- description section ----------------
 .description {
   @include flex-column(center, center);

@@ -5,6 +5,7 @@
   @include maxWidth(234);
   isolation: isolate;
   margin-bottom: 16px;
+  min-height: 380px;
 
   &:hover {
     > div:last-child {
@@ -100,7 +101,7 @@
 
 .cartButton {
   position: absolute;
-  bottom: -36px;
+  bottom: 0;
 }
 
 .addToCart {

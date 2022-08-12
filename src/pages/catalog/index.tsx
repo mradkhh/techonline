@@ -124,7 +124,7 @@ const Catalog: NextPage = () => {
                     </div>
                     <div className={styles.products}>
                         {
-                            products && viewType === 1 && products?.results?.map(item =>
+                            (products && viewType === 1) && products?.results?.map(item =>
                                 <ProductCard
                                     id={item.id}
                                     key={item.id}
@@ -137,9 +137,15 @@ const Catalog: NextPage = () => {
                             )
                         }
                     </div>
+                    {
+                        !products?.results.length &&
+                        <div className={styles.not_found}>
+                            <h1 >Not found</h1>
+                        </div>
+                    }
                     <div>
                         {
-                            products && viewType === 2 && products?.results?.map(item =>
+                            (products && viewType === 2) && products?.results?.map(item =>
                                 <FullProductCard
                                     id={item.id}
                                     key={item.id}
