@@ -33,9 +33,9 @@ const sortOption = [
 ]
 
 const showOption = [
-    { value: 35, title: '35 Per page' },
-    { value: 15, title: '15 Per page' },
     { value: 5, title: '5 Per page' },
+    { value: 15, title: '15 Per page' },
+    { value: 35, title: '35 Per page' },
 ]
 
 const Catalog: NextPage = () => {
@@ -53,11 +53,14 @@ const Catalog: NextPage = () => {
         page: page,
         brand: brandId
     })
-    const pages = products?.count ? products?.count / showValue : 100
+    const pages = products?.count ? (products?.count / showValue) : 1
 
     useEffect(() => {
-        window.scroll(0, 100)
+        window.scroll(0, 150)
     }, [page])
+    useEffect(() => {
+        window.scroll(0, 0)
+    }, [])
 
     return (
         <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>

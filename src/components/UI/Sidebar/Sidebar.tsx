@@ -7,6 +7,7 @@ import {IBrands} from "models/index";
 import Accordion from "components/UI/Accordion/Accordion";
 import {brandsApi} from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
+import {categoriesApi, useFetchAllCategoriesQuery} from "services/CategoriesService";
 
 interface SidebarProps {
     setBrandId: (id: number | string) => void,
@@ -15,6 +16,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ setBrandId }) => {
 
     const { data: brands } = brandsApi.useFetchAllBrandsQuery('')
+    const { data: categories } = useFetchAllCategoriesQuery('')
 
     const handleChoiceBrand = (id: number) => {
         setBrandId(id)

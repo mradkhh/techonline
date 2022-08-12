@@ -100,14 +100,14 @@
 
 .cartButton {
   position: absolute;
-  bottom: -48px;
+  bottom: -36px;
 }
 
 .addToCart {
   @include outlineBtn;
   @include flex(center, center);
+  z-index: 124235;
   gap: 4px;
-  margin-top: 48px;
   > svg path {
     fill: var(--brand);
   }
@@ -123,7 +123,6 @@
   color: var(--green);
   border: 2px solid var(--green);
   gap: 4px;
-  margin-top: 24px;
   > svg path {
     fill: var(--green);
   }

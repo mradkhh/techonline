@@ -2,7 +2,6 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {API_URL} from "services/interseptors";
 import {ICategories, ICategoriesResults} from "models/index";
 
-
 export const categoriesApi = createApi({
     reducerPath: 'categoriesApi',
     baseQuery: fetchBaseQuery({baseUrl: API_URL}),
@@ -10,7 +9,7 @@ export const categoriesApi = createApi({
         return {
             fetchAllCategories: builder.query<ICategoriesResults, any>({
                 query: () => ({
-                    url: 'categories/'
+                    url: 'categories/list_with_products/'
                 })
             }),
             fetchCategoryById: builder.query<ICategories, number>({
@@ -22,5 +21,4 @@ export const categoriesApi = createApi({
     }
 })
 
-export const  { useFetchAllCategoriesQuery } = categoriesApi
-export const  { useFetchCategoryByIdQuery } = categoriesApi
+export const  { useFetchAllCategoriesQuery,useFetchCategoryByIdQuery } = categoriesApi
