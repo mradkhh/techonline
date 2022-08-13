@@ -61,6 +61,21 @@ button {
   line-height: 1;
 }
 
+// filter animation
+.color-select {
+  animation: padding 300ms;
+}
+
+@keyframes padding {
+  0% {
+    padding: 0;
+  }
+
+  100% {
+    padding: 2px;
+  }
+}
+
 // scroll-bar
 ::-webkit-scrollbar {
   width: 6px;

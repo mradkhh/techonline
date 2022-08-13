@@ -1,6 +1,5 @@
 import React, {createRef, FC, memo} from 'react';
 import Image from "next/image";
-import useHover from "hooks/useHover";
 import { FavoriteIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon } from "static/icons/icon";
 import img from 'static/images/products/1.jpg'
 import styles from './styles/ProductCard.module.scss';
@@ -26,8 +25,6 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                                                price,
                                                title }) => {
 
-    const ref = createRef<HTMLDivElement>()
-    const hover = useHover(ref)
     const [fetchAddToCart, {}] = useFetchAddToCartMutation()
     const matches = useMediaQuery("(min-width: 992px)")
     const widthImg = matches ? 150 : 100
@@ -39,7 +36,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
     }
 
     return (
-            <div  ref={ref} className={styles.card}>
+            <div className={styles.card}>
                 { isInStock ?
                     <div className={styles.inStock}> <SuccessIcon/> in stock </div>
                     :

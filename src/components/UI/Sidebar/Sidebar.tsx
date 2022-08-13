@@ -7,24 +7,34 @@ import {IBrands} from "models/index";
 import Accordion from "components/UI/Accordion/Accordion";
 import {brandsApi} from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
-import {categoriesApi, useFetchAllCategoriesQuery} from "services/CategoriesService";
+import {categoriesApi, useFetchAllCategoriesQuery, useFetchCategoriesQuery} from "services/CategoriesService";
+import BrandItem from "components/UI/Sidebar/components/BrandItem";
+import CategoryItem from "components/UI/Sidebar/components/CategoryItem";
+import {useFetchColorsQuery} from "services/ColorService";
+import ColorItem from "components/UI/Sidebar/components/ColorItem";
 
 interface SidebarProps {
     setBrandId: (id: number | string) => void,
+    setCategoryId: (id: number | string) => void,
+    setColorId: (id: number | string) => void,
 }
 
-const Sidebar: FC<SidebarProps> = ({ setBrandId }) => {
+const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) => {
 
     const { data: brands } = brandsApi.useFetchAllBrandsQuery('')
-    const { data: categories } = useFetchAllCategoriesQuery('')
+    const { data: categories } = useFetchCategoriesQuery('')
+    const { data: colors } = useFetchColorsQuery('')
 
-    const handleChoiceBrand = (id: number) => {
-        setBrandId(id)
-    }
 
     const handleBrandFilterClear = () => {
         setBrandId('')
     }
+
+    const handleClearFilterClear = () => {
+        setCategoryId('')
+        setColorId('')
+    }
+
 
     return (
         <div className={styles.sidebar}>
@@ -36,7 +46,32 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId }) => {
                 </div>
                 <div className={styles.filterCenter}>
                     <Accordion header={'Category'} >
-
+                        <div className={styles.category_filter}>
+                            {
+                                categories && categories?.results?.map(item =>
+                                    <CategoryItem
+                                        key={item?.id}
+                                        id={item?.id}
+                                        name={item?.name}
+                                        setCategoryId={setCategoryId}
+                                    />
+                                )
+                            }
+                        </div>
+                    </Accordion>
+                    <Accordion header={'Colors'} >
+                        <div className={styles.colors_filter}>
+                            {
+                                colors && colors?.results?.map(item =>
+                                    <ColorItem
+                                        name={item?.name}
+                                        key={item?.id}
+                                        id={item?.id}
+                                        setColorId={setColorId}
+                                    />
+                                )
+                            }
+                        </div>
                     </Accordion>
                 </div>
                 <div className={styles.filterBottom}>
@@ -50,19 +85,13 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId }) => {
                     <div>
                         {
                             brands && brands?.results?.map(item =>
-                                <div
-                                    onClick={(event) => handleChoiceBrand(item.id)}
+                                <BrandItem
                                     key={item?.id}
-                                    className={styles.brandIcon}>
-                                        <Image
-                                            objectFit='contain'
-                                            objectPosition='center'
-                                            width={153}
-                                            height={80}
-                                            src={item?.icon}
-                                            alt={item?.name}
-                                        />
-                                </div>
+                                    name={item?.name}
+                                    id={item?.id}
+                                    icon={item?.icon}
+                                    setBrandId={setBrandId}
+                                />
                             )
                         }
                     </div>

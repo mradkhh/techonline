@@ -1,0 +1,14 @@
+@import "styles/mixins/mixins.scss";
+
+.root {
+  @include flex-center(center);
+  border-radius: 100vmax;
+  background-color: var(--white);
+  padding: 2px !important;
+  cursor: pointer;
+
+  > span  {
+    @include rectangle(24);
+    border-radius: 100vmax;
+  }
+}

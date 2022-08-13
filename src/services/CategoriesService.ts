@@ -12,6 +12,11 @@ export const categoriesApi = createApi({
                     url: 'categories/list_with_products/'
                 })
             }),
+            fetchCategories: builder.query<ICategoriesResults, any>({
+                query: () => ({
+                    url: 'categories/'
+                })
+            }),
             fetchCategoryById: builder.query<ICategories, number>({
                 query: (id: number) => ({
                     url: `categories/${id}`
@@ -21,4 +26,4 @@ export const categoriesApi = createApi({
     }
 })
 
-export const  { useFetchAllCategoriesQuery,useFetchCategoryByIdQuery } = categoriesApi
+export const  { useFetchAllCategoriesQuery,useFetchCategoryByIdQuery, useFetchCategoriesQuery } = categoriesApi

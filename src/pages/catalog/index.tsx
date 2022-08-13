@@ -12,7 +12,6 @@ import FullProductCard from "components/UI/Cards/FullProductCard";
 import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
-import {Context} from "pages/_app";
 import styles from 'styles/pages/catalog.module.scss'
 
 const breadcrumbs = [
@@ -39,15 +38,20 @@ const showOption = [
 ]
 
 const Catalog: NextPage = () => {
+
+    // =------------- pagination state -----------------=
     const [ page, setPage ] = useState<number>(1)
+
+    // =----------- states for filter ------------=
     const [ sortValue, setSortValue ] = useState<number>(sortOption[0].value)
     const [ showValue, setShowValue ] = useState<number>(showOption[0].value)
     const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
     const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
     const [ viewType, setViewType ] = useState<number>(1)
     const [ brandId, setBrandId ] = useState<number | string>('')
+    const [ categoryId, setCategoryId ] = useState<number | string>('')
+    const [ colorId, setColorId ] = useState<number | string>('')
 
-    const { filterState } = useContext(Context)
     const { data: products } = useGetAllProductsQuery({
         page_size: showValue,
         page: page,
@@ -58,6 +62,8 @@ const Catalog: NextPage = () => {
     useEffect(() => {
         window.scroll(0, 150)
     }, [page])
+
+
     useEffect(() => {
         window.scroll(0, 0)
     }, [])
@@ -79,6 +85,8 @@ const Catalog: NextPage = () => {
             <div className={styles.main}>
                 <div className={styles.sidebar}>
                     <Sidebar
+                        setColorId={setColorId}
+                        setCategoryId={setCategoryId}
                         setBrandId={setBrandId}
                     />
                 </div>

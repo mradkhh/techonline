@@ -9,6 +9,18 @@ export interface IBrands {
     results: Results[]
 }
 
+export interface IColors {
+    results: {
+        id: number,
+        name: string
+    }[]
+}
+
+export interface IColor {
+    id: number,
+    name: string
+}
+
 export interface IProduct {
     id: number,
     name: string,

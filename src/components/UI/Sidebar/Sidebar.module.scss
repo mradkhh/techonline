@@ -66,6 +66,16 @@
   background-color: var(--light-blue);
 }
 
+.colors_filter {
+  @include flex-start(center);
+  gap: 4px;
+}
+
+.category_filter {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
 .filterBottom {
   background-color: var(--light-blue);
   margin-bottom: 8px;

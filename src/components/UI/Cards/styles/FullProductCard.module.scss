@@ -145,3 +145,18 @@
   }
 }
 
+.inCart {
+  @include outlineBtn;
+  @include flex(center, center);
+  color: var(--green);
+  border: 2px solid var(--green);
+  gap: 4px;
+  > svg path {
+    fill: var(--green);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+

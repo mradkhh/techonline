@@ -5,6 +5,7 @@ import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
 import {categoriesApi} from "services/CategoriesService";
 import {cartApi} from "services/CartsService";
+import {colorsApi} from "services/ColorService";
 
 
 export const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ export const rootReducer = combineReducers({
     [productApi.reducerPath]: productApi.reducer,
     [brandsApi.reducerPath]: brandsApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
-    [cartApi.reducerPath]: cartApi.reducer
+    [cartApi.reducerPath]: cartApi.reducer,
+    [colorsApi.reducerPath]: colorsApi.reducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

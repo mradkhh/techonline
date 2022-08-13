@@ -6,6 +6,7 @@ import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
 import {categoriesApi} from "services/CategoriesService";
 import {cartApi} from "services/CartsService";
+import {colorsApi} from "services/ColorService";
 
 
 export const setupStore = () => {
@@ -17,6 +18,7 @@ export const setupStore = () => {
                 .concat(brandsApi.middleware)
                 .concat(categoriesApi.middleware)
                 .concat(cartApi.middleware)
+                .concat(colorsApi.middleware)
         )
     })
 }
