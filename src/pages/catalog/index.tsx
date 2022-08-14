@@ -14,6 +14,7 @@ import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
 import styles from 'styles/pages/catalog.module.scss'
 import {number} from "prop-types";
+import useInput from "hooks/useInput";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
@@ -21,15 +22,12 @@ const breadcrumbs = [
     { path: '/laptops/id', text: 'MSI Prestige Series' }
 ]
 
-const tags = [
-    { id: 1, title: 'CUSTOM PCS', count: 24 },
-    { id: 2, title: 'HP/COMPAQ PCS', count: 24 }
-]
+
 
 const sortOption = [
-    { value: 1, title: 'Position' },
-    { value: 2, title: 'New' },
-    { value: 3, title: 'Popular' }
+    { value: '', title: 'Position' },
+    { value: '-created_at', title: 'New' },
+    { value: '-rating', title: 'Popular' }
 ]
 
 const showOption = [
@@ -43,37 +41,47 @@ const Catalog: NextPage = () => {
     // =------------- pagination state -----------------=
     const [ page, setPage ] = useState<number>(1)
 
+
     // =----------- states for filter ------------=
-    const [ sortValue, setSortValue ] = useState<number>(sortOption[0].value)
-    const [ showValue, setShowValue ] = useState<number>(showOption[0].value)
+    const [ apply, setApply ] = useState<boolean>(false)
+    const [ sortValue, setSortValue ] = useState<string | number>(sortOption[1].value)
+    const [ showValue, setShowValue ] = useState<number | string>(showOption[0].value)
     const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
     const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
     const [ viewType, setViewType ] = useState<number>(1)
     const [ brandId, setBrandId ] = useState<number[]>([])
     const [ categoryId, setCategoryId ] = useState<number[]>([])
     const [ colorId, setColorId ] = useState<number[]>([])
+    const min_price = useInput('')
+    const max_price = useInput('')
+
+
 
     const { data: products } = useGetAllProductsQuery({
-        page_size: showValue,
+        page_size: Number(showValue),
         page: page,
         brands_ids: brandId.join(','),
-        colors_ids: colorId.join(','),
-        category_ids: categoryId.join(',')
+        colors_ids: apply ? colorId.join(',') : '',
+        category_ids: apply ? categoryId.join(',') : '',
+        min_price: apply ? min_price.value : '',
+        max_price: apply ? max_price.value : '',
+        ordering: sortValue
     })
-    const pages = products?.count ? (products?.count / showValue) : 1
+    const pages = products?.count ? (products?.count / Number(showValue)) : 1
 
     useEffect(() => {
         window.scroll(0, 150)
     }, [page])
 
-
     useEffect(() => {
         window.scroll(0, 0)
     }, [])
 
+    const count_filter = 0
+
     useEffect(() => {
-        console.log(colorId)
-    }, [colorId])
+
+    }, [brandId.length, categoryId.length, colorId.length])
 
     return (
         <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>
@@ -92,6 +100,10 @@ const Catalog: NextPage = () => {
             <div className={styles.main}>
                 <div className={styles.sidebar}>
                     <Sidebar
+                        countFilter={count_filter}
+                        setApply={setApply}
+                        min_price={min_price}
+                        max_price={max_price}
                         setColorId={setColorId}
                         setCategoryId={setCategoryId}
                         setBrandId={setBrandId}
@@ -100,7 +112,7 @@ const Catalog: NextPage = () => {
                 <div className={styles.content}>
                     <div className={styles.head}>
                         <div className={styles.headViewTools}>
-                            <p>Items 1-35 of 61</p>
+                            <p>Items {page}-{products?.results?.length} of {products?.count }</p>
                             <div className={styles.sort}>
                                 <Select
                                     title={sortTitle}
@@ -134,7 +146,7 @@ const Catalog: NextPage = () => {
                             </div>
                         </div>
                         <div className={styles.headTags}>
-                            <Tags tags={tags}/>
+                            {/*<Tags tags={tags}/>*/}
                         </div>
                     </div>
                     <div className={styles.products}>

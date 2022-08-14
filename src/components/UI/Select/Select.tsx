@@ -4,7 +4,7 @@ import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
 import styles from './Select.module.scss';
 
 type Options = {
-    value: number,
+    value: string | number,
     title: string
 }
 
@@ -12,15 +12,15 @@ interface SelectProps {
     children: ReactNode,
     options: Options[],
     title: string,
-    value: number,
+    value: number | string,
     setTitle: (title: string) => void,
-    setValue: (value: number) => void
+    setValue: (value: number | string) => void
 }
 
 const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue, value}) => {
 
     const [ show, setShow ] = useState<boolean>(false)
-    const handleSelect = (optionValue: number, optionTitle: string): void => {
+    const handleSelect = (optionValue: number | string, optionTitle: string): void => {
         setValue(optionValue)
         setTitle(optionTitle)
         setShow(false);

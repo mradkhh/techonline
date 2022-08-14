@@ -1,6 +1,6 @@
-import React, {FC, useState} from 'react';
-import styles from "components/UI/Sidebar/Sidebar.module.scss";
 import Image from "next/image";
+import React, {FC, useState} from 'react';
+import styles from "./styles/BrandItem.module.scss";
 
 interface BrandItemProps {
     id: number,
@@ -29,6 +29,7 @@ const BrandItem: FC<BrandItemProps> = ({id, icon, name, setBrandId}) => {
         <div
             onClick={handleChoiceBrand}
             key={id}
+            className={styles.root}
             style={{background: select ? 'var(--light-blue)' : 'var(--white)', border: select ? '1px solid var(--gray)' : '1px solid var(--white)'}}
             >
             <Image

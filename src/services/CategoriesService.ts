@@ -9,7 +9,7 @@ export const categoriesApi = createApi({
         return {
             fetchAllCategories: builder.query<ICategoriesResults, any>({
                 query: () => ({
-                    url: 'categories/list_with_products/'
+                    url: 'categories/list_with_products/?ordering=-name'
                 })
             }),
             fetchCategories: builder.query<ICategoriesResults, any>({

@@ -9,14 +9,17 @@ export const productApi = createApi({
     tagTypes: ['Products'],
     endpoints: (build) => ({
         getAllProducts: build.query<IProductData, IProductsQuery>({
-            query: ({page_size, page = 1, brands_ids, colors_ids, category_ids}) => ({
+            query: ({page_size, page = 1, colors_ids, category_ids, brands_ids, max_price, min_price, ordering}) => ({
                 url: `products/`,
                 params: {
                     page_size,
                     page,
                     brands_ids,
                     colors_ids,
-                    category_ids
+                    category_ids,
+                    max_price,
+                    min_price,
+                    ordering
                 }
             }),
             providesTags: () => ['Products']
@@ -31,21 +34,6 @@ export const productApi = createApi({
                 url: `product/`,
                 method: 'POST',
                 body: id
-            }),
-            invalidatesTags: ['Products']
-        }),
-        updateProduct: build.mutation<IProduct, IProduct>({
-            query: (product) => ({
-                url: `product/${product.id}`,
-                method: 'PUT',
-                body: { product }
-            }),
-            invalidatesTags: ['Products']
-        }),
-        deleteProduct: build.mutation<IProduct, number>({
-            query: (id: number) => ({
-                url: `product/${id}`,
-                method: 'DELETE'
             }),
             invalidatesTags: ['Products']
         }),

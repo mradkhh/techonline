@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './styles/CategoryItem.module.scss'
 
 interface CategoryItemProps {
@@ -13,14 +13,15 @@ const CategoryItem: FC<CategoryItemProps> = ({ id, setCategoryId, name }) => {
 
     const handleChoiceCategory = () => {
         setCategoryId((state: number[]) => {
+            setSelect(!select)
             if (state?.find(i => i === id)) {
                 return state.filter(item => item !== id)
             } else {
                 return [...state, id]
             }
         })
-        setSelect(!select)
     }
+
 
     return (
         <div
@@ -34,4 +35,4 @@ const CategoryItem: FC<CategoryItemProps> = ({ id, setCategoryId, name }) => {
     );
 };
 
-export default CategoryItem;
+export default CategoryItem

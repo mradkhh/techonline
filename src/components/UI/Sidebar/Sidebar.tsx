@@ -1,25 +1,26 @@
 import React, {FC, useState} from 'react';
 import Image from "next/image";
-import {MSIIcon} from "static/icons/icon";
 import SideImg from 'static/images/catalogs/side.png'
 import styles from './Sidebar.module.scss'
-import {IBrands} from "models/index";
 import Accordion from "components/UI/Accordion/Accordion";
 import {brandsApi} from "services/BrandsService";
-import {useGetAllProductsQuery} from "services/ProductService";
-import {categoriesApi, useFetchAllCategoriesQuery, useFetchCategoriesQuery} from "services/CategoriesService";
+import { useFetchCategoriesQuery} from "services/CategoriesService";
 import BrandItem from "components/UI/Sidebar/components/BrandItem";
 import CategoryItem from "components/UI/Sidebar/components/CategoryItem";
 import {useFetchColorsQuery} from "services/ColorService";
 import ColorItem from "components/UI/Sidebar/components/ColorItem";
 
 interface SidebarProps {
-    setBrandId: (id: number | string) => void,
-    setCategoryId: (id: number | string) => void,
+    setBrandId: (args: any) => void,
+    setCategoryId: (args: any) => void,
     setColorId: (args: any) => void,
+    min_price: any
+    max_price: any,
+    setApply: (bool: boolean) => void,
+    countFilter: number
 }
 
-const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) => {
+const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_price, min_price, setApply, countFilter }) => {
 
     const { data: brands } = brandsApi.useFetchAllBrandsQuery('')
     const { data: categories } = useFetchCategoriesQuery('')
@@ -27,12 +28,16 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) =>
 
 
     const handleBrandFilterClear = () => {
-        setBrandId('')
+        brands?.results.forEach(item => {
+            setBrandId((state: any) => [...state, item.id])
+        })
     }
 
+
     const handleClearFilterClear = () => {
-        setCategoryId('')
-        setColorId([])
+        setCategoryId((state: number[]) => state =[])
+        setColorId((state: number[]) => state =[])
+        setBrandId((state: number[]) => state =[])
     }
 
 
@@ -42,10 +47,10 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) =>
             <div className={styles.filter}>
                 <div className={styles.filterTop}>
                     <h3>Filters</h3>
-                    <button>Clear Filter</button>
+                    <button onClick={handleClearFilterClear}>Clear Filter</button>
                 </div>
                 <div className={styles.filterCenter}>
-                    <Accordion header={'Category'} >
+                    <Accordion header={'Category'} className={styles.accordion} headerStyle={styles.accordion_header} >
                         <div className={styles.category_filter}>
                             {
                                 categories && categories?.results?.map(item =>
@@ -59,21 +64,19 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) =>
                             }
                         </div>
                     </Accordion>
-                    <Accordion header={'Category'} >
-                        <div className={styles.category_filter}>
-                            {
-                                categories && categories?.results?.map(item =>
-                                    <CategoryItem
-                                        key={item?.id}
-                                        id={item?.id}
-                                        name={item?.name}
-                                        setCategoryId={setCategoryId}
-                                    />
-                                )
-                            }
+                    <Accordion header={'Price'} className={styles.accordion} headerStyle={styles.accordion_header} >
+                        <div className={styles.price__filter}>
+                                <div className={styles.price__filter_item}>
+                                    <div>min</div>
+                                    <input { ...min_price } type="text"/>
+                                </div>
+                                <div className={styles.price__filter_item}>
+                                    <div>max</div>
+                                    <input { ...max_price } type="text"/>
+                                </div>
                         </div>
                     </Accordion>
-                    <Accordion header={'Colors'} >
+                    <Accordion header={'Colors'} className={styles.accordion} headerStyle={styles.accordion_header} >
                         <div className={styles.colors_filter}>
                             {
                                 colors && colors?.results?.map(item =>
@@ -88,8 +91,8 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) =>
                         </div>
                     </Accordion>
                 </div>
-                <div className={styles.filterBottom}>
-                    <button>Apply Filters (2)</button>
+                <div onClick={() => setApply(true)} className={styles.filterBottom}>
+                    <button>Apply Filters ({ countFilter })</button>
                 </div>
                 <div className={styles.brandsFilter}>
                     <div>

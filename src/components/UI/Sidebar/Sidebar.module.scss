@@ -76,6 +76,38 @@
   overflow-y: scroll;
 }
 
+.accordion {
+  padding: 0 !important;
+  margin-bottom: 12px;
+}
+.accordion_header {
+  padding: 0 !important;
+  color: var(--black);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.price__filter {
+  @include flex-center(center);
+  gap: 8px;
+}
+
+.price__filter_item {
+  padding: 0 !important;
+  color: var(--black);
+
+  > div {
+    padding: 0 !important;
+    text-align: center;
+  }
+  > input {
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+    font-size: 12px;
+  }
+}
+
 .filterBottom {
   background-color: var(--light-blue);
   margin-bottom: 8px;

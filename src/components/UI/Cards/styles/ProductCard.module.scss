@@ -107,7 +107,6 @@
 .addToCart {
   @include outlineBtn;
   @include flex(center, center);
-  z-index: 124235;
   gap: 4px;
   > svg path {
     fill: var(--brand);
@@ -121,6 +120,7 @@
 .inCart {
   @include outlineBtn;
   @include flex(center, center);
+  margin-top: 24px !important;
   color: var(--green);
   border: 2px solid var(--green);
   gap: 4px;
