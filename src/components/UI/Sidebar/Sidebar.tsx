@@ -59,6 +59,20 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) =>
                             }
                         </div>
                     </Accordion>
+                    <Accordion header={'Category'} >
+                        <div className={styles.category_filter}>
+                            {
+                                categories && categories?.results?.map(item =>
+                                    <CategoryItem
+                                        key={item?.id}
+                                        id={item?.id}
+                                        name={item?.name}
+                                        setCategoryId={setCategoryId}
+                                    />
+                                )
+                            }
+                        </div>
+                    </Accordion>
                     <Accordion header={'Colors'} >
                         <div className={styles.colors_filter}>
                             {
