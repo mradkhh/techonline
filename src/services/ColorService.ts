@@ -9,12 +9,23 @@ export const colorsApi = createApi({
     endpoints(builder)  {
         return {
             fetchColors: builder.query<IColors, any>({
-                query: () => ({
-                    url: 'colors/'
+                query: (colors) => ({
+                    url: 'colors/',
+                    params: {
+                        colors
+                    }
+                })
+            }),
+            fetchFilterColors: builder.mutation<IColors, any>({
+                query: (colors) => ({
+                    url: 'colors/',
+                    params: {
+                        colors
+                    }
                 })
             })
         }
     }
 })
 
-export const  { useFetchColorsQuery } = colorsApi
+export const  { useFetchColorsQuery, useFetchFilterColorsMutation } = colorsApi

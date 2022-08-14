@@ -16,7 +16,7 @@ import ColorItem from "components/UI/Sidebar/components/ColorItem";
 interface SidebarProps {
     setBrandId: (id: number | string) => void,
     setCategoryId: (id: number | string) => void,
-    setColorId: (id: number | string) => void,
+    setColorId: (args: any) => void,
 }
 
 const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) => {
@@ -32,7 +32,7 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId }) =>
 
     const handleClearFilterClear = () => {
         setCategoryId('')
-        setColorId('')
+        setColorId([])
     }
 
 

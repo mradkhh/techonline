@@ -2,9 +2,13 @@ import {AppDispatch} from "store/index";
 import {cartsSlice} from "store/reducers/cartSlice";
 import $api, {API_URL} from "services/interseptors";
 import {ICart, ICartResults, ICategories, ICategoriesResults, IProduct} from "models/index";
-import {createApi} from "@reduxjs/toolkit/query/react";
+import {BaseQueryFn, createApi, FetchArgs} from "@reduxjs/toolkit/query/react";
 import {fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {getAccessToken} from "utils/tokenStorage";
+
+interface CustomError {
+    status: number
+}
 
 
 export const fetchCarts = () => async (dispatch: AppDispatch) => {
@@ -50,7 +54,7 @@ export const clearCart = () => async (dispatch: AppDispatch) => {
 
 export const cartApi = createApi({
     reducerPath: 'cartApi',
-    baseQuery: fetchBaseQuery({baseUrl: API_URL}),
+    baseQuery: fetchBaseQuery({baseUrl: API_URL}) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,
     tagTypes: ['Cart'],
     endpoints(builder)  {
         return {

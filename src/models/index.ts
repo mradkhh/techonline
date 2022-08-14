@@ -86,9 +86,9 @@ export interface IProductsQuery {
     page_size?: number,
     min_price?: number | string,
     max_price?: number | string,
-    brand?: number | string,
-    category_search?: string,
-    colors?: number | string,
+    brands_ids?: string,
+    category_ids?: string,
+    colors_ids?: string,
     search?: string,
     ordering?: number | string
 }

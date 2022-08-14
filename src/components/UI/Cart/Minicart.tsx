@@ -8,6 +8,11 @@ import {ICart} from "models/index";
 import {Context} from "pages/_app";
 import {useFetchRemoveFromCartMutation} from "services/CartsService";
 import id from "pages/product/[id]";
+import axios from "axios";
+import {AuthResponse} from "models/response/AuthResponse";
+import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
+import {API_URL} from "services/interseptors";
+import {useFetchFilterColorsMutation} from "services/ColorService";
 
 interface MinicartProps {
     product?: ICart[]
@@ -24,8 +29,13 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
     const { authStore } = useContext(Context)
     const [removeFromCart, {}] = useFetchRemoveFromCartMutation()
 
+
     const handleDelete = (id: number) => {
         removeFromCart(id)
+    }
+
+    const handleRefresh = () => {
+        fetchFilterColors('4, 5, 6, 7')
     }
 
 
@@ -69,7 +79,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
                             <h3>Subtotal: <span>${total_price }.00</span></h3>
                             <div>
                                 <A isBtn={true} href={'/checkout'}>Go to Checkout</A>
-                                <button>Check out with
+                                <button onClick={handleRefresh}>Check out with
                                     <PayPalButtonIcon/>
                                 </button>
                             </div>

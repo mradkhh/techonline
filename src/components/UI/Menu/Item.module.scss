@@ -24,6 +24,12 @@
   }
 }
 
+.motion_down {
+  > svg {
+    transform: rotateZ(0);
+  }
+}
+
 .childMenu {
   @include flex-start(center);
 }

@@ -1,19 +1,7 @@
 import {CartActionTypes, ICartAction, ICartState} from "types/cart";
 
 const initialState: ICartState = {
-    products: [
-        {
-        "id": 1,
-        "name": "product1",
-        "short_desc": "product1",
-        "price": "11.00",
-        "discount": 0,
-        "product_img": null,
-        "brand": 1,
-        "category": 1,
-        "is_stock": false
-    }
-    ],
+    products: [],
     page: 1,
     error: null,
     limit: 10,

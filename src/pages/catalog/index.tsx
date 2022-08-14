@@ -13,6 +13,7 @@ import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
 import styles from 'styles/pages/catalog.module.scss'
+import {number} from "prop-types";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
@@ -48,14 +49,16 @@ const Catalog: NextPage = () => {
     const [ sortTitle, setSortTitle ] = useState<string>(sortOption[0].title)
     const [ showTitle, setShowTitle ] = useState<string>(showOption[0].title)
     const [ viewType, setViewType ] = useState<number>(1)
-    const [ brandId, setBrandId ] = useState<number | string>('')
-    const [ categoryId, setCategoryId ] = useState<number | string>('')
-    const [ colorId, setColorId ] = useState<number | string>('')
+    const [ brandId, setBrandId ] = useState<number[]>([])
+    const [ categoryId, setCategoryId ] = useState<number[]>([])
+    const [ colorId, setColorId ] = useState<number[]>([])
 
     const { data: products } = useGetAllProductsQuery({
         page_size: showValue,
         page: page,
-        brand: brandId
+        brands_ids: brandId.join(','),
+        colors_ids: colorId.join(','),
+        category_ids: categoryId.join(',')
     })
     const pages = products?.count ? (products?.count / showValue) : 1
 
@@ -67,6 +70,10 @@ const Catalog: NextPage = () => {
     useEffect(() => {
         window.scroll(0, 0)
     }, [])
+
+    useEffect(() => {
+        console.log(colorId)
+    }, [colorId])
 
     return (
         <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>

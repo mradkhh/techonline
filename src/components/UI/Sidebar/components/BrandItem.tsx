@@ -6,7 +6,7 @@ interface BrandItemProps {
     id: number,
     icon: string,
     name: string,
-    setBrandId: (id: number | string) => void
+    setBrandId: (arg: any) => void,
 }
 
 const BrandItem: FC<BrandItemProps> = ({id, icon, name, setBrandId}) => {
@@ -14,7 +14,13 @@ const BrandItem: FC<BrandItemProps> = ({id, icon, name, setBrandId}) => {
     const [ select, setSelect ] = useState<boolean>(false)
 
     const handleChoiceBrand = () => {
-        setBrandId(id)
+        setBrandId((state: number[]) => {
+            if (state?.find(i => i === id)) {
+                return state.filter(item => item !== id)
+            } else {
+                return [...state, id]
+            }
+        })
         setSelect(!select)
     }
 

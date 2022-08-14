@@ -18,6 +18,9 @@ import axios, {AxiosResponse} from "axios";
 import {API_URL} from "services/interseptors";
 import {fetchCarts, useFetchCartQuery} from "services/CartsService";
 import {useAppDispatch} from "hooks/redux";
+import {AuthResponse} from "models/response/AuthResponse";
+import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
+import {useFetchFilterColorsMutation} from "services/ColorService";
 
 
 interface HeaderProps {
@@ -44,7 +47,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         setShowAvatar(!showAvatar)
     }, [showAvatar])
 
-    const {data: cartResults} = useFetchCartQuery('')
+    const {data: cartResults, error, isLoading}: any = useFetchCartQuery('')
 
     const [ fetchCategoryId ] = useFetching(async (id: number) => {
         const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
@@ -66,6 +69,19 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     useMousedownClickInvisible(cartRef, () => { setShowCart(false) })
     useMousedownClickInvisible(menuRef, () => { setShowMenu(false)})
     useMouseoverClickInvisible(navRef, () => { setShowMenu(true) })
+
+    useEffect( () => {
+        if (error?.status === 401) {
+            try {
+                axios.post<AuthResponse>(`${API_URL}me/refresh/`, { refresh: getRefreshToken() })
+                    .then(res => {
+                        setAccessToken(res.data?.access)
+                    })
+            } catch (e: any) {
+                console.log(e.message)
+            }
+        }
+    }, [isLoading, error])
 
     useEffect(() => {
 
