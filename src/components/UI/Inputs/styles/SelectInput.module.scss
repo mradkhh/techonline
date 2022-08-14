@@ -1,0 +1,41 @@
+.field {
+  margin-bottom: 12px;
+  label {
+    > span {
+      color: var(--red);
+      margin-left: 4px;
+    }
+  }
+
+  > textarea {
+    display: block;
+    width: 100%;
+  }
+
+  > select {
+    width: 100%;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--black);
+    background-color: var(--white);
+    outline: none;
+    cursor: pointer;
+    margin-right: auto;
+
+    &:focus {
+      border: 1px solid var(--green);
+    }
+
+    @media (max-width: 567.98px) {
+      font-size: 12px;
+    }
+
+    &::placeholder {
+      color: var(--gray);
+    }
+  }
+}

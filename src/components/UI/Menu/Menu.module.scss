@@ -34,7 +34,6 @@
 
 .cards {
   @include flex-end(center);
-  @include maxWidth(500);
   gap: 16px;
 
   > div:first-child {

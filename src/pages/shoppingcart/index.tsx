@@ -15,6 +15,12 @@ import {
 } from "services/CartsService";
 import ProductItem from "pages/shoppingcart/components/ProductItem";
 import styles from 'styles/pages/shoppingcart.module.scss'
+import TextInput from "components/UI/Inputs/TextInput";
+import {useFetching} from "hooks/useFetching";
+import $api from "services/interseptors";
+import {IRegion, IRegionResults, IRegionRetrieve, IRegionRetrieveResults} from "models/index";
+import SelectInput from "components/UI/Inputs/SelectInput";
+import useInput from "hooks/useInput";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -22,15 +28,42 @@ const breadcrumbs = [
 
 
 const Index: NextPage = () => {
+    const [ region, setRegion ] = useState<IRegion[]>([])
+    const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
     const { authStore } = useContext(Context)
+    const regionInput = useInput('')
     const {data: cart_results, isLoading} = useFetchCartQuery('')
     const [ clearCart ] = useFetchClearCartMutation()
+
+    console.log(regionRetrieve)
+    console.log(regionInput.value)
+
+    const [ fetchRegion ] = useFetching(async () => {
+        const res = await $api.get<IRegionResults>('regions/')
+        setRegion(res.data.results)
+    })
+
+    const [ fetchRegionRetrieve ] = useFetching(async () => {
+        const res = await $api.get<IRegionRetrieveResults>(`regions/1/`)
+        setRegionRetrieve(res.data?.results)
+    })
 
     const handleClearCart = () => {
         clearCart('')
     }
 
+    const handleRegionChange = () => {
+        fetchRegionRetrieve()
+    }
 
+    const handleFocus = () => {
+        fetchRegion()
+    }
+
+    let total_price = 0;
+    cart_results?.results.map(item => {
+        total_price += (Number(item.product.price) * item.quantity)
+    })
 
 
     return (
@@ -65,21 +98,44 @@ const Index: NextPage = () => {
                                     </div>
                                     <div className={styles.summary}>
                                         <h3>Summary</h3>
-                                        <Accordion header="Estimate Shipping and Tax">
+                                        <Accordion className={styles.accordion} header="Estimate Shipping and Tax" headerStyle={styles.accordion_header}>
                                             <div className={styles.estimate}>
                                                 <p>Enter your destination to get a shipping estimate.</p>
                                             </div>
-                                        </Accordion>
-                                        <Accordion header="Apply Discount Code">
-                                            <div className={styles.applyInfo}>
-                                                <h6>Subtotal <span>$13,047.00</span></h6>
-                                                <h6>Shipping  <span>$21.00</span></h6>
-                                                <p>(Standard Rate - Price may vary depending on the item/destination. TECHS Staff will contact you.)</p>
-                                                <h6>Tax <span>$1.91</span></h6>
-                                                <h6>GST (10%) <span>$1.91</span></h6>
-                                                <h6>Order Total <span>$13,068.00</span></h6>
+                                            <SelectInput { ...regionInput } handleRegionChange={handleRegionChange}  onFocus={handleFocus} options={region} label={'Country'} placeholder={'Country'} type={'text'} require={false}/>
+                                            <TextInput label={'State/Province'} placeholder={''} type={'text'} require={false}/>
+                                            <TextInput label={'Zip/Postal Code'} placeholder={''} type={'text'} require={false}/>
+                                            <div className={styles.radioWrapper}>
+                                                <div className={styles.radio}>
+                                                    <label htmlFor="radio1">Standard Rate</label>
+                                                    <div>
+                                                        <input type="radio" name={'price'} id={"radio1"} value={1} checked={true}/>
+                                                        <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you. $21.00</h4></div>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.radio}>
+                                                    <label htmlFor="radio2">Pickup from store</label>
+                                                    <div>
+                                                        <input type="radio" name={'price'} id={"radio2"} value={1}/>
+                                                        <div><h4>1234 Street Address City Address, 1234</h4></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </Accordion>
+                                        <Accordion header="Apply Discount Code" className={styles.accordion} headerStyle={styles.accordion_header}>
+                                            <div className={styles.apply__discount}>
+                                                <TextInput label={'Enter discount code'} placeholder={"Enter Discount code"} type={'text'} require={false}/>
+                                                <button>Apply Discount</button>
+                                            </div>
+                                        </Accordion>
+                                        <div className={styles.applyInfo}>
+                                            <h6>Subtotal <span>${total_price}</span></h6>
+                                            <h6>Shipping  <span>$21.00</span></h6>
+                                            <p>(Standard Rate - Price may vary depending on the item/destination. TECHS Staff will contact you.)</p>
+                                            <h6>Tax <span>$1.91</span></h6>
+                                            <h6>GST (10%) <span>$1.91</span></h6>
+                                            <h6>Order Total <span>${total_price}</span></h6>
+                                        </div>
                                         <div className={styles.actionBtns}>
                                             <button>Proceed to Checkout</button>
                                             <button>Check out with <PayPalButtonIcon/></button>

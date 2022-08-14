@@ -132,7 +132,11 @@ const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = t
             breakpoints={breakpoints}
             effect='fade'
             pagination={{
-                clickable: true
+                el: '.swiper-pagination',
+                clickable: true,
+                renderBullet: (index, className) => {
+                    return '<span class="' + className + '">' + (index + 1) + '</span>';
+                }
             }}
         >
             { children }

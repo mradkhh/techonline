@@ -32,10 +32,10 @@ const Contact: NextPage = () => {
                 phone.setValue('')
             }
             const res = $api.post('/contacts/', {
-                name,
-                email,
-                phone,
-                textarea
+                name: name.value,
+                email: email.value,
+                phone: phone.value,
+                textarea: textarea.value
             })
 
         }

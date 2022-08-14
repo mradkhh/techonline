@@ -64,6 +64,27 @@ export interface IProductId {
     }[]
 }
 
+export interface IRegion {
+        id: string,
+        name: string
+}
+
+export interface IRegionResults {
+    results: IRegion[]
+}
+
+export interface IRegionRetrieve {
+    id: number,
+    name: string,
+    tax_price: number,
+    shipping_price: number,
+    childs: string
+}
+
+export interface IRegionRetrieveResults {
+    results: IRegionRetrieve
+}
+
 export interface ICart {
     id: number,
     quantity: number,

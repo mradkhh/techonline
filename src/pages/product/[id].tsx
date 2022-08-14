@@ -24,6 +24,9 @@ import {useGetProductQuery} from "services/ProductService";
 import {useRouter} from "next/router";
 import {useFetchAddToCartMutation, useFetchCartQuery, useFetchRemoveFromCartMutation} from "services/CartsService";
 import styles from 'styles/pages/product.module.scss'
+import Carousel from "components/UI/Carousel/Carousel";
+import {SwiperSlide} from "swiper/react";
+import ProductCard from "components/UI/Cards/ProductCard";
 
 const tabs = [
     { id: 1, title: 'About Product' },
@@ -46,6 +49,8 @@ const Product: NextPage = () => {
     const [addToCart] = useFetchAddToCartMutation()
     const [ removeFromCart ] = useFetchRemoveFromCartMutation()
     const [ tabNumber, setTabNumber ] = useState<number>(1)
+
+    console.log(product)
 
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
     const cartId = cartProducts?.results.find(item => item.product.id === Number(id) )
@@ -172,14 +177,20 @@ const Product: NextPage = () => {
                                                     <MessageIcon/>
                                                 </button>
                                             </div>
-                                            <Image
-                                                width={255}
-                                                height={444}
-                                                objectFit='cover'
-                                                objectPosition='center'
-                                                src={ product?.product_images[0]?.image ? product?.product_images[0]?.image : img}
-                                                alt="img"
-                                            />
+                                            <Carousel type='banner' autoplay={false} button={false} loop={false} >
+                                                {
+                                                    product && product?.product_images.map(item =>
+                                                        <SwiperSlide key={item.id}>
+                                                            <Image
+                                                                width={300}
+                                                                height={444}
+                                                                alt="product"
+                                                                src={item.image}
+                                                            />
+                                                        </SwiperSlide>
+                                                    )
+                                                }
+                                            </Carousel>
                                             <div>
                                                 <PartnerLogo/>
                                                 <h5>own it now, up to 6 months interest free <A href="/">learn more</A></h5>

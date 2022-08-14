@@ -34,10 +34,6 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
         removeFromCart(id)
     }
 
-    const handleRefresh = () => {
-        fetchFilterColors('4, 5, 6, 7')
-    }
-
 
         return (
             <div className={styles.cart}>
@@ -79,7 +75,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
                             <h3>Subtotal: <span>${total_price }.00</span></h3>
                             <div>
                                 <A isBtn={true} href={'/checkout'}>Go to Checkout</A>
-                                <button onClick={handleRefresh}>Check out with
+                                <button>Check out with
                                     <PayPalButtonIcon/>
                                 </button>
                             </div>

@@ -65,3 +65,24 @@
   }
 }
 
+.colors {
+  @include flex-start(center);
+  margin-bottom: 16px !important;
+  gap: 12px;
+  width: 100%;
+}
+
+.color {
+  @include flex-center(center);
+  border-radius: 100vmax;
+  background-color: var(--white);
+  padding: 2px !important;
+  cursor: pointer;
+
+  > span  {
+    @include rectangle(24);
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 100vmax;
+  }
+}

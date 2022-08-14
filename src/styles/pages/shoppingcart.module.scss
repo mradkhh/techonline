@@ -130,6 +130,27 @@
 
 }
 
+.accordion {
+  margin-bottom: 20px;
+}
+
+.apply__discount {
+
+  > button {
+    @include outlineBtn;
+    background-color: transparent;
+    width: 100%;
+  }
+}
+
+.accordion_header {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: var(--black);
+  margin-bottom: 12px;
+}
+
 .actionBtns {
   > button {
     @include flex-center(center);
@@ -191,12 +212,56 @@
   }
 }
 
+.radioWrapper {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray);
+}
+
+.radio {
+
+  > label {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 210%;
+    color: var(--black);
+  }
+
+  > div {
+    @include flex-start(flex-start);
+    gap: 8px;
+    margin-bottom: 16px;
+
+    > input {
+      width: min-content;
+    }
+
+    > div {
+      @include flex-start(flex-start);
+      @include maxWidth(800);
+      gap: 16px;
+      > h4 {
+        width: 100%;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: var(--black);
+        @media (max-width: $breakpoint768) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+
 .applyInfo {
   > h6 {
     @include flex-between(center);
     font-weight: 600 !important;
     font-size: 13px !important;
     color: var(--black) !important;
+    margin-bottom: 12px;
 
     > span {
       color: var(--black) !important;

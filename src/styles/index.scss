@@ -66,6 +66,10 @@ button {
   animation: padding 300ms;
 }
 
+.swiper-pagination {
+  background-color: var(--brand);
+}
+
 @keyframes padding {
   0% {
     padding: 0;
