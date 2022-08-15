@@ -33,11 +33,12 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_
         })
     }
 
-
     const handleClearFilterClear = () => {
         setCategoryId((state: number[]) => state =[])
         setColorId((state: number[]) => state =[])
         setBrandId((state: number[]) => state =[])
+        min_price.setValue('')
+        max_price.setValue('')
     }
 
 

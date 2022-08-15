@@ -27,6 +27,7 @@ import styles from 'styles/pages/product.module.scss'
 import Carousel from "components/UI/Carousel/Carousel";
 import {SwiperSlide} from "swiper/react";
 import ProductCard from "components/UI/Cards/ProductCard";
+import Loading from "components/UI/Loading/Loading";
 
 const tabs = [
     { id: 1, title: 'About Product' },
@@ -106,7 +107,7 @@ const Product: NextPage = () => {
 
     return (
         isLoading ?
-            <h1>Loading...</h1>
+            <Loading/>
             :
         <MainLayout title="Product - id" description="MSI" mainClass="main_product">
             <div>

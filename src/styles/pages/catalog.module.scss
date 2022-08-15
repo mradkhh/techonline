@@ -21,6 +21,11 @@
   @include container;
   @include flex-start(space-between);
   gap: 24px;
+
+  @media (max-width: $breakpoint568) {
+    gap: 0;
+  }
+
 }
 
 .headViewTools {
@@ -45,6 +50,17 @@
   gap: 8px;
   @media (max-width: $breakpoint568) {
     margin-right: auto;
+  }
+
+  @media (max-width: $breakpoint480) {
+    width: 100%;
+
+    > div {
+      width: 100%;
+      > button {
+        min-width: 100%;
+      }
+    }
   }
 }
 

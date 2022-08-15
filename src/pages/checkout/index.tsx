@@ -10,6 +10,7 @@ import {useFetchCartQuery} from "services/CartsService";
 import Accordion from "components/UI/Accordion/Accordion";
 import img from "static/images/products/1.jpg"
 import styles from 'styles/pages/checkout.module.scss'
+import Loading from "components/UI/Loading/Loading";
 
 
 const breadcrumbs = [
@@ -88,7 +89,7 @@ const CheckOut: NextPage = () => {
 
     return (
         cart_loading ?
-            <h1>Loading...</h1>
+            <Loading/>
             :
             <MainLayout title={"TechOnline - Checkout"} description={"checkout"} mainClass={"main_checkout"}>
                 <Breadcrumbs array={breadcrumbs} current="Checkout progress"/>

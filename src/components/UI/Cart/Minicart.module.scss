@@ -2,10 +2,10 @@
 
 .cart {
   @include maxWidth(310);
+  min-width: 280px;
   @include dropEffect(300);
   cursor: auto;
   right: -50px;
-  min-width: 310px;
   background-color: var(--white);
 }
 

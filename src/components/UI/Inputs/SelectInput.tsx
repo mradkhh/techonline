@@ -13,7 +13,6 @@ interface SelectInputProps {
     setError?: (bool: boolean) => void,
     options?: IRegion[],
     onFocus: any,
-    handleRegionChange: any
 }
 
 const SelectInput: FC<SelectInputProps> = ({ label,
@@ -25,7 +24,7 @@ const SelectInput: FC<SelectInputProps> = ({ label,
                          error,
                          setError,
                          options,
-                         onFocus, handleRegionChange,
+                         onFocus,
                          ...props
                      }) => {
 
@@ -33,7 +32,7 @@ const SelectInput: FC<SelectInputProps> = ({ label,
     return (
         <div className={styles.field}>
             <label htmlFor="">{label}</label>
-            <select { ...props } onFocus={onFocus} onChange={handleRegionChange} name="" id="">
+            <select { ...props } onFocus={onFocus} name="" id="">
                 {
                     options && options.map(item =>
                         <option key={item.id} value={item?.id}>{item?.name}</option>

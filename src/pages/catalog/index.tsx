@@ -15,6 +15,7 @@ import bannerImg  from 'static/images/catalogs/banner.png'
 import styles from 'styles/pages/catalog.module.scss'
 import {number} from "prop-types";
 import useInput from "hooks/useInput";
+import Loading from "components/UI/Loading/Loading";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
@@ -56,15 +57,14 @@ const Catalog: NextPage = () => {
     const max_price = useInput('')
 
 
-
     const { data: products, isLoading: product_loading } = useGetAllProductsQuery({
         page_size: Number(showValue),
         page: page,
         brands_ids: brandId.join(','),
-        colors_ids: apply ? colorId.join(',') : '',
-        category_ids: apply ? categoryId.join(',') : '',
-        min_price: apply ? min_price.value : '',
-        max_price: apply ? max_price.value : '',
+        colors_ids: colorId.join(','),
+        category_ids: categoryId.join(','),
+        min_price: min_price.value,
+        max_price: max_price.value,
         ordering: sortValue
     })
     const pages = products?.count ? (products?.count / Number(showValue)) : 1
@@ -85,7 +85,7 @@ const Catalog: NextPage = () => {
 
     return (
         product_loading ?
-            <h1>Loading...</h1>
+            <Loading/>
             :
             <MainLayout title='Catalog' description='Catalog' mainClass='main_catalog'>
                 <div className={styles.adsBanner}>

@@ -3,7 +3,6 @@
 .card {
   position: relative;
   @include maxWidth(234);
-  min-width: 230px;
   isolation: isolate;
   margin-bottom: 16px;
   min-height: 380px;

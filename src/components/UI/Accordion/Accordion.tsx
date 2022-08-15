@@ -26,9 +26,9 @@ const Accordion: FC<AccordionProps> = ({ children, header, className, headerStyl
                     <div
                         onClick={handleShow} className={`${styles.header} ${headerStyle}`}>
                         {header}
-                        <span>
-                        <ArrowDown/>
-                    </span>
+                        <span className={show ? styles.arrow : ''}>
+                            <ArrowDown/>
+                        </span>
                     </div>
             {
                 show && <div className={`${styles.items} ${itemsStyle} `}>

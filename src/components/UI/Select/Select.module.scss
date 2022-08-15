@@ -30,6 +30,7 @@
 
 .options {
   @include dropEffect(200);
+  width: 100%;
 }
 
 .item {

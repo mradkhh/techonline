@@ -1,0 +1,149 @@
+@import "styles/mixins/mixins.scss";
+
+.title {
+  @include commonTitle;
+  @include container;
+  margin-bottom: 32px;
+}
+
+.dashboard {
+  @include container;
+  @include flex-start(flex-start);
+  gap: 80px;
+  @media (max-width: $breakpoint768) {
+    flex-direction: column;
+  }
+}
+
+.menu {
+  @include maxWidth(326);
+  padding-block: 20px;
+
+  @media (max-width: $breakpoint768) {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+.menu__items {
+  @include flex-between(flex-start);
+  flex-direction: column;
+  margin-bottom: 8px;
+  padding-block: 12px;
+  background-color: var(--light-blue);
+  > h6:first-child {
+    border-left: 2px solid var(--brand);
+    color: var(--black);
+    font-weight: 600;
+  }
+
+  > h6 {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: var(--gray);
+  }
+  > div {
+    height: 1px;
+    margin-inline: 20px;
+    width: 86%;
+    background-color: var(--light-gray);
+  }
+}
+.menu__item {
+  cursor: pointer;
+  padding-inline: 20px;
+  padding-block: 12px;
+}
+
+.compare, .wish_list {
+  background-color: var(--light-blue);
+  margin-bottom: 8px;
+  padding: 20px;
+  text-align: center;
+  > h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  > p {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 130%;
+    margin-bottom: 14px;
+  }
+}
+
+// =--------------- content section -----------------=
+
+.content {
+  width: 100%;
+}
+.content__item {
+  width: 100%;
+  margin-bottom: 32px;
+}
+.content__item_header {
+  width: 100%;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--light-gray);
+  margin-bottom: 18px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 147.5%;
+
+  > a {
+    color: var(--brand);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.content__item_body {
+  @include flex-start(center);
+  gap: 24px;
+
+  @media (max-width: $breakpoint992) {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}
+
+.content__item_body_item {
+  flex-basis: 50%;
+  > h5 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 16px;
+  }
+
+  > p {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 48px;
+  }
+}
+
+.links {
+  @include flex-start(center);
+  > a {
+    color: var(--brand);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

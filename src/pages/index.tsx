@@ -18,6 +18,7 @@ import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
 import { PartnerLogo } from "static/icons/icon";
+import Loading from "components/UI/Loading/Loading";
 import { useFetchAllBrandsQuery } from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
 import styles from "styles/pages/home.module.scss"
@@ -30,15 +31,11 @@ const Index: NextPage = () => {
 
     return (
       products_loading ?
-        <h1>Loading...</h1>
+        <Loading/>
           :
           <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
               <Banner/>
-              {
-                  products_loading ?
-                      <h1>Loading...</h1>
-                      :
-                      <div className={styles.products}>
+              <div className={styles.products}>
                           <h3>New Products</h3>
                           <Carousel type='items' autoplay={false} button={true} loop={true} >
                               {
@@ -58,8 +55,6 @@ const Index: NextPage = () => {
                               }
                           </Carousel>
                       </div>
-              }
-
               <section className={styles.ads}>
                   <div className={styles.adsContent}>
                       <PartnerLogo/>

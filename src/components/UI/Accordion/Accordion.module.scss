@@ -6,13 +6,21 @@
 
 
 .header {
+  @include flex-between(center);
   font-weight: 700;
   font-size: 14px;
   line-height: 100%;
   color: var(--gray);
+  cursor: pointer;
 
   @media (max-width: $breakpoint768) {
     font-size: 11px;
+  }
+}
+
+.arrow {
+  > svg {
+    transform: rotate(-180deg);
   }
 }
 
@@ -57,9 +65,9 @@
 
   .header {
     margin-bottom: 20px;
-    > span {
-      display: none;
-    }
+    //> span {
+    //  display: none;
+    //}
   }
 
   .items {
