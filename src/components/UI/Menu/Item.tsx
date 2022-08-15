@@ -22,6 +22,7 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
 
     const handleFetch = () => {
         setShow(!show)
+        console.log(show)
     }
 
     useMousedownClickInvisible(itemRef, () => {
@@ -30,7 +31,10 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
 
     return (
                 <div onClick={() => handleClick(item.id)} key={item?.id} className={styles.childMenu}>
-                    <div onClick={handleFetch} className={styles.menuItem} >
+                    <div
+                        style={{backgroundColor: show ? 'var(--light-blue)' : 'var(--white)'}}
+                        onClick={handleFetch}
+                        className={styles.menuItem} >
                         {item?.name}
                         <div
                             id={`${item.id}`}

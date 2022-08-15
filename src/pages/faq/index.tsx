@@ -3,7 +3,6 @@ import React from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import styles from 'styles/pages/faq.module.scss'
-import A from "components/UI/A/A";
 import Accordion from "components/UI/Accordion/Accordion";
 
 const breadcrumbs = [

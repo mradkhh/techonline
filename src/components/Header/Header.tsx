@@ -11,16 +11,14 @@ import Burger from "components/UI/Burger/Burger";
 import useMediaQuery from "hooks/useMediaQuery";
 import {Context} from "pages/_app";
 import {useMousedownClickInvisible, useMouseoverClickInvisible} from "hooks/useMousedownClickInvisible";
-import styles from './Header.module.scss'
 import {ICategories} from "models/index";
 import {useFetching} from "hooks/useFetching";
 import axios, {AxiosResponse} from "axios";
 import {API_URL} from "services/interseptors";
-import {fetchCarts, useFetchCartQuery} from "services/CartsService";
-import {useAppDispatch} from "hooks/redux";
+import {useFetchCartQuery} from "services/CartsService";
 import {AuthResponse} from "models/response/AuthResponse";
 import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
-import {useFetchFilterColorsMutation} from "services/ColorService";
+import styles from './Header.module.scss'
 
 
 interface HeaderProps {

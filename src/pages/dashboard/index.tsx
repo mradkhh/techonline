@@ -18,7 +18,6 @@ const Dashboard: FC<DashboardProps> = ({  }) => {
             <Breadcrumbs array={breadcrumbs} current='My Dashboard'/>
             <h1 className={styles.title}>My Dashboard</h1>
             <div className={styles.account}>
-
             </div>
         </MainLayout>
     );

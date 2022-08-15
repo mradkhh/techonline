@@ -105,12 +105,11 @@ const Product: NextPage = () => {
 
 
     return (
+        isLoading ?
+            <h1>Loading...</h1>
+            :
         <MainLayout title="Product - id" description="MSI" mainClass="main_product">
-            {
-                isLoading ?
-                    <h1>Loading...</h1>
-                    :
-                    <div>
+            <div>
                         <section className={styles.mainInfo}>
                             <div className={styles.mainInfo__header}>
                                 <div>
@@ -280,9 +279,6 @@ const Product: NextPage = () => {
                 </div>
             </section>
                     </div>
-            }
-
-
         </MainLayout>
     );
 };

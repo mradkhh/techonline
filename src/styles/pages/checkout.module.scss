@@ -189,5 +189,52 @@
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--light-gray);
+  }
+}
+.accordion_header {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  margin-top: 16px;
+}
+
+.card {
+  @include flex-start(center);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card_img {
+  min-width: 62px;
+}
+
+.card_body {
+  > h6 {
+    @include line-clamp-vertical(2);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  > div {
+    @include flex-start(center);
+    gap: 12px;
+    > h6 {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 140%;
+      color: var(--black);
+    }
+
+    > span {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 140%;
+      color: var(--black);
+    }
   }
 }
