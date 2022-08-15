@@ -22,6 +22,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_price, min_price, setApply, countFilter }) => {
 
+    const [ refresh, setRefresh ] = useState<boolean>(false)
     const { data: brands } = brandsApi.useFetchAllBrandsQuery('')
     const { data: categories } = useFetchCategoriesQuery('')
     const { data: colors } = useFetchColorsQuery('')
@@ -39,6 +40,7 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_
         setBrandId((state: number[]) => state =[])
         min_price.setValue('')
         max_price.setValue('')
+        setRefresh(!refresh)
     }
 
 
@@ -56,6 +58,7 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_
                             {
                                 categories && categories?.results?.map(item =>
                                     <CategoryItem
+                                        clear={refresh}
                                         key={item?.id}
                                         id={item?.id}
                                         name={item?.name}
@@ -82,6 +85,7 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_
                             {
                                 colors && colors?.results?.map(item =>
                                     <ColorItem
+                                        clear={refresh}
                                         name={item?.name}
                                         key={item?.id}
                                         id={item?.id}
@@ -104,6 +108,7 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_
                         {
                             brands && brands?.results?.map(item =>
                                 <BrandItem
+                                    clear={refresh}
                                     key={item?.id}
                                     name={item?.name}
                                     id={item?.id}

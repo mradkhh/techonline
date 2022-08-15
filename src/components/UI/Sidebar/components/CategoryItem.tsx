@@ -4,10 +4,11 @@ import styles from './styles/CategoryItem.module.scss'
 interface CategoryItemProps {
     id: number,
     setCategoryId: (arg: any) => void,
-    name: string
+    name: string,
+    clear: boolean
 }
 
-const CategoryItem: FC<CategoryItemProps> = ({ id, setCategoryId, name }) => {
+const CategoryItem: FC<CategoryItemProps> = ({ id, setCategoryId, name, clear }) => {
 
     const [ select, setSelect ] = useState<boolean>(false)
 
@@ -22,6 +23,9 @@ const CategoryItem: FC<CategoryItemProps> = ({ id, setCategoryId, name }) => {
         })
     }
 
+    useEffect(() => {
+       setSelect(false)
+    }, [clear] )
 
     return (
         <div

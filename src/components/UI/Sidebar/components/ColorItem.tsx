@@ -1,14 +1,15 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './styles/ColorItem.module.scss'
 
 interface ColorItemProps {
     id: number,
     setColorId: (arg: any) => void,
-    name: string
+    name: string,
+    clear: boolean
 }
 
 
-const ColorItem: FC<ColorItemProps> = ({ setColorId, id, name }) => {
+const ColorItem: FC<ColorItemProps> = ({ setColorId, id, name, clear }) => {
 
     const [ select, setSelect ] = useState<boolean>(false)
 
@@ -22,6 +23,10 @@ const ColorItem: FC<ColorItemProps> = ({ setColorId, id, name }) => {
         })
         setSelect(!select)
     }
+
+    useEffect(() => {
+        setSelect(false)
+    }, [clear] )
     return (
         <div style={{ border: select ? '1px solid var(--brand)' : '1px solid var(--white)' }} onClick={handleChoiceColor} className={styles.root}>
             <span style={{backgroundColor: `${name}`, opacity: select ? 1 : 0.7}} ></span>

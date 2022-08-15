@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from "./styles/BrandItem.module.scss";
 
 interface BrandItemProps {
@@ -7,9 +7,10 @@ interface BrandItemProps {
     icon: string,
     name: string,
     setBrandId: (arg: any) => void,
+    clear: boolean
 }
 
-const BrandItem: FC<BrandItemProps> = ({id, icon, name, setBrandId}) => {
+const BrandItem: FC<BrandItemProps> = ({id, icon, name, setBrandId, clear}) => {
 
     const [ select, setSelect ] = useState<boolean>(false)
 
@@ -23,6 +24,10 @@ const BrandItem: FC<BrandItemProps> = ({id, icon, name, setBrandId}) => {
         })
         setSelect(!select)
     }
+
+    useEffect(() => {
+        setSelect(false)
+    }, [clear] )
 
 
     return (
