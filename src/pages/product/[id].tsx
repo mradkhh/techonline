@@ -5,7 +5,6 @@ import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Tab1 from "pages/product/components/Tab1";
 import Tab2 from "pages/product/components/Tab2";
-import img from "static/images/product/inTab.png"
 import intelImg from "static/images/product/intel.png"
 import rtxImg from "static/images/product/rtx.png"
 import ssdImg from "static/images/product/ssd.png"
@@ -26,7 +25,6 @@ import {useFetchAddToCartMutation, useFetchCartQuery, useFetchRemoveFromCartMuta
 import styles from 'styles/pages/product.module.scss'
 import Carousel from "components/UI/Carousel/Carousel";
 import {SwiperSlide} from "swiper/react";
-import ProductCard from "components/UI/Cards/ProductCard";
 import Loading from "components/UI/Loading/Loading";
 
 const tabs = [
@@ -50,8 +48,6 @@ const Product: NextPage = () => {
     const [addToCart] = useFetchAddToCartMutation()
     const [ removeFromCart ] = useFetchRemoveFromCartMutation()
     const [ tabNumber, setTabNumber ] = useState<number>(1)
-
-    console.log(product)
 
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
     const cartId = cartProducts?.results.find(item => item.product.id === Number(id) )
@@ -177,7 +173,7 @@ const Product: NextPage = () => {
                                                     <MessageIcon/>
                                                 </button>
                                             </div>
-                                            <Carousel type='banner' autoplay={false} button={false} loop={false} >
+                                            <Carousel type='banner' autoplay={false} button={false} loop={false} pagination={true} >
                                                 {
                                                     product && product?.product_images.map(item =>
                                                         <SwiperSlide key={item.id}>

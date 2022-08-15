@@ -159,7 +159,7 @@ const Catalog: NextPage = () => {
                                 (products && viewType === 1) && products?.results?.map(item =>
                                     <ProductCard
                                         reviews={item?.reviews}
-                                        rating={item?.rating}
+                                        rating={item?.rating ? item?.rating : 0}
                                         id={item.id}
                                         key={item.id}
                                         image={item?.product_img?.image}
@@ -181,6 +181,7 @@ const Catalog: NextPage = () => {
                             {
                                 (products && viewType === 2) && products?.results?.map(item =>
                                     <FullProductCard
+                                        rating={item?.rating ? item?.rating : 0}
                                         id={item.id}
                                         key={item.id}
                                         isInStock={item?.is_stock}

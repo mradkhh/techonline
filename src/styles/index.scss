@@ -80,6 +80,19 @@ button {
   }
 }
 
+.swiper-pagination-bullets {
+  background-color: transparent;
+}
+
+  .swiper-pagination-bullet {
+    width: 24px;
+    height: 12px;
+    border-radius: 100%;
+    &.swiper-pagination-bullet-active {
+      background: var(--brand);
+    }
+  }
+
 // scroll-bar
 ::-webkit-scrollbar {
   width: 6px;

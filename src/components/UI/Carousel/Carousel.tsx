@@ -4,6 +4,7 @@ import {Autoplay, Navigation, Pagination} from "swiper";
 import SliderBtn from "components/UI/Carousel/SliderBtn";
 import useCaseOne from "hooks/useCaseOne";
 import 'swiper/css';
+import "swiper/css/pagination";
 import cl from './Carousel.module.scss'
 
 interface CarouselProps {
@@ -11,7 +12,8 @@ interface CarouselProps {
     type: string,
     autoplay?: any,
     button?: boolean,
-    loop?: boolean
+    loop?: boolean,
+    pagination?: boolean
 }
 
 const breakpointSlider = {
@@ -100,7 +102,7 @@ const breakpointBrand = {
     }
 }
 
-const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = true, loop = true }) => {
+const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = true, loop = true, pagination = false }) => {
     const navigationPrevRef = createRef<HTMLButtonElement>()
     const navigationNextRef = createRef<HTMLButtonElement>()
 
@@ -131,13 +133,9 @@ const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = t
             autoplay={autoplay ? autoplay : false }
             breakpoints={breakpoints}
             effect='fade'
-            pagination={{
-                el: '.swiper-pagination',
-                clickable: true,
-                renderBullet: (index, className) => {
-                    return '<span class="' + className + '">' + (index + 1) + '</span>';
-                }
-            }}
+            pagination={pagination ? {
+                dynamicBullets: false
+            } : false}
         >
             { children }
             { button ?
