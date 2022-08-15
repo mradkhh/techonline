@@ -13,6 +13,9 @@ const Pagination: FC<PaginationProps> = ({ page, setPage, pages }) => {
     const isFirstPage = page === 1
     const isLastPage = page === pages
 
+    console.log(pages)
+    console.log(page)
+
     return (
         <>
             {

@@ -16,11 +16,6 @@ export interface IColors {
     }[]
 }
 
-export interface IColor {
-    id: number,
-    name: string
-}
-
 export interface IProduct {
     id: number,
     name: string,
@@ -35,7 +30,8 @@ export interface IProduct {
     short_desc: string,
     viewer?: string,
     rating?: number,
-    quantity?: number
+    quantity?: number,
+    reviews?: number
 }
 
 export interface IProductId {

@@ -35,7 +35,6 @@ const Register: NextPage = () => {
         }
     }
 
-
     const handleRegister = () => {
         authStore.setShowModal(true)
     }

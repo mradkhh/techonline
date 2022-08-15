@@ -3,9 +3,10 @@
 .card {
   position: relative;
   @include maxWidth(234);
+  min-width: 220px;
   isolation: isolate;
   margin-bottom: 16px;
-  min-height: 380px;
+  min-height: 400px;
 
   &:hover {
     > div:last-child {
@@ -91,6 +92,21 @@
     font-size: 16px;
     line-height: 140%;
   }
+}
+
+.rating {
+  @include flex-start(center);
+  gap: 4px;
+  margin-bottom: 6px;
+  > span {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--gray);
+  }
+}
+
+.star {
+  @include flex-start(center);
 }
 
 .hover {

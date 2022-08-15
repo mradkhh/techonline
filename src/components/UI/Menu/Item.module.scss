@@ -31,11 +31,12 @@
 }
 
 .childMenu {
-  @include flex-start(center);
+  @include flex-start(flex-start);
 }
+
 
 .insideMenu {
   position: absolute;
-  left: 267px;
+  left: 270px;
   top: 0;
 }

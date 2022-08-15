@@ -1,6 +1,14 @@
 import React, {createRef, FC, memo} from 'react';
 import Image from "next/image";
-import { FavoriteIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon } from "static/icons/icon";
+import {
+    FavoriteIcon,
+    RedCallIcon,
+    ShoppingCartIcon,
+    StarIcon,
+    StarIconGray,
+    StatsIcon,
+    SuccessIcon
+} from "static/icons/icon";
 import img from 'static/images/products/1.jpg'
 import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
@@ -14,7 +22,83 @@ interface ProductCardProps {
     title: string,
     price: string,
     discountPrice: number,
-    id: number
+    id: number,
+    rating: number,
+    reviews?: number
+}
+
+interface StarProps {
+    rating: number
+}
+
+const Star: FC<StarProps> = ({ rating }) => {
+    const arr = []
+    for (let i = 0; i < rating; i++) {
+        arr.push(i)
+    }
+
+    return (
+        <>
+            {
+                arr.length === 0 ?
+                    <>
+                        <StarIconGray/>
+                        <StarIconGray/>
+                        <StarIconGray/>
+                        <StarIconGray/>
+                        <StarIconGray/>
+                    </> :
+                    arr.length === 1 ?
+                        <>
+                            <StarIcon/>
+                            <StarIconGray/>
+                            <StarIconGray/>
+                            <StarIconGray/>
+                            <StarIconGray/>
+                        </> :
+                        arr.length === 2 ?
+                            <>
+                                <StarIcon/>
+                                <StarIcon/>
+                                <StarIconGray/>
+                                <StarIconGray/>
+                                <StarIconGray/>
+                            </> :
+                            arr.length === 3 ?
+                                <>
+                                    <StarIcon/>
+                                    <StarIcon/>
+                                    <StarIcon/>
+                                    <StarIconGray/>
+                                    <StarIconGray/>
+                                </> :
+                                arr.length === 4 ?
+                                    <>
+                                        <StarIcon/>
+                                        <StarIcon/>
+                                        <StarIcon/>
+                                        <StarIcon/>
+                                        <StarIconGray/>
+                                    </> :
+                                    arr.length === 5 ?
+                                        <>
+                                            <StarIcon/>
+                                            <StarIcon/>
+                                            <StarIcon/>
+                                            <StarIcon/>
+                                            <StarIcon/>
+                                        </> :
+                                        <>
+                                            <StarIconGray/>
+                                            <StarIconGray/>
+                                            <StarIconGray/>
+                                            <StarIconGray/>
+                                            <StarIconGray/>
+                                        </>
+
+            }
+        </>
+    )
 }
 
 
@@ -23,7 +107,8 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                                                image,
                                                discountPrice,
                                                price,
-                                               title }) => {
+                                               title ,
+                                               rating, reviews}) => {
 
     const [fetchAddToCart, {}] = useFetchAddToCartMutation()
     const matches = useMediaQuery("(min-width: 992px)")
@@ -31,9 +116,12 @@ const ProductCard: FC<ProductCardProps> = ({ id,
     const { data: cart_products } = useFetchCartQuery('')
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
 
+
+
     const handleAddToCart = () => {
         !is_in_cart && fetchAddToCart({quantity: 1, product: id})
     }
+
 
     return (
             <div className={styles.card}>
@@ -53,6 +141,12 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                     />
                 </div>
                     <div  className={styles.body}>
+                        <div className={styles.rating}>
+                            <div className={styles.star}>
+                                <Star rating={rating} />
+                            </div>
+                            <span>Reviews ({reviews ? reviews : 0})</span>
+                        </div>
                         <h4>{title}</h4>
                         <div>{price} $</div>
                         <div>{discountPrice} $</div>

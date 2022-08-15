@@ -69,6 +69,8 @@ const Catalog: NextPage = () => {
     })
     const pages = products?.count ? (products?.count / Number(showValue)) : 1
 
+    console.log(products)
+
     useEffect(() => {
         window.scroll(0, 150)
     }, [page])
@@ -156,6 +158,8 @@ const Catalog: NextPage = () => {
                             {
                                 (products && viewType === 1) && products?.results?.map(item =>
                                     <ProductCard
+                                        reviews={item?.reviews}
+                                        rating={item?.rating}
                                         id={item.id}
                                         key={item.id}
                                         image={item?.product_img?.image}

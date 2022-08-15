@@ -4,6 +4,7 @@ import {ArrowDown} from "static/icons/icon";
 import {useFetchCategoryByIdQuery} from "services/CategoriesService";
 import styles from './Item.module.scss'
 import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
+import ProductCard from "components/UI/Cards/ProductCard";
 
 interface ItemProps {
     id: number,
@@ -20,9 +21,10 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
     const itemRef = createRef<HTMLDivElement>()
     const { data } = useFetchCategoryByIdQuery(id)
 
+    console.log(data)
+
     const handleFetch = () => {
         setShow(!show)
-        console.log(show)
     }
 
     useMousedownClickInvisible(itemRef, () => {
@@ -48,18 +50,33 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
                                 show && <div>
                                     {
                                         data && data?.childs?.map(item => {
-                                            return <Item key={item.id}
-                                                         id={item.id}
-                                                         item={item}
-                                                         handleClick={handleClick}
-                                                         setArrowMotion={setArrowMotion}
-                                                         arrowMotion={arrowMotion}
-                                            />
+                                            return <Item
+                                                 key={item.id}
+                                                 id={item.id}
+                                                 item={item}
+                                                 handleClick={handleClick}
+                                                 setArrowMotion={setArrowMotion}
+                                                 arrowMotion={arrowMotion}
+                                                 />
                                         })
                                     }
                                 </div>
                             }
                         </div>
+                            {
+                                data && show && data?.products && data?.products?.map(item => {
+                                        return <ProductCard
+                                                    rating={5}
+                                                    id={item.id}
+                                                    key={item.id}
+                                                    image={item?.product_img?.image}
+                                                    title={item.short_desc}
+                                                    price={item.price}
+                                                    discountPrice={item.discount}
+                                                    isInStock={item.is_stock}
+                                                />
+                                    })
+                            }
                     </div>
                 </div>
     );

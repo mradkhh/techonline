@@ -42,6 +42,7 @@ const Index: NextPage = () => {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
                                           <ProductCard
+                                              rating={item?.rating}
                                               id={item.id}
                                               key={item.id}
                                               image={item?.product_img?.image}
@@ -113,6 +114,7 @@ const Index: NextPage = () => {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
                                           <ProductCard
+                                              rating={item?.rating}
                                               id={item.id}
                                               key={item.id}
                                               image={item?.product_img?.image}
@@ -139,6 +141,7 @@ const Index: NextPage = () => {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
                                           <ProductCard
+                                              rating={item?.rating}
                                               id={item.id}
                                               key={item.id}
                                               image={item?.product_img?.image}
@@ -182,6 +185,7 @@ const Index: NextPage = () => {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
                                           <ProductCard
+                                              rating={item?.rating}
                                               id={item.id}
                                               key={item.id}
                                               image={item?.product_img?.image}
@@ -208,6 +212,7 @@ const Index: NextPage = () => {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
                                           <ProductCard
+                                              rating={item?.rating}
                                               id={item.id}
                                               key={item.id}
                                               image={item?.product_img?.image}
@@ -235,6 +240,7 @@ const Index: NextPage = () => {
                           newProducts && newProducts.results.map(item =>
                               <SwiperSlide key={item.id}>
                                   <ProductCard
+                                      rating={item?.rating}
                                       id={item.id}
                                       key={item.id}
                                       image={item?.product_img?.image}

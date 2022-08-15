@@ -47,7 +47,6 @@ export default class AuthStore {
             this.setAuth(true)
             window.location.href = '/'
         } catch (e: any) {
-            console.log(e.response.status)
             this.setErrorStatus(e.response.status)
         } finally {
             this.setLoading(false)

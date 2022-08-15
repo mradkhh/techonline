@@ -40,13 +40,14 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                 <div onClick={(e)=> e.stopPropagation()} className={styles.menu}>
                     {
                         data && data?.childs?.map(item => {
-                            return <Item key={item.id}
-                                         id={item.id}
-                                         item={item}
-                                         handleClick={handleClick}
-                                         setArrowMotion={setArrowMotion}
-                                         arrowMotion={arrowMotion}
-                            />
+                            return <Item
+                                 key={item.id}
+                                 id={item.id}
+                                 item={item}
+                                 handleClick={handleClick}
+                                 setArrowMotion={setArrowMotion}
+                                 arrowMotion={arrowMotion}
+                                />
                         })
                     }
                 </div>
@@ -55,14 +56,15 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                             data && data?.products?.splice(0, 4)
                                 .map(item => {
                                     return <ProductCard
-                                        id={item.id}
-                                        key={item.id}
-                                        image={item?.product_img?.image}
-                                        title={item.short_desc}
-                                        price={item.price}
-                                        discountPrice={item.discount}
-                                        isInStock={item.is_stock}
-                                    />
+                                                rating={4}
+                                                id={item.id}
+                                                key={item.id}
+                                                image={item?.product_img?.image}
+                                                title={item.short_desc}
+                                                price={item.price}
+                                                discountPrice={item.discount}
+                                                isInStock={item.is_stock}
+                                            />
                                 })
                         }
                     </div>
