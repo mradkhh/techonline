@@ -58,7 +58,7 @@
       @include rectangle(40);
       border-radius: 50%;
       background-color: var(--white);
-      border: 1px solid var(--brand);
+      border: 3px solid var(--brand);
       font-weight: 600;
       font-size: 15px;
       line-height: 24px;
@@ -70,6 +70,35 @@
       font-size: 16px;
       line-height: 20px;
       color: var(--black);
+    }
+  }
+
+  > div:last-child {
+    &:before {
+      position: absolute;
+      top: 20px;
+      content: '';
+      @include maxWidth(194);
+      height: 2px;
+      background-color: var(--gray);
+    }
+    > span {
+      @include flex-center(center);
+      @include rectangle(40);
+      border-radius: 50%;
+      background-color: var(--white);
+      border: 3px solid var(--gray);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 24px;
+      z-index: 123;
+    }
+
+    > h5 {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: var(--gray);
     }
   }
 }
@@ -230,11 +259,15 @@
       color: var(--black);
     }
 
-    > span {
+    > div {
       font-weight: 400;
       font-size: 14px;
       line-height: 140%;
-      color: var(--black);
+      color: var(--gray);
+
+      > span {
+        font-weight: 600;
+      }
     }
   }
 }

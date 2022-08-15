@@ -89,6 +89,13 @@ const CheckOut: NextPage = () => {
         setPhoneNumber(true)
     }
 
+
+
+    let total_price = 0;
+    cart_products?.results.map(item => {
+        total_price += (Number(item.product.price) * item.quantity)
+    })
+
     return (
         cart_loading ?
             <Loading/>
@@ -104,9 +111,9 @@ const CheckOut: NextPage = () => {
                     </div>
                     <div className={styles.checkoutSteps}>
                         <div>
-                        <span>
-                            <CheckoutIcon/>
-                        </span>
+                            <span>
+                                <CheckoutIcon/>
+                            </span>
                             <h5>Shipping</h5>
                         </div>
                         <div>
@@ -186,14 +193,14 @@ const CheckOut: NextPage = () => {
                                 <label htmlFor="radio1">Standard Rate</label>
                                 <div>
                                     <input type="radio" name={'price'} id={"radio1"} value={1} checked={true}/>
-                                    <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you. $21.00</h4> <span>	$21.00</span></div>
+                                    <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${total_price}</span></div>
                                 </div>
                             </div>
                             <div className={styles.radio}>
                                 <label htmlFor="radio2">Pickup from store</label>
                                 <div>
                                     <input type="radio" name={'price'} id={"radio2"} value={1}/>
-                                    <div><h4>1234 Street Address City Address, 1234</h4> <span>	$21.00</span></div>
+                                    <div><h4>1234 Street Address City Address, 1234</h4> <span>	${total_price + 120}</span></div>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +224,7 @@ const CheckOut: NextPage = () => {
                                             <div className={styles.card_body}>
                                                 <h6>{item?.product?.name}</h6>
                                                 <div>
-                                                    <span>Qty: {item?.product?.quantity}</span>
+                                                    <div>Qty: <span>{item?.quantity}</span></div>
                                                     <h6>${item?.product?.price}</h6>
                                                 </div>
                                             </div>
