@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import Image from "next/image";
-import React, {FC, useState} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import {CheckoutIcon} from "static/icons/icon";
@@ -11,6 +11,7 @@ import Accordion from "components/UI/Accordion/Accordion";
 import img from "static/images/products/1.jpg"
 import styles from 'styles/pages/checkout.module.scss'
 import Loading from "components/UI/Loading/Loading";
+import {Context} from "pages/_app";
 
 
 const breadcrumbs = [
@@ -21,6 +22,7 @@ const breadcrumbs = [
 const CheckOut: NextPage = () => {
 
     const { data: cart_products, isLoading: cart_loading } = useFetchCartQuery('')
+    const { authStore } = useContext(Context)
 
     console.log(cart_products)
 
@@ -96,7 +98,9 @@ const CheckOut: NextPage = () => {
                 <div className={styles.header}>
                     <div className={styles.headerLeft}>
                         <h1>Checkout</h1>
-                        <button>Sign In</button>
+                        {
+                            !authStore.isAuth && <button>Sign In</button>
+                        }
                     </div>
                     <div className={styles.checkoutSteps}>
                         <div>

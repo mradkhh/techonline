@@ -78,7 +78,7 @@ export interface IRegionRetrieve {
     name: string,
     tax_price: number,
     shipping_price: number,
-    childs: string
+    childs: IRegion[]
 }
 
 export interface IRegionRetrieveResults {
@@ -107,7 +107,7 @@ export interface IProductsQuery {
     page_size?: number,
     min_price?: number | string,
     max_price?: number | string,
-    brands_ids?: string,
+    brand_ids?: string,
     category_ids?: string,
     colors_ids?: string,
     search?: string,

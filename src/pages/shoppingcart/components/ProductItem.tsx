@@ -5,6 +5,7 @@ import {EditIcon, GrayArrowDownIcon, GrayArrowUpIcon, GrayXIcon} from "static/ic
 import {IProduct, IProductId} from "models/index";
 import img1 from "static/images/products/1.jpg";
 import styles from './ProductItem.module.scss'
+import Loading from "components/UI/Loading/Loading";
 
 interface ProductItemProps {
     product: IProduct,
@@ -22,6 +23,8 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
     const cartQuantity = quantity ? quantity : 0
     const [ amount, setAmount ] = useState<number>(cartQuantity)
 
+    console.log(id)
+
     const handleDelete = () => {
         deleteFromCart(id)
     }
@@ -29,7 +32,7 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
     const handleIncrement = () => {
         if ( (amount) < storageQuantity ) {
             setAmount(state => state + 1)
-            addToCart({ quantity: amount + 1, product: Number(id) })
+            addToCart({ quantity: amount + 1, product: Number(product?.id) })
         }
     }
 
@@ -53,7 +56,7 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
 
     return (
         isLoading ?
-            <h1>Loading...</h1>
+            <Loading/>
             :
             <div key={id} className={styles.tableBody}>
                 <div className={styles.tableImgCell}>

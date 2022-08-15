@@ -60,7 +60,7 @@ const Catalog: NextPage = () => {
     const { data: products, isLoading: product_loading } = useGetAllProductsQuery({
         page_size: Number(showValue),
         page: page,
-        brands_ids: brandId.join(','),
+        brand_ids: brandId.join(','),
         colors_ids: colorId.join(','),
         category_ids: categoryId.join(','),
         min_price: min_price.value,

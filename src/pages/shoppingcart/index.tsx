@@ -1,26 +1,21 @@
 import {NextPage} from "next";
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
 import {Context} from "pages/_app";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import Accordion from "components/UI/Accordion/Accordion";
 import A from "components/UI/A/A";
-import {
-    PartnerLogo,
-    PayPalButtonIcon
-} from "static/icons/icon";
-import {
-    useFetchCartQuery, useFetchClearCartMutation,
-} from "services/CartsService";
+import { PartnerLogo,  PayPalButtonIcon } from "static/icons/icon";
+import { useFetchCartQuery, useFetchClearCartMutation, } from "services/CartsService";
 import ProductItem from "pages/shoppingcart/components/ProductItem";
-import styles from 'styles/pages/shoppingcart.module.scss'
 import TextInput from "components/UI/Inputs/TextInput";
 import {useFetching} from "hooks/useFetching";
 import $api from "services/interseptors";
-import {IRegion, IRegionResults, IRegionRetrieve, IRegionRetrieveResults} from "models/index";
+import {IRegion, IRegionResults, IRegionRetrieve} from "models/index";
 import SelectInput from "components/UI/Inputs/SelectInput";
-import useInput from "hooks/useInput";
 import Loading from "components/UI/Loading/Loading";
+import styles from 'styles/pages/shoppingcart.module.scss'
+
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -30,7 +25,8 @@ const Index: NextPage = () => {
     const [ region, setRegion ] = useState<IRegion[]>([])
     const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
     const { authStore } = useContext(Context)
-    const regionInput = useInput('')
+    const [regionInput, setRegionInput] = useState<string>('')
+    const [regionRetrieveInput, setRegionRetrieveInput] = useState<string>('')
     const {data: cart_results, isLoading: cart_loading} = useFetchCartQuery('')
     const [ clearCart ] = useFetchClearCartMutation()
 
@@ -38,11 +34,19 @@ const Index: NextPage = () => {
         const res = await $api.get<IRegionResults>('regions/')
         setRegion(res.data.results)
     })
-
-    const [ fetchRegionRetrieve ] = useFetching(async () => {
-        const res = await $api.get<IRegionRetrieveResults>(`regions/1/`)
-        setRegionRetrieve(res.data?.results)
+    const [ fetchRegionRetrieve ] = useFetching(async (id: number) => {
+        const res = await $api.get<IRegionRetrieve>(`regions/${id}/`)
+        setRegionRetrieve(res.data)
     })
+
+    const handleSelectOnChange = (e: any) => {
+        fetchRegionRetrieve(Number(e.target.value))
+    }
+
+    const handleSelectOnChange2 = (e: any) => {
+        setRegionInput(e.target.value)
+        fetchRegionRetrieve()
+    }
 
     const handleClearCart = () => {
         clearCart('')
@@ -91,7 +95,29 @@ const Index: NextPage = () => {
                                       <div className={styles.estimate}>
                                           <p>Enter your destination to get a shipping estimate.</p>
                                       </div>
-                                      <SelectInput { ...regionInput } onFocus={handleFocus} options={region} label={'Country'} placeholder={'Country'} type={'text'} require={false}/>
+                                      <SelectInput
+                                          state={regionInput}
+                                          handleChange={handleSelectOnChange}
+                                          onFocus={handleFocus}
+                                          options={region}
+                                          label={'Country'}
+                                          placeholder={'Country'}
+                                          type={'text'}
+                                          require={false}/>
+                                      {
+                                          regionRetrieve?.childs.length ?
+                                          <SelectInput
+                                              state={regionRetrieveInput}
+                                              handleChange={handleSelectOnChange2}
+                                              onFocus={handleFocus}
+                                              options={regionRetrieve?.childs}
+                                              label={''}
+                                              placeholder={'Country'}
+                                              type={'text'}
+                                              require={false}/>
+                                              :
+                                              null
+                                      }
                                       <TextInput label={'State/Province'} placeholder={''} type={'text'} require={false}/>
                                       <TextInput label={'Zip/Postal Code'} placeholder={''} type={'text'} require={false}/>
                                       <div className={styles.radioWrapper}>
@@ -123,7 +149,7 @@ const Index: NextPage = () => {
                                       <p>(Standard Rate - Price may vary depending on the item/destination. TECHS Staff will contact you.)</p>
                                       <h6>Tax <span>${regionRetrieve?.tax_price}</span></h6>
                                       <h6>GST (10%) <span>$1.91</span></h6>
-                                      <h6>Order Total <span>${total_price + Number(regionRetrieve?.shipping_price) + Number(regionRetrieve?.tax_price)}</span></h6>
+                                      <h6>Order Total <span>${total_price + Number(regionRetrieve?.shipping_price)}</span></h6>
                                   </div>
                                   <div className={styles.actionBtns}>
                                       <button>Proceed to Checkout</button>
