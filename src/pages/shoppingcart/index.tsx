@@ -11,10 +11,12 @@ import ProductItem from "pages/shoppingcart/components/ProductItem";
 import TextInput from "components/UI/Inputs/TextInput";
 import {useFetching} from "hooks/useFetching";
 import $api from "services/interseptors";
-import {IRegion, IRegionResults, IRegionRetrieve} from "models/index";
+import {IDiscount, IRegion, IRegionResults, IRegionRetrieve} from "models/index";
 import SelectInput from "components/UI/Inputs/SelectInput";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/shoppingcart.module.scss'
+import useInput from "hooks/useInput";
+import {AxiosResponse} from "axios";
 
 
 const breadcrumbs = [
@@ -24,8 +26,12 @@ const breadcrumbs = [
 const Index: NextPage = () => {
     const [ region, setRegion ] = useState<IRegion[]>([])
     const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
+    const [ regionRetrieveChild, setRegionRetrieveChild ] = useState<IRegionRetrieve>()
+    const discount = useInput('')
+    const [ discountResponse, setDiscountResponse ] = useState<IDiscount>({})
     const { authStore } = useContext(Context)
     const [regionInput, setRegionInput] = useState<string>('')
+    const [regionInputChild, setRegionInputChild] = useState<string>('')
     const [regionRetrieveInput, setRegionRetrieveInput] = useState<string>('')
     const {data: cart_results, isLoading: cart_loading} = useFetchCartQuery('')
     const [ clearCart ] = useFetchClearCartMutation()
@@ -36,18 +42,34 @@ const Index: NextPage = () => {
     })
     const [ fetchRegionRetrieve ] = useFetching(async (id: number) => {
         const res = await $api.get<IRegionRetrieve>(`regions/${id}/`)
-        setRegionRetrieve(res.data)
+        if (!regionRetrieve) {
+            setRegionRetrieve(res.data)
+        }
+        if (regionRetrieve) {
+            setRegionRetrieveChild(res.data)
+        }
     })
 
     const handleSelectOnChange = (e: any) => {
         fetchRegionRetrieve(Number(e.target.value))
+        setRegionInput(e.target.value)
     }
 
     const handleSelectOnChange2 = (e: any) => {
-        setRegionInput(e.target.value)
-        fetchRegionRetrieve()
+        fetchRegionRetrieve(e.target.value)
+        setRegionInputChild(e.target.value)
     }
 
+    const [ fetchDiscount ] = useFetching( async (discount: string) => {
+        const res = await $api.post<IDiscount>('orders/check_discount/', { discount })
+        setDiscountResponse(res.data)
+    })
+
+    const handleDiscount = () => {
+        fetchDiscount(discount.value)
+    }
+
+    console.log(discountResponse)
     const handleClearCart = () => {
         clearCart('')
     }
@@ -60,6 +82,13 @@ const Index: NextPage = () => {
     cart_results?.results.map(item => {
         total_price += (Number(item.product.price) * item.quantity)
     })
+
+    const discount_percentage = discountResponse.discount ? (( 100 - discountResponse.discount) / 100) : 1
+    const subtotal = total_price * discount_percentage
+    const tax_percentage = regionRetrieveChild?.tax_percentage ? regionRetrieveChild?.tax_percentage : regionRetrieve?.tax_percentage ? regionRetrieve?.tax_percentage : 0
+    const tax_price = ((tax_percentage / 100) + 1) * subtotal - subtotal
+    const shipping_price = regionRetrieveChild?.shipping_price ? regionRetrieveChild?.shipping_price : regionRetrieve?.shipping_price ? regionRetrieve?.shipping_price : 0
+    const order_total = (((tax_percentage / 100) + 1) * subtotal ) + shipping_price
 
     return (
           <MainLayout title={"TechOnline - Cart"} description={"cart"} mainClass={'main_shoppingCart'}>
@@ -107,18 +136,20 @@ const Index: NextPage = () => {
                                       {
                                           regionRetrieve?.childs.length ?
                                           <SelectInput
-                                              state={regionRetrieveInput}
+                                              state={regionInputChild}
                                               handleChange={handleSelectOnChange2}
                                               onFocus={handleFocus}
                                               options={regionRetrieve?.childs}
                                               label={''}
-                                              placeholder={'Country'}
+                                              placeholder={''}
                                               type={'text'}
                                               require={false}/>
                                               :
                                               null
                                       }
-                                      <TextInput label={'State/Province'} placeholder={''} type={'text'} require={false}/>
+                                      {
+                                          !regionInputChild.length && <TextInput label={'State/Province'} placeholder={''} type={'text'} require={false}/>
+                                      }
                                       <TextInput label={'Zip/Postal Code'} placeholder={''} type={'text'} require={false}/>
                                       <div className={styles.radioWrapper}>
                                           <div className={styles.radio}>
@@ -139,17 +170,18 @@ const Index: NextPage = () => {
                                   </Accordion>
                                   <Accordion header="Apply Discount Code" className={styles.accordion} headerStyle={styles.accordion_header}>
                                       <div className={styles.apply__discount}>
-                                          <TextInput label={'Enter discount code'} placeholder={"Enter Discount code"} type={'text'} require={false}/>
-                                          <button>Apply Discount</button>
+                                          <TextInput { ...discount } label={'Enter discount code'} placeholder={"Enter Discount code"} type={'text'} require={false}/>
+                                          <button onClick={handleDiscount}>Apply Discount</button>
                                       </div>
                                   </Accordion>
+
                                   <div className={styles.applyInfo}>
-                                      <h6>Subtotal <span>${total_price}</span></h6>
-                                      <h6>Shipping  <span>${regionRetrieve?.shipping_price}</span></h6>
+                                      <h6>Subtotal { discountResponse.discount && <h5>-{discountResponse.discount}%</h5> }  <span>${subtotal.toFixed(2)}</span></h6>
+                                      <h6>Shipping  <span>${shipping_price.toFixed(2)}</span></h6>
                                       <p>(Standard Rate - Price may vary depending on the item/destination. TECHS Staff will contact you.)</p>
-                                      <h6>Tax <span>${regionRetrieve?.tax_price}</span></h6>
-                                      <h6>GST (10%) <span>$1.91</span></h6>
-                                      <h6>Order Total <span>${total_price + Number(regionRetrieve?.shipping_price)}</span></h6>
+                                      <h6>Tax <span>${tax_price.toFixed(2)}</span></h6>
+                                      <h6>GST ({tax_percentage}%) <span>${tax_price.toFixed(2)}</span></h6>
+                                      <h6>Order Total <span>${order_total.toFixed(2)}</span></h6>
                                   </div>
                                   <div className={styles.actionBtns}>
                                       <button>Proceed to Checkout</button>

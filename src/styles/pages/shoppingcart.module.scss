@@ -266,7 +266,18 @@
     > span {
       color: var(--black) !important;
     }
+    > h5 {
+      margin-left: 4px;
+      background-color: var(--green);
+      color: var(--white);
+      font-weight: 500;
+      padding: 4px;
+      border-radius: 100vmax;
+      margin-right: auto;
+    }
   }
+
+
 
   > p {
     @include maxWidth(300);

@@ -72,9 +72,13 @@ export interface IRegionResults {
 export interface IRegionRetrieve {
     id: number,
     name: string,
-    tax_price: number,
+    tax_percentage: number,
     shipping_price: number,
     childs: IRegion[]
+}
+
+export interface IDiscount {
+    discount: number,
 }
 
 export interface IRegionRetrieveResults {

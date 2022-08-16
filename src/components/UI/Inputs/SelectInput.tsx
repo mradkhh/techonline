@@ -40,7 +40,7 @@ const SelectInput: FC<SelectInputProps> = ({ label,
            <div className={styles.field}>
                <label htmlFor="">{label}</label>
                <select value={state} onChange={handleChange} onFocus={onFocus} name="" id="">
-                   <option defaultValue={''} selected={true}>select...</option>
+                   <option defaultValue={''}>select...</option>
                    {
                        options && options.map(item =>
                            <option key={item.id} value={item?.id}>{item?.name}</option>
