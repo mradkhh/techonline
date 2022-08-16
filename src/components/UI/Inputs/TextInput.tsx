@@ -11,6 +11,7 @@ interface TextInputProps {
     radioName?: string,
     error?: boolean,
     setError?: (bool: boolean) => void,
+    errorText?: string
 }
 
 const TextInput: FC<TextInputProps> = ({ label,
@@ -20,7 +21,7 @@ const TextInput: FC<TextInputProps> = ({ label,
                                            radioValue,
                                            radioName,
                                            error,
-                                           setError,
+                                           setError, errorText,
                                            ...props
 }) => {
 
@@ -39,7 +40,7 @@ const TextInput: FC<TextInputProps> = ({ label,
                 { (label && type !== 'radio') &&
                     <label htmlFor="label">{label}<span>{ require && '*' } </span></label> }
                 {(error) &&
-                    <span style={{color: 'var(--red)'}}>Xato</span>}
+                    <span style={{color: 'var(--red)'}}>{ errorText ? errorText : 'Require' }</span>}
             </div>
             {
                 type === 'text' ?

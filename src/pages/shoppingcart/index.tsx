@@ -48,7 +48,7 @@ const Index: NextPage = () => {
         const res = await $api.get<IRegionRetrieve>(`regions/${id}/`)
         setRegionRetrieveChild(res.data)
     })
-    
+
     const resetShipping = () => {
         setRegionInputChild('')
         setDiscountResponse({} as IDiscount)

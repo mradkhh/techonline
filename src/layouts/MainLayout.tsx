@@ -46,6 +46,9 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
         if (!registerConfirmPassword.value) {
             setConfirmPasswordRegisterError(true)
         }
+        if (registerPassword.value.length !== registerConfirmPassword.value.length) {
+            setConfirmPasswordRegisterError(true)
+        }
     }
 
     useEffect(() => {
@@ -71,6 +74,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         require={true}
                         error={usernameRegisterError}
                         setError={setUsernameRegisterError}
+                        errorText={"username noto\'g\'ri"}
                     />
                     <TextInput
                         {...registerPassword}
@@ -89,6 +93,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         require={true}
                         error={confirmPasswordError}
                         setError={setConfirmPasswordRegisterError}
+                        errorText={"Parol mos emas"}
                     />
                     <div>
                         <button
