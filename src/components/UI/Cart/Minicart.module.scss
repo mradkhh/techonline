@@ -52,6 +52,7 @@
 
     > h4 {
       @include maxWidth(150);
+      @include line-clamp-vertical(2);
       font-weight: 400;
       font-size: 13px;
       line-height: 20px;

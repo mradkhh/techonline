@@ -40,7 +40,7 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
         const MIN_QUANTITY = 1
         if ( (amount) > MIN_QUANTITY ) {
             setAmount(state => state - 1)
-            addToCart({ quantity: amount - 1, product: Number(id) })
+            addToCart({ quantity: amount - 1, product: Number(product?.id) })
         } else if ((amount === MIN_QUANTITY))  {
             setAmount(state => state - 1)
             deleteFromCart(id)

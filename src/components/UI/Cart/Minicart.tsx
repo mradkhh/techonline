@@ -58,7 +58,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
                                             src={product?.product_img?.image ? product?.product_img?.image : Img}
                                             alt="item"
                                         />
-                                        <h4>{product?.name}</h4>
+                                        <h4>{product?.short_desc}</h4>
                                         <div>
                                             <button onClick={() => handleDelete(id)}>
                                                 <GrayXIcon/>

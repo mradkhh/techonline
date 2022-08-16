@@ -16,7 +16,6 @@ import SelectInput from "components/UI/Inputs/SelectInput";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/shoppingcart.module.scss'
 import useInput from "hooks/useInput";
-import {AxiosResponse} from "axios";
 
 
 const breadcrumbs = [
@@ -42,21 +41,29 @@ const Index: NextPage = () => {
     })
     const [ fetchRegionRetrieve ] = useFetching(async (id: number) => {
         const res = await $api.get<IRegionRetrieve>(`regions/${id}/`)
-        if (!regionRetrieve) {
-            setRegionRetrieve(res.data)
-        }
-        if (regionRetrieve) {
-            setRegionRetrieveChild(res.data)
-        }
+        setRegionRetrieve(res.data)
     })
 
+    const [ fetchRegionRetrieveChild ] = useFetching(async (id: number) => {
+        const res = await $api.get<IRegionRetrieve>(`regions/${id}/`)
+        setRegionRetrieveChild(res.data)
+    })
+    
+    const resetShipping = () => {
+        setRegionInputChild('')
+        setDiscountResponse({} as IDiscount)
+        setRegionRetrieveChild({} as IRegionRetrieve)
+        discount.setValue('')
+    }
+
     const handleSelectOnChange = (e: any) => {
+        resetShipping()
         fetchRegionRetrieve(Number(e.target.value))
         setRegionInput(e.target.value)
     }
 
     const handleSelectOnChange2 = (e: any) => {
-        fetchRegionRetrieve(e.target.value)
+        fetchRegionRetrieveChild(e.target.value)
         setRegionInputChild(e.target.value)
     }
 
