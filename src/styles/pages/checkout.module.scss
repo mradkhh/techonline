@@ -202,6 +202,7 @@
 
 
 .summary {
+  @include maxWidth(446);
   padding: 18px 32px;
   background-color: var(--light-blue);
   margin-top: 40px;

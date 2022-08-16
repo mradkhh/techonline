@@ -23,7 +23,7 @@ interface ProductCardProps {
     price: string,
     discountPrice: number,
     id: number,
-    rating: number,
+    rating?: number,
     reviews?: number
 }
 
@@ -143,7 +143,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                     <div  className={styles.body}>
                         <div className={styles.rating}>
                             <div className={styles.star}>
-                                <Star rating={rating} />
+                                <Star rating={rating ? rating : 0} />
                             </div>
                             <span>Reviews ({reviews ? reviews : 0})</span>
                         </div>

@@ -222,7 +222,7 @@ const CheckOut: NextPage = () => {
                                                 />
                                             </div>
                                             <div className={styles.card_body}>
-                                                <h6>{item?.product?.name}</h6>
+                                                <h6>{item?.product?.short_desc}</h6>
                                                 <div>
                                                     <div>Qty: <span>{item?.quantity}</span></div>
                                                     <h6>${item?.product?.price}</h6>
