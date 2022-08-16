@@ -56,7 +56,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(true)
         fetchCategoryId(id)
-    }, [showMenu, matches, fetchCategoryId, id])
+    }, [showMenu, matches, fetchCategoryId, showMenu])
 
     const avatarRef = createRef<HTMLDivElement>()
     const cartRef = createRef<HTMLDivElement>()
