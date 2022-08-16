@@ -40,7 +40,7 @@ const TextInput: FC<TextInputProps> = ({ label,
                 { (label && type !== 'radio') &&
                     <label htmlFor="label">{label}<span>{ require && '*' } </span></label> }
                 {(error) &&
-                    <span style={{color: 'var(--red)'}}>{ errorText ? errorText : 'Require' }</span>}
+                    <span style={{color: 'var(--red)'}}>{ errorText }</span>}
             </div>
             {
                 type === 'text' ?

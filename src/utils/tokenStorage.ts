@@ -9,6 +9,13 @@ export const nextLocalStorage = (): Storage | undefined => {
     }
 }
 
+export const nextSessionStorage = (): Storage | undefined => {
+    if (typeof window !== 'undefined') {
+        return window.sessionStorage
+    } else {
+        return  undefined
+    }
+}
 
 export const getAccessToken = () => {
     return nextLocalStorage()?.getItem(ACCESS_KEY)
@@ -33,4 +40,13 @@ export const removeAccessToken = () => {
 export const removeRefreshToken = () => {
     return nextLocalStorage()?.removeItem(REFRESH_KEY)
 }
+
+export const setSessionStorage = (name: string, value: string) => {
+    return nextSessionStorage()?.setItem(name ,value)
+}
+
+export const getSessionStorage = (name: string) => {
+    return nextSessionStorage()?.getItem(name)
+}
+
 

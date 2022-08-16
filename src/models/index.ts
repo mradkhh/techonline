@@ -79,6 +79,7 @@ export interface IRegionRetrieve {
 
 export interface IDiscount {
     discount: number,
+    msg?: string
 }
 
 export interface IRegionRetrieveResults {

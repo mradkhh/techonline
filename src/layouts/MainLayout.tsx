@@ -51,6 +51,8 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
         }
     }
 
+
+    console.log(authStore.errorText, "ssdasd")
     useEffect(() => {
         window.addEventListener('scroll', () => {
             window.pageYOffset > 100 ? setScrollToUp(true) : setScrollToUp(false)
@@ -74,7 +76,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         require={true}
                         error={usernameRegisterError}
                         setError={setUsernameRegisterError}
-                        errorText={"username noto\'g\'ri"}
+                        errorText={"Username noto\'g\'ri"}
                     />
                     <TextInput
                         {...registerPassword}
@@ -84,6 +86,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         require={true}
                         error={passwordRegisterError}
                         setError={setPasswordRegisterError}
+                        errorText={"Parol 3ta belgidan kam bo\'lmasligi kerak"}
                     />
                     <TextInput
                         {...registerConfirmPassword}
@@ -93,8 +96,11 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         require={true}
                         error={confirmPasswordError}
                         setError={setConfirmPasswordRegisterError}
-                        errorText={"Parol mos emas"}
+                        errorText={"Parol mos emass"}
                     />
+                    {
+                        authStore.errorText && authStore.errorText
+                    }
                     <div>
                         <button
                             type="submit">Create</button>

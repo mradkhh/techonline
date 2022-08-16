@@ -14,8 +14,9 @@ import $api from "services/interseptors";
 import {IDiscount, IRegion, IRegionResults, IRegionRetrieve} from "models/index";
 import SelectInput from "components/UI/Inputs/SelectInput";
 import Loading from "components/UI/Loading/Loading";
-import styles from 'styles/pages/shoppingcart.module.scss'
 import useInput from "hooks/useInput";
+import styles from 'styles/pages/shoppingcart.module.scss'
+import {getSessionStorage, setSessionStorage} from "utils/tokenStorage";
 
 
 const breadcrumbs = [
@@ -23,6 +24,9 @@ const breadcrumbs = [
 ]
 
 const Index: NextPage = () => {
+
+    // error validation
+    const [ discountError, setDiscountError ] = useState<boolean>(false)
     const [ region, setRegion ] = useState<IRegion[]>([])
     const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
     const [ regionRetrieveChild, setRegionRetrieveChild ] = useState<IRegionRetrieve>()
@@ -67,22 +71,32 @@ const Index: NextPage = () => {
         setRegionInputChild(e.target.value)
     }
 
-    const [ fetchDiscount ] = useFetching( async (discount: string) => {
+    const [ fetchDiscount, discountIsLoading, errorDiscount ] = useFetching( async (discount: string) => {
         const res = await $api.post<IDiscount>('orders/check_discount/', { discount })
         setDiscountResponse(res.data)
     })
 
     const handleDiscount = () => {
         fetchDiscount(discount.value)
+        !discountResponse.discount ? setDiscountError(true) : setDiscountError(false)
     }
-
-    console.log(discountResponse)
     const handleClearCart = () => {
         clearCart('')
     }
 
     const handleFocus = () => {
         fetchRegion()
+    }
+
+    const region_id = regionInputChild ? regionInputChild : regionInput ? regionInput : undefined
+
+    const checkout_data = {
+        discount: discount.value,
+        region_id: region_id
+    }
+
+    const handleCheckout = () => {
+        setSessionStorage('order_summary', JSON.stringify(checkout_data))
     }
 
     let total_price = 0;
@@ -177,7 +191,14 @@ const Index: NextPage = () => {
                                   </Accordion>
                                   <Accordion header="Apply Discount Code" className={styles.accordion} headerStyle={styles.accordion_header}>
                                       <div className={styles.apply__discount}>
-                                          <TextInput { ...discount } label={'Enter discount code'} placeholder={"Enter Discount code"} type={'text'} require={false}/>
+                                          <TextInput
+                                              { ...discount }
+                                              error={!!discountResponse?.msg}
+                                              errorText={discountResponse?.msg ? discountResponse?.msg : ''}
+                                              label={'Enter discount code'}
+                                              placeholder={"Enter Discount code"}
+                                              type={'text'}
+                                              require={false}/>
                                           <button onClick={handleDiscount}>Apply Discount</button>
                                       </div>
                                   </Accordion>
@@ -191,7 +212,7 @@ const Index: NextPage = () => {
                                       <h6>Order Total <span>${order_total.toFixed(2)}</span></h6>
                                   </div>
                                   <div className={styles.actionBtns}>
-                                      <button>Proceed to Checkout</button>
+                                      <button onClick={handleCheckout}>Proceed to Checkout</button>
                                       <button>Check out with <PayPalButtonIcon/></button>
                                       <button>Check Out with Multiple Addresses</button>
                                   </div>

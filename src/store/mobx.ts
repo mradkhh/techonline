@@ -17,6 +17,7 @@ export default class AuthStore {
     isLoading = false
     showModal = false
     errorStatus = 200
+    errorText = ''
 
     constructor() {
         makeAutoObservable(this)
@@ -37,6 +38,9 @@ export default class AuthStore {
     setErrorStatus(num: number) {
         this.errorStatus = num
     }
+    setErrorText(str: string) {
+        this.errorText = str
+    }
     async login(username: string, password: string) {
         this.setLoading(true)
         try {
@@ -47,7 +51,9 @@ export default class AuthStore {
             this.setAuth(true)
             window.location.href = '/'
         } catch (e: any) {
+            alert(e.response.data.detail)
             this.setErrorStatus(e.response.status)
+            this.setErrorText(e.response.message)
         } finally {
             this.setLoading(false)
         }
@@ -63,8 +69,8 @@ export default class AuthStore {
             this.setAuth(true)
             this.setLoading(false)
         } catch (e: any) {
-            console.log(e.message)
-            this.setErrorStatus(e.response.status)
+            alert(e.response.data.message)
+            this.setErrorText(e.response.data.message)
         }
     }
 
