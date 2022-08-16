@@ -28,7 +28,7 @@ const Index: NextPage = () => {
     const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
     const [ regionRetrieveChild, setRegionRetrieveChild ] = useState<IRegionRetrieve>()
     const discount = useInput('')
-    const [ discountResponse, setDiscountResponse ] = useState<IDiscount>({})
+    const [ discountResponse, setDiscountResponse ] = useState<IDiscount>({} as IDiscount)
     const { authStore } = useContext(Context)
     const [regionInput, setRegionInput] = useState<string>('')
     const [regionInputChild, setRegionInputChild] = useState<string>('')
