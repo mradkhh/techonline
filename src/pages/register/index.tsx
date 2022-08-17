@@ -23,13 +23,13 @@ const Register: NextPage = () => {
 
     const handleLoginSubmit = (e: any) => {
         e.preventDefault()
-        if(loginUsername.value && loginPassword.value) {
+        if(loginUsername.value.length >= 3 && loginPassword.value.length >= 3) {
             authStore.login(loginUsername.value, loginPassword.value)
         }
-        if (!loginUsername.value) {
+        if (loginUsername.value.length < 3 ) {
             setUsernameLoginError(true)
         }
-        if (!loginPassword.value) {
+        if (loginPassword.value.length < 3) {
             setPasswordLoginError(true)
         }
     }
@@ -60,6 +60,7 @@ const Register: NextPage = () => {
                                 require={true}
                                 error={usernameLoginError}
                                 setError={setUsernameLoginError}
+                                errorText={"lotin harflarda va 3 ta belgidan kam bo'lmasligi kerak"}
                             />
                             <TextInput
                                 {...loginPassword}
@@ -69,6 +70,7 @@ const Register: NextPage = () => {
                                 require={true}
                                 error={passwordLoginError}
                                 setError={setPasswordLoginError}
+                                errorText={"3ta belgidan kam bo'lmasligi kerak"}
                             />
                                 <div className={styles.status}>
                                     { status === 401 && 'username yoki parol noto\'g\'ri terilgan' }
