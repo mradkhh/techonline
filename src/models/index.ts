@@ -16,23 +16,7 @@ export interface IColors {
     }[]
 }
 
-export interface IProduct {
-    id: number,
-    name: string,
-    price: string,
-    discount: number,
-    product_img: {
-        image: string | undefined
-    } | null,
-    brand: number,
-    category: number,
-    is_stock: boolean,
-    short_desc: string,
-    viewer?: string,
-    rating?: number,
-    quantity?: number,
-    reviews?: number
-}
+
 
 export interface IProductId {
     id: number
@@ -113,6 +97,24 @@ export interface IProductsQuery {
     colors_ids?: string,
     search?: string,
     ordering?: number | string
+}
+
+export interface IProduct {
+    id: number,
+    name: string,
+    price: string,
+    discount: number,
+    product_img: {
+        image: string | undefined
+    } | null,
+    brand: number,
+    category: number,
+    is_stock: boolean,
+    short_desc: string,
+    viewer?: string,
+    rating?: number,
+    quantity?: number,
+    reviews?: number
 }
 
  export interface ICategories {

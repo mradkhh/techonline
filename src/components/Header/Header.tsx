@@ -19,6 +19,7 @@ import {useFetchCartQuery} from "services/CartsService";
 import {AuthResponse} from "models/response/AuthResponse";
 import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
 import styles from './Header.module.scss'
+import Loading from 'components/UI/Loading/Loading';
 
 
 interface HeaderProps {

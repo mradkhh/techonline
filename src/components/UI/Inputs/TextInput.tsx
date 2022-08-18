@@ -1,4 +1,4 @@
-import React, {createRef, FC, useContext, useEffect} from 'react';
+import React, {createRef, FC, memo, useContext, useEffect} from 'react';
 import styles from './styles/TextInput.module.scss'
 import {Context} from "pages/_app";
 
@@ -96,4 +96,4 @@ const TextInput: FC<TextInputProps> = ({ label,
     );
 };
 
-export default TextInput;
+export default memo(TextInput);

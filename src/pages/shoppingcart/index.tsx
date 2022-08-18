@@ -17,6 +17,7 @@ import Loading from "components/UI/Loading/Loading";
 import useInput from "hooks/useInput";
 import styles from 'styles/pages/shoppingcart.module.scss'
 import {getSessionStorage, setSessionStorage} from "utils/tokenStorage";
+import {convertNumbers} from "../../helpers/helpers";
 
 
 const breadcrumbs = [
@@ -25,12 +26,16 @@ const breadcrumbs = [
 
 const Index: NextPage = () => {
 
-    // error validation
+    // =--------------------------- error validation ---------------------=
     const [ discountError, setDiscountError ] = useState<boolean>(false)
+    const [ postalCodeError, setPostalCodeError ] = useState<boolean>(false)
+
+
     const [ region, setRegion ] = useState<IRegion[]>([])
     const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
     const [ regionRetrieveChild, setRegionRetrieveChild ] = useState<IRegionRetrieve>()
     const discount = useInput('')
+    const postal_code = useInput('')
     const [ discountResponse, setDiscountResponse ] = useState<IDiscount>({} as IDiscount)
     const { authStore } = useContext(Context)
     const [regionInput, setRegionInput] = useState<string>('')
@@ -99,18 +104,21 @@ const Index: NextPage = () => {
         setSessionStorage('order_summary', JSON.stringify(checkout_data))
     }
 
+    // =------------------- calc product's total price --------------------=
     let total_price = 0;
     cart_results?.results.map(item => {
         total_price += (Number(item.product.price) * item.quantity)
     })
 
+    // =--------------------  calc order total --------------------------=
     const discount_percentage = discountResponse.discount ? (( 100 - discountResponse.discount) / 100) : 1
     const subtotal = total_price * discount_percentage
     const tax_percentage = regionRetrieveChild?.tax_percentage ? regionRetrieveChild?.tax_percentage : regionRetrieve?.tax_percentage ? regionRetrieve?.tax_percentage : 0
-    const tax_price = ((tax_percentage / 100) + 1) * subtotal - subtotal
+    const tax_price = (((tax_percentage) / 100) + 1) * (total_price === 0 ? 1 : total_price) - total_price
     const shipping_price = regionRetrieveChild?.shipping_price ? regionRetrieveChild?.shipping_price : regionRetrieve?.shipping_price ? regionRetrieve?.shipping_price : 0
-    const order_total = (((tax_percentage / 100) + 1) * subtotal ) + shipping_price
+    const order_total = discountResponse.discount !> 100 ? (((tax_percentage / 100) + 1) * (subtotal === 0 ? subtotal : 1) ) + shipping_price : tax_price + shipping_price + subtotal
 
+    console.log(convertNumbers(order_total))
     return (
           <MainLayout title={"TechOnline - Cart"} description={"cart"} mainClass={'main_shoppingCart'}>
               <Breadcrumbs array={breadcrumbs} current="Login"/>
@@ -171,12 +179,20 @@ const Index: NextPage = () => {
                                       {
                                           !regionInputChild.length && <TextInput label={'State/Province'} placeholder={''} type={'text'} require={false}/>
                                       }
-                                      <TextInput label={'Zip/Postal Code'} placeholder={''} type={'text'} require={false}/>
+                                      <TextInput
+                                          { ...postal_code }
+                                          label={'Zip/Postal Code'}
+                                          placeholder={''}
+                                          type={'text'}
+                                          error={postalCodeError}
+                                          setError={setPostalCodeError}
+                                          errorText={"mavjud emas"}
+                                          require={false}/>
                                       <div className={styles.radioWrapper}>
                                           <div className={styles.radio}>
                                               <label htmlFor="radio1">Standard Rate</label>
                                               <div>
-                                                  <input type="radio" name={'price'} id={"radio1"} value={1} checked={true}/>
+                                                  <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
                                                   <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you. $21.00</h4></div>
                                               </div>
                                           </div>

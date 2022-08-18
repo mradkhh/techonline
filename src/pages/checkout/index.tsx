@@ -21,10 +21,8 @@ const breadcrumbs = [
 
 const CheckOut: NextPage = () => {
 
-    const { data: cart_products, isLoading: cart_loading } = useFetchCartQuery('')
     const { authStore } = useContext(Context)
-
-    console.log(cart_products)
+    const { data: cart_products, isLoading: cart_loading } = useFetchCartQuery('')
 
     // =--------------- error states ----------------------=
     const [ emailError, setEmailError ] = useState<boolean>(false)
@@ -52,7 +50,7 @@ const CheckOut: NextPage = () => {
     const phoneNumber = useInput('')
 
 
-    // =----------------- submit ----------------------=
+    // =----------------- submit and validations ----------------------=
     const handleSubmit = (e: any) => {
         e.preventDefault()
         if (email.value && firstname.value && lastname.value && company.value && street.value && city.value && province.value && postalCode.value && country.value && phoneNumber.value) {
@@ -91,6 +89,7 @@ const CheckOut: NextPage = () => {
 
 
 
+    // =------------------- calc total price ------------------=
     let total_price = 0;
     cart_products?.results.map(item => {
         total_price += (Number(item.product.price) * item.quantity)

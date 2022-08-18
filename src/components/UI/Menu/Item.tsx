@@ -32,53 +32,53 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
     })
 
     return (
-                <div onClick={() => handleClick(item.id)} key={item?.id} className={styles.childMenu}>
-                    <div
-                        style={{backgroundColor: show ? 'var(--light-blue)' : 'var(--white)'}}
-                        onClick={handleFetch}
-                        className={styles.menuItem} >
-                        {item?.name}
-                        <div
-                            id={`${item.id}`}
-                            className={`${styles.arrow} ${show && styles.motion} ${!show && styles.motion_down} menuList`}>
-                            <ArrowDown/>
-                        </div>
-                    </div>
-                    <div className={styles.insideMenu}>
-                        <div ref={itemRef}>
-                            {
-                                show && <div>
-                                    {
-                                        data && data?.childs?.map(item => {
-                                            return <Item
-                                                 key={item.id}
-                                                 id={item.id}
-                                                 item={item}
-                                                 handleClick={handleClick}
-                                                 setArrowMotion={setArrowMotion}
-                                                 arrowMotion={arrowMotion}
-                                                 />
-                                        })
-                                    }
-                                </div>
-                            }
-                        </div>
-                            {
-                                data && show && data?.products && data?.products?.map(item => {
-                                        return <ProductCard
-                                                    rating={5}
-                                                    id={item.id}
-                                                    key={item.id}
-                                                    image={item?.product_img?.image}
-                                                    title={item.short_desc}
-                                                    price={item.price}
-                                                    discountPrice={item.discount}
-                                                    isInStock={item.is_stock}
-                                                />
-                                    })
-                            }
-                    </div>
+        <div onClick={() => handleClick(item.id)} key={item?.id} className={styles.childMenu}>
+            <div
+                style={{backgroundColor: show ? 'var(--light-blue)' : 'var(--white)'}}
+                onClick={handleFetch}
+                className={styles.menuItem} >
+                {item?.name}
+                <div
+                    id={`${item.id}`}
+                    className={`${styles.arrow} ${show && styles.motion} ${!show && styles.motion_down} menuList`}>
+                    <ArrowDown/>
                 </div>
+            </div>
+        <div className={styles.insideMenu}>
+            <div ref={itemRef}>
+                {
+                    show && <div>
+                        {
+                            data && data?.childs?.map(item => {
+                                return <Item
+                                    key={item.id}
+                                    id={item.id}
+                                    item={item}
+                                    handleClick={handleClick}
+                                    setArrowMotion={setArrowMotion}
+                                    arrowMotion={arrowMotion}
+                                />
+                            })
+                        }
+                    </div>
+                }
+            {
+                data && show && data?.products && data?.products?.map(item => {
+                    return <ProductCard
+                        rating={5}
+                        id={item.id}
+                        key={item.id}
+                        image={item?.product_img?.image}
+                        title={item.short_desc}
+                        price={item.price}
+                        discountPrice={item.discount}
+                        isInStock={item.is_stock}
+                    />
+                })
+            }
+            </div>
+        </div>
+        </div>
     );
 };
 

@@ -10,6 +10,7 @@ import Modal from "components/UI/Modal/Modal";
 import useInput from "hooks/useInput";
 import {Context} from "pages/_app";
 import styles from "./styles/main.module.scss";
+import Loading from 'components/UI/Loading/Loading';
 
 interface MainLayoutProps {
     children: ReactNode,
@@ -20,6 +21,7 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, mainClass}) => {
     const [ scrollToUp, setScrollToUp ] = useState<boolean>(false)
+    const [ loading, setLoading ] = useState<boolean>(true)
 
     const { data: categories } = useFetchAllCategoriesQuery('')
     const { authStore } = useContext(Context)
@@ -54,6 +56,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
 
     console.log(authStore.errorText, "ssdasd")
     useEffect(() => {
+        setLoading(false)
         window.addEventListener('scroll', () => {
             window.pageYOffset > 100 ? setScrollToUp(true) : setScrollToUp(false)
         })
@@ -130,11 +133,12 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                 </div>
             </main>
             {
-                scrollToUp && <div
-                                onClick={() => window.scrollTo(0, 0)}
-                                className={styles.arrowUp}>
-                                    <ArrowDown/>
-                                </div>
+                scrollToUp &&
+                <div
+                    onClick={() => window.scrollTo(0, 0)}
+                    className={styles.arrowUp}>
+                    <ArrowDown/>
+                </div>
             }
             <Footer/>
         </>

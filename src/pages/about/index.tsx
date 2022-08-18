@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import React from 'react';
+import React, { useState } from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import img1 from "static/images/about/1.png"
