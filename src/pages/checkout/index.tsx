@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import Image from "next/image";
-import React, {FC, useContext, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import {CheckoutIcon} from "static/icons/icon";
@@ -9,12 +9,13 @@ import useInput from "hooks/useInput";
 import {useFetchCartQuery} from "services/CartsService";
 import Accordion from "components/UI/Accordion/Accordion";
 import img from "static/images/products/1.jpg"
-import styles from 'styles/pages/checkout.module.scss'
 import Loading from "components/UI/Loading/Loading";
 import {Context} from "pages/_app";
 import {useFetching} from "hooks/useFetching";
 import $api from "services/interseptors";
 import {AxiosResponse} from "axios";
+import styles from 'styles/pages/checkout.module.scss'
+import A from "components/UI/A/A";
 
 
 const breadcrumbs = [
@@ -122,8 +123,6 @@ const CheckOut: NextPage = () => {
     }
 
 
-    console.log(phoneNumber.value)
-
 
     // =------------------- calc total price ------------------=
     let total_price = 0;
@@ -131,155 +130,173 @@ const CheckOut: NextPage = () => {
         total_price += (Number(item.product.price) * item.quantity)
     })
 
+    const [ loading, setLoading ] = useState<boolean>(true)
+
+    useEffect(() => {
+        setLoading(false)
+    }, [])
+
     return (
-        cart_loading ?
+        loading ?
             <Loading/>
             :
             <MainLayout title={"TechOnline - Checkout"} description={"checkout"} mainClass={"main_checkout"}>
                 <Breadcrumbs array={breadcrumbs} current="Checkout progress"/>
-                <div className={styles.header}>
-                    <div className={styles.headerLeft}>
-                        <h1>Checkout</h1>
-                        {
-                            !authStore.isAuth && <button>Sign In</button>
-                        }
-                    </div>
-                    <div className={styles.checkoutSteps}>
-                        <div>
+                {
+                    authStore.isAuth ?
+                        cart_loading ?
+                            <Loading/>
+                            :
+                        <>
+                            <div className={styles.header}>
+                                <div className={styles.headerLeft}>
+                                    <h1>Checkout</h1>
+                                    {
+                                        !authStore.isAuth && <button>Sign In</button>
+                                    }
+                                </div>
+                                <div className={styles.checkoutSteps}>
+                                    <div>
                             <span>
                                 <CheckoutIcon/>
                             </span>
-                            <h5>Shipping</h5>
-                        </div>
-                        <div>
-                            <span>2</span>
-                            <h5>Review & Payments</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.content}>
-                    <form onSubmit={handleSubmit} className={styles.formField}>
-                        <div className={styles.contentTitle}>
-                            <h2>Shipping Address</h2>
-                        </div>
-                        <div className={styles.form}>
-                            <TextInput
-                                {...email}
-                                error={emailError}
-                                setError={setEmailError}
-                                errorText={"elektron pochta noto\'g\'ri"}
-                                label={"Email Address"} placeholder={"Email Address"} type={"email"} require={true}/>
-                            <p>You can create an account after checkout.</p>
-                            <div className={styles.mainForm}>
-                                <TextInput
-                                    {...firstname}
-                                    error={firstnameError}
-                                    setError={setFirstnameError}
-                                    errorText={"firstname noto\'g\'ri"}
-                                    label={"First Name"} placeholder={"First Name"} type={"text"} require={true}/>
-                                <TextInput
-                                    {...lastname}
-                                    error={lastnameError}
-                                    setError={setLastnameError}
-                                    errorText={"lastname noto\'g\'ri"}
-                                    label={"Last Name"} placeholder={"Last Name"} type={"text"} require={true}/>
-                                <TextInput
-                                    {...company}
-                                    error={companyError}
-                                    setError={setCompanyError}
-                                    errorText={"company noto\'g\'ri"}
-                                    label={"Company"} placeholder={"Company"} type={"text"}/>
-                                <TextInput
-                                    {...street}
-                                    error={streetError}
-                                    setError={setStreetError}
-                                    errorText={"address noto\'g\'ri"}
-                                    label={"Street Address"} placeholder={"Street Address"} type={"text"} require={true}/>
-                                <div className={styles.marginNot}>
-                                    <TextInput
-                                        {...home}
-                                        label={""} placeholder={""} type={"text"} require={false}/>
-                                </div>
-                                <TextInput
-                                    {...city}
-                                    error={cityError}
-                                    setError={setCityError}
-                                    errorText={"city noto\'g\'ri"}
-                                    label={"City"} placeholder={"City"} type={"text"}/>
-                                <TextInput
-                                    {...province}
-                                    error={provinceError}
-                                    setError={setProvinceError}
-                                    errorText={"state noto\'g\'ri"}
-                                    label={"State/Province"} placeholder={"State/Province"} type={"text"}/>
-                                <TextInput
-                                    {...postalCode}
-                                    error={postalCodeError}
-                                    setError={setPostalCodeError}
-                                    errorText={"postal code noto\'g\'ri"}
-                                    label={"Zip/Postal Code"} placeholder={"Zip/Postal Code"} type={"text"}/>
-                                <TextInput
-                                    {...country}
-                                    error={countryError}
-                                    setError={setCountryError}
-                                    errorText={"country noto\'g\'ri"}
-                                    label={"Country"} placeholder={"Country *"} type={"text"}/>
-                                <TextInput
-                                    {...phoneNumber}
-                                    error={phoneNumberError}
-                                    setError={setPhoneNumber}
-                                    errorText={"phone number noto\'g\'ri"}
-                                    label={"Phone Number"} placeholder={"93-933-99-37"} type={"tel"}/>
-                            </div>
-                        </div>
-                        <div className={styles.radioWrapper}>
-                            <div className={styles.radio}>
-                                <label htmlFor="radio1">Standard Rate</label>
-                                <div>
-                                    <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
-                                    <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${total_price + 21}</span></div>
+                                        <h5>Shipping</h5>
+                                    </div>
+                                    <div>
+                                        <span>2</span>
+                                        <h5>Review & Payments</h5>
+                                    </div>
                                 </div>
                             </div>
-                            <div className={styles.radio}>
-                                <label htmlFor="radio2">Pickup from store</label>
-                                <div>
-                                    <input type="radio" name={'price'} id={"radio2"} value={1}/>
-                                    <div><h4>1234 Street Address City Address, 1234</h4> <span>	${total_price}</span></div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type='submit'>Next</button>
-                    </form>
-                    <div className={styles.summary}>
-                        <h2>Order Summary</h2>
-                        <Accordion header={`${cart_products?.results.length} Items in Cart`} className={styles.accordion} headerStyle={styles.accordion_header}>
-                            <div className={styles.accordion__summary}>
-                                {
-                                    cart_products && cart_products.results?.map(item =>
-                                        <div key={item?.id} className={styles.card}>
-                                            <div className={styles.card_img}>
-                                                <Image
-                                                    width={62}
-                                                    height={62}
-                                                    alt="cart"
-                                                    src={item?.product?.product_img?.image ? item?.product?.product_img?.image : img}
-                                                />
+                            <div className={styles.content}>
+                                <form onSubmit={handleSubmit} className={styles.formField}>
+                                    <div className={styles.contentTitle}>
+                                        <h2>Shipping Address</h2>
+                                    </div>
+                                    <div className={styles.form}>
+                                        <TextInput
+                                            {...email}
+                                            error={emailError}
+                                            setError={setEmailError}
+                                            errorText={"elektron pochta noto\'g\'ri"}
+                                            label={"Email Address"} placeholder={"Email Address"} type={"email"} require={true}/>
+                                        <p>You can create an account after checkout.</p>
+                                        <div className={styles.mainForm}>
+                                            <TextInput
+                                                {...firstname}
+                                                error={firstnameError}
+                                                setError={setFirstnameError}
+                                                errorText={"firstname noto\'g\'ri"}
+                                                label={"First Name"} placeholder={"First Name"} type={"text"} require={true}/>
+                                            <TextInput
+                                                {...lastname}
+                                                error={lastnameError}
+                                                setError={setLastnameError}
+                                                errorText={"lastname noto\'g\'ri"}
+                                                label={"Last Name"} placeholder={"Last Name"} type={"text"} require={true}/>
+                                            <TextInput
+                                                {...company}
+                                                error={companyError}
+                                                setError={setCompanyError}
+                                                errorText={"company noto\'g\'ri"}
+                                                label={"Company"} placeholder={"Company"} type={"text"}/>
+                                            <TextInput
+                                                {...street}
+                                                error={streetError}
+                                                setError={setStreetError}
+                                                errorText={"address noto\'g\'ri"}
+                                                label={"Street Address"} placeholder={"Street Address"} type={"text"} require={true}/>
+                                            <div className={styles.marginNot}>
+                                                <TextInput
+                                                    {...home}
+                                                    label={""} placeholder={""} type={"text"} require={false}/>
                                             </div>
-                                            <div className={styles.card_body}>
-                                                <h6>{item?.product?.short_desc}</h6>
-                                                <div>
-                                                    <div>Qty: <span>{item?.quantity}</span></div>
-                                                    <h6>${item?.product?.price}</h6>
-                                                </div>
+                                            <TextInput
+                                                {...city}
+                                                error={cityError}
+                                                setError={setCityError}
+                                                errorText={"city noto\'g\'ri"}
+                                                label={"City"} placeholder={"City"} type={"text"}/>
+                                            <TextInput
+                                                {...province}
+                                                error={provinceError}
+                                                setError={setProvinceError}
+                                                errorText={"state noto\'g\'ri"}
+                                                label={"State/Province"} placeholder={"State/Province"} type={"text"}/>
+                                            <TextInput
+                                                {...postalCode}
+                                                error={postalCodeError}
+                                                setError={setPostalCodeError}
+                                                errorText={"postal code noto\'g\'ri"}
+                                                label={"Zip/Postal Code"} placeholder={"Zip/Postal Code"} type={"text"}/>
+                                            <TextInput
+                                                {...country}
+                                                error={countryError}
+                                                setError={setCountryError}
+                                                errorText={"country noto\'g\'ri"}
+                                                label={"Country"} placeholder={"Country *"} type={"text"}/>
+                                            <TextInput
+                                                {...phoneNumber}
+                                                error={phoneNumberError}
+                                                setError={setPhoneNumber}
+                                                errorText={"phone number noto\'g\'ri"}
+                                                label={"Phone Number"} placeholder={"93-933-99-37"} type={"tel"}/>
+                                        </div>
+                                    </div>
+                                    <div className={styles.radioWrapper}>
+                                        <div className={styles.radio}>
+                                            <label htmlFor="radio1">Standard Rate</label>
+                                            <div>
+                                                <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
+                                                <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${total_price + 21}</span></div>
                                             </div>
                                         </div>
-                                    )
-                                }
+                                        <div className={styles.radio}>
+                                            <label htmlFor="radio2">Pickup from store</label>
+                                            <div>
+                                                <input type="radio" name={'price'} id={"radio2"} value={1}/>
+                                                <div><h4>1234 Street Address City Address, 1234</h4> <span>	${total_price}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type='submit'>Next</button>
+                                </form>
+                                <div className={styles.summary}>
+                                    <h2>Order Summary</h2>
+                                    <Accordion header={`${cart_products?.results.length} Items in Cart`} className={styles.accordion} headerStyle={styles.accordion_header}>
+                                        <div className={styles.accordion__summary}>
+                                            {
+                                                cart_products && cart_products.results?.map(item =>
+                                                    <div key={item?.id} className={styles.card}>
+                                                        <div className={styles.card_img}>
+                                                            <Image
+                                                                width={62}
+                                                                height={62}
+                                                                alt="cart"
+                                                                src={item?.product?.product_img?.image ? item?.product?.product_img?.image : img}
+                                                            />
+                                                        </div>
+                                                        <div className={styles.card_body}>
+                                                            <h6>{item?.product?.short_desc}</h6>
+                                                            <div>
+                                                                <div>Qty: <span>{item?.quantity}</span></div>
+                                                                <h6>${item?.product?.price}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+                                    </Accordion>
+                                </div>
                             </div>
-                        </Accordion>
-                    </div>
-                </div>
+                        </>
+                        :
+                        <section className={styles.notAuth}>
+                            <h1>Not Found</h1>
+                            <A href={'/register'}>Registration</A>
+                        </section>
+                }
             </MainLayout>
     );
 };

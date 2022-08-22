@@ -24,13 +24,19 @@
 }
 
 .tableTitle {
-  padding-inline: 24px;
-  padding-block: 32px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  @media (max-width: $breakpoint992) {
-    padding-right: 0;
+    padding-inline: 24px;
+    padding-block: 32px;
+  > a {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    @media (max-width: $breakpoint992) {
+      padding-right: 0;
+    }
+
+    &:hover {
+      color: var(--brand);
+    }
   }
 }
 

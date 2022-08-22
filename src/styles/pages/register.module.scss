@@ -85,6 +85,10 @@
   > button {
     @include primaryButton;
     margin-top: 36px;
+
+    > span {
+      @include spinner;
+    }
   }
 }
 

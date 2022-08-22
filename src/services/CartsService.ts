@@ -52,6 +52,7 @@ export const clearCart = () => async (dispatch: AppDispatch) => {
     }
 }
 
+
 export const cartApi = createApi({
     reducerPath: 'cartApi',
     baseQuery: fetchBaseQuery({baseUrl: API_URL}) as BaseQueryFn<string | FetchArgs, unknown, CustomError>,

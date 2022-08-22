@@ -16,7 +16,7 @@ export default class AuthStore {
     isAuth = !!(getAccessToken())
     isLoading = false
     showModal = false
-    errorStatus = 200
+    errorStatus = false
     errorText = ''
 
     constructor() {
@@ -35,8 +35,8 @@ export default class AuthStore {
         this.showModal = bool
     }
 
-    setErrorStatus(num: number) {
-        this.errorStatus = num
+    setErrorStatus(bool: boolean) {
+        this.errorStatus = true
     }
     setErrorText(str: string) {
         this.errorText = str

@@ -178,9 +178,10 @@ const Product: NextPage = () => {
                                                     product && product?.product_images.map(item =>
                                                         <SwiperSlide key={item.id}>
                                                             <Image
-                                                                width={300}
+                                                                width={500}
                                                                 height={444}
                                                                 alt="product"
+                                                                objectFit={"cover"}
                                                                 src={item.image}
                                                             />
                                                         </SwiperSlide>

@@ -6,6 +6,7 @@ import {IProduct, IProductId} from "models/index";
 import img1 from "static/images/products/1.jpg";
 import styles from './ProductItem.module.scss'
 import Loading from "components/UI/Loading/Loading";
+import A from "components/UI/A/A";
 
 interface ProductItemProps {
     product: IProduct,
@@ -23,9 +24,6 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
     const cartQuantity = quantity ? quantity : 0
     const [ amount, setAmount ] = useState<number>(cartQuantity)
 
-
-    console.log("Success: ", deleteSuccess)
-    console.log("Loading: ", deleteLoading)
     const handleDelete = () => {
         deleteFromCart(id)
     }
@@ -69,7 +67,9 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
                         />
                     </div>
                     <div className={styles.tableTitle}>
-                        { product?.short_desc }
+                        <A href={`/product/${product?.id}`} >
+                            { product?.short_desc }
+                        </A>
                     </div>
                 </div>
                 <div className={styles.tableInfo}>

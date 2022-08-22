@@ -400,3 +400,32 @@ $breakpoint480: 479.98 + px;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@mixin spinner {
+  .spinner {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: inline-block;
+    border: 3px solid var(--white);
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0);
+    }
+    50% {
+      transform: rotate(180deg);
+      border-top-color: var(--blue);
+      border-bottom-color: var(--white);
+      border-right-color: transparent;
+      border-left-color: transparent;
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
