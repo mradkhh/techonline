@@ -71,6 +71,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
             <Header categories={categories?.results}/>
             <Modal>
                 <form onSubmit={handleRegisterSubmit} className={styles.form}>
+                    <h1>Registration</h1>
                     <TextInput
                         {...registerUsername}
                         label={"Username"}

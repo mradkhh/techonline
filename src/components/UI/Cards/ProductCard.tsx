@@ -1,4 +1,4 @@
-import React, {createRef, FC, memo} from 'react';
+import React, {createRef, FC, memo, useContext} from 'react';
 import Image from "next/image";
 import {
     FavoriteIcon,
@@ -14,6 +14,7 @@ import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
 import {useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
 import A from "components/UI/A/A";
+import {Context} from "pages/_app";
 
 
 interface ProductCardProps {
@@ -112,6 +113,7 @@ const ProductCard: FC<ProductCardProps> = ({ id,
 
     const [fetchAddToCart, {}] = useFetchAddToCartMutation()
     const matches = useMediaQuery("(min-width: 992px)")
+    const { authStore } = useContext(Context)
     const widthImg = matches ? 150 : 100
     const { data: cart_products } = useFetchCartQuery('')
     const is_in_cart = cart_products?.results?.find(item => (item?.product?.id === Number(id)))
@@ -119,7 +121,11 @@ const ProductCard: FC<ProductCardProps> = ({ id,
 
 
     const handleAddToCart = () => {
-        !is_in_cart && fetchAddToCart({quantity: 1, product: id})
+         if (authStore.isAuth) {
+             !is_in_cart && fetchAddToCart({quantity: 1, product: id})
+         } else {
+             authStore.setShowModal(true)
+         }
     }
 
 

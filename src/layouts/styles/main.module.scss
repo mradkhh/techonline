@@ -49,6 +49,9 @@
 }
 
 .form {
+  > h1 {
+    margin-bottom: 24px;
+  }
   > div:last-child {
     @include flex-center(flex-start);
     gap: 24px;

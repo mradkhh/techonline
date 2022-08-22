@@ -59,7 +59,7 @@ const CheckOut: NextPage = () => {
         fname: any,
         lname: any,
         company: any,
-        street_address: any,
+        // street_address: any,
         region_id: any,
         zip_code: any,
         is_standard: any,
@@ -75,7 +75,7 @@ const CheckOut: NextPage = () => {
             fname,
             lname,
             company,
-            street_address,
+            // street_address,
             phone_number
         })
         setCheckoutResp(res)
@@ -90,7 +90,6 @@ const CheckOut: NextPage = () => {
             lastname.value.length >= 4 &&
             company.value.length >= 4 &&
             street.value.length >= 4 &&
-            city.value.length >= 4 &&
             province.value.length >= 4 &&
             postalCode.value.length === 6 &&
             country.value.length >= 3 &&
@@ -101,7 +100,7 @@ const CheckOut: NextPage = () => {
                 firstname.value,
                 lastname.value,
                 company.value,
-                street.value,
+                // street.value,
                 checkout_data.region_id,
                 checkout_data.zip_code,
                 checkout_data.is_standard,
