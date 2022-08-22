@@ -48,9 +48,9 @@ const Register: NextPage = () => {
         authStore.setShowModal(true)
     }
 
-    useEffect(() => {
-        setStatus(authStore.errorStatus)
-    }, [authStore.errorStatus, refresh])
+    // useEffect(() => {
+    //     setStatus(authStore.errorStatus)
+    // }, [refresh])
 
 
     const [ loading, setLoading ] = useState<boolean>(true)
@@ -92,12 +92,6 @@ const Register: NextPage = () => {
                                 setError={setPasswordLoginError}
                                 errorText={"3ta belgidan kam bo'lmasligi kerak"}
                             />
-                            {
-                                status &&
-                                    <div className={styles.status}>
-                                        username yoki parol noto&apos;g&apos;ri terilgan
-                                    </div>
-                            }
                             <div>
                                 <button type="submit">Sign In</button>
                                 <A href="/">Forgot Your Password?</A>
