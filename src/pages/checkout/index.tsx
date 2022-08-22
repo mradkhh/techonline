@@ -23,7 +23,7 @@ const breadcrumbs = [
     { path: '/', text: 'Shopping Cart' }
 ]
 
-const CheckOut: NextPage = () => {
+const CheckOut: NextPage = ({ checkout_data } : any) => {
 
     const { authStore } = useContext(Context)
     const [ checkoutResp, setCheckoutResp ] = useState<any>()
@@ -53,6 +53,10 @@ const CheckOut: NextPage = () => {
     const postalCode = useInput('')
     const country = useInput('')
     const phoneNumber = useInput('')
+
+
+    const checkout_dataJSON = getSessionStorage('checkout') ?? ''
+    // const checkout_data = JSON.parse(checkout_dataJSON)
 
     const [fetchCheckout] = useFetching( async (
         email: any,
@@ -145,9 +149,6 @@ const CheckOut: NextPage = () => {
     cart_products?.results.map(item => {
         total_price += (Number(item.product.price) * item.quantity)
     })
-
-    const checkout_dataJSON = getSessionStorage('checkout') ?? ''
-    const checkout_data = JSON.parse(checkout_dataJSON)
 
     console.log(checkout_data)
     const [ loading, setLoading ] = useState<boolean>(true)
@@ -321,5 +322,17 @@ const CheckOut: NextPage = () => {
             </MainLayout>
     );
 };
+
+export async function getStaticProps() {
+
+    const checkout_dataJSON = getSessionStorage('checkout') ?? ''
+    const checkout_data = JSON.parse(checkout_dataJSON)
+
+    return {
+        props: {
+            checkout_data,
+        },
+    }
+}
 
 export default CheckOut;
