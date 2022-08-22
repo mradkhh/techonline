@@ -21,7 +21,7 @@ const Register: NextPage = () => {
     const [ submitLoading, setSubmitLoading ] = useState<boolean>(false)
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
-    // const [ status, setStatus ] = useState<number>(authStore.errorStatus)
+    const [ status, setStatus ] = useState<boolean>(authStore.errorStatus)
     const { login_error } = useAppSelector(state => state.validates)
     // const [ fetchLogin, { isLoading: loginLoading,  isSuccess: loginSuccess, isUninitialized , error , isError  } ] = useFetchLoginMutation()
 
@@ -49,7 +49,7 @@ const Register: NextPage = () => {
     }
 
     useEffect(() => {
-        // setStatus(authStore.errorStatus)
+        setStatus(authStore.errorStatus)
     }, [authStore.errorStatus, refresh])
 
 
@@ -92,9 +92,12 @@ const Register: NextPage = () => {
                                 setError={setPasswordLoginError}
                                 errorText={"3ta belgidan kam bo'lmasligi kerak"}
                             />
-                            <div className={styles.status}>
-                                { status === 401 && 'username yoki parol noto\'g\'ri terilgan' }
-                            </div>
+                            {
+                                status &&
+                                    <div className={styles.status}>
+                                        username yoki parol noto&apos;g&apos;ri terilgan
+                                    </div>
+                            }
                             <div>
                                 <button type="submit">Sign In</button>
                                 <A href="/">Forgot Your Password?</A>
