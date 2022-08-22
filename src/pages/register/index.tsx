@@ -21,7 +21,7 @@ const Register: NextPage = () => {
     const [ submitLoading, setSubmitLoading ] = useState<boolean>(false)
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
-    const [ status, setStatus ] = useState<number>(authStore.errorStatus)
+    // const [ status, setStatus ] = useState<number>(authStore.errorStatus)
     const { login_error } = useAppSelector(state => state.validates)
     // const [ fetchLogin, { isLoading: loginLoading,  isSuccess: loginSuccess, isUninitialized , error , isError  } ] = useFetchLoginMutation()
 
@@ -49,8 +49,7 @@ const Register: NextPage = () => {
     }
 
     useEffect(() => {
-        setStatus(authStore.errorStatus)
-        console.log(status)
+        // setStatus(authStore.errorStatus)
     }, [authStore.errorStatus, refresh])
 
 
