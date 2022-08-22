@@ -7,6 +7,8 @@ import A from "components/UI/A/A";
 import {Context} from "pages/_app";
 import useInput from "hooks/useInput";
 import styles from 'styles/pages/register.module.scss'
+import {useAppSelector} from "hooks/redux";
+import Loading from "components/UI/Loading/Loading";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -17,6 +19,7 @@ const Register: NextPage = () => {
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
     const [ status, setStatus ] = useState<number>(authStore.errorStatus)
+    const { login_error } = useAppSelector(state => state.validates)
 
     const loginUsername = useInput('')
     const loginPassword = useInput('')
@@ -42,12 +45,22 @@ const Register: NextPage = () => {
         setStatus(authStore.errorStatus)
     }, [status, authStore.errorStatus])
 
+
+    const [ loading, setLoading ] = useState<boolean>(true)
+
+    useEffect(() => {
+        setLoading(false)
+    }, [])
+
     return (
-        <>
+        loading ?
+            <Loading/>
+            :
             <MainLayout title="TechOnline - Registration" description="contact" mainClass="main_register">
                 <Breadcrumbs array={breadcrumbs} current="Login"/>
                 <div className={styles.title}>Customer Login</div>
                 <div className={styles.field}>
+                    { login_error }
                     <div className={styles.sign}>
                         <h3>Registered Customers</h3>
                         <p>If you have an account, sign in with your email address.</p>
@@ -72,9 +85,9 @@ const Register: NextPage = () => {
                                 setError={setPasswordLoginError}
                                 errorText={"3ta belgidan kam bo'lmasligi kerak"}
                             />
-                                <div className={styles.status}>
-                                    { status === 401 && 'username yoki parol noto\'g\'ri terilgan' }
-                                </div>
+                            <div className={styles.status}>
+                                { status === 401 && 'username yoki parol noto\'g\'ri terilgan' }
+                            </div>
                             <div>
                                 <button type="submit">Sign In</button>
                                 <A href="/">Forgot Your Password?</A>
@@ -97,8 +110,6 @@ const Register: NextPage = () => {
                 </div>
 
             </MainLayout>
-
-        </>
     );
 };
 

@@ -20,7 +20,7 @@
 
 .menu {
   @include flex-start(flex-start);
-  flex-direction: column;
+  //flex-direction: column;
   background-color: var(--white);
   min-height: 410px;
 

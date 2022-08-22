@@ -152,13 +152,15 @@
 }
 
 .actionBtns {
+
+  >a {
+    @include primaryButton;
+    margin-bottom: 12px;
+  }
   > button {
     @include flex-center(center);
     width: 100%;
     margin-bottom: 12px;
-  }
-  > :first-child {
-    @include primaryButton;
   }
 
   > :nth-child(2) {

@@ -1,10 +1,14 @@
 import React, {createRef, FC, useState} from 'react';
 import {ICategories} from "models/index";
 import {ArrowDown} from "static/icons/icon";
-import {useFetchCategoryByIdQuery} from "services/CategoriesService";
 import styles from './Item.module.scss'
 import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
 import ProductCard from "components/UI/Cards/ProductCard";
+import { useFetching } from 'hooks/useFetching';
+import {useAppDispatch, useAppSelector} from 'hooks/redux';
+import { API_URL } from 'services/interseptors';
+import axios from 'axios';
+import {categoriesSlice} from 'store/reducers/categoriesSlice';
 
 interface ItemProps {
     id: number,
@@ -17,14 +21,22 @@ interface ItemProps {
 const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, id }) => {
 
     const [ show, setShow ] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const { categories } = useAppSelector(state => state.categories)
 
     const itemRef = createRef<HTMLDivElement>()
-    const { data } = useFetchCategoryByIdQuery(id)
 
-    console.log(data)
+    const { fetching, fetchingError, fetchingSuccessCategories } = categoriesSlice.actions
+
+    const [ fetchCategoryId ] = useFetching(async (id: number) => {
+        const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
+        const data = res?.data
+        dispatch(fetchingSuccessCategories(data))
+    })
 
     const handleFetch = () => {
         setShow(!show)
+        fetchCategoryId(id)
     }
 
     useMousedownClickInvisible(itemRef, () => {
@@ -49,12 +61,12 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
                 {
                     show && <div>
                         {
-                            data && data?.childs?.map(item => {
+                            categories && categories?.childs?.map(item => {
                                 return <Item
                                     key={item.id}
                                     id={item.id}
                                     item={item}
-                                    handleClick={handleClick}
+                                    handleClick={()=> handleClick(item.id)}
                                     setArrowMotion={setArrowMotion}
                                     arrowMotion={arrowMotion}
                                 />
@@ -63,7 +75,7 @@ const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, i
                     </div>
                 }
             {
-                data && show && data?.products && data?.products?.map(item => {
+                categories && show && categories?.products && categories?.products?.map(item => {
                     return <ProductCard
                         rating={5}
                         id={item.id}

@@ -70,8 +70,72 @@
   //transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
+// =------------- loading ----------------=
+.loading {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1234;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero {
+  position: relative;
+  -webkit-box-reflect: below -12 linear-gradient(transparent, rgba(255, 255, 255, 0.2));
 
-// collapse
+  > span {
+    position: relative;
+    display: inline-block;
+    font-size: 2rem;
+    text-transform: uppercase;
+    animation: hero 1s ease-in-out infinite;
+    -webkit-animation: hero_loading 1s ease-in-out infinite;
+  }
+
+  > .span1 {
+    animation-delay: calc(0.1s * 1);
+  }
+  > .span2 {
+    animation-delay: calc(0.1s * 2);
+  }
+  > .span3 {
+    animation-delay: calc(0.1s * 3);
+  }
+  > .span4 {
+    animation-delay: calc(0.1s * 4);
+  }
+  > .span5 {
+    animation-delay: calc(0.1s * 5);
+  }
+  > .span6 {
+    animation-delay: calc(0.1s * 6);
+  }
+  > .span7 {
+    animation-delay: calc(0.1s * 7);
+  }
+  > .span8 {
+    animation-delay: calc(0.1s * 8);
+  }
+  > .span9 {
+    animation-delay: calc(0.1s * 9);
+  }
+  > .span10 {
+    animation-delay: calc(0.1s * 10);
+  }
+}
+
+@keyframes hero_loading {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-20px);
+  }
+}
+
+  // collapse
 .collapse  {
   background-color: white;
   width:600px;

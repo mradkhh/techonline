@@ -191,15 +191,15 @@ const CheckOut: NextPage = () => {
                             <div className={styles.radio}>
                                 <label htmlFor="radio1">Standard Rate</label>
                                 <div>
-                                    <input type="radio" name={'price'} id={"radio1"} value={1} checked={true}/>
-                                    <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${total_price}</span></div>
+                                    <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
+                                    <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${total_price + 21}</span></div>
                                 </div>
                             </div>
                             <div className={styles.radio}>
                                 <label htmlFor="radio2">Pickup from store</label>
                                 <div>
                                     <input type="radio" name={'price'} id={"radio2"} value={1}/>
-                                    <div><h4>1234 Street Address City Address, 1234</h4> <span>	${total_price + 120}</span></div>
+                                    <div><h4>1234 Street Address City Address, 1234</h4> <span>	${total_price}</span></div>
                                 </div>
                             </div>
                         </div>

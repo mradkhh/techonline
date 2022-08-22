@@ -19,8 +19,6 @@ import {useFetchCartQuery} from "services/CartsService";
 import {AuthResponse} from "models/response/AuthResponse";
 import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
 import styles from './Header.module.scss'
-import Loading from 'components/UI/Loading/Loading';
-
 
 interface HeaderProps {
     categories?: ICategories[]
@@ -83,20 +81,12 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     }, [isLoading, error])
 
     useEffect(() => {
-
-        if (matches) {
-            setShowMobileMenu(true)
-        } else  {
-            return
-        }
+        matches ? setShowMobileMenu(true) : null
     }, [matches])
 
+
     useEffect(() => {
-        if (search) {
-            window.document.body.style.overflow = 'hidden'
-        } else {
-            window.document.body.style.overflow = 'unset'
-        }
+        search ? window.document.body.style.overflow = 'hidden' : window.document.body.style.overflow = 'unset'
     }, [search])
 
     return (

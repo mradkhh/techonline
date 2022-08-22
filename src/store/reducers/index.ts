@@ -1,6 +1,8 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import favoritesSliceReducer from "store/reducers/favoritesSlice";
 import cartsSliceReducer from "store/reducers/cartSlice";
+import categoriesSliceReducer from "./categoriesSlice";
+import validatesSliceReducer from "store/reducers/ValidateSlice";
 import {productApi} from "services/ProductService";
 import {brandsApi} from "services/BrandsService";
 import {categoriesApi} from "services/CategoriesService";
@@ -11,6 +13,8 @@ import {colorsApi} from "services/ColorService";
 export const rootReducer = combineReducers({
     carts: cartsSliceReducer,
     favorites: favoritesSliceReducer,
+    categories: categoriesSliceReducer,
+    validates: validatesSliceReducer,
     [productApi.reducerPath]: productApi.reducer,
     [brandsApi.reducerPath]: brandsApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
