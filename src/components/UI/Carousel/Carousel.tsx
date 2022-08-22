@@ -17,9 +17,9 @@ interface CarouselProps {
 }
 
 const breakpointSlider = {
-    320: {
-        slidesPerGroup: 2,
-        slidesPerView: 2,
+    400: {
+        slidesPerGroup: 1,
+        slidesPerView: 1,
         spaceBetween: 12
     },
     480: {
@@ -52,9 +52,9 @@ const breakpointBanner = {
 }
 
 const breakpointCategory = {
-    320: {
+    400: {
         slidesPerGroup: 1,
-        slidesPerView: 2,
+        slidesPerView: 1,
         spaceBetween: 12
     },
     568: {

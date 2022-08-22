@@ -86,8 +86,9 @@
   gap: 24px;
   margin-bottom: 32px;
   @media (max-width: $breakpoint768) {
-    display: block;
-    justify-content: center;
+    display: block !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 }
 

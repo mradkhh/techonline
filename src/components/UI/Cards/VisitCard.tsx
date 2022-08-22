@@ -14,7 +14,7 @@ interface VisitCardProps {
 const VisitCard: FC<VisitCardProps> = ({ title, href, img }) => {
 
     const matches = useMediaQuery("(max-width: 768px)")
-    const imgHeight = matches ? 150 : 350
+    const imgHeight = matches ? 240 : 350
     const imgWidth = matches ? 768 : 230
     return (
         <div className={styles.card}>

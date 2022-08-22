@@ -31,7 +31,7 @@ $breakpoint480: 479.98 + px;
   }
   @media (max-width: $breakpoint568) {
     max-width: none;
-    padding-inline: 14px;
+    padding-inline: 8px !important;
   }
 }
 

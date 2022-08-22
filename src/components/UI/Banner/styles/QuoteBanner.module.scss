@@ -64,5 +64,6 @@
 
   > button {
     @include outlineBtn;
+    background-color: transparent;
   }
 }

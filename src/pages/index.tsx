@@ -207,7 +207,7 @@ const Index: NextPage = () => {
                               href='/'
                               img={msiImg}
                           />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} >
+                          <Carousel type='items' autoplay={false} button={false} loop={true} >
                               {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>

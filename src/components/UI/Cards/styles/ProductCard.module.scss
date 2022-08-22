@@ -3,10 +3,10 @@
 .card {
   position: relative;
   @include maxWidth(234);
-  min-width: 220px;
-  isolation: isolate;
+  min-width: 200px;
   margin-bottom: 16px;
   min-height: 400px;
+  margin-inline: auto;
 
   &:hover {
     > div:last-child {
@@ -66,6 +66,7 @@
     font-size: 13px;
     line-height: 20px;
     margin-bottom: 10px;
+    padding: 2px;
     @include line-clamp(3, vertical);
 
     @media (max-width: $breakpoint568) {
