@@ -12,6 +12,9 @@ import img from "static/images/products/1.jpg"
 import styles from 'styles/pages/checkout.module.scss'
 import Loading from "components/UI/Loading/Loading";
 import {Context} from "pages/_app";
+import {useFetching} from "hooks/useFetching";
+import $api from "services/interseptors";
+import {AxiosResponse} from "axios";
 
 
 const breadcrumbs = [
@@ -22,6 +25,7 @@ const breadcrumbs = [
 const CheckOut: NextPage = () => {
 
     const { authStore } = useContext(Context)
+    const [ checkoutResp, setCheckoutResp ] = useState<any>()
     const { data: cart_products, isLoading: cart_loading } = useFetchCartQuery('')
 
     // =--------------- error states ----------------------=
@@ -49,12 +53,41 @@ const CheckOut: NextPage = () => {
     const country = useInput('')
     const phoneNumber = useInput('')
 
+    const [fetchCheckout] = useFetching( async (email: any, firstname: any, lastname: any, company: any, street: any,
+    home: any, city: any, province: any, postal_code: any, country: any, phone_number: any
+    ) => {
+        const res = $api.post<AxiosResponse>('orders/', {
+            email,
+            firstname,
+            lastname,
+            company,
+            street,
+            home,
+            city,
+            province,
+            postal_code,
+            country,
+            phone_number
+        })
+        setCheckoutResp(res)
+    })
+
 
     // =----------------- submit and validations ----------------------=
     const handleSubmit = (e: any) => {
         e.preventDefault()
-        if (email.value && firstname.value && lastname.value && company.value && street.value && city.value && province.value && postalCode.value && country.value && phoneNumber.value) {
+        if (email.value.length >= 4 &&
+            firstname.value.length >= 4 &&
+            lastname.value.length >= 4 &&
+            company.value.length >= 4 &&
+            street.value.length >= 4 &&
+            city.value.length >= 4 &&
+            province.value.length >= 4 &&
+            postalCode.value.length === 6 &&
+            country.value.length >= 3 &&
+            phoneNumber.value.length >= 4) {
             // fetch logic
+            fetchCheckout(email.value, firstname.value, lastname.value, company.value, street.value, home.value, city.value, province.value, postalCode.value, country.value, phoneNumber.value)
         }
         if (!email.value) {
             setEmailError(true)
@@ -77,16 +110,19 @@ const CheckOut: NextPage = () => {
         if (!province.value) {
             setProvinceError(true)
         }
-        if(!postalCode.value) {
+        if(!postalCode.value || postalCode.value.length !== 6) {
             setPostalCodeError(true)
         }
         if(!country.value) {
             setCountryError(true)
         }
-        if (!phoneNumber.value) {}
+        if (!phoneNumber.value) {
         setPhoneNumber(true)
+        }
     }
 
+
+    console.log(phoneNumber.value)
 
 
     // =------------------- calc total price ------------------=
@@ -132,6 +168,7 @@ const CheckOut: NextPage = () => {
                                 {...email}
                                 error={emailError}
                                 setError={setEmailError}
+                                errorText={"elektron pochta noto\'g\'ri"}
                                 label={"Email Address"} placeholder={"Email Address"} type={"email"} require={true}/>
                             <p>You can create an account after checkout.</p>
                             <div className={styles.mainForm}>
@@ -139,21 +176,25 @@ const CheckOut: NextPage = () => {
                                     {...firstname}
                                     error={firstnameError}
                                     setError={setFirstnameError}
+                                    errorText={"firstname noto\'g\'ri"}
                                     label={"First Name"} placeholder={"First Name"} type={"text"} require={true}/>
                                 <TextInput
                                     {...lastname}
                                     error={lastnameError}
                                     setError={setLastnameError}
+                                    errorText={"lastname noto\'g\'ri"}
                                     label={"Last Name"} placeholder={"Last Name"} type={"text"} require={true}/>
                                 <TextInput
                                     {...company}
                                     error={companyError}
                                     setError={setCompanyError}
+                                    errorText={"company noto\'g\'ri"}
                                     label={"Company"} placeholder={"Company"} type={"text"}/>
                                 <TextInput
                                     {...street}
                                     error={streetError}
                                     setError={setStreetError}
+                                    errorText={"address noto\'g\'ri"}
                                     label={"Street Address"} placeholder={"Street Address"} type={"text"} require={true}/>
                                 <div className={styles.marginNot}>
                                     <TextInput
@@ -164,27 +205,32 @@ const CheckOut: NextPage = () => {
                                     {...city}
                                     error={cityError}
                                     setError={setCityError}
+                                    errorText={"city noto\'g\'ri"}
                                     label={"City"} placeholder={"City"} type={"text"}/>
                                 <TextInput
                                     {...province}
                                     error={provinceError}
                                     setError={setProvinceError}
+                                    errorText={"state noto\'g\'ri"}
                                     label={"State/Province"} placeholder={"State/Province"} type={"text"}/>
                                 <TextInput
                                     {...postalCode}
                                     error={postalCodeError}
                                     setError={setPostalCodeError}
+                                    errorText={"postal code noto\'g\'ri"}
                                     label={"Zip/Postal Code"} placeholder={"Zip/Postal Code"} type={"text"}/>
                                 <TextInput
                                     {...country}
                                     error={countryError}
                                     setError={setCountryError}
+                                    errorText={"country noto\'g\'ri"}
                                     label={"Country"} placeholder={"Country *"} type={"text"}/>
                                 <TextInput
                                     {...phoneNumber}
                                     error={phoneNumberError}
                                     setError={setPhoneNumber}
-                                    label={"Phone Number"} placeholder={"Phone Number"} type={"text"}/>
+                                    errorText={"phone number noto\'g\'ri"}
+                                    label={"Phone Number"} placeholder={"93-933-99-37"} type={"tel"}/>
                             </div>
                         </div>
                         <div className={styles.radioWrapper}>

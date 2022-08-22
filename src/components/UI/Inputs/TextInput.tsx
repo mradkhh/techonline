@@ -68,6 +68,15 @@ const TextInput: FC<TextInputProps> = ({ label,
                                            animation: (error) ? 'light 500ms ease' : '' }}
                                        type="email"
                                        placeholder={placeholder}/>
+                            :
+                            type === 'tel' ?
+                                <input {...props}
+                                       onFocus={handleFocus}
+                                       style={{
+                                           border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                                           animation: (error) ? 'light 500ms ease' : '' }}
+                                       type="tell"
+                                       placeholder={placeholder}/>
                              :
                             type === 'textarea' ?
                                     <textarea

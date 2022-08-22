@@ -188,3 +188,16 @@ button {
     border: 1px solid var(--red);
   }
 }
+
+// =--------------- cart product item delete animation ------------=
+@keyframes scale {
+    100% {
+      transform: scale(0.9);
+    }
+}
+
+@keyframes left-anim {
+  100% {
+    transform: translateX(-300px);
+  }
+}

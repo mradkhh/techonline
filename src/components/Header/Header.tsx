@@ -74,6 +74,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                     .then(res => {
                         setAccessToken(res.data?.access)
                     })
+                window.location.reload()
             } catch (e: any) {
                 console.log(e.message)
             }

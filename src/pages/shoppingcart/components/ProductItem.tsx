@@ -17,14 +17,15 @@ interface ProductItemProps {
 
 const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading }) => {
 
-    const [ deleteFromCart ] = useFetchRemoveFromCartMutation()
+    const [ deleteFromCart,   { isLoading: deleteLoading, isSuccess: deleteSuccess }  ] = useFetchRemoveFromCartMutation()
     const [ addToCart ] = useFetchAddToCartMutation()
     const storageQuantity = product?.quantity ? product?.quantity : 0
     const cartQuantity = quantity ? quantity : 0
     const [ amount, setAmount ] = useState<number>(cartQuantity)
 
-    console.log(id)
 
+    console.log("Success: ", deleteSuccess)
+    console.log("Loading: ", deleteLoading)
     const handleDelete = () => {
         deleteFromCart(id)
     }
@@ -55,10 +56,7 @@ const ProductItem: FC<ProductItemProps> = ({ product ,  quantity, id, isLoading 
 
 
     return (
-        isLoading ?
-            <Loading/>
-            :
-            <div key={id} className={styles.tableBody}>
+            <div style={{transform: deleteLoading ? 'scale(0.9)' : deleteSuccess ? 'translateX(-10000px)' : '', transition: 'all 200ms'}} key={id} className={styles.tableBody}>
                 <div className={styles.tableImgCell}>
                     <div className={styles.tableImg}>
                         <Image

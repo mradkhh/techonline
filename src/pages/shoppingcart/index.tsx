@@ -114,8 +114,8 @@ const Index: NextPage = () => {
     const shipping_price = regionRetrieveChild?.shipping_price ? regionRetrieveChild?.shipping_price : regionRetrieve?.shipping_price ? regionRetrieve?.shipping_price : 0
     const order_total = discountResponse.discount !> 100 ? (((tax_percentage / 100) + 1) * (subtotal === 0 ? subtotal : 1) ) + shipping_price : tax_price + shipping_price + subtotal
 
+    // =---------------- page loading effect ------------------=
     const [ loading, setLoading ] = useState<boolean>(true)
-
     useEffect(() => {
         setLoading(false)
     }, [])
@@ -258,7 +258,3 @@ const Index: NextPage = () => {
 };
 
 export default Index;
-
-function _(_: any, arg1: () => void) {
-    throw new Error("Function not implemented.");
-}
