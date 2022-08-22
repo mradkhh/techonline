@@ -8,15 +8,15 @@ import TextInput from "components/UI/Inputs/TextInput";
 import useInput from "hooks/useInput";
 import {useFetchCartQuery} from "services/CartsService";
 import Accordion from "components/UI/Accordion/Accordion";
-import img from "static/images/products/1.jpg"
 import Loading from "components/UI/Loading/Loading";
 import {Context} from "pages/_app";
 import {useFetching} from "hooks/useFetching";
 import $api from "services/interseptors";
 import {AxiosResponse} from "axios";
-import styles from 'styles/pages/checkout.module.scss'
 import A from "components/UI/A/A";
-
+import {getSessionStorage} from "utils/tokenStorage";
+import img from "static/images/products/1.jpg"
+import styles from 'styles/pages/checkout.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
@@ -54,20 +54,28 @@ const CheckOut: NextPage = () => {
     const country = useInput('')
     const phoneNumber = useInput('')
 
-    const [fetchCheckout] = useFetching( async (email: any, firstname: any, lastname: any, company: any, street: any,
-    home: any, city: any, province: any, postal_code: any, country: any, phone_number: any
+    const [fetchCheckout] = useFetching( async (
+        email: any,
+        fname: any,
+        lname: any,
+        company: any,
+        street_address: any,
+        region_id: any,
+        zip_code: any,
+        is_standard: any,
+        discount: any,
+        phone_number: any,
     ) => {
         const res = $api.post<AxiosResponse>('orders/', {
+            region_id: Number(region_id),
+            zip_code,
+            is_standard: is_standard !== 0,
+            discount,
             email,
-            firstname,
-            lastname,
+            fname,
+            lname,
             company,
-            street,
-            home,
-            city,
-            province,
-            postal_code,
-            country,
+            street_address,
             phone_number
         })
         setCheckoutResp(res)
@@ -88,7 +96,18 @@ const CheckOut: NextPage = () => {
             country.value.length >= 3 &&
             phoneNumber.value.length >= 4) {
             // fetch logic
-            fetchCheckout(email.value, firstname.value, lastname.value, company.value, street.value, home.value, city.value, province.value, postalCode.value, country.value, phoneNumber.value)
+            fetchCheckout(
+                email.value,
+                firstname.value,
+                lastname.value,
+                company.value,
+                street.value,
+                checkout_data.region_id,
+                checkout_data.zip_code,
+                checkout_data.is_standard,
+                checkout_data.discount,
+                phoneNumber.value
+            )
         }
         if (!email.value) {
             setEmailError(true)
@@ -122,14 +141,16 @@ const CheckOut: NextPage = () => {
         }
     }
 
-
-
     // =------------------- calc total price ------------------=
     let total_price = 0;
     cart_products?.results.map(item => {
         total_price += (Number(item.product.price) * item.quantity)
     })
 
+    const checkout_dataJSON = getSessionStorage('checkout') ?? ''
+    const checkout_data = JSON.parse(checkout_dataJSON)
+
+    console.log(checkout_data)
     const [ loading, setLoading ] = useState<boolean>(true)
 
     useEffect(() => {
@@ -226,6 +247,7 @@ const CheckOut: NextPage = () => {
                                             <TextInput
                                                 {...postalCode}
                                                 error={postalCodeError}
+                                                defaultValue={checkout_data.zip_code}
                                                 setError={setPostalCodeError}
                                                 errorText={"postal code noto\'g\'ri"}
                                                 label={"Zip/Postal Code"} placeholder={"Zip/Postal Code"} type={"text"}/>
@@ -248,14 +270,14 @@ const CheckOut: NextPage = () => {
                                             <label htmlFor="radio1">Standard Rate</label>
                                             <div>
                                                 <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
-                                                <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${total_price + 21}</span></div>
+                                                <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${checkout_data?.order_total + checkout_data.is_standard}</span></div>
                                             </div>
                                         </div>
                                         <div className={styles.radio}>
                                             <label htmlFor="radio2">Pickup from store</label>
                                             <div>
                                                 <input type="radio" name={'price'} id={"radio2"} value={1}/>
-                                                <div><h4>1234 Street Address City Address, 1234</h4> <span>	${total_price}</span></div>
+                                                <div><h4>1234 Street Address City Address, 1234</h4> <span>	${checkout_data?.order_total}</span></div>
                                             </div>
                                         </div>
                                     </div>

@@ -155,7 +155,7 @@
 
 .actionBtns {
 
-  >a {
+  > button:first-child {
     @include primaryButton;
     margin-bottom: 12px;
   }

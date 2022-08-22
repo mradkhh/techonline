@@ -17,7 +17,7 @@ import Loading from "components/UI/Loading/Loading";
 import useInput from "hooks/useInput";
 import styles from 'styles/pages/shoppingcart.module.scss'
 import {getSessionStorage, setSessionStorage} from "utils/tokenStorage";
-import {convertNumbers} from "../../helpers/helpers";
+import {useRouter} from "next/router";
 
 
 const breadcrumbs = [
@@ -26,11 +26,16 @@ const breadcrumbs = [
 
 const Index: NextPage = () => {
 
+    const router = useRouter()
+
+    console.log(router)
+
     // =--------------------------- error validation ---------------------=
     const [ discountError, setDiscountError ] = useState<boolean>(false)
     const [ postalCodeError, setPostalCodeError ] = useState<boolean>(false)
+    const [ regionIdError, setRegionIdError ] = useState<boolean>(false)
 
-
+    const [ radioValue, setRadioValue ] = useState<number>(21)
     const [ region, setRegion ] = useState<IRegion[]>([])
     const [ regionRetrieve, setRegionRetrieve ] = useState<IRegionRetrieve>()
     const [ regionRetrieveChild, setRegionRetrieveChild ] = useState<IRegionRetrieve>()
@@ -90,14 +95,28 @@ const Index: NextPage = () => {
     }
 
     const handleFocus = () => {
+        setRegionIdError(false)
         fetchRegion()
     }
 
     const region_id = regionInputChild ? regionInputChild : regionInput ? regionInput : undefined
 
-    const checkout_data = {
-        discount: discount.value,
-        region_id: region_id
+    const handleRadioChange = (e: any) => {
+        setRadioValue(e.target.value)
+    }
+
+    // =-------------- handle next to checkout --------------------=
+    const handleCheckoutClick  = () => {
+        if ( region_id?.length && (postal_code.value.length === 6) ) {
+            setSessionStorage('checkout', JSON.stringify(checkout_data) )
+            router.push('/checkout')
+        }
+        if (!region_id?.length) {
+            setRegionIdError(true)
+        }
+        if (postal_code.value.length !== 6) {
+            setPostalCodeError(true)
+        }
     }
 
     // =------------------- calc product's total price --------------------=
@@ -113,6 +132,15 @@ const Index: NextPage = () => {
     const tax_price = (((tax_percentage) / 100) + 1) * (total_price === 0 ? 1 : total_price) - total_price
     const shipping_price = regionRetrieveChild?.shipping_price ? regionRetrieveChild?.shipping_price : regionRetrieve?.shipping_price ? regionRetrieve?.shipping_price : 0
     const order_total = discountResponse.discount !> 100 ? (((tax_percentage / 100) + 1) * (subtotal === 0 ? subtotal : 1) ) + shipping_price : tax_price + shipping_price + subtotal
+
+
+    const checkout_data = {
+        discount: discount.value,
+        region_id: region_id,
+        zip_code: postal_code.value,
+        is_standard: radioValue,
+        order_total: order_total
+    }
 
     // =---------------- page loading effect ------------------=
     const [ loading, setLoading ] = useState<boolean>(true)
@@ -165,6 +193,8 @@ const Index: NextPage = () => {
                                               label={'Country'}
                                               placeholder={'Country'}
                                               type={'text'}
+                                              error={regionIdError}
+                                              errorText={"Davlatni tanlang"}
                                               require={false}/>
                                           {
                                               regionRetrieve?.childs.length ?
@@ -176,6 +206,8 @@ const Index: NextPage = () => {
                                                       label={''}
                                                       placeholder={''}
                                                       type={'text'}
+                                                      error={regionIdError}
+                                                      errorText={"Davlatni tanlang"}
                                                       require={false}/>
                                                   :
                                                   null
@@ -200,14 +232,25 @@ const Index: NextPage = () => {
                                               <div className={styles.radio}>
                                                   <label htmlFor="radio1">Standard Rate</label>
                                                   <div>
-                                                      <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
+                                                      <input
+                                                          type="radio"
+                                                          name={'price'}
+                                                          id={"radio1"}
+                                                          value={21}
+                                                          onChange={handleRadioChange}
+                                                          defaultChecked={true}/>
                                                       <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you. $21.00</h4></div>
                                                   </div>
                                               </div>
                                               <div className={styles.radio}>
                                                   <label htmlFor="radio2">Pickup from store</label>
                                                   <div>
-                                                      <input type="radio" name={'price'} id={"radio2"} value={1}/>
+                                                      <input
+                                                          type="radio"
+                                                          name={'price'}
+                                                          id={"radio2"}
+                                                          onChange={handleRadioChange}
+                                                          value={0}/>
                                                       <div><h4>1234 Street Address City Address, 1234</h4></div>
                                                   </div>
                                               </div>
@@ -236,7 +279,7 @@ const Index: NextPage = () => {
                                           <h6>Order Total <span>${order_total.toFixed(2)}</span></h6>
                                       </div>
                                       <div className={styles.actionBtns}>
-                                          <A href={"/checkout"}>Proceed to Checkout</A>
+                                          <button onClick={handleCheckoutClick}>Proceed to Checkout</button>
                                           <button>Check out with <PayPalButtonIcon/></button>
                                           <button>Check Out with Multiple Addresses</button>
                                       </div>

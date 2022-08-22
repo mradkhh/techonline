@@ -15,7 +15,8 @@ interface SelectInputProps {
     onFocus: any,
     setState?: (value: string) => void,
     state: string,
-    handleChange: any
+    handleChange: any,
+    errorText: string
 }
 
 const SelectInput: FC<SelectInputProps> = ({ label,
@@ -28,18 +29,25 @@ const SelectInput: FC<SelectInputProps> = ({ label,
                          setError,
                          options,
                          onFocus,
-                         setState, state, handleChange,
+                         setState, state, handleChange, errorText,
                          ...props
                      }) => {
 
 
-    console.log(state)
-
     return (
        <>
            <div className={styles.field}>
-               <label htmlFor="">{label}</label>
-               <select value={state} onChange={handleChange} onFocus={onFocus} name="" id="">
+               <div className={styles.label}>
+                   { (label) &&
+                       <label htmlFor="label">{label}<span>{ require && '*' } </span></label> }
+                   {(error) &&
+                       <span style={{color: 'var(--red)'}}>{ errorText }</span>}
+               </div>
+               <select
+                   style={{
+                       border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
+                       animation: (error) ? 'light 500ms ease' : '' }}
+                   value={state} onChange={handleChange} onFocus={onFocus} name="" id="">
                    <option defaultValue={''}>select...</option>
                    {
                        options && options.map(item =>
