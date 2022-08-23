@@ -23,10 +23,11 @@ import { useFetchAllBrandsQuery } from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
 import styles from "styles/pages/home.module.scss"
 
+
 const Index: NextPage = () => {
     const page_size = 10
     const page = 1
-    const { data: brands, isLoading: brands_loading } = useFetchAllBrandsQuery('');
+    const { data: brands } = useFetchAllBrandsQuery('');
     const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size, page})
 
     return (
@@ -109,7 +110,7 @@ const Index: NextPage = () => {
                               href='/'
                               img={msiImg}
                           />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} >
+                          <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true}>
                               {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
@@ -136,7 +137,7 @@ const Index: NextPage = () => {
                               href='/'
                               img={msiImg}
                           />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} >
+                          <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
                               {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
@@ -180,7 +181,7 @@ const Index: NextPage = () => {
                               href='/'
                               img={desktopImg}
                           />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} >
+                          <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
                               {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
@@ -207,7 +208,7 @@ const Index: NextPage = () => {
                               href='/'
                               img={msiImg}
                           />
-                          <Carousel type='items' autoplay={false} button={false} loop={true} >
+                          <Carousel type='items' autoplay={false} button={false} loop={true} pagination={true} >
                               {
                                   newProducts && newProducts.results.map(item =>
                                       <SwiperSlide key={item.id}>
@@ -235,7 +236,7 @@ const Index: NextPage = () => {
                       href='/'
                       img={gaminImg}
                   />
-                  <Carousel type='category' autoplay={false} button={false} loop={true} >
+                  <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
                       {
                           newProducts && newProducts.results.map(item =>
                               <SwiperSlide key={item.id}>
@@ -256,7 +257,7 @@ const Index: NextPage = () => {
               </section>
 
               <section className={styles.brands}>
-                  <Carousel type='brand' autoplay={true} button={false} loop={true} >
+                  <Carousel type='brand' autoplay={true} button={false} loop={false} pagination={true} >
                       {
                           brands?.results && brands.results.map((item: any) =>
                               <SwiperSlide key={item.id}>

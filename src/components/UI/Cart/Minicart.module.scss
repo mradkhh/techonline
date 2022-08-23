@@ -98,3 +98,12 @@
     }
   }
 }
+
+// =------------ product item ------------=
+.product_link {
+  > a {
+    font-size: 12px;
+    padding-inline: 4px;
+    @include line-clamp-vertical(2);
+  }
+}

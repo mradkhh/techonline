@@ -23,7 +23,7 @@ const breadcrumbs = [
     { path: '/', text: 'Shopping Cart' }
 ]
 
-const CheckOut: NextPage = ({ checkout_data } : any) => {
+const CheckOut: NextPage = () => {
 
     const { authStore } = useContext(Context)
     const [ checkoutResp, setCheckoutResp ] = useState<any>()
@@ -42,6 +42,7 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
     const [ phoneNumberError, setPhoneNumber ] = useState<boolean>(false)
 
     // =-------------------- states ----------------------=
+    const [ checkoutData, setCheckoutData ] = useState<any>()
     const email = useInput('')
     const firstname = useInput('')
     const lastname = useInput('')
@@ -54,10 +55,7 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
     const country = useInput('')
     const phoneNumber = useInput('')
 
-
-    const checkout_dataJSON = getSessionStorage('checkout') ?? ''
-    // const checkout_data = JSON.parse(checkout_dataJSON)
-
+    // =----------------- fetch checkout with custom hook --------------------=
     const [fetchCheckout] = useFetching( async (
         email: any,
         fname: any,
@@ -105,10 +103,10 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
                 lastname.value,
                 company.value,
                 // street.value,
-                checkout_data.region_id,
-                checkout_data.zip_code,
-                checkout_data.is_standard,
-                checkout_data.discount,
+                checkoutData.region_id,
+                checkoutData.zip_code,
+                checkoutData.is_standard,
+                checkoutData.discount,
                 phoneNumber.value
             )
         }
@@ -144,15 +142,23 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
         }
     }
 
+
     // =------------------- calc total price ------------------=
     let total_price = 0;
     cart_products?.results.map(item => {
         total_price += (Number(item.product.price) * item.quantity)
     })
 
-    console.log(checkout_data)
-    const [ loading, setLoading ] = useState<boolean>(true)
+    // =------------- get data from shoppingcart page with sessionStorage ----------------=
+    useEffect(() => {
+        const session_storage = getSessionStorage('checkout') ?? ''
+        setCheckoutData(JSON.parse(session_storage))
+        session_storage && postalCode.setValue(checkoutData?.zip_code ?? '')
+    }, [])
 
+
+    // =------------------- first loading effect -----------------=
+    const [ loading, setLoading ] = useState<boolean>(true)
     useEffect(() => {
         setLoading(false)
     }, [])
@@ -247,7 +253,6 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
                                             <TextInput
                                                 {...postalCode}
                                                 error={postalCodeError}
-                                                defaultValue={checkout_data.zip_code}
                                                 setError={setPostalCodeError}
                                                 errorText={"postal code noto\'g\'ri"}
                                                 label={"Zip/Postal Code"} placeholder={"Zip/Postal Code"} type={"text"}/>
@@ -270,14 +275,14 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
                                             <label htmlFor="radio1">Standard Rate</label>
                                             <div>
                                                 <input type="radio" name={'price'} id={"radio1"} value={1} defaultChecked={true}/>
-                                                <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${checkout_data?.order_total + checkout_data.is_standard}</span></div>
+                                                <div><h4>Price may vary depending on the item/destination. Shop Staff will contact you.</h4> <span>	${checkoutData?.order_total + checkoutData.is_standard}</span></div>
                                             </div>
                                         </div>
                                         <div className={styles.radio}>
                                             <label htmlFor="radio2">Pickup from store</label>
                                             <div>
                                                 <input type="radio" name={'price'} id={"radio2"} value={1}/>
-                                                <div><h4>1234 Street Address City Address, 1234</h4> <span>	${checkout_data?.order_total}</span></div>
+                                                <div><h4>1234 Street Address City Address, 1234</h4> <span>	${checkoutData?.order_total}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -323,16 +328,5 @@ const CheckOut: NextPage = ({ checkout_data } : any) => {
     );
 };
 
-export async function getStaticProps() {
-
-    const checkout_dataJSON = getSessionStorage('checkout') ?? ''
-    const checkout_data = JSON.parse(checkout_dataJSON)
-
-    return {
-        props: {
-            checkout_data,
-        },
-    }
-}
 
 export default CheckOut;

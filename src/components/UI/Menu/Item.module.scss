@@ -36,7 +36,9 @@
 
 
 .insideMenu {
-  position: absolute;
-  left: 270px;
-  top: 0;
+  // child category menu
+  //position: absolute;
+  //left: 270px;
+  //top: 0;
+  @include flex-start(center);
 }

@@ -7,12 +7,13 @@ import A from "components/UI/A/A";
 import {ICart} from "models/index";
 import {Context} from "pages/_app";
 import {useFetchRemoveFromCartMutation} from "services/CartsService";
-import id from "pages/product/[id]";
-import axios from "axios";
-import {AuthResponse} from "models/response/AuthResponse";
-import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
-import {API_URL} from "services/interseptors";
-import {useFetchFilterColorsMutation} from "services/ColorService";
+import MiniCartProductsItem from "components/UI/Cart/MiniCartProductsItem";
+// import id from "pages/product/[id]";
+// import axios from "axios";
+// import {AuthResponse} from "models/response/AuthResponse";
+// import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
+// import {API_URL} from "services/interseptors";
+// import {useFetchFilterColorsMutation} from "services/ColorService";
 
 interface MinicartProps {
     product?: ICart[]
@@ -25,15 +26,7 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
     product?.map(item => {
         total_price += (Number(item.product.price) * item.quantity)
     })
-
     const { authStore } = useContext(Context)
-    const [removeFromCart, {}] = useFetchRemoveFromCartMutation()
-
-
-    const handleDelete = (id: number) => {
-        removeFromCart(id)
-    }
-
 
         return (
             <div className={styles.cart}>
@@ -48,26 +41,12 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
                         <div className={styles.body}>
                             {
                                 product && product?.map(({ id, quantity, product }) => {
-                                    return <div key={id}>
-                                        <span>{quantity}X</span>
-                                        <Image
-                                            width={65}
-                                            height={65}
-                                            objectFit='cover'
-                                            objectPosition='center'
-                                            src={product?.product_img?.image ? product?.product_img?.image : Img}
-                                            alt="item"
-                                        />
-                                        <h4>{product?.short_desc}</h4>
-                                        <div>
-                                            <button onClick={() => handleDelete(id)}>
-                                                <GrayXIcon/>
-                                            </button>
-                                            <button>
-                                                <EditIcon/>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    return <MiniCartProductsItem
+                                        key={id}
+                                        id={id}
+                                        quantity={quantity}
+                                        product={product}
+                                    />
                                 })
                             }
                         </div>

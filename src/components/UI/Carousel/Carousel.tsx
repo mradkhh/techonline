@@ -23,7 +23,12 @@ const breakpointSlider = {
         spaceBetween: 12
     },
     480: {
-        slidesPerGroup: 2,
+        slidesPerGroup: 1,
+        slidesPerView: 2,
+        spaceBetween: 12
+    },
+    568: {
+        slidesPerGroup: 1,
         slidesPerView: 3,
         spaceBetween: 12
     },
@@ -55,6 +60,11 @@ const breakpointCategory = {
     400: {
         slidesPerGroup: 1,
         slidesPerView: 1,
+        spaceBetween: 12
+    },
+    480: {
+        slidesPerGroup: 1,
+        slidesPerView: 2,
         spaceBetween: 12
     },
     568: {

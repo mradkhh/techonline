@@ -8,6 +8,10 @@
   min-height: 400px;
   margin-inline: auto;
 
+  @include mobile480 {
+    @include maxWidth(280);
+  }
+
   &:hover {
     > div:last-child {
       visibility: visible;

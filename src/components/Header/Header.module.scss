@@ -35,6 +35,18 @@
   }
 }
 
+.nav_li {
+  @include flex-center(center);
+}
+
+.arrow {
+  @include flex-center(center);
+  > svg {
+    @include rectangle(20);
+    transform: rotate(-180deg);
+  }
+}
+
 .Navbar {
   position: relative;
   margin-right: auto;
@@ -68,6 +80,7 @@
       position: fixed;
 
       > li {
+        @include flex-center(center);
         width: 100%;
         padding-left: 8px;
       }

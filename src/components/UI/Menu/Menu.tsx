@@ -53,19 +53,18 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                 </div>
                 <div className={styles.cards}>
                     {
-                        data && data?.products?.splice(0, 4)
-                            .map(item => {
-                                return <ProductCard
-                                            rating={4}
-                                            id={item.id}
-                                            key={item.id}
-                                            image={item?.product_img?.image}
-                                            title={item.short_desc}
-                                            price={item.price}
-                                            discountPrice={item.discount}
-                                            isInStock={item.is_stock}
-                                        />
-                            })
+                        categories && categories?.products && categories?.products?.map(item => {
+                            return <ProductCard
+                                rating={5}
+                                id={item.id}
+                                key={item.id}
+                                image={item?.product_img?.image}
+                                title={item.short_desc}
+                                price={item.price}
+                                discountPrice={item.discount}
+                                isInStock={item.is_stock}
+                            />
+                        })
                     }
                 </div>
             </div>

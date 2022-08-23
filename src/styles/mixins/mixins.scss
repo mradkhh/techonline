@@ -429,3 +429,11 @@ $breakpoint480: 479.98 + px;
     }
   }
 }
+
+
+// media query mixin
+@mixin mobile480 {
+  @media (max-width: $breakpoint480) {
+    @content
+  }
+}

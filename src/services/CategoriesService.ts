@@ -1,6 +1,9 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {API_URL} from "services/interseptors";
-import {ICategories, ICategoriesResults} from "models/index";
+import $api, {API_URL} from "services/interseptors";
+import {ICartResults, ICategories, ICategoriesResults} from "models/index";
+import {AppDispatch} from "store/index";
+import {cartsSlice} from "store/reducers/cartSlice";
+
 
 export const categoriesApi = createApi({
     reducerPath: 'categoriesApi',

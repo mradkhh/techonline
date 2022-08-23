@@ -5,7 +5,7 @@ import Head from "components/Header/UI/Head";
 import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
-import {AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
+import {ArrowDown, AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
 import useMediaQuery from "hooks/useMediaQuery";
@@ -19,12 +19,16 @@ import {useFetchCartQuery} from "services/CartsService";
 import {AuthResponse} from "models/response/AuthResponse";
 import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
 import styles from './Header.module.scss'
+import {useAppDispatch} from "hooks/redux";
+import {categoriesSlice} from "store/reducers/categoriesSlice";
+import NavItem from "components/Header/UI/NavItem";
 
 interface HeaderProps {
     categories?: ICategories[]
 }
 
 const Header: FC<HeaderProps> = ({ categories }) => {
+    const dispatch = useAppDispatch()
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
@@ -45,7 +49,6 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     }, [showAvatar])
 
     const {data: cartResults, error, isLoading}: any = useFetchCartQuery('')
-
     const [ fetchCategoryId ] = useFetching(async (id: number) => {
         const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
         const data = res?.data
@@ -64,8 +67,10 @@ const Header: FC<HeaderProps> = ({ categories }) => {
 
     useMousedownClickInvisible(avatarRef, () => { setShowAvatar(false) })
     useMousedownClickInvisible(cartRef, () => { setShowCart(false) })
-    useMousedownClickInvisible(menuRef, () => { setShowMenu(false)})
-    useMouseoverClickInvisible(navRef, () => { setShowMenu(true) })
+    useMousedownClickInvisible(menuRef, () => { setShowMenu(false)
+        dispatch(categoriesSlice.actions.fetchingSuccessCategories({} as ICategories))
+    })
+    useMouseoverClickInvisible(navRef, () => { setShowMenu(true)})
 
     useEffect( () => {
         if (error?.status === 401) {
@@ -84,7 +89,6 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     useEffect(() => {
         matches ? setShowMobileMenu(true) : null
     }, [matches])
-
 
     useEffect(() => {
         search ? window.document.body.style.overflow = 'hidden' : window.document.body.style.overflow = 'unset'
@@ -115,13 +119,17 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                 onClick={() => setShowMobileMenu(!showMobileMenu)}
                                 className={styles.Navbar}>
                              <ul ref={navRef} onClick={(e)=> e.stopPropagation()}>
+                                 <li>
+                                     <A href={"/"}>Bosh sahifa</A>
+                                 </li>
                                 {
                                     categories && categories.map((item) =>
-                                        <li key={item?.id}>
-                                            <button id={`${item?.id}`} className="headerList" onClick={() => handleShowMenu(item.id)}>{item.name}</button>
-                                        </li>
+                                        <NavItem key={item?.id} item={item} handleShowMenu={handleShowMenu}/>
                                     )
                                 }
+                                 <li>
+                                     <A href={"/faq"}>Faq</A>
+                                 </li>
                                 <button>Our Deals</button>
                              </ul>
                             </nav>
