@@ -2,9 +2,9 @@ import {NextPage} from "next";
 import React, {useEffect, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import styles from 'styles/pages/faq.module.scss'
 import Accordion from "components/UI/Accordion/Accordion";
 import Loading from "components/UI/Loading/Loading";
+import styles from 'styles/pages/faq.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -67,9 +67,11 @@ const Faq: NextPage = () => {
                    </div>
                    <div className={styles.right}>
                        <Accordion
-                           className={styles.accordion}
-                           headerStyle={styles.accordionHeader}
+                           // className={styles.accordion}
+                           // headerStyle={styles.accordionHeader}
                            itemsStyle={styles.accordionItems}
+                           className={styles.accordion}
+                           headerStyle={styles.accordion_header}
                            header="Definitions & Interpretation"
                        >
                            <a href="#1">General</a>

@@ -257,7 +257,7 @@ const Index: NextPage = () => {
               </section>
 
               <section className={styles.brands}>
-                  <Carousel type='brand' autoplay={true} button={false} loop={false} pagination={true} >
+                  <Carousel type='brand' autoplay={true} button={false} loop={true} >
                       {
                           brands?.results && brands.results.map((item: any) =>
                               <SwiperSlide key={item.id}>

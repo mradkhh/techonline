@@ -70,10 +70,16 @@ const TextInput: FC<TextInputProps> = ({ label,
                             type === 'tel' ?
                                 <input {...props}
                                        onFocus={handleFocus}
+                                       onKeyPress={(event) => {
+                                           if (!/[0-9, -]/.test(event.key)) {
+                                               event.preventDefault();
+                                           }
+                                       }}
                                        style={{
                                            border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
                                            animation: (error) ? 'light 500ms ease' : '' }}
                                        type="tell"
+                                       pattern={'[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}'}
                                        placeholder={placeholder}/>
                              :
                             type === 'textarea' ?

@@ -84,7 +84,7 @@
   }
 }
 
-.accordionHeader {
+.accordion_header {
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
@@ -92,18 +92,6 @@
   border-bottom: none;
   @media (max-width: $breakpoint768) {
     padding-bottom: 0;
-  }
-
-
-  > span {
-    display: none;
-
-    @media (max-width: $breakpoint768) {
-      display: inline-block;
-      > svg path {
-        stroke: var(--black);
-      }
-    }
   }
 }
 

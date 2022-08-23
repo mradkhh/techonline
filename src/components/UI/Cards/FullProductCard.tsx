@@ -53,6 +53,8 @@ const FullProductCard: FC<FullProductCardProps> = ({name,
                     objectPosition='center'
                     width={250}
                     height={250}
+                    placeholder='blur'
+                    blurDataURL={'static/images/products/1.jpg'}
                     src={image ? image : img}
                     alt={"product"}
                 />

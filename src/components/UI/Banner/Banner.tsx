@@ -2,6 +2,7 @@ import React, {memo} from 'react';
 import Image from "next/image";
 import Carousel from "components/UI/Carousel/Carousel";
 import {SwiperSlide} from "swiper/react";
+import img from 'static/banner.png'
 import styles from './styles/Banner.module.scss'
 
 const Banner = () => {
@@ -14,27 +15,8 @@ const Banner = () => {
                             height={328}
                             objectPosition='center'
                             objectFit='cover'
-                            src={'/images/banner.png'}
-                            alt='Premiere'
-                        />
-                </SwiperSlide>
-                <SwiperSlide>
-                        <Image
-                            width={1400}
-                            height={328}
-                            objectPosition='center'
-                            objectFit='cover'
-                            src={'/images/banner.png'}
-                            alt='Premiere'
-                        />
-                </SwiperSlide>
-                <SwiperSlide>
-                        <Image
-                            width={1400}
-                            height={328}
-                            objectPosition='center'
-                            objectFit='cover'
-                            src={'/images/banner.png'}
+                            placeholder='blur'
+                            src={img}
                             alt='Premiere'
                         />
                 </SwiperSlide>

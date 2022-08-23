@@ -142,6 +142,8 @@ const ProductCard: FC<ProductCardProps> = ({ id,
                         height={widthImg ? widthImg : 150}
                         objectFit='cover'
                         objectPosition='center'
+                        placeholder='blur'
+                        blurDataURL={'static/images/products/1.jpg'}
                         alt={'product'}
                         src={image ? image : img}
                     />
