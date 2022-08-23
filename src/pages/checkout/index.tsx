@@ -61,10 +61,11 @@ const CheckOut: NextPage = () => {
         fname: any,
         lname: any,
         company: any,
-        // street_address: any,
+        street_addres: any,
         region_id: any,
         zip_code: any,
         is_standard: any,
+        city: any,
         discount: any,
         phone_number: any,
     ) => {
@@ -76,8 +77,9 @@ const CheckOut: NextPage = () => {
             email,
             fname,
             lname,
+            city,
             company,
-            // street_address,
+            street_addres,
             phone_number
         })
         setCheckoutResp(res)
@@ -102,12 +104,13 @@ const CheckOut: NextPage = () => {
                 firstname.value,
                 lastname.value,
                 company.value,
-                // street.value,
+                street.value,
                 checkoutData.region_id,
                 checkoutData.zip_code,
                 checkoutData.is_standard,
+                city.value,
                 checkoutData.discount,
-                phoneNumber.value
+                Number(phoneNumber.value.replace(/ /g,'').replace(/_/g, '').replace(/-/g, ''))
             )
         }
         if (!email.value) {

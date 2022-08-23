@@ -4,7 +4,6 @@
   @include flex-between(center);
   @include selectItemStyle;
   width: 100%;
-  border-right: 1px solid var(--light-gray);
   gap: 24px;
 }
 

@@ -21,11 +21,11 @@
 .menu {
   @include flex-start(flex-start);
   //flex-direction: column;
+  border-right: 1px solid var(--gray);
   background-color: var(--white);
   min-height: 410px;
 
   > div {
-    border-right: 1px solid var(--gray);
     width: 100%;
   }
 }

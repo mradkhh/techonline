@@ -15,7 +15,7 @@ interface ItemProps {
     item: ICategories,
     handleClick: (id: number) => void,
     setArrowMotion: (bool: boolean) => void,
-    arrowMotion: boolean
+    arrowMotion: boolean,
 }
 
 const Item: FC<ItemProps> = ({ item, setArrowMotion, arrowMotion, handleClick, id }) => {
