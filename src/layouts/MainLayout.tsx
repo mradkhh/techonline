@@ -35,16 +35,16 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
 
     const handleRegisterSubmit = (e: any) => {
         e.preventDefault()
-        if(registerUsername.value && registerPassword.value && registerConfirmPassword.value) {
+        if(registerUsername.value.length >= 3 && (registerPassword.value.length >= 3) && (registerConfirmPassword.value.length >= 3) && (registerPassword.value.length === registerConfirmPassword.value.length))  {
             authStore.register(registerUsername.value, registerPassword.value, registerConfirmPassword.value)
         }
-        if (!registerUsername.value) {
+        if (registerUsername.value.length < 3) {
             setUsernameRegisterError(true)
         }
-        if (!registerPassword.value) {
+        if (registerPassword.value.length < 3) {
             setPasswordRegisterError(true)
         }
-        if (!registerConfirmPassword.value) {
+        if (registerConfirmPassword.value.length < 3) {
             setConfirmPasswordRegisterError(true)
         }
         if (registerPassword.value.length !== registerConfirmPassword.value.length) {
@@ -80,7 +80,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         require={true}
                         error={usernameRegisterError}
                         setError={setUsernameRegisterError}
-                        errorText={"Username noto\'g\'ri"}
+                        errorText={" lotin harflarda va 3 ta belgidan kam bo'lmasligi kerak"}
                     />
                     <TextInput
                         {...registerPassword}
