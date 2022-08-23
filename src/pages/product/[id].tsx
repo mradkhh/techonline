@@ -22,10 +22,10 @@ import useMediaQuery from "hooks/useMediaQuery";
 import {useGetProductQuery} from "services/ProductService";
 import {useRouter} from "next/router";
 import {useFetchAddToCartMutation, useFetchCartQuery, useFetchRemoveFromCartMutation} from "services/CartsService";
-import styles from 'styles/pages/product.module.scss'
 import Carousel from "components/UI/Carousel/Carousel";
 import {SwiperSlide} from "swiper/react";
 import Loading from "components/UI/Loading/Loading";
+import styles from 'styles/pages/product.module.scss'
 
 const tabs = [
     { id: 1, title: 'About Product' },

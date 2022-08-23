@@ -27,7 +27,7 @@ const Tab1: FC<Tab1Props> = ({ category ,  desc, name, color }) => {
     }
     return (
         <div className={styles.tab}>
-            <h1>{category}</h1>
+            <h1>{name}</h1>
             <p>Be the first to review this product</p>
             <h3>{desc}</h3>
             <div className={styles.colors}>

@@ -177,7 +177,7 @@ const CheckOut: NextPage = () => {
                         cart_loading ?
                             <Loading/>
                             :
-                        <>
+                            <>
                             <div className={styles.header}>
                                 <div className={styles.headerLeft}>
                                     <h1>Checkout</h1>
@@ -321,11 +321,11 @@ const CheckOut: NextPage = () => {
                                 </div>
                             </div>
                         </>
-                        :
-                        <section className={styles.notAuth}>
-                            <h1>Not Found</h1>
-                            <A href={'/register'}>Registration</A>
-                        </section>
+                                :
+                                <section className={styles.notAuth}>
+                                    <h1>Not Found</h1>
+                                    <A href={'/register'}>Registration</A>
+                                </section>
                 }
             </MainLayout>
     );
