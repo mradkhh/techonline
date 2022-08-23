@@ -1,15 +1,11 @@
-import React, {FC, useState} from 'react';
-import axios from "axios";
+import React, {FC} from 'react';
 import Image from "next/image";
-import ProductCard from "components/UI/Cards/ProductCard";
-import {ICategories} from "models/index";
 import {useFetchAllBrandsQuery} from "services/BrandsService";
-import {useFetching} from "hooks/useFetching";
-import {API_URL} from "services/interseptors";
+import ProductCard from "components/UI/Cards/ProductCard";
 import Item from "components/UI/Menu/Item";
+import { useAppSelector } from 'hooks/redux';
+import {ICategories} from "models/index";
 import styles from './Menu.module.scss'
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { categoriesSlice } from 'store/reducers/categoriesSlice';
 
 interface MenuProps  {
     data: ICategories,
@@ -17,20 +13,8 @@ interface MenuProps  {
 }
 
 const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
-    const dispatch = useAppDispatch()
     const { categories } = useAppSelector(state => state.categories)
     const { data: brands } = useFetchAllBrandsQuery('')
-    const [ arrowMotion, setArrowMotion ] = useState<boolean>(false)
-
-    const [ fetchCategoryId ] = useFetching(async (id: number) => {
-        const res = await axios.get<ICategories>(`${API_URL}categories/${id}`)
-        const data = res?.data
-        // dispatch(fetchingSuccess(data))
-    })
-
-    const handleClick = (id: number) => {
-        fetchCategoryId(id)
-    }
 
     return (
         <div onClick={() => setIsInMenuArea(true)} className={styles.wrapper}>
@@ -43,9 +27,6 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                                     key={item.id}
                                     id={item.id}
                                     item={item}
-                                    handleClick={handleClick}
-                                    setArrowMotion={setArrowMotion}
-                                    arrowMotion={arrowMotion}
                                 />
                             })
                         }
@@ -55,7 +36,7 @@ const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
                     {
                         categories && categories?.products && categories?.products?.map(item => {
                             return <ProductCard
-                                rating={5}
+                                rating={item?.rating}
                                 id={item.id}
                                 key={item.id}
                                 image={item?.product_img?.image}

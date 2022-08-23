@@ -33,15 +33,10 @@ interface StarProps {
 }
 
 const Star: FC<StarProps> = ({ rating }) => {
-    const arr = []
-    for (let i = 0; i < rating; i++) {
-        arr.push(i)
-    }
-
     return (
         <>
             {
-                arr.length === 0 ?
+                rating === 0 ?
                     <>
                         <StarIconGray/>
                         <StarIconGray/>
@@ -49,7 +44,7 @@ const Star: FC<StarProps> = ({ rating }) => {
                         <StarIconGray/>
                         <StarIconGray/>
                     </> :
-                    arr.length === 1 ?
+                    rating === 1 ?
                         <>
                             <StarIcon/>
                             <StarIconGray/>
@@ -57,7 +52,7 @@ const Star: FC<StarProps> = ({ rating }) => {
                             <StarIconGray/>
                             <StarIconGray/>
                         </> :
-                        arr.length === 2 ?
+                        rating === 2 ?
                             <>
                                 <StarIcon/>
                                 <StarIcon/>
@@ -65,7 +60,7 @@ const Star: FC<StarProps> = ({ rating }) => {
                                 <StarIconGray/>
                                 <StarIconGray/>
                             </> :
-                            arr.length === 3 ?
+                            rating === 3 ?
                                 <>
                                     <StarIcon/>
                                     <StarIcon/>
@@ -73,7 +68,7 @@ const Star: FC<StarProps> = ({ rating }) => {
                                     <StarIconGray/>
                                     <StarIconGray/>
                                 </> :
-                                arr.length === 4 ?
+                                rating === 4 ?
                                     <>
                                         <StarIcon/>
                                         <StarIcon/>
@@ -81,7 +76,7 @@ const Star: FC<StarProps> = ({ rating }) => {
                                         <StarIcon/>
                                         <StarIconGray/>
                                     </> :
-                                    arr.length === 5 ?
+                                    rating === 5 ?
                                         <>
                                             <StarIcon/>
                                             <StarIcon/>
@@ -89,13 +84,13 @@ const Star: FC<StarProps> = ({ rating }) => {
                                             <StarIcon/>
                                             <StarIcon/>
                                         </> :
-                                        <>
-                                            <StarIconGray/>
-                                            <StarIconGray/>
-                                            <StarIconGray/>
-                                            <StarIconGray/>
-                                            <StarIconGray/>
-                                        </>
+                                            <>
+                                                <StarIconGray/>
+                                                <StarIconGray/>
+                                                <StarIconGray/>
+                                                <StarIconGray/>
+                                                <StarIconGray/>
+                                            </>
 
             }
         </>
