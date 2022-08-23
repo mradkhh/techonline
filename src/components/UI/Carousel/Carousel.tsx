@@ -127,17 +127,17 @@ const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = t
                 nextEl: navigationNextRef.current
             }}
             onSwiper={(swiper) => {
-                setTimeout(() => {
                     // @ts-ignore
+                    // eslint-disable-next-line no-param-reassign
                     swiper.params.navigation.prevEl = navigationPrevRef.current;
                     // @ts-ignore
+                    // eslint-disable-next-line no-param-reassign
                     swiper.params.navigation.nextEl = navigationNextRef.current;
 
                     // Re-init navigation
                     swiper.navigation.destroy()
                     swiper.navigation.init()
                     swiper.navigation.update()
-                })
             }}
             loop={loop}
             autoplay={autoplay ? autoplay : false }
