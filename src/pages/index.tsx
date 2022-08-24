@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import type { NextPage } from 'next'
 import {Tab, TabList, TabPanel} from "react-tabs"
@@ -24,15 +24,22 @@ import styles from "styles/pages/home.module.scss"
 
 
 const Index: NextPage = () => {
+
+    const [ loading, setLoading ] = useState<boolean>(true)
+
     // =----------------- fetching for data -----------------=
     const { data: brands } = useFetchAllBrandsQuery('');
     const { data: categories } = useFetchAllCategoriesQuery('')
     const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size: 10, page: 1})
 
+    useEffect(() => {
+        setLoading(false)
+    })
+
     return (
-      // products_loading ?
-      //   <Loading/>
-      //     :
+      loading ?
+        <Loading/>
+          :
           <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
               <Banner/>
 
