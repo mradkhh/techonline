@@ -24,39 +24,42 @@ import styles from "styles/pages/home.module.scss"
 
 
 const Index: NextPage = () => {
-    const page_size = 10
-    const page = 1
+    // =----------------- fetching for data -----------------=
     const { data: brands } = useFetchAllBrandsQuery('');
     const { data: categories } = useFetchAllCategoriesQuery('')
-    const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size, page})
+    const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size: 10, page: 1})
 
     return (
-      products_loading ?
-        <Loading/>
-          :
+      // products_loading ?
+      //   <Loading/>
+      //     :
           <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
               <Banner/>
-              <div className={styles.products}>
-                          <h3>New Products</h3>
-                          <Carousel type='items' autoplay={false} button={true} loop={true} >
-                              {
-                                  newProducts && newProducts.results.map(item =>
-                                      <SwiperSlide key={item.id}>
-                                          <ProductCard
-                                              rating={item?.rating}
-                                              id={item.id}
-                                              key={item.id}
-                                              image={item?.product_img?.image}
-                                              title={item.short_desc}
-                                              price={item.price}
-                                              discountPrice={item.discount}
-                                              isInStock={item.is_stock}
-                                          />
-                                      </SwiperSlide>
-                                  )
-                              }
-                          </Carousel>
-                      </div>
+
+              {/* =-------------- new products section --------------= */}
+              <section className={styles.products}>
+                  <h3 className={styles.products_title}>New Products</h3>
+                  <Carousel type='items' autoplay={false} button={true} loop={true} >
+                      {
+                          newProducts && newProducts.results.map(item =>
+                              <SwiperSlide key={item.id}>
+                                  <ProductCard
+                                      rating={item?.rating}
+                                      id={item.id}
+                                      key={item.id}
+                                      image={item?.product_img?.image}
+                                      title={item.short_desc}
+                                      price={item.price}
+                                      discountPrice={item.discount}
+                                      isInStock={item.is_stock}
+                                  />
+                              </SwiperSlide>
+                          )
+                      }
+                  </Carousel>
+              </section>
+
+              {/* =----------------- ads section -----------------= */}
               <section className={styles.ads}>
                   <div className={styles.adsContent}>
                       <PartnerLogo/>
@@ -116,32 +119,6 @@ const Index: NextPage = () => {
                       </section>
                   })
               }
-
-              {/*<section className={styles.category}>*/}
-              {/*    <VisitCard*/}
-              {/*        title='Gaming Monitors'*/}
-              {/*        href='/'*/}
-              {/*        img={gaminImg}*/}
-              {/*    />*/}
-              {/*    <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >*/}
-              {/*        {*/}
-              {/*            newProducts && newProducts.results.map(item =>*/}
-              {/*                <SwiperSlide key={item.id}>*/}
-              {/*                    <ProductCard*/}
-              {/*                        rating={item?.rating}*/}
-              {/*                        id={item.id}*/}
-              {/*                        key={item.id}*/}
-              {/*                        image={item?.product_img?.image}*/}
-              {/*                        title={item.short_desc}*/}
-              {/*                        price={item.price}*/}
-              {/*                        discountPrice={item.discount}*/}
-              {/*                        isInStock={item.is_stock}*/}
-              {/*                    />*/}
-              {/*                </SwiperSlide>*/}
-              {/*            )*/}
-              {/*        }*/}
-              {/*    </Carousel>*/}
-              {/*</section>*/}
 
               <section className={styles.brands}>
                   <Carousel type='brand' autoplay={true} button={false} loop={true} >
