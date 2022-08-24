@@ -1,14 +1,16 @@
+import dynamic from "next/dynamic";
 import React, {FC, memo, ReactNode, useContext, useEffect, useState} from 'react';
 import Head from "next/head";
-import Header from "components/Header/Header";
-import Footer from "components/Footer/Footer";
+import {Context} from "pages/_app";
 import {ArrowDown, ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
 import {useFetchAllCategoriesQuery} from "services/CategoriesService";
-import TextInput from "components/UI/Inputs/TextInput";
-import Modal from "components/UI/Modal/Modal";
 import useInput from "hooks/useInput";
-import {Context} from "pages/_app";
 import styles from "./styles/main.module.scss";
+
+const Header = dynamic(() => import("components/Header/Header"))
+const Footer = dynamic(() => import("components/Footer/Footer"))
+const TextInput = dynamic(() => import("components/UI/Inputs/TextInput"))
+const Modal = dynamic(() => import("components/UI/Modal/Modal"))
 
 interface MainLayoutProps {
     children: ReactNode,
@@ -57,7 +59,6 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
             window.pageYOffset > 100 ? setScrollToUp(true) : setScrollToUp(false)
         })
     }, [])
-
 
     return (
         <>
