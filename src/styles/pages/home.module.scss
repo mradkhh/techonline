@@ -1,5 +1,11 @@
 @import "styles/mixins/mixins";
 
+.sections_wrapper {
+  @include container;
+}
+.wrapper {
+  @include flex-start(flex-start);
+}
 .products {
   @include container;
   margin-bottom: 18px;
@@ -83,8 +89,8 @@
 .category {
   @include container;
   @include flex-start(center);
-  gap: 24px;
   margin-bottom: 32px;
+  gap: 24px;
   @media (max-width: $breakpoint768) {
     display: block !important;
     justify-content: center !important;

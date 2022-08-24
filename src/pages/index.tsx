@@ -22,14 +22,17 @@ import Loading from "components/UI/Loading/Loading";
 import { useFetchAllBrandsQuery } from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
 import styles from "styles/pages/home.module.scss"
+import {useFetchAllCategoriesQuery} from "services/CategoriesService";
 
 
 const Index: NextPage = () => {
     const page_size = 10
     const page = 1
     const { data: brands } = useFetchAllBrandsQuery('');
+    const { data: categories } = useFetchAllCategoriesQuery('')
     const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size, page})
 
+    console.log(categories)
     return (
       products_loading ?
         <Loading/>
@@ -65,196 +68,83 @@ const Index: NextPage = () => {
                   </div>
               </section>
 
-              {/*{*/}
-              {/*    categories && categories?.results?.map(item => {*/}
-              {/*        return <section key={item?.id} className={styles.category}>*/}
-              {/*            <VisitCard*/}
-              {/*                title={item?.name}*/}
-              {/*                href='/categories/id'*/}
-              {/*                img={item?.icon}*/}
-              {/*            />*/}
-              {/*            <Carousel type='category' autoplay={false} button={false} loop={true} >*/}
-              {/*                {*/}
-              {/*                    newProducts && newProducts.results.map(item =>*/}
-              {/*                        <SwiperSlide key={item.id}>*/}
-              {/*                            <ProductCard*/}
-              {/*                                key={item.id}*/}
-              {/*                                image={item?.product_img?.image}*/}
-              {/*                                title={item.short_desc}*/}
-              {/*                                price={item.price}*/}
-              {/*                                discountPrice={item.discount}*/}
-              {/*                                isInStock={item.is_stock}*/}
-              {/*                                handleAddToCart={handle}*/}
-              {/*                            />*/}
-              {/*                        </SwiperSlide>*/}
-              {/*                    )*/}
-              {/*                }*/}
-              {/*            </Carousel>*/}
-              {/*        </section>*/}
-              {/*    })*/}
-              {/*}*/}
+              {
+                  categories && categories.results.map(item => {
+                      return <section className={styles.sections_wrapper} key={item?.id}>
+                          <Tabs>
+                              <TabList className={styles.tabsList}>
+                                  {
+                                      item?.childs && item?.childs.map(child => {
+                                          return <Tab key={child?.id}>
+                                              { child?.name }
+                                          </Tab>
+                                      })
+                                  }
+                              </TabList>
 
-              <Tabs>
-                  <TabList className={styles.tabsList}>
-                      <Tab key={'first'}>
-                          Titan GT Series
-                      </Tab>
-                      <Tab key={'second'}>
-                          Stealth GS Series
-                      </Tab>
-                  </TabList>
-                  <TabPanel key={'first'} >
-                      <div className={styles.category}>
-                          <VisitCard
-                              title='MSI Laptops'
-                              href='/'
-                              img={msiImg}
-                          />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true}>
-                              {
-                                  newProducts && newProducts.results.map(item =>
-                                      <SwiperSlide key={item.id}>
-                                          <ProductCard
-                                              rating={item?.rating}
-                                              id={item.id}
-                                              key={item.id}
-                                              image={item?.product_img?.image}
-                                              title={item.short_desc}
-                                              price={item.price}
-                                              discountPrice={item.discount}
-                                              isInStock={item.is_stock}
-                                          />
-                                      </SwiperSlide>
-                                  )
-                              }
-                          </Carousel>
-                      </div>
-                  </TabPanel>
-                  <TabPanel key={'second'} >
-                      <div className={styles.category}>
-                          <VisitCard
-                              title='Custom Builds'
-                              href='/'
-                              img={msiImg}
-                          />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
-                              {
-                                  newProducts && newProducts.results.map(item =>
-                                      <SwiperSlide key={item.id}>
-                                          <ProductCard
-                                              rating={item?.rating}
-                                              id={item.id}
-                                              key={item.id}
-                                              image={item?.product_img?.image}
-                                              title={item.short_desc}
-                                              price={item.price}
-                                              discountPrice={item.discount}
-                                              isInStock={item.is_stock}
-                                          />
-                                      </SwiperSlide>
-                                  )
-                              }
-                          </Carousel>
-                      </div>
-                  </TabPanel>
-              </Tabs>
+                                  {
+                                      item?.childs?.map(child => {
+                                          return <TabPanel key={child.id} >
+                                              <div className={styles.category}>
+                                                  <VisitCard
+                                                      title={child?.name}
+                                                      href={`/${child?.name}`}
+                                                      img={child?.icon ? child?.icon : gaminImg}
+                                                  />
+                                                  <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
+                                                      {
+                                                          child?.products ? child?.products?.map(product =>
+                                                              <SwiperSlide key={product.id}>
+                                                                  <ProductCard
+                                                                      rating={product?.rating}
+                                                                      id={product.id}
+                                                                      key={product.id}
+                                                                      image={product?.product_img?.image}
+                                                                      title={product.short_desc}
+                                                                      price={product.price}
+                                                                      discountPrice={product.discount}
+                                                                      isInStock={product.is_stock}
+                                                                  />
+                                                              </SwiperSlide>
+                                                          )
+                                                          :
+                                                          <h1>Mavjud emas...</h1>
+                                                      }
+                                                  </Carousel>
+                                              </div>
+                                          </TabPanel>
+                                      })
+                                  }
+                          </Tabs>
+                      </section>
+                  })
+              }
 
-              <Tabs>
-                  <TabList className={styles.tabsList}>
-                      <Tab key={'first'}>
-                          MSI Infinite Series
-                      </Tab>
-                      <Tab key={'second'}>
-                          MSI Trend
-                      </Tab>
-                      <Tab key={'third'}>
-                          MSI GL Series
-                      </Tab>
-                      <Tab key={'fifth'}>
-                          MSI Night blade
-                      </Tab>
-                  </TabList>
-                  <TabPanel key={'first'} >
-                      <div className={styles.category}>
-                          <VisitCard
-                              title='Desktops'
-                              href='/'
-                              img={desktopImg}
-                          />
-                          <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
-                              {
-                                  newProducts && newProducts.results.map(item =>
-                                      <SwiperSlide key={item.id}>
-                                          <ProductCard
-                                              rating={item?.rating}
-                                              id={item.id}
-                                              key={item.id}
-                                              image={item?.product_img?.image}
-                                              title={item.short_desc}
-                                              price={item.price}
-                                              discountPrice={item.discount}
-                                              isInStock={item.is_stock}
-                                          />
-                                      </SwiperSlide>
-                                  )
-                              }
-                          </Carousel>
-                      </div>
-                  </TabPanel>
-                  <TabPanel key={'second'} >
-                      <div className={styles.category}>
-                          <VisitCard
-                              title='Custom Builds'
-                              href='/'
-                              img={msiImg}
-                          />
-                          <Carousel type='items' autoplay={false} button={false} loop={true} pagination={true} >
-                              {
-                                  newProducts && newProducts.results.map(item =>
-                                      <SwiperSlide key={item.id}>
-                                          <ProductCard
-                                              rating={item?.rating}
-                                              id={item.id}
-                                              key={item.id}
-                                              image={item?.product_img?.image}
-                                              title={item.short_desc}
-                                              price={item.price}
-                                              discountPrice={item.discount}
-                                              isInStock={item.is_stock}
-                                          />
-                                      </SwiperSlide>
-                                  )
-                              }
-                          </Carousel>
-                      </div>
-                  </TabPanel>
-              </Tabs>
-
-              <section className={styles.category}>
-                  <VisitCard
-                      title='Gaming Monitors'
-                      href='/'
-                      img={gaminImg}
-                  />
-                  <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
-                      {
-                          newProducts && newProducts.results.map(item =>
-                              <SwiperSlide key={item.id}>
-                                  <ProductCard
-                                      rating={item?.rating}
-                                      id={item.id}
-                                      key={item.id}
-                                      image={item?.product_img?.image}
-                                      title={item.short_desc}
-                                      price={item.price}
-                                      discountPrice={item.discount}
-                                      isInStock={item.is_stock}
-                                  />
-                              </SwiperSlide>
-                          )
-                      }
-                  </Carousel>
-              </section>
+              {/*<section className={styles.category}>*/}
+              {/*    <VisitCard*/}
+              {/*        title='Gaming Monitors'*/}
+              {/*        href='/'*/}
+              {/*        img={gaminImg}*/}
+              {/*    />*/}
+              {/*    <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >*/}
+              {/*        {*/}
+              {/*            newProducts && newProducts.results.map(item =>*/}
+              {/*                <SwiperSlide key={item.id}>*/}
+              {/*                    <ProductCard*/}
+              {/*                        rating={item?.rating}*/}
+              {/*                        id={item.id}*/}
+              {/*                        key={item.id}*/}
+              {/*                        image={item?.product_img?.image}*/}
+              {/*                        title={item.short_desc}*/}
+              {/*                        price={item.price}*/}
+              {/*                        discountPrice={item.discount}*/}
+              {/*                        isInStock={item.is_stock}*/}
+              {/*                    />*/}
+              {/*                </SwiperSlide>*/}
+              {/*            )*/}
+              {/*        }*/}
+              {/*    </Carousel>*/}
+              {/*</section>*/}
 
               <section className={styles.brands}>
                   <Carousel type='brand' autoplay={true} button={false} loop={true} >
