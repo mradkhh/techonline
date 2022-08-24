@@ -36,7 +36,26 @@
 }
 
 .nav_li {
-  @include flex-center(center);
+  @include flex-start(flex-start);
+  flex-direction: column;
+
+  > button {
+    @include flex-between(center);
+  }
+
+  @include breakpoint992max {
+    padding-block: 8px;
+  }
+}
+
+.navbar__submenu {
+  display: block;
+  background-color: var(--white);
+  padding-left: 14px;
+  margin-top: 6px;
+  @include breakpoint992min {
+    display: none;
+  }
 }
 
 .arrow {
@@ -70,19 +89,21 @@
       gap: 16px;
     }
     @media (max-width: $breakpoint992) {
-      background-color: var(--white);
       @include flex-column(flex-start, flex-start);
-      border-top: 1px solid #CACDD8;
+      gap: 0;
       @include maxWidth(436);
+      background-color: var(--white);
+      border-top: 1px solid #CACDD8;
       padding: 75px 26px 0 24px;
       height: 100vh;
       animation: fade-right 200ms ease;
       position: fixed;
 
       > li {
-        @include flex-center(center);
+        @include flex-center(flex-start);
         width: 100%;
         padding-left: 8px;
+        padding-block: 8px;
       }
 
       > button {

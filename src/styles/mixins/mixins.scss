@@ -437,3 +437,15 @@ $breakpoint480: 479.98 + px;
     @content
   }
 }
+
+@mixin breakpoint992max {
+  @media (max-width: $breakpoint992) {
+    @content
+  }
+}
+
+@mixin breakpoint992min {
+  @media (min-width: $breakpoint992) {
+    @content
+  }
+}
