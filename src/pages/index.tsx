@@ -30,17 +30,19 @@ const Index: NextPage = () => {
     // =----------------- fetching for data -----------------=
     const { data: brands } = useFetchAllBrandsQuery('');
     const { data: categories } = useFetchAllCategoriesQuery('')
-    const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size: 10, page: 1})
+    const { data: new_products } = useGetAllProductsQuery({page_size: 10, page: 1})
 
     useEffect(() => {
         setLoading(false)
-    })
+    }, [])
 
     return (
       loading ?
         <Loading/>
           :
           <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
+
+              {/* =------------ banner section -----------------= */}
               <Banner/>
 
               {/* =-------------- new products section --------------= */}
@@ -48,7 +50,7 @@ const Index: NextPage = () => {
                   <h3 className={styles.products_title}>New Products</h3>
                   <Carousel type='items' autoplay={false} button={true} loop={true} >
                       {
-                          newProducts && newProducts.results.map(item =>
+                          new_products && new_products.results.map(item =>
                               <SwiperSlide key={item.id}>
                                   <ProductCard
                                       rating={item?.rating}
@@ -67,19 +69,20 @@ const Index: NextPage = () => {
               </section>
 
               {/* =----------------- ads section -----------------= */}
-              <section className={styles.ads}>
-                  <div className={styles.adsContent}>
+              <section className={styles.ads_section}>
+                  <div className={styles.ads}>
                       <PartnerLogo/>
                       <h3><span>own</span> it now, up to 6 months interest free  </h3>
                       <A href='/'> learn more</A>
                   </div>
               </section>
 
+              {/* =------------------ categories section ------------------= */}
               {
                   categories && categories.results.map(item => {
-                      return <section className={styles.sections_wrapper} key={item?.id}>
+                      return <section className={styles.categories_wrapper} key={item?.id}>
                           <Tabs>
-                              <TabList className={styles.tabsList}>
+                              <TabList className={styles.tabs_list}>
                                   {
                                       item?.childs && item?.childs.map(child => {
                                           return <Tab key={child?.id}>
@@ -88,11 +91,10 @@ const Index: NextPage = () => {
                                       })
                                   }
                               </TabList>
-
                                   {
                                       item?.childs?.map(child => {
                                           return <TabPanel key={child.id} >
-                                              <div className={styles.category}>
+                                              <div className={styles.carousel_wrapper}>
                                                   <VisitCard
                                                       title={child?.name}
                                                       href={`/${child?.name}`}
@@ -100,7 +102,7 @@ const Index: NextPage = () => {
                                                   />
                                                   <Carousel type='category' autoplay={false} button={false} loop={true} pagination={true} >
                                                       {
-                                                          child?.products ? child?.products?.map(product =>
+                                                          child?.products?.map(product =>
                                                               <SwiperSlide key={product.id}>
                                                                   <ProductCard
                                                                       rating={product?.rating}
@@ -114,8 +116,6 @@ const Index: NextPage = () => {
                                                                   />
                                                               </SwiperSlide>
                                                           )
-                                                          :
-                                                          <h1>Mavjud emas...</h1>
                                                       }
                                                   </Carousel>
                                               </div>
@@ -127,6 +127,7 @@ const Index: NextPage = () => {
                   })
               }
 
+              {/* =-------------- brands section ----------------= */}
               <section className={styles.brands}>
                   <Carousel type='brand' autoplay={true} button={false} loop={true} >
                       {
@@ -148,7 +149,8 @@ const Index: NextPage = () => {
                   </Carousel>
               </section>
 
-              <h2 className={styles.blogsTitle}>Follow us on Instagram for News, Offers & More</h2>
+              {/* =----------------------- blogs section -------------------------= */}
+              <h2 className={styles.blogs_title}>Follow us on Instagram for News, Offers & More</h2>
               <section className={styles.blogs}>
                   <BlogCard
                       text="If you’ve recently made a desktop PC or laptop purchase, you might want to consider adding peripherals to enhance your home office setup, your gaming rig, or your business workspace..."
@@ -207,6 +209,7 @@ const Index: NextPage = () => {
                   />
               </section>
 
+              {/* =------------------ quotes section -----------------------= */}
               <section className={styles.quotes}>
                   <Carousel type='banner' autoplay={true} button={false} loop={true}>
                       <SwiperSlide>
@@ -218,7 +221,7 @@ const Index: NextPage = () => {
                       </SwiperSlide>
                   </Carousel>
               </section>
-
+              
           </MainLayout>
   )
 }

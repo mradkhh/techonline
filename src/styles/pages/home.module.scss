@@ -1,11 +1,6 @@
 @import "styles/mixins/mixins";
 
-.sections_wrapper {
-  @include container;
-}
-.wrapper {
-  @include flex-start(flex-start);
-}
+
 .products {
   @include container;
   margin-bottom: 18px;
@@ -21,13 +16,13 @@
 
 // =------------- ads section -------------=
 
-.ads {
+.ads_section {
   @media (max-width: $breakpoint768) {
     @include container;
   }
 }
 
-.adsContent {
+.ads {
   @include flex(center, center);
   background-color: var(--light-blue);
   padding-block: 22px;
@@ -85,7 +80,11 @@
 
 // =---------------------- category section -----------------=
 
-.category {
+.categories_wrapper {
+  @include container;
+}
+
+.carousel_wrapper {
   @include container;
   @include flex-start(center);
   margin-bottom: 32px;
@@ -97,7 +96,7 @@
   }
 }
 
-.tabsList {
+.tabs_list {
   @include container;
   @include flex(center, flex-start);
   flex-wrap: wrap;
@@ -128,8 +127,10 @@
   padding-block: 35px;
 }
 
+
+
 // =------------ blogs section ----------=
-.blogsTitle {
+.blogs_title {
   @include container;
   font-weight: 600;
   font-size: 22px;
