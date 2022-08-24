@@ -12,7 +12,6 @@ interface TextInputProps {
     error?: boolean,
     setError?: (bool: boolean) => void,
     errorText?: string,
-    defaultValue?: any
 }
 
 const TextInput: FC<TextInputProps> = ({ label,
@@ -22,7 +21,7 @@ const TextInput: FC<TextInputProps> = ({ label,
                                            radioValue,
                                            radioName,
                                            error,
-                                           setError, errorText, defaultValue,
+                                           setError, errorText,
                                            ...props
 }) => {
 
@@ -43,7 +42,6 @@ const TextInput: FC<TextInputProps> = ({ label,
                 type === 'text' ?
                         <input {...props}
                                onFocus={handleFocus}
-                               defaultValue={defaultValue ? defaultValue : ''}
                                style={{
                                    border: (error ) ? '1px solid var(--red)' : '1px solid var(--gray)',
                                    animation: (error ) ? 'light 500ms ease' : '' }} type="text"

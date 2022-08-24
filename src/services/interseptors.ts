@@ -28,8 +28,7 @@ $api.interceptors.response.use((config) => {
                     setAccessToken(res.data.access)
                     return $api.request(originalRequest)
             } catch (e: any) {
-                console.log('Not auth - ' + e.message)
-                alert("Not")
+                console.warn('Not auth - ' + e.message)
             }
         }
     }

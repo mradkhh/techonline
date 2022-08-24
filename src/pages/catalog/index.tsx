@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {NextPage} from "next";
 import MainLayout from "layouts/MainLayout";
 import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
@@ -9,21 +9,17 @@ import Pagination from "components/UI/Pagination/Pagination";
 import Select from "components/UI/Select/Select";
 import {useGetAllProductsQuery} from "services/ProductService";
 import FullProductCard from "components/UI/Cards/FullProductCard";
-import Tags from "components/UI/Tags/Tags";
 import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
-import styles from 'styles/pages/catalog.module.scss'
-import {number} from "prop-types";
 import useInput from "hooks/useInput";
 import Loading from "components/UI/Loading/Loading";
+import styles from 'styles/pages/catalog.module.scss'
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },
     { path: '/laptops', text: 'Laptops' },
     { path: '/laptops/id', text: 'MSI Prestige Series' }
 ]
-
-
 
 const sortOption = [
     { value: '', title: 'Position' },
@@ -69,8 +65,6 @@ const Catalog: NextPage = () => {
     })
     const pages = products?.count ? (products?.count / Number(showValue)) : 1
 
-    console.log(products)
-
     useEffect(() => {
         window.scroll(0, 150)
     }, [page])
@@ -80,10 +74,6 @@ const Catalog: NextPage = () => {
     }, [])
 
     const count_filter = 0
-
-    useEffect(() => {
-
-    }, [brandId.length, categoryId.length, colorId.length])
 
     return (
         product_loading ?

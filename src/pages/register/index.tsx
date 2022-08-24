@@ -9,7 +9,6 @@ import useInput from "hooks/useInput";
 import {useAppSelector} from "hooks/redux";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/register.module.scss'
-import {useFetchLoginMutation} from "services/AuthService";
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -17,23 +16,17 @@ const breadcrumbs = [
 
 const Register: NextPage = () => {
     const { authStore } = useContext(Context)
-    const [ refresh, setRefresh ] = useState<boolean>(false)
-    const [ submitLoading, setSubmitLoading ] = useState<boolean>(false)
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
-    const [ status, setStatus ] = useState<boolean>(authStore.errorStatus)
     const { login_error } = useAppSelector(state => state.validates)
-    // const [ fetchLogin, { isLoading: loginLoading,  isSuccess: loginSuccess, isUninitialized , error , isError  } ] = useFetchLoginMutation()
 
     const loginUsername = useInput('')
     const loginPassword = useInput('')
 
     const handleLoginSubmit = (e: any) => {
-        setSubmitLoading(true)
         e.preventDefault()
         if(loginUsername.value.length >= 3 && loginPassword.value.length >= 3) {
             authStore.login(loginUsername.value, loginPassword.value)
-            setRefresh(!refresh)
         }
         if (loginUsername.value.length < 3 ) {
             setUsernameLoginError(true)
@@ -41,16 +34,11 @@ const Register: NextPage = () => {
         if (loginPassword.value.length < 3) {
             setPasswordLoginError(true)
         }
-        setSubmitLoading(false)
     }
 
     const handleRegister = () => {
         authStore.setShowModal(true)
     }
-
-    // useEffect(() => {
-    //     setStatus(authStore.errorStatus)
-    // }, [refresh])
 
 
     const [ loading, setLoading ] = useState<boolean>(true)

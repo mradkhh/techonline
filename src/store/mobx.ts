@@ -52,8 +52,6 @@ export default class AuthStore {
             window.location.href = '/'
         } catch (e: any) {
             alert(e.response.data.detail)
-            // this.setErrorStatus(true)
-            // this.setErrorText(e.response.message)
         } finally {
             this.setLoading(false)
         }
@@ -68,6 +66,7 @@ export default class AuthStore {
             localStorage.setItem('auth', 'true')
             this.setAuth(true)
             this.setLoading(false)
+            window.location.href = '/'
         } catch (e: any) {
             alert(e.response.data.message)
             this.setErrorText(e.response.data.message)

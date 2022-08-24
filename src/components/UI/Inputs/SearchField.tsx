@@ -54,13 +54,13 @@ const SearchField: FC<SearchProps> =({search}) => {
                 className={cl.search}>
                 <input ref={ref} { ...searchState } type="text" placeholder='Search entire store here...'/>
                 <span className={cl.Icon}>
-               <SearchIcon/>
-            </span>
+                   <SearchIcon/>
+                </span>
                 {
                     searchState.value &&
-                    <span onClick={handleClear} className={cl.XIcon}>
-                   <XIcon/>
-                </span>
+                        <span onClick={handleClear} className={cl.XIcon}>
+                           <XIcon/>
+                        </span>
                 }
             </div>
             {

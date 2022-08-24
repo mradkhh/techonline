@@ -1,5 +1,5 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import type { NextPage } from 'next'
 import {Tab, TabList, TabPanel} from "react-tabs"
 import {SwiperSlide} from "swiper/react";
@@ -12,8 +12,6 @@ import A from "components/UI/A/A";
 import VisitCard from "components/UI/Cards/VisitCard";
 import BlogCard from "components/UI/Cards/BlogCard";
 import QuoteBanner from "components/UI/Banner/QuoteBanner";
-import msiImg from 'static/images/categories/msi.png'
-import desktopImg from 'static/images/categories/desktop.png'
 import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
@@ -21,8 +19,8 @@ import { PartnerLogo } from "static/icons/icon";
 import Loading from "components/UI/Loading/Loading";
 import { useFetchAllBrandsQuery } from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
-import styles from "styles/pages/home.module.scss"
 import {useFetchAllCategoriesQuery} from "services/CategoriesService";
+import styles from "styles/pages/home.module.scss"
 
 
 const Index: NextPage = () => {
@@ -32,7 +30,6 @@ const Index: NextPage = () => {
     const { data: categories } = useFetchAllCategoriesQuery('')
     const { data: newProducts, isLoading: products_loading } = useGetAllProductsQuery({page_size, page})
 
-    console.log(categories)
     return (
       products_loading ?
         <Loading/>

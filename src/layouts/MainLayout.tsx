@@ -4,7 +4,6 @@ import Header from "components/Header/Header";
 import Footer from "components/Footer/Footer";
 import {ArrowDown, ContactIcon, HearphoneIcon, SaleIcon} from "static/icons/icon";
 import {useFetchAllCategoriesQuery} from "services/CategoriesService";
-import {useFetchAllBrandsQuery} from "services/BrandsService";
 import TextInput from "components/UI/Inputs/TextInput";
 import Modal from "components/UI/Modal/Modal";
 import useInput from "hooks/useInput";
@@ -51,7 +50,6 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
             setConfirmPasswordRegisterError(true)
         }
     }
-
 
     useEffect(() => {
         setLoading(false)
@@ -102,9 +100,6 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                         setError={setConfirmPasswordRegisterError}
                         errorText={"Parol mos emass"}
                     />
-                    {
-                        authStore.errorText && authStore.errorText
-                    }
                     <div>
                         <button
                             type="submit">Create</button>

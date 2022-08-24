@@ -28,8 +28,6 @@ const Index: NextPage = () => {
 
     const router = useRouter()
 
-    console.log(router)
-
     // =--------------------------- error validation ---------------------=
     const [ discountError, setDiscountError ] = useState<boolean>(false)
     const [ postalCodeError, setPostalCodeError ] = useState<boolean>(false)
@@ -45,7 +43,9 @@ const Index: NextPage = () => {
     const { authStore } = useContext(Context)
     const [regionInput, setRegionInput] = useState<string>('')
     const [regionInputChild, setRegionInputChild] = useState<string>('')
-    const [regionRetrieveInput, setRegionRetrieveInput] = useState<string>('')
+
+
+    // =----------------- fetching -----------------------------=
     const {data: cart_results, isLoading: cart_loading} = useFetchCartQuery('')
     const [ clearCart ] = useFetchClearCartMutation()
 
@@ -81,7 +81,7 @@ const Index: NextPage = () => {
         setRegionInputChild(e.target.value)
     }
 
-    const [ fetchDiscount, discountIsLoading, errorDiscount ] = useFetching( async (discount: string) => {
+    const [ fetchDiscount ] = useFetching( async (discount: string) => {
         const res = await $api.post<IDiscount>('orders/check_discount/', { discount })
         setDiscountResponse(res.data)
     })
@@ -147,6 +147,7 @@ const Index: NextPage = () => {
     useEffect(() => {
         setLoading(false)
     }, [])
+
 
     return (
           loading ?
