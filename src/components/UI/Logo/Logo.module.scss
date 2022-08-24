@@ -2,7 +2,7 @@
 
 
 // =------------------ when desktop styles ----------------=
-.Root {
+.logo {
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -35,7 +35,7 @@
 }
 
 // =--------------- when mobile styles --------------=
-.mobileRoot {
+.mobile {
   @media (max-width: $breakpoint992) {
     position: absolute;
     top: -40px;

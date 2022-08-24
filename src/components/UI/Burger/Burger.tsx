@@ -8,16 +8,15 @@ interface BurgerProps {
 
 const Burger: FC<BurgerProps> = ({ show, setShow }) => {
 
-    const handleToggle = () => {
+    const handleToggle = useCallback(() => {
         setShow(!show)
-    }
+    }, [show])
 
     return (
         <button
             onClick={handleToggle}
             className={`${show ? styles.showMobileMenu : styles.button} hamburger hamburger--squeeze ${show ? 'is-active' : ''}`}
-            type="button"
-        >
+            type="button">
             <span className="hamburger-box">
               <span className="hamburger-inner"></span>
             </span>

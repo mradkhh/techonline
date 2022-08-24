@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import A from "components/UI/A/A";
-import cl from './Logo.module.scss'
 import {BrandLogoIcon} from "static/icons/icon";
+import cl from './Logo.module.scss'
 
 interface LogoProps {
     mobileMenuShow: boolean
@@ -10,7 +10,7 @@ interface LogoProps {
 const Logo: FC<LogoProps> = memo(({mobileMenuShow}) => {
     return (
         <A href='/'>
-            <div className={mobileMenuShow ? cl.mobileRoot : cl.Root }>
+            <div className={mobileMenuShow ? cl.mobile : cl.logo }>
                 <BrandLogoIcon/>
             </div>
         </A>

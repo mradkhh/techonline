@@ -9,15 +9,14 @@ import styles from './Menu.module.scss'
 
 interface MenuProps  {
     data: ICategories,
-    setIsInMenuArea: (bool: boolean) => void
 }
 
-const Menu: FC<MenuProps> = ({ data, setIsInMenuArea }) => {
+const Menu: FC<MenuProps> = ({ data }) => {
     const { categories } = useAppSelector(state => state.categories)
     const { data: brands } = useFetchAllBrandsQuery('')
 
     return (
-        <div onClick={() => setIsInMenuArea(true)} className={styles.wrapper}>
+        <div  className={styles.wrapper}>
             <div className={styles.top}>
                 <div onClick={(e)=> e.stopPropagation()} className={styles.menu}>
                     <div>

@@ -1,27 +1,31 @@
-import React, {useEffect, useState} from "react";
-import Image from "next/image";
 import type { NextPage } from 'next'
+import dynamic from "next/dynamic";
+import React, {useEffect, useState} from "react";
+import { Suspense } from 'react'
+import Image from "next/image";
 import {Tab, TabList, TabPanel} from "react-tabs"
 import {SwiperSlide} from "swiper/react";
 import MainLayout from "layouts/MainLayout";
-import Banner from "components/UI/Banner/Banner";
-import Carousel from "components/UI/Carousel/Carousel";
-import ProductCard from "components/UI/Cards/ProductCard";
-import Tabs from "components/UI/Tabs/Tabs"
-import A from "components/UI/A/A";
-import VisitCard from "components/UI/Cards/VisitCard";
-import BlogCard from "components/UI/Cards/BlogCard";
-import QuoteBanner from "components/UI/Banner/QuoteBanner";
-import gaminImg from 'static/images/categories/gaming.png'
-import blogImg1 from 'static/images/blogs/1.png'
-import blogImg2 from 'static/images/blogs/2.png'
-import { PartnerLogo } from "static/icons/icon";
-import Loading from "components/UI/Loading/Loading";
 import { useFetchAllBrandsQuery } from "services/BrandsService";
 import {useGetAllProductsQuery} from "services/ProductService";
 import {useFetchAllCategoriesQuery} from "services/CategoriesService";
+import {PartnerLogo} from "static/icons/icon";
+import gaminImg from 'static/images/categories/gaming.png'
+import blogImg1 from 'static/images/blogs/1.png'
+import blogImg2 from 'static/images/blogs/2.png'
 import styles from "styles/pages/home.module.scss"
 
+const Carousel = dynamic(() => import("components/UI/Carousel/Carousel"))
+const ProductCard = dynamic(() => import("components/UI/Cards/ProductCard"))
+const Tabs = dynamic(() => import("components/UI/Tabs/Tabs"))
+const VisitCard = dynamic(() => import("components/UI/Cards/VisitCard"))
+const A = dynamic(() => import("components/UI/A/A"))
+const Loading = dynamic(() => import('components/UI/Loading/Loading'))
+const Banner  = dynamic(() => import('components/UI/Banner/Banner'), {
+    suspense: true
+})
+const QuoteBanner = dynamic(() => import("components/UI/Banner/QuoteBanner"))
+const BlogCard = dynamic(() => import("components/UI/Cards/BlogCard"))
 
 const Index: NextPage = () => {
 
@@ -43,29 +47,33 @@ const Index: NextPage = () => {
           <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
 
               {/* =------------ banner section -----------------= */}
-              <Banner/>
+              <Suspense fallback={"Loading..."}>
+                  <Banner/>
+              </Suspense>
 
               {/* =-------------- new products section --------------= */}
               <section className={styles.products}>
                   <h3 className={styles.products_title}>New Products</h3>
-                  <Carousel type='items' autoplay={false} button={true} loop={true} >
-                      {
-                          new_products && new_products.results.map(item =>
-                              <SwiperSlide key={item.id}>
-                                  <ProductCard
-                                      rating={item?.rating}
-                                      id={item.id}
-                                      key={item.id}
-                                      image={item?.product_img?.image}
-                                      title={item.short_desc}
-                                      price={item.price}
-                                      discountPrice={item.discount}
-                                      isInStock={item.is_stock}
-                                  />
-                              </SwiperSlide>
-                          )
-                      }
-                  </Carousel>
+                  <Suspense fallback={"Loading..."}>
+                      <Carousel type='items' autoplay={false} button={true} loop={true} >
+                          {
+                              new_products && new_products.results.map(item =>
+                                  <SwiperSlide key={item.id}>
+                                      <ProductCard
+                                          rating={item?.rating}
+                                          id={item.id}
+                                          key={item.id}
+                                          image={item?.product_img?.image}
+                                          title={item.short_desc}
+                                          price={item.price}
+                                          discountPrice={item.discount}
+                                          isInStock={item.is_stock}
+                                      />
+                                  </SwiperSlide>
+                              )
+                          }
+                      </Carousel>
+                  </Suspense>
               </section>
 
               {/* =----------------- ads section -----------------= */}

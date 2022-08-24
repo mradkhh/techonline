@@ -1,27 +1,27 @@
 import React, {createRef, FC, memo, useCallback, useContext, useEffect, useState} from 'react';
 import Image from "next/image";
+import axios from "axios";
+import {API_URL} from "services/interseptors";
+import {useFetchCartQuery} from "services/CartsService";
+import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
+import {useFetching} from "hooks/useFetching";
+import {useAppDispatch} from "hooks/redux";
+import {useMousedownClickInvisible, useMouseoverClickInvisible} from "hooks/useMousedownClickInvisible";
+import useMediaQuery from "hooks/useMediaQuery";
+import {Context} from "pages/_app";
+import {categoriesSlice} from "store/reducers/categoriesSlice";
 import Logo from "components/UI/Logo/Logo";
 import Head from "components/Header/UI/Head";
 import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
-import {ArrowDown, AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
-import useMediaQuery from "hooks/useMediaQuery";
-import {Context} from "pages/_app";
-import {useMousedownClickInvisible, useMouseoverClickInvisible} from "hooks/useMousedownClickInvisible";
 import {ICategories} from "models/index";
-import {useFetching} from "hooks/useFetching";
-import axios, {AxiosResponse} from "axios";
-import {API_URL} from "services/interseptors";
-import {useFetchCartQuery} from "services/CartsService";
 import {AuthResponse} from "models/response/AuthResponse";
-import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
-import styles from './Header.module.scss'
-import {useAppDispatch} from "hooks/redux";
-import {categoriesSlice} from "store/reducers/categoriesSlice";
+import { AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import NavItem from "components/Header/UI/NavItem";
+import styles from './Header.module.scss'
 
 interface HeaderProps {
     categories?: ICategories[]
@@ -33,7 +33,6 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
     const [ showMenu, setShowMenu ] = useState<boolean>(false)
     const [ search, setSearch ] = useState<boolean>(false)
-    const [ isInMenuArea, setIsInMenuArea ] = useState<boolean>(false)
     const matches = useMediaQuery("(min-width: 992px)")
     const [ showMobileMenu, setShowMobileMenu ] = useState<boolean>(matches)
     const { authStore } = useContext(Context)
@@ -65,6 +64,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const menuRef = createRef<HTMLDivElement>()
     const navRef = createRef<HTMLUListElement>()
 
+    // =----------------- custom hooks for mouse events ------------------------------=
     useMousedownClickInvisible(avatarRef, () => { setShowAvatar(false) })
     useMousedownClickInvisible(cartRef, () => { setShowCart(false) })
     useMousedownClickInvisible(menuRef, () => { setShowMenu(false)
@@ -86,26 +86,21 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         }
     }, [isLoading, error])
 
-    useEffect(() => {
-        matches ? setShowMobileMenu(true) : null
-    }, [matches])
+    useEffect(() => { matches && setShowMobileMenu(true) }, [matches])
 
     useEffect(() => {
-        search ? window.document.body.style.overflow = 'hidden' : window.document.body.style.overflow = 'unset'
+        let overflow = window.document.body.style.overflow
+        search ? overflow = 'hidden' : overflow = 'unset'
     }, [search])
 
     return (
             <div className={styles.root}>
                 <Head/>
-                <div className={styles.header}>
-                        <div
-                            ref={menuRef}
-                            onClick={() => setIsInMenuArea(true)}>
-                            {
-                                showMenu && <Menu setIsInMenuArea={setIsInMenuArea} data={catIdData}/>
-                            }
-                        </div>
-                    <div className={styles.Root}>
+                <header className={styles.header_section}>
+                    <div ref={menuRef}>
+                        { showMenu && <Menu data={catIdData}/> }
+                    </div>
+                    <div className={styles.header}>
                         <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
                         <Logo mobileMenuShow={showMobileMenu}/>
                         <div
@@ -202,7 +197,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                     }
                                 </div>
                     </div>
-                </div>
+                </header>
             </div>
     );
 };
