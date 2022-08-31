@@ -34,7 +34,7 @@ const Index: NextPage = () => {
 
     // =----------------- fetching for data -----------------=
     const { data: brands } = useFetchAllBrandsQuery('');
-    const { data: categories } = useFetchAllCategoriesQuery('')
+    const { data: categories, isLoading } = useFetchAllCategoriesQuery('')
     const { data: new_products } = useGetAllProductsQuery({page_size: 10, page: 1})
 
     useEffect(() => {
@@ -53,26 +53,27 @@ const Index: NextPage = () => {
                   <section className={styles.products}>
                       <h3 className={styles.products_title}>New Products</h3>
                       {
-                              <Suspense fallback={<BannerSkeleton/>}>
-                                  <Carousel type='items' autoplay={false} button={true} loop={true} >
-                                      {
-                                          new_products && new_products.results.map(item =>
-                                              <SwiperSlide key={item.id}>
-                                                  <ProductCard
-                                                      rating={item?.rating}
-                                                      id={item.id}
-                                                      key={item.id}
-                                                      image={item?.product_img?.image}
-                                                      title={item.short_desc}
-                                                      price={item.price}
-                                                      discountPrice={item.discount}
-                                                      isInStock={item.is_stock}
-                                                  />
-                                              </SwiperSlide>
-                                          )
-                                      }
-                                  </Carousel>
-                              </Suspense>
+                          isLoading ?
+                              <BannerSkeleton/>
+                              :
+                              <Carousel type='items' autoplay={false} button={true} loop={true} >
+                                  {
+                                      new_products && new_products.results.map(item =>
+                                          <SwiperSlide key={item.id}>
+                                              <ProductCard
+                                                  rating={item?.rating}
+                                                  id={item.id}
+                                                  key={item.id}
+                                                  image={item?.product_img?.image}
+                                                  title={item.short_desc}
+                                                  price={item.price}
+                                                  discountPrice={item.discount}
+                                                  isInStock={item.is_stock}
+                                              />
+                                          </SwiperSlide>
+                                      )
+                                  }
+                              </Carousel>
                       }
                   </section>
 
