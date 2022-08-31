@@ -42,6 +42,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const { isAuth }  = authStore
     const [ catIdData, setCatIdData ] = useState<ICategories>({} as ICategories)
     const [ brandsData, setBrandsData ] = useState<IBrands>()
+
     const { fetchingSuccessBrands } = brandsSlice.actions
 
     const handleShowCart = useCallback(() => {
@@ -96,6 +97,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                 console.log(e.message)
                 window.location.reload()
             }
+            window.location.reload()
         }
     }, [isLoading, error])
 

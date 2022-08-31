@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
 import React, {FC, memo} from 'react';
-import Dropdown from "components/UI/Dropdown/Dropdown";
 import {LocationIcon, TimeIcon} from "static/icons/icon";
 import cl from './styles/ShopInfo.module.scss'
 
+const Dropdown  = dynamic(() => import("components/UI/Dropdown/Dropdown"))
 
 const ShopInfo: FC = () => {
     return (

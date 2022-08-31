@@ -1,14 +1,12 @@
+import dynamic from "next/dynamic";
 import React, {FC, memo} from 'react';
-import ShopInfo from "components/Header/UI/ShopInfo";
 import A from "components/UI/A/A";
 import {FacebookIcon, InstagramIcon} from "static/icons/icon";
 import cl from './styles/Head.module.scss'
 
-interface HeadProps {
+const ShopInfo = dynamic(() => import("components/Header/UI/ShopInfo"))
 
-}
-
-const Head: FC<HeadProps> = ({  }) => {
+const Head: FC = () => {
     return (
             <div className={cl.Root}>
                 <div className={cl.Content}>
