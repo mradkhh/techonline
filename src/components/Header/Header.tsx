@@ -16,15 +16,22 @@ import {AuthResponse} from "models/response/AuthResponse";
 import { AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import {brandsSlice} from "store/reducers/brandsSlice";
 import {IBrands, ICategories} from "models/index";
+import Minicart from "components/UI/Cart/Minicart";
+import NavItem from "components/Header/UI/NavItem";
+import SearchField from "components/UI/Inputs/SearchField";
+import Logo from "components/UI/Logo/Logo";
+import Burger from "components/UI/Burger/Burger";
+import Menu from "components/UI/Menu/Menu";
+import Head from "components/Header/UI/Head";
 import styles from './Header.module.scss'
 
-const Minicart = dynamic(() => import("components/UI/Cart/Minicart"))
-const SearchField = dynamic(() => import("components/UI/Inputs/SearchField"))
-const Burger = dynamic(() => import("components/UI/Burger/Burger"))
-const Menu = dynamic(() => import("components/UI/Menu/Menu"))
-const NavItem = dynamic(() => import("components/Header/UI/NavItem"))
-const Logo = dynamic(() => import("components/UI/Logo/Logo"))
-const Head = dynamic(() => import("components/Header/UI/Head"))
+// const Minicart = dynamic(() => import("components/UI/Cart/Minicart"))
+// const SearchField = dynamic(() => import("components/UI/Inputs/SearchField"))
+// const Burger = dynamic(() => import("components/UI/Burger/Burger"))
+// const Menu = dynamic(() => import("components/UI/Menu/Menu"))
+// const NavItem = dynamic(() => import("components/Header/UI/NavItem"))
+// const Logo = dynamic(() => import("components/UI/Logo/Logo"))
+// const Head = dynamic(() => import("components/Header/UI/Head"))
 
 interface HeaderProps {
     categories?: ICategories[]

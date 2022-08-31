@@ -34,7 +34,7 @@ const Index: NextPage = () => {
 
     // =----------------- fetching for data -----------------=
     const { data: brands } = useFetchAllBrandsQuery('');
-    const { data: categories, isLoading } = useFetchAllCategoriesQuery('')
+    const { data: categories, isLoading: categoriesLoading } = useFetchAllCategoriesQuery('')
     const { data: new_products } = useGetAllProductsQuery({page_size: 10, page: 1})
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const Index: NextPage = () => {
                   <section className={styles.products}>
                       <h3 className={styles.products_title}>New Products</h3>
                       {
-                          isLoading ?
+                          categoriesLoading ?
                               <BannerSkeleton/>
                               :
                               <Carousel type='items' autoplay={false} button={true} loop={true} >
