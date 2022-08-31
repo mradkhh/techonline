@@ -1,12 +1,11 @@
-import dynamic from "next/dynamic";
 import React, {FC, useContext} from 'react';
 import {PayPalButtonIcon} from "static/icons/icon";
 import A from "components/UI/A/A";
+import MiniCartProductsItem from "components/UI/Cart/MiniCartProductsItem";
 import {ICart} from "models/index";
 import {Context} from "pages/_app";
 import styles from './Minicart.module.scss'
 
-const MiniCartProductsItem = dynamic(() => import("components/UI/Cart/MiniCartProductsItem"))
 
 interface MinicartProps {
     product?: ICart[]
