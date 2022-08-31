@@ -12,9 +12,12 @@ import {PartnerLogo} from "static/icons/icon";
 import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
+import {Suspense} from "react";
 import styles from "styles/pages/home.module.scss"
 
-const BannerSkeleton = dynamic(() => import("components/skeleton/BannerSk"))
+const BannerSkeleton = dynamic(() => import("components/skeleton/BannerSk"), {
+    suspense: true
+})
 const Carousel = dynamic(() => import("components/UI/Carousel/Carousel"))
 const ProductCard = dynamic(() => import("components/UI/Cards/ProductCard"))
 const Tabs = dynamic(() => import("components/UI/Tabs/Tabs"))
@@ -31,7 +34,7 @@ const Index: NextPage = () => {
 
     // =----------------- fetching for data -----------------=
     const { data: brands } = useFetchAllBrandsQuery('');
-    const { data: categories, isLoading: categoriesLoading } = useFetchAllCategoriesQuery('')
+    const { data: categories } = useFetchAllCategoriesQuery('')
     const { data: new_products } = useGetAllProductsQuery({page_size: 10, page: 1})
 
     useEffect(() => {
@@ -43,38 +46,35 @@ const Index: NextPage = () => {
           //   <Loading/>
           //     :
               <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
-
                   {/* =------------ banner section -----------------= */}
                   <Banner/>
 
                   {/* =-------------- new products section --------------= */}
-
-                          <section className={styles.products}>
-                              <h3 className={styles.products_title}>New Products</h3>
-                              {
-                                  categoriesLoading ?
-                                      <BannerSkeleton/>
-                                      :
-                                      <Carousel type='items' autoplay={false} button={true} loop={true} >
-                                          {
-                                              new_products && new_products.results.map(item =>
-                                                  <SwiperSlide key={item.id}>
-                                                      <ProductCard
-                                                          rating={item?.rating}
-                                                          id={item.id}
-                                                          key={item.id}
-                                                          image={item?.product_img?.image}
-                                                          title={item.short_desc}
-                                                          price={item.price}
-                                                          discountPrice={item.discount}
-                                                          isInStock={item.is_stock}
-                                                      />
-                                                  </SwiperSlide>
-                                              )
-                                          }
-                                      </Carousel>
-                              }
-                          </section>
+                  <section className={styles.products}>
+                      <h3 className={styles.products_title}>New Products</h3>
+                      {
+                              <Suspense fallback={<BannerSkeleton/>}>
+                                  <Carousel type='items' autoplay={false} button={true} loop={true} >
+                                      {
+                                          new_products && new_products.results.map(item =>
+                                              <SwiperSlide key={item.id}>
+                                                  <ProductCard
+                                                      rating={item?.rating}
+                                                      id={item.id}
+                                                      key={item.id}
+                                                      image={item?.product_img?.image}
+                                                      title={item.short_desc}
+                                                      price={item.price}
+                                                      discountPrice={item.discount}
+                                                      isInStock={item.is_stock}
+                                                  />
+                                              </SwiperSlide>
+                                          )
+                                      }
+                                  </Carousel>
+                              </Suspense>
+                      }
+                  </section>
 
                   {/* =----------------- ads section -----------------= */}
                   <section className={styles.ads_section}>
@@ -86,8 +86,7 @@ const Index: NextPage = () => {
                   </section>
 
                   {/* =------------------ categories section ------------------= */}
-                  {
-                      categories && categories.results.map(item => {
+                  { categories && categories.results.map(item => {
                           return <section className={styles.categories_wrapper} key={item?.id}>
                               <Tabs>
                                   <TabList className={styles.tabs_list}>
@@ -229,7 +228,6 @@ const Index: NextPage = () => {
                           </SwiperSlide>
                       </Carousel>
                   </section>
-
               </MainLayout>
   )
 }

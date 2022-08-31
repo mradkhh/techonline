@@ -1,6 +1,8 @@
+import dynamic from "next/dynamic";
 import React, {createRef, FC, memo, useCallback, useContext, useEffect, useState} from 'react';
 import Image from "next/image";
 import axios from "axios";
+import {Context} from "pages/_app";
 import {API_URL} from "services/interseptors";
 import {useFetchCartQuery} from "services/CartsService";
 import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
@@ -8,21 +10,21 @@ import {useFetching} from "hooks/useFetching";
 import {useAppDispatch} from "hooks/redux";
 import {useMousedownClickInvisible, useMouseoverClickInvisible} from "hooks/useMousedownClickInvisible";
 import useMediaQuery from "hooks/useMediaQuery";
-import {Context} from "pages/_app";
 import {categoriesSlice} from "store/reducers/categoriesSlice";
-import Logo from "components/UI/Logo/Logo";
-import Head from "components/Header/UI/Head";
-import Minicart from "components/UI/Cart/Minicart";
 import A from "components/UI/A/A";
-import Menu from "components/UI/Menu/Menu";
-import SearchField from "components/UI/Inputs/SearchField";
-import Burger from "components/UI/Burger/Burger";
 import {AuthResponse} from "models/response/AuthResponse";
 import { AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
-import NavItem from "components/Header/UI/NavItem";
 import {brandsSlice} from "store/reducers/brandsSlice";
 import {IBrands, ICategories} from "models/index";
 import styles from './Header.module.scss'
+
+const Minicart = dynamic(() => import("components/UI/Cart/Minicart"))
+const SearchField = dynamic(() => import("components/UI/Inputs/SearchField"))
+const Burger = dynamic(() => import("components/UI/Burger/Burger"))
+const Menu = dynamic(() => import("components/UI/Menu/Menu"))
+const NavItem = dynamic(() => import("components/Header/UI/NavItem"))
+const Logo = dynamic(() => import("components/UI/Logo/Logo"))
+const Head = dynamic(() => import("components/Header/UI/Head"))
 
 interface HeaderProps {
     categories?: ICategories[]
