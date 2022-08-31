@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import dynamic from "next/dynamic";
 import React, {useEffect, useState} from "react";
-import { Suspense } from 'react'
 import Image from "next/image";
 import {Tab, TabList, TabPanel} from "react-tabs"
 import {SwiperSlide} from "swiper/react";

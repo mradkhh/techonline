@@ -159,7 +159,7 @@ const CheckOut: NextPage = () => {
         const session_storage = getSessionStorage('checkout') ?? ''
         setCheckoutData(JSON.parse(session_storage))
         session_storage && postalCode.setValue(checkoutData?.zip_code ?? '')
-    }, [])
+    }, [postalCode, checkoutData?.zip_code ])
 
 
     // =------------------- first loading effect -----------------=

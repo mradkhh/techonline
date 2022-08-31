@@ -68,7 +68,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         matches && setShowMenu(true)
         fetchCategoryId(id)
         fetchBrandsByCategoryId(id)
-    }, [matches, fetchCategoryId])
+    }, [matches, fetchCategoryId, fetchBrandsByCategoryId])
 
     const avatarRef = createRef<HTMLDivElement>()
     const cartRef = createRef<HTMLDivElement>()

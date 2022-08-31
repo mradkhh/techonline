@@ -6,7 +6,6 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <link href="static/fonts/stylesheet.css" rel="stylesheet"/>
                 </Head>
                 <body>
                     <Main />

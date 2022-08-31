@@ -10,7 +10,7 @@ const Burger: FC<BurgerProps> = ({ show, setShow }) => {
 
     const handleToggle = useCallback(() => {
         setShow(!show)
-    }, [show])
+    }, [show, setShow])
 
     return (
         <button
