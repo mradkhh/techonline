@@ -49,9 +49,9 @@ const Index: NextPage = () => {
     }, [])
 
     return (
-          loading ?
-            <Loading/>
-              :
+          // loading ?
+          //   <Loading/>
+          //     :
               <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
 
                   {/* =------------ banner section -----------------= */}
