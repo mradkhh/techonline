@@ -22,9 +22,7 @@ const Tabs = dynamic(() => import("components/UI/Tabs/Tabs"))
 const VisitCard = dynamic(() => import("components/UI/Cards/VisitCard"))
 const A = dynamic(() => import("components/UI/A/A"))
 const Loading = dynamic(() => import('components/UI/Loading/Loading'))
-const Banner  = dynamic(() => import('components/UI/Banner/Banner'), {
-    suspense: true
-})
+const Banner  = dynamic(() => import('components/UI/Banner/Banner'))
 const QuoteBanner = dynamic(() => import("components/UI/Banner/QuoteBanner"))
 const BlogCard = dynamic(() => import("components/UI/Cards/BlogCard"))
 
@@ -48,12 +46,7 @@ const Index: NextPage = () => {
               <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
 
                   {/* =------------ banner section -----------------= */}
-                  {
-                      loading ?
-                          <BannerSkeleton/>
-                          :
-                          <Banner/>
-                  }
+                  <Banner/>
 
                   {/* =-------------- new products section --------------= */}
 
