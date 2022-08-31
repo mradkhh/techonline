@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import React, {createRef, FC, memo, useCallback, useContext, useEffect, useState} from 'react';
 import Image from "next/image";
 import axios from "axios";
@@ -34,10 +33,32 @@ import styles from './Header.module.scss'
 // const Head = dynamic(() => import("components/Header/UI/Head"))
 
 interface HeaderProps {
-    categories?: ICategories[]
+    categories?: ICategories[],
+    categoriesLoading: boolean
 }
 
-const Header: FC<HeaderProps> = ({ categories }) => {
+const HeaderSk = () => {
+    return (
+        <div className={styles.header__skeleton}>
+            <div className={styles.logo__skeleton}></div>
+            <div className={styles.nav__skeleton}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div className={styles.user__skeleton}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    )
+}
+
+const Header: FC<HeaderProps> = ({ categories, categoriesLoading }) => {
     const dispatch = useAppDispatch()
     const [ showCart, setShowCart ] = useState<boolean>(false)
     const [ showAvatar, setShowAvatar ] = useState<boolean>(false)
@@ -119,45 +140,49 @@ const Header: FC<HeaderProps> = ({ categories }) => {
             <div className={styles.root}>
                 <Head/>
                 <header className={styles.header_section}>
-                    <div ref={menuRef}>
-                        { showMenu && <Menu data={catIdData}/> }
-                    </div>
-                    <div className={styles.header}>
-                        <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
-                        <Logo mobileMenuShow={showMobileMenu}/>
-                        <div
-                            onClick={() => setSearch(false)}
-                            className={[styles.searchField, search ? ' searchEffect' : ''].join('')}>
-                            <SearchField search={search} />
-                        </div>
-                        {
-                            showMobileMenu &&
-                            <nav
-                                onClick={() => setShowMobileMenu(!showMobileMenu)}
-                                className={styles.Navbar}>
-                             <ul ref={navRef} onClick={(e)=> e.stopPropagation()}>
-                                 <li>
-                                     <A href={"/"}>Bosh sahifa</A>
-                                 </li>
-                                {
-                                    categories && categories.map((item) =>
-                                        <NavItem key={item?.id} item={item} handleShowMenu={handleShowMenu}/>
-                                    )
-                                }
-                                 <li>
-                                     <A href={"/faq"}>Faq</A>
-                                 </li>
-                                <button>Our Deals</button>
-                             </ul>
-                            </nav>
-                        }
-                        {
-                            !search && <button
-                                            onClick={() => setSearch(!search)}
-                                            className={styles.searchIcon}>
-                                            <SearchIcon/>
-                                        </button>
-                        }
+                <div ref={menuRef}>
+                    { showMenu && <Menu data={catIdData}/> }
+                </div>
+                {
+                    categoriesLoading ?
+                        <HeaderSk/>
+                        :
+                        <div className={styles.header}>
+                            <Burger show={showMobileMenu} setShow={setShowMobileMenu}/>
+                            <Logo mobileMenuShow={showMobileMenu}/>
+                            <div
+                                onClick={() => setSearch(false)}
+                                className={[styles.searchField, search ? ' searchEffect' : ''].join('')}>
+                                <SearchField search={search} />
+                            </div>
+                            {
+                                showMobileMenu &&
+                                <nav
+                                    onClick={() => setShowMobileMenu(!showMobileMenu)}
+                                    className={styles.Navbar}>
+                                 <ul ref={navRef} onClick={(e)=> e.stopPropagation()}>
+                                     <li>
+                                         <A href={"/"}>Bosh sahifa</A>
+                                     </li>
+                                    {
+                                        categories && categories.map((item) =>
+                                            <NavItem key={item?.id} item={item} handleShowMenu={handleShowMenu}/>
+                                        )
+                                    }
+                                     <li>
+                                         <A href={"/faq"}>Faq</A>
+                                     </li>
+                                    <button>Our Deals</button>
+                                 </ul>
+                                </nav>
+                            }
+                            {
+                                !search && <button
+                                                onClick={() => setSearch(!search)}
+                                                className={styles.searchIcon}>
+                                                <SearchIcon/>
+                                            </button>
+                            }
                             <div className={styles.Basket}>
                                 <button
                                     onClick={handleShowCart}
@@ -219,6 +244,7 @@ const Header: FC<HeaderProps> = ({ categories }) => {
                                     }
                                 </div>
                     </div>
+                }
                 </header>
             </div>
     );

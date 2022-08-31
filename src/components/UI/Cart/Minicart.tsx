@@ -6,11 +6,9 @@ import {ICart} from "models/index";
 import {Context} from "pages/_app";
 import styles from './Minicart.module.scss'
 
-
 interface MinicartProps {
     product?: ICart[]
 }
-
 
 const Minicart: FC<MinicartProps> = ({ product }) => {
 

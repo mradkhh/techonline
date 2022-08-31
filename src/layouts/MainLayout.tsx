@@ -23,7 +23,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
     const [ scrollToUp, setScrollToUp ] = useState<boolean>(false)
     const [ loading, setLoading ] = useState<boolean>(true)
 
-    const { data: categories } = useFetchAllCategoriesQuery('')
+    const { data: categories, isLoading: categoriesLoading } = useFetchAllCategoriesQuery('')
     const { authStore } = useContext(Context)
 
     const [ usernameRegisterError, setUsernameRegisterError ] = useState<boolean>(false)
@@ -67,7 +67,7 @@ const MainLayout: FC<MainLayoutProps> = memo(({ children, title, description, ma
                 <meta name="description" content={description} />
                 <link rel="reload" href="/favicon.ico" as="icon"/>
             </Head>
-            <Header categories={categories?.results}/>
+            <Header categories={categories?.results} categoriesLoading={categoriesLoading}/>
             <Modal>
                 <form onSubmit={handleRegisterSubmit} className={styles.form}>
                     <h1>Registration</h1>

@@ -311,3 +311,55 @@
     left: 0;
   }
 }
+
+
+// skeleton styles
+.header__skeleton {
+  @include container;
+  @include flex-between(center);
+  height: 46px;
+  gap: 32px;
+}
+
+.logo__skeleton {
+  background: linear-gradient(90deg, #e8e8e8 0px, #f8f8f8 40px, #e8e8e8 80px);
+  animation: animation 2.5s infinite;
+  @include rectangle(40);
+  border-radius: 4px;
+}
+
+.nav__skeleton {
+  @include flex-start(center);
+  gap: 24px;
+  margin-right: auto;
+  > span {
+    width: 100px;
+    height: 16px;
+    background: linear-gradient(90deg, #e8e8e8 0px, #f8f8f8 40px, #e8e8e8 80px);
+    animation: animation 2.5s infinite;
+    border-radius: 4px;
+  }
+}
+
+.user__skeleton {
+  @include flex-end(center);
+  gap: 24px;
+
+  > span {
+    background: linear-gradient(90deg, #e8e8e8 0px, #f8f8f8 40px, #e8e8e8 80px);
+    animation: animation 2s infinite;
+    @include rectangle(32);
+    border-radius: 100vmax;
+  }
+}
+@keyframes animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
