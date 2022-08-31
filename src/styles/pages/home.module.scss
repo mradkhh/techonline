@@ -4,6 +4,7 @@
 .products {
   @include container;
   margin-bottom: 18px;
+  min-height: 400px;
 }
 
 .products_title {
