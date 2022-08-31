@@ -1,11 +1,11 @@
-import 'styles/normalize.css'
-import 'styles/index.scss'
-import 'static/fonts/stylesheet.css'
 import type { AppProps } from 'next/app'
 import {setupStore} from "store/index";
 import AuthStore, {FilterState} from "store/mobx";
 import {createContext} from "react";
 import {Provider} from "react-redux";
+import 'static/fonts/stylesheet.css'
+import 'styles/normalize.css'
+import 'styles/index.scss'
 
 interface State {
     authStore: AuthStore,

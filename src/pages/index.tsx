@@ -14,8 +14,8 @@ import gaminImg from 'static/images/categories/gaming.png'
 import blogImg1 from 'static/images/blogs/1.png'
 import blogImg2 from 'static/images/blogs/2.png'
 import styles from "styles/pages/home.module.scss"
-import BannerSkeleton from "components/skeleton/BannerSk";
 
+const BannerSkeleton = dynamic(() => import("components/skeleton/BannerSk"))
 const Carousel = dynamic(() => import("components/UI/Carousel/Carousel"))
 const ProductCard = dynamic(() => import("components/UI/Cards/ProductCard"))
 const Tabs = dynamic(() => import("components/UI/Tabs/Tabs"))
@@ -27,13 +27,6 @@ const Banner  = dynamic(() => import('components/UI/Banner/Banner'), {
 })
 const QuoteBanner = dynamic(() => import("components/UI/Banner/QuoteBanner"))
 const BlogCard = dynamic(() => import("components/UI/Cards/BlogCard"))
-
-const SkeletonScreen = () => {
-    return (
-        <div>
-        </div>
-    );
-};
 
 const Index: NextPage = () => {
 
@@ -55,7 +48,12 @@ const Index: NextPage = () => {
               <MainLayout title={'Home'} description='Tech Online Market' mainClass={'main_home'}>
 
                   {/* =------------ banner section -----------------= */}
-                  <Banner/>
+                  {
+                      loading ?
+                          <BannerSkeleton/>
+                          :
+                          <Banner/>
+                  }
 
                   {/* =-------------- new products section --------------= */}
 
