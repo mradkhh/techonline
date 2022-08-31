@@ -1,4 +1,4 @@
-import React, {createRef, FC, memo, useContext} from 'react';
+import React, {FC, memo, useContext} from 'react';
 import Image from "next/image";
 import {
     FavoriteIcon,
@@ -10,11 +10,11 @@ import {
     SuccessIcon
 } from "static/icons/icon";
 import img from 'static/images/products/1.jpg'
-import styles from './styles/ProductCard.module.scss';
 import useMediaQuery from "hooks/useMediaQuery";
 import {useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
 import A from "components/UI/A/A";
 import {Context} from "pages/_app";
+import styles from './styles/ProductCard.module.scss';
 
 
 interface ProductCardProps {

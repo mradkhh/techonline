@@ -1,14 +1,15 @@
+import dynamic from "next/dynamic";
 import {NextPage} from "next";
 import React, {useContext, useEffect, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import TextInput from "components/UI/Inputs/TextInput";
 import A from "components/UI/A/A";
 import {Context} from "pages/_app";
 import useInput from "hooks/useInput";
-import {useAppSelector} from "hooks/redux";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/register.module.scss'
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const TextInput = dynamic(() => import("components/UI/Inputs/TextInput"))
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }
@@ -18,7 +19,6 @@ const Register: NextPage = () => {
     const { authStore } = useContext(Context)
     const [ usernameLoginError, setUsernameLoginError ] = useState<boolean>(false)
     const [ passwordLoginError, setPasswordLoginError ] = useState<boolean>(false)
-    const { login_error } = useAppSelector(state => state.validates)
 
     const loginUsername = useInput('')
     const loginPassword = useInput('')
@@ -55,7 +55,6 @@ const Register: NextPage = () => {
                 <Breadcrumbs array={breadcrumbs} current="Login"/>
                 <div className={styles.title}>Customer Login</div>
                 <div className={styles.field}>
-                    { login_error }
                     <div className={styles.sign}>
                         <h3>Registered Customers</h3>
                         <p>If you have an account, sign in with your email address.</p>
@@ -97,10 +96,8 @@ const Register: NextPage = () => {
                         <button
                             onClick={handleRegister}
                         >Create An Account</button>
-
                     </div>
                 </div>
-
             </MainLayout>
     );
 };

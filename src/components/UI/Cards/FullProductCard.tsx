@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import Image from "next/image";
 import {FavoriteIcon, MessageIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon} from "static/icons/icon";
 import img from 'static/images/products/1.jpg'
-import styles from './styles/FullProductCard.module.scss'
 import {useFetchAddToCartMutation, useFetchCartQuery} from "services/CartsService";
+import styles from './styles/FullProductCard.module.scss'
 
 interface FullProductCardProps {
     id: number,

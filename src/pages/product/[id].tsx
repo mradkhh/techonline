@@ -1,14 +1,18 @@
+import dynamic from "next/dynamic";
 import {NextPage} from "next";
 import Image from "next/image";
 import React, {useEffect, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import Tab1 from "pages/product/components/Tab1";
-import Tab2 from "pages/product/components/Tab2";
 import intelImg from "static/images/product/intel.png"
 import rtxImg from "static/images/product/rtx.png"
 import ssdImg from "static/images/product/ssd.png"
 import ddrImg from "static/images/product/ddr.png"
+import A from "components/UI/A/A";
+import useMediaQuery from "hooks/useMediaQuery";
+import {useGetProductQuery} from "services/ProductService";
+import {useRouter} from "next/router";
+import {useFetchAddToCartMutation, useFetchCartQuery, useFetchRemoveFromCartMutation} from "services/CartsService";
+import {SwiperSlide} from "swiper/react";
 import {
     FavoriteIcon,
     GrayArrowDownIcon,
@@ -17,15 +21,13 @@ import {
     PayPalButtonIcon,
     StatsIcon
 } from "static/icons/icon";
-import A from "components/UI/A/A";
-import useMediaQuery from "hooks/useMediaQuery";
-import {useGetProductQuery} from "services/ProductService";
-import {useRouter} from "next/router";
-import {useFetchAddToCartMutation, useFetchCartQuery, useFetchRemoveFromCartMutation} from "services/CartsService";
-import Carousel from "components/UI/Carousel/Carousel";
-import {SwiperSlide} from "swiper/react";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/product.module.scss'
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const Carousel = dynamic(() => import("components/UI/Carousel/Carousel"))
+const Tab1 = dynamic(() => import("pages/product/components/Tab1"))
+const Tab2 = dynamic(() => import("pages/product/components/Tab2"))
 
 const tabs = [
     { id: 1, title: 'About Product' },

@@ -1,22 +1,24 @@
 import {NextPage} from "next";
 import Image from "next/image";
-import React, {FC, useContext, useEffect, useState} from 'react';
+import dynamic from "next/dynamic";
+import {AxiosResponse} from "axios";
+import React, { useContext, useEffect, useState} from 'react';
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
+import $api from "services/interseptors";
+import {Context} from "pages/_app";
 import {CheckoutIcon} from "static/icons/icon";
-import TextInput from "components/UI/Inputs/TextInput";
 import useInput from "hooks/useInput";
 import {useFetchCartQuery} from "services/CartsService";
-import Accordion from "components/UI/Accordion/Accordion";
-import Loading from "components/UI/Loading/Loading";
-import {Context} from "pages/_app";
 import {useFetching} from "hooks/useFetching";
-import $api from "services/interseptors";
-import {AxiosResponse} from "axios";
 import A from "components/UI/A/A";
 import {getSessionStorage} from "utils/tokenStorage";
+import Loading from "components/UI/Loading/Loading";
 import img from "static/images/products/1.jpg"
 import styles from 'styles/pages/checkout.module.scss'
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const TextInput = dynamic(() => import("components/UI/Inputs/TextInput"))
+const Accordion = dynamic(() => import("components/UI/Accordion/Accordion"))
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },

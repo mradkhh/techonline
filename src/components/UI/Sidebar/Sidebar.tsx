@@ -1,14 +1,16 @@
+import dynamic from "next/dynamic";
 import React, {FC, useState} from 'react';
 import Image from "next/image";
 import SideImg from 'static/images/catalogs/side.png'
-import styles from './Sidebar.module.scss'
-import Accordion from "components/UI/Accordion/Accordion";
 import {brandsApi} from "services/BrandsService";
 import { useFetchCategoriesQuery} from "services/CategoriesService";
-import BrandItem from "components/UI/Sidebar/components/BrandItem";
-import CategoryItem from "components/UI/Sidebar/components/CategoryItem";
 import {useFetchColorsQuery} from "services/ColorService";
-import ColorItem from "components/UI/Sidebar/components/ColorItem";
+import styles from './Sidebar.module.scss'
+
+const BrandItem = dynamic(() => import("components/UI/Sidebar/components/BrandItem"))
+const CategoryItem = dynamic(() => import("components/UI/Sidebar/components/CategoryItem"))
+const ColorItem = dynamic(() => import("components/UI/Sidebar/components/ColorItem"))
+const Accordion = dynamic(() => import("components/UI/Accordion/Accordion"))
 
 interface SidebarProps {
     setBrandId: (args: any) => void,

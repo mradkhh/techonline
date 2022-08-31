@@ -1,14 +1,16 @@
+import dynamic from "next/dynamic";
 import {NextPage} from "next";
 import React, {useEffect, useState} from 'react';
+import $api from "services/interseptors";
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
 import styles from 'styles/pages/contact.module.scss'
-import TextInput from "components/UI/Inputs/TextInput";
 import {ClockIcon, GeoLocationIcon, MailIcon, PhoneIcon} from "static/icons/icon";
 import A from "components/UI/A/A";
 import useInput from "hooks/useInput";
-import $api from "services/interseptors";
 import Loading from "components/UI/Loading/Loading";
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const TextInput = dynamic(() => import("components/UI/Inputs/TextInput"))
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }

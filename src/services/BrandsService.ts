@@ -12,6 +12,14 @@ import {IBrands} from "models/index";
                 query: () => ({
                     url: 'brandes/'
                 })
+            }),
+            fetchBrandsByCategoryId: builder.mutation<IBrands, number>({
+                query: (id: number) => ({
+                    url: 'brandes/',
+                    params: {
+                        categorySearch: id
+                    }
+                })
             })
         }
     }

@@ -1,6 +1,5 @@
 import React, {FC, memo, ReactNode} from 'react';
-import {Tab, TabList, TabPanel, Tabs as ReactTabs} from "react-tabs"
-import cl from './Tabs.module.scss'
+import {Tabs as ReactTabs} from "react-tabs"
 
 interface TabsProps {
     children: ReactNode

@@ -1,8 +1,8 @@
 import React, {FC, memo} from 'react';
 import A from "components/UI/A/A";
 import Image from "next/image";
-import styles from './styles/VisitCard.module.scss'
 import useMediaQuery from "hooks/useMediaQuery";
+import styles from './styles/VisitCard.module.scss'
 
 interface VisitCardProps {
     title: string,

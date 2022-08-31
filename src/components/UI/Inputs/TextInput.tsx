@@ -1,6 +1,5 @@
 import React, {createRef, FC, memo, useContext, useEffect} from 'react';
 import styles from './styles/TextInput.module.scss'
-import {Context} from "pages/_app";
 
 interface TextInputProps {
     label: string | boolean,

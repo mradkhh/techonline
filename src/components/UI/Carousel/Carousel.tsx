@@ -1,8 +1,8 @@
 import React, {createRef, FC, memo, ReactNode} from 'react';
 import {Swiper} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper";
-import SliderBtn from "components/UI/Carousel/SliderBtn";
 import useCaseOne from "hooks/useCaseOne";
+import SliderBtn from "components/UI/Carousel/SliderBtn";
 import 'swiper/css';
 import "swiper/css/pagination";
 import cl from './Carousel.module.scss'

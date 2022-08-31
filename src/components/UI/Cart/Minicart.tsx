@@ -1,19 +1,12 @@
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import React, {FC, useContext} from 'react';
-import Img from "static/images/catalogs/1.png";
-import {EditIcon, GrayXIcon, PayPalButtonIcon} from "static/icons/icon";
-import styles from './Minicart.module.scss'
+import {PayPalButtonIcon} from "static/icons/icon";
 import A from "components/UI/A/A";
 import {ICart} from "models/index";
 import {Context} from "pages/_app";
-import {useFetchRemoveFromCartMutation} from "services/CartsService";
-import MiniCartProductsItem from "components/UI/Cart/MiniCartProductsItem";
-// import id from "pages/product/[id]";
-// import axios from "axios";
-// import {AuthResponse} from "models/response/AuthResponse";
-// import {getRefreshToken, setAccessToken} from "utils/tokenStorage";
-// import {API_URL} from "services/interseptors";
-// import {useFetchFilterColorsMutation} from "services/ColorService";
+import styles from './Minicart.module.scss'
+
+const MiniCartProductsItem = dynamic(() => import("components/UI/Cart/MiniCartProductsItem"))
 
 interface MinicartProps {
     product?: ICart[]

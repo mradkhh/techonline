@@ -1,19 +1,22 @@
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useEffect, useState } from 'react';
+import dynamic from "next/dynamic";
 import {NextPage} from "next";
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import Sidebar from "components/UI/Sidebar/Sidebar";
-import ProductCard from "components/UI/Cards/ProductCard";
-import Pagination from "components/UI/Pagination/Pagination";
-import Select from "components/UI/Select/Select";
 import {useGetAllProductsQuery} from "services/ProductService";
-import FullProductCard from "components/UI/Cards/FullProductCard";
 import {GridIcon, LineIcon} from "static/icons/icon";
 import bannerImg  from 'static/images/catalogs/banner.png'
 import useInput from "hooks/useInput";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/catalog.module.scss'
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const Sidebar = dynamic(() => import("components/UI/Sidebar/Sidebar"))
+const Select = dynamic(() => import("components/UI/Select/Select"))
+const ProductCard = dynamic(() => import("components/UI/Cards/ProductCard"))
+const Pagination = dynamic(() => import("components/UI/Pagination/Pagination"))
+const FullProductCard = dynamic(() => import("components/UI/Cards/FullProductCard"))
+const Image = dynamic(() => import("next/image"))
 
 const breadcrumbs = [
     { path: '/', text: 'Home' },

@@ -1,19 +1,20 @@
 import {NextPage} from "next";
 import React, {useEffect, useState} from 'react';
+import dynamic from "next/dynamic";
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
+import {SwiperSlide} from "swiper/react";
 import img1 from "static/images/about/1.png"
 import img2 from "static/images/about/2.png"
 import img3 from "static/images/about/3.png"
 import img4 from "static/images/about/4.png"
 import img5 from "static/images/about/5.png"
-import AboutSection from "containers/AboutSection";
-import {BlueAvtoIcon, BlueBrandLogoSvg, BlueHeardSvg, BlueStarSvg} from "static/icons/icon";
-import Carousel from "components/UI/Carousel/Carousel";
-import {SwiperSlide} from "swiper/react";
-import QuoteBanner from "components/UI/Banner/QuoteBanner";
 import styles from 'styles/pages/about.module.scss'
 import Loading from "components/UI/Loading/Loading";
+import {BlueAvtoIcon, BlueBrandLogoSvg, BlueHeardSvg, BlueStarSvg} from "static/icons/icon";
+const Carousel = dynamic(() => import("components/UI/Carousel/Carousel"))
+const AboutSection = dynamic(() => import("containers/AboutSection"))
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const QuoteBanner = dynamic(() => import("components/UI/Banner/QuoteBanner"))
 
 
 const breadcrumbs = [

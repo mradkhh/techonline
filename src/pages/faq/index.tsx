@@ -1,10 +1,12 @@
 import {NextPage} from "next";
 import React, {useEffect, useState} from 'react';
+import dynamic from "next/dynamic";
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import Accordion from "components/UI/Accordion/Accordion";
 import Loading from "components/UI/Loading/Loading";
 import styles from 'styles/pages/faq.module.scss'
+
+const Accordion = dynamic(() => import("components/UI/Accordion/Accordion"))
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }

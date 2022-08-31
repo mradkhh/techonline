@@ -52,36 +52,7 @@ const Item: FC<ItemProps> = ({ item, id }) => {
             </div>
         <div className={styles.insideMenu}>
             <div ref={itemRef}>
-                {/*{*/}
-                {/*    show && <div>*/}
-                {/*        {*/}
-                {/*            categories && categories?.childs?.map(item => {*/}
-                {/*                return <Item*/}
-                {/*                    key={item.id}*/}
-                {/*                    id={item.id}*/}
-                {/*                    item={item}*/}
-                {/*                    handleClick={()=> handleClick(item.id)}*/}
-                {/*                    setArrowMotion={setArrowMotion}*/}
-                {/*                    arrowMotion={arrowMotion}*/}
-                {/*                />*/}
-                {/*            })*/}
-                {/*        }*/}
-                {/*    </div>*/}
-                {/*}*/}
-            {/*{*/}
-            {/*    categories && show && categories?.products && categories?.products?.map(item => {*/}
-            {/*        return <ProductCard*/}
-            {/*            rating={5}*/}
-            {/*            id={item.id}*/}
-            {/*            key={item.id}*/}
-            {/*            image={item?.product_img?.image}*/}
-            {/*            title={item.short_desc}*/}
-            {/*            price={item.price}*/}
-            {/*            discountPrice={item.discount}*/}
-            {/*            isInStock={item.is_stock}*/}
-            {/*        />*/}
-            {/*    })*/}
-            {/*}*/}
+
             </div>
         </div>
         </div>

@@ -1,23 +1,25 @@
+import dynamic from "next/dynamic";
 import {NextPage} from "next";
+import {useRouter} from "next/router";
 import React, {useContext, useEffect, useState} from 'react';
-import MainLayout from "layouts/MainLayout";
 import {Context} from "pages/_app";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import Accordion from "components/UI/Accordion/Accordion";
+import MainLayout from "layouts/MainLayout";
+import $api from "services/interseptors";
 import A from "components/UI/A/A";
 import { PartnerLogo,  PayPalButtonIcon } from "static/icons/icon";
 import { useFetchCartQuery, useFetchClearCartMutation, } from "services/CartsService";
-import ProductItem from "pages/shoppingcart/components/ProductItem";
-import TextInput from "components/UI/Inputs/TextInput";
 import {useFetching} from "hooks/useFetching";
-import $api from "services/interseptors";
 import {IDiscount, IRegion, IRegionResults, IRegionRetrieve} from "models/index";
-import SelectInput from "components/UI/Inputs/SelectInput";
 import Loading from "components/UI/Loading/Loading";
 import useInput from "hooks/useInput";
+import {setSessionStorage} from "utils/tokenStorage";
 import styles from 'styles/pages/shoppingcart.module.scss'
-import {getSessionStorage, setSessionStorage} from "utils/tokenStorage";
-import {useRouter} from "next/router";
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
+const TextInput = dynamic(() => import("components/UI/Inputs/TextInput"))
+const Accordion = dynamic(() => import("components/UI/Accordion/Accordion"))
+const ProductItem = dynamic(() => import("pages/shoppingcart/components/ProductItem"))
+const SelectInput = dynamic(() => import("components/UI/Inputs/SelectInput"))
 
 
 const breadcrumbs = [

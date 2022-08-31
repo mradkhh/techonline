@@ -17,10 +17,11 @@ import A from "components/UI/A/A";
 import Menu from "components/UI/Menu/Menu";
 import SearchField from "components/UI/Inputs/SearchField";
 import Burger from "components/UI/Burger/Burger";
-import {ICategories} from "models/index";
 import {AuthResponse} from "models/response/AuthResponse";
 import { AvatarIcon, SearchIcon, ShoppingCartIcon} from "static/icons/icon";
 import NavItem from "components/Header/UI/NavItem";
+import {brandsSlice} from "store/reducers/brandsSlice";
+import {IBrands, ICategories} from "models/index";
 import styles from './Header.module.scss'
 
 interface HeaderProps {
@@ -38,6 +39,8 @@ const Header: FC<HeaderProps> = ({ categories }) => {
     const { authStore } = useContext(Context)
     const { isAuth }  = authStore
     const [ catIdData, setCatIdData ] = useState<ICategories>({} as ICategories)
+    const [ brandsData, setBrandsData ] = useState<IBrands>()
+    const { fetchingSuccessBrands } = brandsSlice.actions
 
     const handleShowCart = useCallback(() => {
         setShowCart(!showCart)
@@ -54,9 +57,17 @@ const Header: FC<HeaderProps> = ({ categories }) => {
         setCatIdData(data)
     })
 
+    const [ fetchBrandsByCategoryId ] = useFetching(async (id: number) => {
+        const res = await axios.get(`${API_URL}brandes/?categorySearch=${id}`)
+        const data = res?.data
+        setBrandsData(data)
+        dispatch(fetchingSuccessBrands(data))
+    })
+
     const handleShowMenu = useCallback((id: number) => {
         matches && setShowMenu(true)
         fetchCategoryId(id)
+        fetchBrandsByCategoryId(id)
     }, [matches, fetchCategoryId])
 
     const avatarRef = createRef<HTMLDivElement>()

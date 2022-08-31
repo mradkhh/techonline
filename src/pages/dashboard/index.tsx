@@ -1,9 +1,11 @@
 import React, {FC, useEffect, useState} from 'react';
+import dynamic from "next/dynamic";
 import MainLayout from "layouts/MainLayout";
-import Breadcrumbs from "components/UI/Breadcrumbs/Breadcrumbs";
-import styles from 'styles/pages/dashboard.module.scss'
 import A from "components/UI/A/A";
 import Loading from "components/UI/Loading/Loading";
+import styles from 'styles/pages/dashboard.module.scss'
+
+const Breadcrumbs = dynamic(() => import("components/UI/Breadcrumbs/Breadcrumbs"))
 
 const breadcrumbs = [
     { path: '/', text: 'Home' }

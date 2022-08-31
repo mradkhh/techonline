@@ -16,15 +16,11 @@ interface AboutSectionProps {
 const AboutSection: FC<AboutSectionProps> = (props) => {
     const { type, img, icon = false, title, text , imgWidth, imgHeight} = props
 
-
-
     return (
         <section className={type === 'black' ? styles.about : styles.content_white}>
             <div>
                 <div>
-                    {
-                        icon && icon
-                    }
+                    { icon && icon }
                     <h2>{title}</h2>
                     <p>{text}</p>
                 </div>

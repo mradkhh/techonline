@@ -4,9 +4,9 @@ const  useInput = (initialValue: string ) => {
     const [ value, setValue ] = useState<string>(initialValue)
 
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>, callback?: () => void) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>, callback?: (event: ChangeEvent<HTMLInputElement>) => void) => {
         setValue(e.target.value)
-        callback && callback()
+        callback && callback(e)
     };
 
     return {

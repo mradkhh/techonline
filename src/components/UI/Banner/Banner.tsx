@@ -1,9 +1,11 @@
+import dynamic from "next/dynamic";
 import React, {memo} from 'react';
 import Image from "next/image";
-import Carousel from "components/UI/Carousel/Carousel";
 import {SwiperSlide} from "swiper/react";
 import img from 'static/banner.png'
 import styles from './styles/Banner.module.scss'
+
+const Carousel = dynamic(() => import("components/UI/Carousel/Carousel"))
 
 const Banner = () => {
     return (
