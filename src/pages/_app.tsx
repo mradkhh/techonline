@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app'
 import {setupStore} from "store/index";
 import AuthStore, {FilterState} from "store/mobx";
+import ErrorBoundary from "components/UI/ErrorBoundary/ErrorBoundary";
 import {createContext} from "react";
 import {Provider} from "react-redux";
 import 'static/fonts/stylesheet.css'
@@ -21,11 +22,14 @@ export const Context = createContext<State>({
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Provider store={storeRedux}>
-            <Context.Provider value={{ authStore, filterState }}>
-                <Component {...pageProps} />
-            </Context.Provider>
-          </Provider>
+  return <ErrorBoundary>
+              <Provider store={storeRedux}>
+                <Context.Provider value={{ authStore, filterState }}>
+                    <Component {...pageProps} />
+                </Context.Provider>
+              </Provider>
+          </ErrorBoundary>
+
 }
 
 export default MyApp
