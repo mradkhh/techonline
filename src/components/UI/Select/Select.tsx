@@ -1,4 +1,4 @@
-import React, {createRef, FC, ReactNode, useState} from 'react';
+import React, {createRef, FC, memo, ReactNode, useCallback, useState} from 'react';
 import {ArrowDown} from "static/icons/icon";
 import {useMousedownClickInvisible} from "hooks/useMousedownClickInvisible";
 import styles from './Select.module.scss';
@@ -29,9 +29,9 @@ const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue,
 
     useMousedownClickInvisible(showRef, () => { setShow(false) })
 
-    const handleShow = () => {
+    const handleShow = useCallback(() => {
         setShow(!show)
-    }
+    }, [show])
     return (
         <div className={styles.select}>
             <button
@@ -60,4 +60,4 @@ const Select: FC<SelectProps> = ({ children, options, title, setTitle, setValue,
     );
 };
 
-export default Select;
+export default memo(Select);

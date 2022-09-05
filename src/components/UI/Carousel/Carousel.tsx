@@ -166,4 +166,4 @@ const Carousel: FC<CarouselProps> = memo(({ children, type, autoplay, button = t
 
 Carousel.displayName = 'Carousel'
 
-export default Carousel;
+export default memo(Carousel);

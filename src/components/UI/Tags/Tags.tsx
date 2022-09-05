@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useState} from 'react';
+import React, {FC, memo, ReactNode, useState} from 'react';
 import {RedXIcon} from "static/icons/icon";
 import styles from './Tags.module.scss'
 
@@ -52,4 +52,4 @@ const Tags: FC<TagsProps> = ({ tags }) => {
     );
 };
 
-export default Tags;
+export default memo(Tags);

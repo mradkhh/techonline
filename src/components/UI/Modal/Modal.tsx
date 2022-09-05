@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useContext} from 'react';
+import React, {FC, memo, ReactNode, useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "pages/_app";
 import {XIcon} from "static/icons/icon";
@@ -9,7 +9,6 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ children }) => {
-
     const { authStore } = useContext(Context)
 
     return (
@@ -26,7 +25,6 @@ const Modal: FC<ModalProps> = ({ children }) => {
                 {
                     children
                 }
-
             </div>
         </div> : null
     );

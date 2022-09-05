@@ -19,4 +19,4 @@ const Logo: FC<LogoProps> = memo(({mobileMenuShow}) => {
 
 Logo.displayName = 'Logo'
 
-export default Logo;
+export default memo(Logo);

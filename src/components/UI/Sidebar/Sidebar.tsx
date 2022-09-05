@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, {FC, useState} from 'react';
+import React, {FC, memo, useState} from 'react';
 import Image from "next/image";
 import SideImg from 'static/images/catalogs/side.png'
 import {brandsApi} from "services/BrandsService";
@@ -144,4 +144,4 @@ const Sidebar: FC<SidebarProps> = ({ setBrandId, setCategoryId, setColorId, max_
     );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

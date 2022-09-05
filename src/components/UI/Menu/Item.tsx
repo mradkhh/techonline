@@ -1,4 +1,4 @@
-import React, {createRef, FC, useState} from 'react';
+import React, {createRef, FC, memo, useCallback, useState} from 'react';
 import axios from 'axios';
 import { API_URL } from 'services/interseptors';
 import {categoriesSlice} from 'store/reducers/categoriesSlice';
@@ -28,10 +28,10 @@ const Item: FC<ItemProps> = ({ item, id }) => {
         dispatch(fetchingSuccessCategories(data))
     })
 
-    const handleFetch = () => {
+    const handleFetch = useCallback(() => {
         setShow(!show)
         fetchCategoryId(id)
-    }
+    }, [show])
 
     useMousedownClickInvisible(itemRef, () => {
         setShow(false)
@@ -59,4 +59,4 @@ const Item: FC<ItemProps> = ({ item, id }) => {
     );
 };
 
-export default Item;
+export default memo(Item);

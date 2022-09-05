@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import Image from "next/image";
 import Img from "static/images/catalogs/1.png";
 import {EditIcon, GrayXIcon} from "static/icons/icon";
@@ -47,4 +47,4 @@ const MiniCartProductsItem: FC<MiniCartProductsItemProps> = ({ id, quantity, pro
     );
 };
 
-export default MiniCartProductsItem;
+export default memo(MiniCartProductsItem);

@@ -1,4 +1,4 @@
-import React, {createRef, FC, memo, useEffect, useState} from 'react';
+import React, {createRef, FC, memo, useCallback, useEffect, useState} from 'react';
 import Image from "next/image";
 import {SearchIcon, XIcon} from "static/icons/icon";
 import useInput from "hooks/useInput";
@@ -19,10 +19,10 @@ const SearchField: FC<SearchProps> =({search}) => {
     const [ searchResults, setSearchResults ] = useState<IProduct[]>([])
     const ref = createRef<HTMLInputElement>()
 
-    const handleClear = () => {
+    const handleClear = useCallback(() => {
         searchState.setValue('')
         ref.current?.focus()
-    }
+    }, [searchState.value])
 
     const [ searchFetching ] = useFetching(async (search_value: string) => {
         const res = await $api.get<IProductData>(`products/?search=${search_value}`)

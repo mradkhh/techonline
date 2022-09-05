@@ -1,4 +1,4 @@
-import React, {createRef, FC, memo, useContext, useEffect} from 'react';
+import React, {createRef, FC, memo, useCallback, useContext, useEffect} from 'react';
 import styles from './styles/TextInput.module.scss'
 
 interface TextInputProps {
@@ -24,9 +24,9 @@ const TextInput: FC<TextInputProps> = ({ label,
                                            ...props
 }) => {
 
-    const handleFocus = (e: any) => {
+    const handleFocus = useCallback((e: any) => {
         setError && setError(false)
-    }
+    }, [error])
 
 
     return (

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import Image from "next/image";
 import styles from './styles/AboutSection.module.scss'
 
@@ -39,4 +39,4 @@ const AboutSection: FC<AboutSectionProps> = (props) => {
     );
 };
 
-export default AboutSection;
+export default memo(AboutSection);

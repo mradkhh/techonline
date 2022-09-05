@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import Image from "next/image";
 import {FavoriteIcon, MessageIcon, RedCallIcon, ShoppingCartIcon, StatsIcon, SuccessIcon} from "static/icons/icon";
 import img from 'static/images/products/1.jpg'
@@ -108,4 +108,4 @@ const FullProductCard: FC<FullProductCardProps> = ({name,
     );
 };
 
-export default FullProductCard;
+export default memo(FullProductCard);

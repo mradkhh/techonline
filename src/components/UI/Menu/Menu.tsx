@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import Image from "next/image";
 import { useAppSelector } from 'hooks/redux';
 import {ICategories} from "models/index";
@@ -70,23 +70,9 @@ const Menu: FC<MenuProps> = ({ data }) => {
                         )
                     }
                 </Carousel>
-                {/*{*/}
-                {/*    brands?.results && brands?.results.map((item: any) =>*/}
-                {/*            <div key={item?.id} className={styles.brandIcon}>*/}
-                {/*                <Image*/}
-                {/*                    objectFit='contain'*/}
-                {/*                    objectPosition='center'*/}
-                {/*                    width={153}*/}
-                {/*                    height={80}*/}
-                {/*                    src={item?.icon}*/}
-                {/*                    alt={item?.name}*/}
-                {/*                />*/}
-                {/*            </div>*/}
-                {/*    )*/}
-                {/*}*/}
             </div>
         </div>
     );
 };
 
-export default Menu;
+export default memo(Menu);

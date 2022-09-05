@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {IRegion} from "models/index";
 import styles from './styles/SelectInput.module.scss'
 
@@ -60,4 +60,4 @@ const SelectInput: FC<SelectInputProps> = ({ label,
     );
 };
 
-export default SelectInput;
+export default memo(SelectInput);

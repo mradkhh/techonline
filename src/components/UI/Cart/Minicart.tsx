@@ -1,4 +1,4 @@
-import React, {FC, useContext} from 'react';
+import React, {FC, memo, useContext} from 'react';
 import {PayPalButtonIcon} from "static/icons/icon";
 import A from "components/UI/A/A";
 import MiniCartProductsItem from "components/UI/Cart/MiniCartProductsItem";
@@ -54,4 +54,4 @@ const Minicart: FC<MinicartProps> = ({ product }) => {
             </div>)
 };
 
-export default Minicart;
+export default memo(Minicart);

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import A from "components/UI/A/A";
 import styles from './Breadcrumbs.module.scss'
 
@@ -29,4 +29,4 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ array, current }) => {
     );
 };
 
-export default Breadcrumbs;
+export default memo(Breadcrumbs);
