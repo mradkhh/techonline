@@ -1,4 +1,4 @@
-import React, {FC, memo, useState} from 'react';
+import React, { FC, memo } from 'react';
 import Accordion from "components/UI/Accordion/Accordion";
 import A from "components/UI/A/A";
 import {
@@ -11,8 +11,102 @@ import {
     VisaCardIcon
 } from "static/icons/icon";
 import styles from './Footer.module.scss'
+import { useRouter } from 'next/router';
+
+const footer_content = {
+    "uz":{
+        title: "Malumotlar",
+        content: [
+            {
+                title: "Biz haqimizda",
+                link: "/biz-haqimizda"
+            },
+            {
+                title: "Oferta qoidalari",
+                link: "/about"
+            },
+            {
+                title: "Qidiruv",
+                link: "/about"
+            },
+            {
+                title: "Biz haqimizda",
+                link: "/about"
+            },
+            {
+                title: "Oferta qoidalari",
+                link: "/about"
+            },
+            {
+                title: "Qidiruv",
+                link: "/about"
+            },
+        ]
+    },
+    "en":{
+        title: "Information",
+        content: [
+            {
+                title: "About Us",
+                link: "/about"
+            },
+            {
+                title: "Oferta qoidalari",
+                link: "/about"
+            },
+            {
+                title: "Qidiruv",
+                link: "/about"
+            },
+            {
+                title: "Biz haqimizda",
+                link: "/about"
+            },
+            {
+                title: "Oferta qoidalari",
+                link: "/about"
+            },
+            {
+                title: "Qidiruv",
+                link: "/about"
+            },
+        ]
+    },
+    "ru":{
+        title: "Informatsiya",
+        content: [
+            {
+                title: "O Nas",
+                link: "/o-nas"
+            },
+            {
+                title: "Oferta qoidalari",
+                link: "/about"
+            },
+            {
+                title: "Qidiruv",
+                link: "/about"
+            },
+            {
+                title: "Biz haqimizda",
+                link: "/about"
+            },
+            {
+                title: "Oferta qoidalari",
+                link: "/about"
+            },
+            {
+                title: "Qidiruv",
+                link: "/about"
+            },
+        ]
+    }
+}
 
 const Footer: FC = memo(() => {
+
+    const { locale } = useRouter()
+    const { title, content } = footer_content[locale]
 
     return (
             <div className={styles.footer}>
@@ -27,16 +121,12 @@ const Footer: FC = memo(() => {
                     </div>
                 </div>
                 <div className={styles.center}>
-                    <Accordion header="Information">
-                            <A href="/">About Us</A>
-                            <A href="/">About Zip</A>
-                            <A href="/">Privacy Policy</A>
-                            <A href="/">Search</A>
-                            <A href="/">Terms</A>
-                            <A href="/">Orders and Returns</A>
-                            <A href="/">Contact Us</A>
-                            <A href="/">Advanced Search</A>
-                            <A href="/">Newsletter Subscription</A>
+                    <Accordion header={title}>
+                        {
+                            content.map((item: any) => {
+                                return <A key={item.title} href={item.link}>{item.title}</A>
+                            })
+                        }
                     </Accordion>
                     <Accordion header="PC Parts">
                         <A href="/">CPUS</A>

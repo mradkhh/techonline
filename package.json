@@ -11,6 +11,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.4",
     "axios": "^0.27.2",
+    "i18n-next": "^0.0.4",
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
     "next": "12.2.2",

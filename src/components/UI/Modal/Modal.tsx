@@ -1,4 +1,4 @@
-import React, {FC, memo, ReactNode, useContext} from 'react';
+import React, {FC, ReactNode, useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "pages/_app";
 import {XIcon} from "static/icons/icon";
@@ -22,9 +22,7 @@ const Modal: FC<ModalProps> = ({ children }) => {
                 <div onClick={() => authStore.setShowModal(false)} className={styles.icon}>
                     <XIcon/>
                 </div>
-                {
-                    children
-                }
+                { children }
             </div>
         </div> : null
     );

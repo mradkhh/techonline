@@ -48,5 +48,3 @@ export const setSessionStorage = (name: string, value: string) => {
 export const getSessionStorage = (name: string) => {
     return nextSessionStorage()?.getItem(name)
 }
-
-
