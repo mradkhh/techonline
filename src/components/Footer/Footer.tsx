@@ -121,12 +121,14 @@ const Footer: FC = memo(() => {
                     </div>
                 </div>
                 <div className={styles.center}>
-                    <Accordion header={title}>
-                        {
-                            content.map((item: any) => {
-                                return <A key={item.title} href={item.link}>{item.title}</A>
-                            })
-                        }
+                    <Accordion header={"Info"}>
+                    <A href="/">CPUS</A>
+                        <A href="/">Add On Cards</A>
+                        <A href="/">Hard Drives (Internal)</A>
+                        <A href="/">Graphic Cards</A>
+                        <A href="/">Keyboards / Mice</A>
+                        <A href="/">Cases / Power Supplies / Cooling</A>
+                        <A href="/">RAM (Memory)</A>
                     </Accordion>
                     <Accordion header="PC Parts">
                         <A href="/">CPUS</A>
