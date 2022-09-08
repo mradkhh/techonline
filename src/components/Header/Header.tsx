@@ -125,7 +125,6 @@ const Header: FC<HeaderProps> = ({ categories, categoriesLoading }) => {
                 console.log(e.message)
                 window.location.reload()
             }
-            window.location.reload()
         }
     }, [isLoading, error])
 
