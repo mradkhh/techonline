@@ -31,7 +31,7 @@ const Item: FC<ItemProps> = ({ item, id }) => {
     const handleFetch = useCallback(() => {
         setShow(!show)
         fetchCategoryId(id)
-    }, [show])
+    }, [show, fetchCategoryId])
 
     useMousedownClickInvisible(itemRef, () => {
         setShow(false)

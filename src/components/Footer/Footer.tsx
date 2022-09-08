@@ -11,102 +11,102 @@ import {
     VisaCardIcon
 } from "static/icons/icon";
 import styles from './Footer.module.scss'
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
-const footer_content = {
-    "uz":{
-        title: "Malumotlar",
-        content: [
-            {
-                title: "Biz haqimizda",
-                link: "/biz-haqimizda"
-            },
-            {
-                title: "Oferta qoidalari",
-                link: "/about"
-            },
-            {
-                title: "Qidiruv",
-                link: "/about"
-            },
-            {
-                title: "Biz haqimizda",
-                link: "/about"
-            },
-            {
-                title: "Oferta qoidalari",
-                link: "/about"
-            },
-            {
-                title: "Qidiruv",
-                link: "/about"
-            },
-        ]
-    },
-    "en":{
-        title: "Information",
-        content: [
-            {
-                title: "About Us",
-                link: "/about"
-            },
-            {
-                title: "Oferta qoidalari",
-                link: "/about"
-            },
-            {
-                title: "Qidiruv",
-                link: "/about"
-            },
-            {
-                title: "Biz haqimizda",
-                link: "/about"
-            },
-            {
-                title: "Oferta qoidalari",
-                link: "/about"
-            },
-            {
-                title: "Qidiruv",
-                link: "/about"
-            },
-        ]
-    },
-    "ru":{
-        title: "Informatsiya",
-        content: [
-            {
-                title: "O Nas",
-                link: "/o-nas"
-            },
-            {
-                title: "Oferta qoidalari",
-                link: "/about"
-            },
-            {
-                title: "Qidiruv",
-                link: "/about"
-            },
-            {
-                title: "Biz haqimizda",
-                link: "/about"
-            },
-            {
-                title: "Oferta qoidalari",
-                link: "/about"
-            },
-            {
-                title: "Qidiruv",
-                link: "/about"
-            },
-        ]
-    }
-}
+// const footer_content = {
+//     "uz":{
+//         title: "Malumotlar",
+//         content: [
+//             {
+//                 title: "Biz haqimizda",
+//                 link: "/biz-haqimizda"
+//             },
+//             {
+//                 title: "Oferta qoidalari",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Qidiruv",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Biz haqimizda",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Oferta qoidalari",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Qidiruv",
+//                 link: "/about"
+//             },
+//         ]
+//     },
+//     "en":{
+//         title: "Information",
+//         content: [
+//             {
+//                 title: "About Us",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Oferta qoidalari",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Qidiruv",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Biz haqimizda",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Oferta qoidalari",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Qidiruv",
+//                 link: "/about"
+//             },
+//         ]
+//     },
+//     "ru":{
+//         title: "Informatsiya",
+//         content: [
+//             {
+//                 title: "O Nas",
+//                 link: "/o-nas"
+//             },
+//             {
+//                 title: "Oferta qoidalari",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Qidiruv",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Biz haqimizda",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Oferta qoidalari",
+//                 link: "/about"
+//             },
+//             {
+//                 title: "Qidiruv",
+//                 link: "/about"
+//             },
+//         ]
+//     }
+// }
 
 const Footer: FC = memo(() => {
 
-    const { locale } = useRouter()
-    const { title, content } = footer_content[locale]
+    // const { locale } = useRouter()
+    // const { title, content } = footer_content[locale]
 
     return (
             <div className={styles.footer}>

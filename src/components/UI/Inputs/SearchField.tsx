@@ -33,7 +33,7 @@ const SearchField: FC<SearchProps> =({search}) => {
     useEffect(() => {
         !search && searchState.setValue('')
         search && ref.current?.focus()
-    }, [search, searchState, ref])
+    }, [search, searchState])
 
     useEffect(() => {
         debounceValue && searchFetching(debounceValue)

@@ -26,7 +26,7 @@ const TextInput: FC<TextInputProps> = ({ label,
 
     const handleFocus = useCallback((e: any) => {
         setError && setError(false)
-    }, [error])
+    }, [error, setError])
 
 
     return (
